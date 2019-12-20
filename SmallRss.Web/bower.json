@@ -1,0 +1,8 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "jquery": "3.4.1",
+    "simpleStorage": "~0.2.1"
+  }
+}

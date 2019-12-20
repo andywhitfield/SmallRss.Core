@@ -1,0 +1,25 @@
+﻿@model SmallRss.Web.Models.Home.IndexViewModel
+<section name="GroupsSection"></section>
+<section name="SelectedFeedSection"></section>
+<section name="SelectedArticleSection"></section>
+@section HeaderScripts {
+<script type="text/javascript">
+    var smallrss_config = {
+        feedstatus_api: '@Url.Action("feedstatus", "api")',
+        article_api: '@Url.Action("article", "api")',
+        feed_api: '@Url.Action("feed", "api")',
+        pocket_api: '@Url.Action("pocket", "api")',
+        imageroot: '@Url.Content("~/resource/")',
+        showingAllArticles: @(Model.ShowAllArticles.ToString().ToLower()),
+        connectedToPocket: @(Model.ConnectedToPocket.ToString().ToLower()),
+    };  
+</script>
+}
+@section Scripts {
+<script type="text/javascript">
+    $(function () {
+        loadLocalSettings();
+        $.getJSON(smallrss_config.feed_api, initialiseFeeds);
+    });
+</script>
+}
