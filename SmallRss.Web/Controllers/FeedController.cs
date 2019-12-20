@@ -10,17 +10,17 @@ namespace SmallRss.Web.Controllers
     [Authorize, ApiController, Route("api/[controller]")]
     public class FeedController : ControllerBase
     {
-        private readonly ILogger<FeedController> logger;
+        private readonly ILogger<FeedController> _logger;
 
         public FeedController(ILogger<FeedController> logger)
         {
-            this.logger = logger;
+            _logger = logger;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<object>> Get()
         {
-            logger.LogDebug("Getting all feeds from db");
+            _logger.LogDebug("Getting all feeds from db");
             
             //var loggedInUser = this.CurrentUser(datastore);
             var userFeeds = new UserFeed[0]; // TODO: datastore.LoadAll<UserFeed>("UserAccountId", loggedInUser.Id);
@@ -45,7 +45,7 @@ namespace SmallRss.Web.Controllers
         [HttpGet("{id}/{offset}")]
         public ActionResult<IEnumerable<object>> Get(int id, int? offset)
         {
-            logger.LogDebug("Getting articles for feed {0} from db, using client UTC offset {1}", id, offset);
+            _logger.LogDebug("Getting articles for feed {0} from db, using client UTC offset {1}", id, offset);
 
             /*
             var loggedInUser = this.CurrentUser(datastore);

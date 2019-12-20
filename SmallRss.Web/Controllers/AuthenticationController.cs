@@ -3,20 +3,16 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SmallRss.Data;
 
 namespace SmallRss.Web.Controllers
 {
     public class AuthenticationController : Controller
     {
-        private readonly IUserAccountRepository userAccountRepository;
-        private readonly ILogger<AuthenticationController> logger;
+        private readonly ILogger<AuthenticationController> _logger;
 
-        public AuthenticationController(IUserAccountRepository userAccountRepository,
-            ILogger<AuthenticationController> logger)
+        public AuthenticationController(ILogger<AuthenticationController> logger)
         {
-            this.userAccountRepository = userAccountRepository;
-            this.logger = logger;
+            _logger = logger;
         }
 
         [HttpGet("~/signin")]

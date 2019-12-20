@@ -9,11 +9,11 @@ namespace SmallRss.Web.Controllers
     [Authorize, ApiController, Route("api/[controller]")]
     public class FeedStatusController : ControllerBase
     {
-        private readonly ILogger<FeedController> logger;
+        private readonly ILogger<FeedController> _logger;
 
         public FeedStatusController(ILogger<FeedController> logger)
         {
-            this.logger = logger;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -39,7 +39,7 @@ namespace SmallRss.Web.Controllers
         [HttpPost]
         public ActionResult Post(FeedStatusViewModel status)
         {
-            logger.LogDebug("Updating user settings - show all: {0}; group: {1}; expanded: {2}", status.ShowAll, status.Group, status.Expanded);
+            _logger.LogDebug("Updating user settings - show all: {0}; group: {1}; expanded: {2}", status.ShowAll, status.Group, status.Expanded);
 
             /*
             var user = this.CurrentUser(datastore);

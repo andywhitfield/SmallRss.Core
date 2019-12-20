@@ -1,31 +1,25 @@
-﻿using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SmallRss.Data;
 using SmallRss.Web.Models.Home;
 
 namespace SmallRss.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> logger;
-        private readonly IUserAccountRepository userAccountRepository;
+        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(
-            ILogger<HomeController> logger,
-            IUserAccountRepository userAccountRepository)
+        public HomeController(ILogger<HomeController> logger)
         {
-            this.logger = logger;
-            this.userAccountRepository = userAccountRepository;
+            _logger = logger;
         }
         
         [Authorize]
         public IActionResult Index()
         {
             var userId = (User.Identity as ClaimsIdentity)?.FindFirst("sub")?.Value ?? User.Identity.Name;
-            logger.LogInformation($"Logged in {userId}");
+            _logger.LogInformation($"Logged in {userId}");
             
             return View(new IndexViewModel());
         }

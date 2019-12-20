@@ -116,6 +116,9 @@ namespace SmallRss.Web
             app.UseEndpoints(options => options.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}"));
+
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            scope.ServiceProvider.GetRequiredService<SqliteDataContext>().Database.EnsureCreated();
         }
     }
 }
