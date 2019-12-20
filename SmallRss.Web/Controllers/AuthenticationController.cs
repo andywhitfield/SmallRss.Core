@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SmallRss.Data;
@@ -33,7 +31,6 @@ namespace SmallRss.Web.Controllers
         [HttpGet("~/signout"), HttpPost("~/signout")]
         public IActionResult SignOut()
         {
-            HttpContext.Session.Clear();
             return SignOut(CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
         }
     }
