@@ -4,6 +4,7 @@ namespace SmallRss.Models
 {
     public class UserAccountSetting
     {
+        public int Id { get; set; }
         public int UserAccountId { get; set; }
         [Required]
         public string SettingType { get; set; }
