@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using SmallRss.Models;
 
 namespace SmallRss.Data
 {
@@ -15,7 +16,8 @@ namespace SmallRss.Data
             _logger = logger;
         }
         
-        //public DbSet<UserAccount> UserAccounts { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<UserFeed> UserFeeds { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

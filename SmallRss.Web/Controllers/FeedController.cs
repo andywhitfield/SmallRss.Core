@@ -45,7 +45,7 @@ namespace SmallRss.Web.Controllers
         [HttpGet("{id}/{offset}")]
         public ActionResult<IEnumerable<object>> Get(int id, int? offset)
         {
-            _logger.LogDebug("Getting articles for feed {0} from db, using client UTC offset {1}", id, offset);
+            _logger.LogDebug($"Getting articles for feed {id} from db, using client UTC offset {offset}");
 
             /*
             var loggedInUser = this.CurrentUser(datastore);

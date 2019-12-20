@@ -39,7 +39,7 @@ namespace SmallRss.Web.Controllers
         [HttpPost]
         public ActionResult Post(FeedStatusViewModel status)
         {
-            _logger.LogDebug("Updating user settings - show all: {0}; group: {1}; expanded: {2}", status.ShowAll, status.Group, status.Expanded);
+            _logger.LogDebug($"Updating user settings - show all: {status.ShowAll}; group: {status.Group}; expanded: {status.Expanded}");
 
             /*
             var user = this.CurrentUser(datastore);
