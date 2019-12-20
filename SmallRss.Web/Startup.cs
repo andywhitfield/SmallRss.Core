@@ -74,6 +74,7 @@ namespace SmallRss.Web
                     options.AccessDeniedPath = "/";
                 });
 
+            services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(5));
             services.AddLogging(logging =>
             {
                 logging.AddConsole();
@@ -110,6 +111,7 @@ namespace SmallRss.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();

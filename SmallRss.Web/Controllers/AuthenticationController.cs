@@ -27,6 +27,7 @@ namespace SmallRss.Web.Controllers
         [HttpGet("~/signout"), HttpPost("~/signout")]
         public IActionResult SignOut()
         {
+            HttpContext.Session.Clear();
             return SignOut(CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
         }
     }
