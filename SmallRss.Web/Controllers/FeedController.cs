@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SmallRss.Data;
 using SmallRss.Models;
 
 namespace SmallRss.Web.Controllers
@@ -11,25 +13,34 @@ namespace SmallRss.Web.Controllers
     public class FeedController : ControllerBase
     {
         private readonly ILogger<FeedController> _logger;
+        private readonly IUserAccountRepository _userAccountRepository;
+        private readonly IUserFeedRepository _userFeedRepository;
+        private readonly IRssFeedRepository _rssFeedRepository;
 
-        public FeedController(ILogger<FeedController> logger)
+        public FeedController(
+            ILogger<FeedController> logger,
+            IUserAccountRepository userAccountRepository,
+            IUserFeedRepository userFeedRepository,
+            IRssFeedRepository rssFeedRepository)
         {
             _logger = logger;
+            _userAccountRepository = userAccountRepository;
+            _userFeedRepository = userFeedRepository;
+            _rssFeedRepository = rssFeedRepository;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<object>> Get()
+        public async Task<ActionResult<IEnumerable<object>>> Get()
         {
             _logger.LogDebug("Getting all feeds from db");
             
-            //var loggedInUser = this.CurrentUser(datastore);
-            var userFeeds = new UserFeed[0]; // TODO: datastore.LoadAll<UserFeed>("UserAccountId", loggedInUser.Id);
+            var loggedInUser = await _userAccountRepository.FindByUserPrincipalAsync(User);            
+            var userFeeds = (await _userFeedRepository.GetAllByUserAsync(loggedInUser)).ToList();
 
             if (!userFeeds.Any())
                 return new[] { new { id = "", item = "" } };
 
-            return null;
-            /*
+            var feeds = (await _rssFeedRepository.GetByIdsAsync(userFeeds.Select(uf => uf.RssFeedId).ToHashSet())).ToDictionary(f => f.Id);
             return userFeeds.GroupBy(f => f.GroupName).OrderBy(g => g.Key).Select(group =>
                 new
                 {
@@ -37,9 +48,9 @@ namespace SmallRss.Web.Controllers
                     item = group.Key,
                     props = new { isFolder = true, open = loggedInUser.ExpandedGroups.Contains(group.Key) },
                     items = group.OrderBy(g => g.Name).Select(g =>
-                        new { id = g.Id, item = g.Name, link = datastore.Load<RssFeed>(g.RssFeedId).Link ?? string.Empty, props = new { isFolder = false } })
-                });
-            */
+                        new { id = g.Id, item = g.Name, link = feeds[g.RssFeedId].Link ?? string.Empty, props = new { isFolder = false } })
+                })
+                .ToList();
         }
 
         [HttpGet("{id}/{offset}")]

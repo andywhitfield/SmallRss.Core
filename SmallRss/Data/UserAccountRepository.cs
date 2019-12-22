@@ -1,69 +1,37 @@
-using System;
-using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SmallRss.Models;
 
 namespace SmallRss.Data
 {
     public class UserAccountRepository : IUserAccountRepository
     {
-        /*
-        private readonly SqliteDataContext context;
+        private readonly SqliteDataContext _context;
 
         public UserAccountRepository(SqliteDataContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
-        public bool HasMasterPassword(ClaimsPrincipal user)
+        public async Task<UserAccount> FindByUserPrincipalAsync(ClaimsPrincipal user)
         {
-            return TryGetAccount(user, out var userAccount) &&
-                !string.IsNullOrWhiteSpace(userAccount.PasswordDatabase);
+            var userIdentifier = user?.FindFirst("sub")?.Value;
+            if (userIdentifier == null)
+                return null;
+
+            var userAccountSetting = await _context.UserAccountSettings.SingleOrDefaultAsync(uas =>
+                uas.SettingType == "AuthenticationId" &&
+                uas.SettingType == userIdentifier);
+            if (userAccountSetting == null)
+                return null;
+            
+            return await GetByIdAsync(userAccountSetting.UserAccountId);
         }
 
-        public void CreateNewUser(ClaimsPrincipal user, string masterPassword)
+        public async Task<UserAccount> GetByIdAsync(int userAccountId)
         {
-            var authenticationUri = GetIdentifierFromPrincipal(user);
-            var newAccount = new UserAccount { AuthenticationUri = authenticationUri };
-
-            using (var secure = new Secure())
-            {
-                newAccount.SetPasswordDb(new PasswordDb {
-                    MasterPassword = secure.HashValue(masterPassword)
-                });
-            }
-
-            context.UserAccounts.Add(newAccount);
-            context.SaveChanges();
+            return null;
         }
-
-        private string GetIdentifierFromPrincipal(ClaimsPrincipal user)
-        {
-            return user?.FindFirstValue("sub");
-        }
-
-        public UserAccount GetUserAccount(ClaimsPrincipal user)
-        {
-            return TryGetAccount(user, out var account) ? account : throw new ArgumentException($"No UserAccount for the user: {user}");
-        }
-
-        private bool TryGetAccount(ClaimsPrincipal user, out UserAccount userAccount)
-        {
-            var authenticationUri = GetIdentifierFromPrincipal(user);
-            if (string.IsNullOrWhiteSpace(authenticationUri))
-            {
-                userAccount = default(UserAccount);
-                return false;
-            }
-
-            userAccount = context.UserAccounts.FirstOrDefault(ua => ua.AuthenticationUri == authenticationUri);
-            return userAccount != null;
-        }
-
-        public void SaveUserAccount(UserAccount userAccount)
-        {
-            context.UserAccounts.Update(userAccount);
-            context.SaveChanges();
-        }
-        */
     }
 }
