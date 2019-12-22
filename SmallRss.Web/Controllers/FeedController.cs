@@ -53,7 +53,7 @@ namespace SmallRss.Web.Controllers
                 .ToList();
         }
 
-        [HttpGet("{id}/{offset}")]
+        [HttpGet("{id}/{offset?}")]
         public ActionResult<IEnumerable<object>> Get(int id, int? offset)
         {
             _logger.LogDebug($"Getting articles for feed {id} from db, using client UTC offset {offset}");
