@@ -27,10 +27,11 @@ namespace SmallRss.Data
 
             var userAccountSetting = await _context.UserAccountSettings.SingleOrDefaultAsync(uas =>
                 uas.SettingType == "AuthenticationId" &&
-                uas.SettingType == userIdentifier);
+                uas.SettingValue == userIdentifier);
             if (userAccountSetting == null)
                 return await CreateAsync(userIdentifier);
             
+            _logger.LogInformation($"Found existing account with id {userAccountSetting.Id} for {userIdentifier}");
             return await GetByIdAsync(userAccountSetting.UserAccountId);
         }
 
