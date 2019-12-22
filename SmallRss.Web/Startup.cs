@@ -94,7 +94,10 @@ namespace SmallRss.Web
             services.AddCors();
             services.AddDistributedMemoryCache();
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(5));
+            
+            services.AddScoped<IRssFeedRepository, RssFeedRepository>();
             services.AddScoped<IUserAccountRepository, UserAccountRepository>();
+            services.AddScoped<IUserFeedRepository, UserFeedRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)

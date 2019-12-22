@@ -6,6 +6,6 @@ namespace SmallRss.Data
 {
     public interface IUserAccountRepository
     {
-        Task<UserAccount> FindByUserPrincipalAsync(ClaimsPrincipal user);
+        Task<UserAccount> FindOrCreateAsync(ClaimsPrincipal user);
     }
 }

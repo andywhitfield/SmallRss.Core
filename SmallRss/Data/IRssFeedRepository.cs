@@ -6,6 +6,6 @@ namespace SmallRss.Data
 {
     public interface IRssFeedRepository
     {
-        Task<IEnumerable<RssFeed>> GetByIdsAsync(IEnumerable<int> rssFeedIds);
+        Task<List<RssFeed>> GetByIdsAsync(IEnumerable<int> rssFeedIds);
     }
 }

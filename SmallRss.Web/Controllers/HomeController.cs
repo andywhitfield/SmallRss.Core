@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SmallRss.Web.Models.Home;
@@ -17,10 +16,7 @@ namespace SmallRss.Web.Controllers
         
         [Authorize]
         public IActionResult Index()
-        {
-            var userId = (User.Identity as ClaimsIdentity)?.FindFirst("sub")?.Value ?? User.Identity.Name;
-            _logger.LogInformation($"Logged in {userId}");
-            
+        {            
             return View(new IndexViewModel());
         }
 
