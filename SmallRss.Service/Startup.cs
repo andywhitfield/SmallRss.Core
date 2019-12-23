@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmallRss.Data;
+using SmallRss.Feeds;
+using SmallRss.Service.BackgroundServices;
 
 namespace SmallRss.Service
 {
@@ -42,6 +44,9 @@ namespace SmallRss.Service
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddCors();
             services.AddDistributedMemoryCache();
+
+            services.AddTransient<IRefreshRssFeeds, RefreshRssFeeds>();
+            services.AddHostedService<RefreshRssFeedsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
