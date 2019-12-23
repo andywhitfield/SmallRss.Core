@@ -17,6 +17,7 @@ namespace SmallRss.Data
         }
         
         public DbSet<Article> Articles { get; set; }
+        public DbSet<BackgroundServiceSetting> BackgroundServiceSettings { get; set; }
         public DbSet<RssFeed> RssFeeds { get; set; }
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<UserAccountSetting> UserAccountSettings { get; set; }

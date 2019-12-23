@@ -26,7 +26,7 @@ namespace SmallRss.Service.BackgroundServices
             {
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                    await Task.Delay(TimeSpan.FromMinutes(10), stoppingToken);
                     using (var scope = _serviceProvider.CreateScope())
                     {
                         var feedRefreshService = scope.ServiceProvider.GetRequiredService<IRefreshRssFeeds>();
@@ -35,7 +35,9 @@ namespace SmallRss.Service.BackgroundServices
                 }
             }
             catch (TaskCanceledException)
-            { }
+            {
+                _logger.LogDebug("Rss feed background service cancellation token cancelled - service stopping");
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred running the refresh rss feeds background service");

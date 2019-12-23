@@ -77,7 +77,7 @@ namespace SmallRss.Web
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(5));
             services.AddLogging(logging =>
             {
-                logging.AddConsole();
+                logging.AddConsole(opt => opt.TimestampFormat = "[HH:mm:ss] ");
                 logging.AddDebug();
             });
 

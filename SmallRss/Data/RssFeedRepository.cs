@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,13 @@ namespace SmallRss.Data
 
             var idSet = rssFeedIds.ToHashSet();
             return _context.RssFeeds.Where(r => idSet.Contains(r.Id)).ToListAsync();
+        }
+
+        public Task<List<RssFeed>> FindByLastUpdatedSinceAsync(DateTime? lastUpdatedSince)
+        {
+            if (lastUpdatedSince.GetValueOrDefault(default) == default)
+                return _context.RssFeeds.ToListAsync();
+            return _context.RssFeeds.Where(r => r.LastUpdated >= lastUpdatedSince).ToListAsync();
         }
     }
 }

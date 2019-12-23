@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmallRss.Data;
 using SmallRss.Feeds;
@@ -35,7 +34,7 @@ namespace SmallRss.Service
 
             services.AddLogging(logging =>
             {
-                logging.AddConsole();
+                logging.AddConsole(opt => opt.TimestampFormat = "[HH:mm:ss] ");
                 logging.AddDebug();
             });
 
@@ -45,21 +44,12 @@ namespace SmallRss.Service
             services.AddCors();
             services.AddDistributedMemoryCache();
 
-            services.AddTransient<IRefreshRssFeeds, RefreshRssFeeds>();
+            services.AddRefreshRssFeeds();
             services.AddHostedService<RefreshRssFeedsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
             app.UseRouting();
             app.UseEndpoints(options => options.MapControllerRoute(
                 name: "default",
