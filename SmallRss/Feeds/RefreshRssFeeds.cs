@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,15 +14,15 @@ namespace SmallRss.Feeds
         private readonly ILogger<RefreshRssFeeds> _logger;
         private readonly IBackgroundServiceSettingRepository _settingsRepository;
         private readonly IRssFeedRepository _rssFeedRepository;
-        private readonly IHttpClientFactory _clientFactory;
+        private readonly IRefreshRssFeed _refreshRssFeed;
 
         public RefreshRssFeeds(ILogger<RefreshRssFeeds> logger, IBackgroundServiceSettingRepository settingsRepository,
-            IRssFeedRepository rssFeedRepository, IHttpClientFactory clientFactory)
+            IRssFeedRepository rssFeedRepository, IRefreshRssFeed refreshRssFeed)
         {
             _logger = logger;
             _settingsRepository = settingsRepository;
             _rssFeedRepository = rssFeedRepository;
-            _clientFactory = clientFactory;
+            _refreshRssFeed = refreshRssFeed;
         }
 
         public async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -36,10 +35,13 @@ namespace SmallRss.Feeds
                 var feedsToRefresh = await FindFeedsToRefreshAsync();
                 foreach (var rssFeed in feedsToRefresh)
                 {
+                    if (stoppingToken.IsCancellationRequested)
+                        break;
+                        
                     try
                     {
                         _logger.LogInformation($"Refreshing {rssFeed.Uri}");
-                        await RefreshRssFeedAsync(rssFeed);
+                        await _refreshRssFeed.RefreshAsync(rssFeed, stoppingToken);
                         refreshed++;
                     }
                     catch (Exception ex)
@@ -62,20 +64,6 @@ namespace SmallRss.Feeds
             // TODO: for now, just load em all
             return _rssFeedRepository.FindByLastUpdatedSinceAsync(null);
         }
-
-        private async Task RefreshRssFeedAsync(RssFeed rssFeed)
-        {
-            var client = _clientFactory.CreateClient();
-            var response = await client.GetAsync(rssFeed.Uri);
-            var responseContent = await response?.Content?.ReadAsStringAsync();
-            if (!response.IsSuccessStatusCode)
-            {
-                _logger.LogWarning($"Could not refresh feed {rssFeed.Id} from {rssFeed.Uri}: response status: {response.StatusCode}, content: {responseContent}");
-                return;
-            }
-            // TODO: parse returned content...
-            _logger.LogInformation($"TODO: parse RSS or ATOM feed from response: {responseContent}");
-        }
     }
 
     public static class RefreshRssFeedsServiceProviderExtensions
@@ -83,8 +71,12 @@ namespace SmallRss.Feeds
         public static IServiceCollection AddRefreshRssFeeds(this IServiceCollection services)
         {
             services.AddScoped<IRefreshRssFeeds, RefreshRssFeeds>();
+            services.AddScoped<IRefreshRssFeed, RefreshRssFeed>();
             services.AddScoped<IRssFeedRepository, RssFeedRepository>();
             services.AddScoped<IBackgroundServiceSettingRepository, BackgroundServiceSettingRepository>();
+            services.AddScoped<IFeedParser, FeedParser>();
+            services.AddScoped<IFeedReader, RssFeedReader>();
+            services.AddScoped<IFeedReader, AtomFeedReader>();
             services.AddHttpClient();
             return services;
         }
