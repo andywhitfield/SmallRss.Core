@@ -1,0 +1,1306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Daring Fireball</title>
+    <subtitle>By John Gruber</subtitle>
+    <link rel="alternate" type="text/html" href="https://daringfireball.net/" />
+    <link rel="self" type="application/atom+xml" href="https://daringfireball.net/feeds/main" />
+    <id>https://daringfireball.net/feeds/main</id>
+    <updated>2019-12-24T01:42:28Z</updated>
+    <rights>Copyright © 2019, John Gruber</rights>
+    <entry>
+        <title>AirPods Pro Bluetooth Latency</title>
+        <link rel="alternate" type="text/html" href="https://stephencoyle.net/airpods-pro" />
+        <link rel="shorturl" type="text/html" href="http://df4.us/s0y" />
+        <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/23/airpods-pro-bluetooth-latency" />
+        <id>tag:daringfireball.net,2019:/linked//6.36322</id>
+        <published>2019-12-23T22:51:25Z</published>
+        <updated>2019-12-23T22:51:25Z</updated>
+        <author>
+            <name>John Gruber</name>
+            <uri>http://daringfireball.net/</uri>
+        </author>
+        <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+            <![CDATA[
+<p>Stephen Coyle:</p><blockquote><p>Looking to the AirPods first, there’s a very encouraging trend
+occurring. They drop from 274ms to 178ms going from the first to
+second generation, and the AirPods Pro take it down even further,
+to 144ms. While a 130ms reduction may not seem like a lot, the
+perceptual difference from this makes the AirPods Pro
+tantalisingly close to seamless.</p></blockquote><p>Impressive. I definitely notice the improvement with keyboard clicks turned on.</p><div><a  title="Permanent link to ‘AirPods Pro Bluetooth Latency’"  href="https://daringfireball.net/linked/2019/12/23/airpods-pro-bluetooth-latency">&nbsp;★&nbsp;</a></div>
+
+	]]>
+    </content>
+</entry>
+<entry>
+    <title>Why Prague Flies the Tibetan Flag Over Their City Hall</title>
+    <link rel="alternate" type="text/html" href="https://www.washingtonpost.com/opinions/2019/12/23/why-we-fly-tibetan-flag-over-prague-city-hall/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0x" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/23/prague-china" />
+    <id>tag:daringfireball.net,2019:/linked//6.36321</id>
+    <published>2019-12-23T22:43:46Z</published>
+    <updated>2019-12-24T01:41:14Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Zdenek Hrib, mayor of Prague:</p><blockquote><p>Yet this year, four of our best musical ensembles were <a href="https://kafkadesk.org/2019/09/07/china-cancels-another-czech-musical-tour-as-dispute-with-prague-escalates/">in for an
+unpleasant surprise</a>: China, which had invited them to visit
+the country, abruptly canceled their long-scheduled tours.</p><p>The reason for Beijing’s decision to rescind the invitations was
+clear. Since I was elected mayor of the Czech capital in 2018, I
+have worked to fulfill a promise to voters. I vowed during the
+campaign that I would return to our hallowed post-communist
+traditions of honoring democracy and human rights. By delivering
+on that promise, I and my government have prompted the ire of the
+Chinese Communist Party.</p><p>We have chosen to adorn our city hall with the Tibetan flag —
+which should not bother China at all, considering that <a href="https://tibet.net/wp-content/uploads/2014/10/FACTS-ABOUT-17-POINT-AGREEMENT..pdf">its 1951
+agreement</a> with the Tibetan government grants the territory a
+broad degree of autonomy. Being a doctor, I have also publicly
+condemned the<a href="https://www.rfa.org/english/news/uyghur/seized-01092013163346.html">forced extraction of organs</a> from members of the
+Muslim Uighur minority and other prisoners of the regime.</p></blockquote><p>The Chinese are petty and petulant.</p><p>Hrib’s advice:</p><blockquote><p>I am not advising against doing any business with China. Nor am I
+suggesting that we cut off all diplomatic ties; such an approach
+would be both extreme and counterproductive. I would, however,
+encourage our friends around the world to think twice and be
+cautious before getting into bed with such an unreliable and
+potentially risky counterpart.</p><p>More importantly, I encourage all of you not to surrender your
+values and personal integrity out of fear of blackmail and
+threats.</p></blockquote><div><a  title="Permanent link to ‘Why Prague Flies the Tibetan Flag Over Their City Hall’"  href="https://daringfireball.net/linked/2019/12/23/prague-china">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Jesper on the MacOS Podcasts App</title>
+    <link rel="alternate" type="text/html" href="https://wafflelog.net/2019/12/20/catastrophe/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0w" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/23/podcasts-catalyst" />
+    <id>tag:daringfireball.net,2019:/linked//6.36320</id>
+    <published>2019-12-23T22:34:25Z</published>
+    <updated>2019-12-23T22:34:26Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Jesper, writing at Waffle:</p><blockquote><p>Podcasts should be the optimal poster child for Catalyst because
+it exists on many platforms, and I think it could be made to work
+so much better by being responsive to ways in which a Mac is not
+an iOS device. But what upsets me is not a lack of polish as such,
+it’s that this was deemed anywhere near good enough to ship. It’s
+not a good podcasting app, it’s not a good Catalyst example, it’s
+not a good macOS citizen and it’s not even a good reincarnation of
+the Podcasts app. It’s just a mess.</p></blockquote><p>Yet it’s probably the best Catalyst app.</p><div><a  title="Permanent link to ‘Jesper on the MacOS Podcasts App’"  href="https://daringfireball.net/linked/2019/12/23/podcasts-catalyst">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Robocall Fines Rise to $10,000 Per Call Under Newly Passed Law</title>
+    <link rel="alternate" type="text/html" href="https://www.theverge.com/2019/12/19/21030114/robocalls-bill-congress-president-trump-sign-law-illegal-fcc-ajit-pai?__twitter_impression=true" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0v" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/23/robocall-law" />
+    <id>tag:daringfireball.net,2019:/linked//6.36319</id>
+    <published>2019-12-23T22:31:40Z</published>
+    <updated>2019-12-23T22:31:40Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Makena Kelly, reporting for The Verge:</p><blockquote><p>The Telephone Robocall Abuse Criminal Enforcement and Deterrence
+Act, <a href="https://www.theverge.com/2019/5/23/18637330/senate-vote-approve-anti-robocalling-bill-congress-traced-act-fcc">or the TRACED Act</a>, empowers the federal government with
+new abilities to go after illegal robocallers. Once TRACED is
+enacted, the Federal Communications Commission could fine
+robocallers up to $10,000 per call. It also would require major
+carriers like AT&amp;T, Verizon, and T-Mobile to deploy<a href="https://www.theverge.com/2019/5/3/18525784/robocalls-spam-calls-solutions-comcast-at-t-t-mobile-stir-shaken-scam-john-legere-telecom">a new
+technology called STIR/SHAKEN</a> into their networks, which will
+make it easier for consumers to know if they’re receiving a call
+from a spoofed number.</p><p>The House voted overwhelmingly to approve the measure earlier this
+month, and Thursday’s unanimous Senate vote means the bill only
+requires President Trump’s signature to become law. Rep. Mike
+Doyle (D-PA) said that the bill should be signed into law within
+the “next week or so.”</p></blockquote><p>There aren’t many issues with overwhelming bipartisan support these days. Fury at robocalls is one of them.</p><div><a  title="Permanent link to ‘Robocall Fines Rise to $10,000 Per Call Under Newly Passed Law’"  href="https://daringfireball.net/linked/2019/12/23/robocall-law">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>‘A Conversation With Rudy Giuliani Over Bloody Marys’</title>
+    <link rel="alternate" type="text/html" href="http://nymag.com/intelligencer/2019/12/a-conversation-with-rudy-giuliani-over-bloody-marys.html" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0t" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/23/nuzzi-giuliani-bloody-marys" />
+    <id>tag:daringfireball.net,2019:/linked//6.36317</id>
+    <published>2019-12-23T20:50:16Z</published>
+    <updated>2019-12-23T21:35:56Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Olivia Nuzzi, writing for New York:</p><blockquote><p>The hostess led us through a hallway to the dining room. As Giuliani walked down the carpeted ramp, he fell over to his right and hit the wall. He kept on walking as if it hadn’t happened. “My God, it’s Rudy Giuliani,” I heard someone say. He nodded and waved at people he knew seated across the restaurant. He stopped to shake hands with an older man and his wife.</p><p>“I’d like some sparkling water. And I know you have wonderful Bloody Marys,” Giuliani told the waiter. “Yes, sir,” the waiter said, “and I know you love them.” Giuliani laughed. “You’re a good man!,” he said.</p></blockquote><p>Just such a great little slice of life piece. Nuzzi is one of my favorite writers in politics today. <a href="https://nymag.com/intelligencer/2019/10/joe-biden-2020-campaign.html">Her piece two months ago from inside the Joe Biden campaign</a> is another must-read.</p><div><a  title="Permanent link to ‘‘A Conversation With Rudy Giuliani Over Bloody Marys’’"  href="https://daringfireball.net/linked/2019/12/23/nuzzi-giuliani-bloody-marys">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <link rel="alternate" type="text/html" href="https://www.morningbrew.com/?utm_source=daring&amp;utm_medium=rss&amp;utm_campaign=feed" />
+    <link rel="shorturl" href="http://df4.us/s0u" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/feeds/sponsors/2019/12/morning_brew_4" />
+    <id>tag:daringfireball.net,2019:/feeds/sponsors//11.36318</id>
+    <author>
+        <name>Daring Fireball Department of Commerce</name>
+    </author>
+    <published>2019-12-23T17:19:45-05:00</published>
+    <updated>2019-12-23T17:19:46-05:00</updated>
+    <content type="html" xml:base="https://daringfireball.net/feeds/sponsors/" xml:lang="en">
+        <![CDATA[
+<p>There’s a reason over 1 million people start their day with Morning Brew — the daily email that delivers the latest news from Wall Street to Silicon Valley. Business news doesn’t have to be dry and dense… make your mornings more enjoyable, for free. <a href="https://www.morningbrew.com/?utm_source=daring&amp;utm_medium=rss&amp;utm_campaign=feed">Check it out</a>.</p><div><a  title="Permanent link to ‘Morning Brew’"  href="https://daringfireball.net/feeds/sponsors/2019/12/morning_brew_4">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+<title>[Sponsor] Morning Brew</title>
+</entry>
+<entry>
+    <title>What Dan Frommer Has Learned in the First Year of Running a Subscription Newsletter Business</title>
+    <link rel="alternate" type="text/html" href="https://newconsumer.com/2019/12/the-new-consumer-year-one/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0s" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/23/new-consumer-year-one" />
+    <id>tag:daringfireball.net,2019:/linked//6.36316</id>
+    <published>2019-12-23T16:17:23Z</published>
+    <updated>2019-12-24T01:42:28Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Dan Frommer:</p><blockquote><p>It’s been almost nine months since I started publishing <a href="https://newconsumer.com/">The New
+Consumer</a>.</p><p>Wrapping up my first calendar year, I wanted to share my
+experience so far of running a one-person, membership-funded
+publishing startup, and some thoughts about how this sort of thing
+fits into where the media business is going.</p><p>In short: This is working! And I’m excited about the future.</p></blockquote><p>Glad to hear it’s working out, but I’m not surprised. Frommer is a good writer and a keenly insightful observer.</p><p>And readers love newsletters. Websites are <a href="https://twitter.com/thomaspluck/status/1202898829080576000">getting harder and harder to read</a>. Paywalls forget who you are on a seemingly weekly basis. Websites put interstitial popovers directly over the content you’re trying to read. Videos are set to autoplay. How many times are you supposed to tell the same goddamn website whether you’ll accept their fucking cookies? It’s like they’re purposefully making it hard to read. Newsletters have none of that. They’re just easy and fun to read. The web can and should be that way too, but all too often it’s not.</p><div><a  title="Permanent link to ‘What Dan Frommer Has Learned in the First Year of Running a Subscription Newsletter Business’"  href="https://daringfireball.net/linked/2019/12/23/new-consumer-year-one">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Atoms — Ideal Everyday Shoes</title>
+    <link rel="alternate" type="text/html" href="http://atoms.com/df" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0r" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/21/atoms" />
+    <id>tag:daringfireball.net,2019:/linked//6.36315</id>
+    <published>2019-12-21T19:09:31Z</published>
+    <updated>2019-12-21T19:09:32Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>My thanks to Atoms for sponsoring this week at DF.</p><p>Atoms is a whole different approach to shoes. Focused on comfort and simplicity, and built with innovative materials, Atoms are designed for how you live, work and play — everyday. They are unlike any shoes you have ever worn. They reconsidered every aspect of what a shoe can be. First-of-its-kind quarter sizing gives you the perfect fit. Insoles made with copper thread neutralize odor. And lightweight materials make Atoms exceptionally comfortable and durable.</p><p>I wear my Atoms frequently. One of my favorite aspects: lace them slightly loose and you can slip them on and off without tying and untying them each time you put them on. Part of this is the way the shoes are designed, and part of it is that the laces have a nice stretch to them.</p><p>Atoms is offering $20 off one pair, or $60 off two this holiday season. <a href="http://atoms.com/df">Experience them for yourself</a>.</p><div><a  title="Permanent link to ‘Atoms — Ideal Everyday Shoes’"  href="https://daringfireball.net/linked/2019/12/21/atoms">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>The Cocoa Text System</title>
+    <link rel="alternate" type="text/html" href="http://www.hcs.harvard.edu/~jrus/Site/cocoa-text.html" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0q" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/20/the-cocoa-text-system" />
+    <id>tag:daringfireball.net,2019:/linked//6.36314</id>
+    <published>2019-12-20T20:31:34Z</published>
+    <updated>2019-12-20T20:42:29Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Another bit of follow-up from <a href="https://daringfireball.net/2019/12/catalyst_two_months_in">yesterday’s piece on Catalyst apps and standard keyboard shortcuts</a>. The Cocoa text editing system — which dates back to NeXTStep with a slew of standard shortcuts that date back to classic Mac OS (and Emacs!) — is incredibly rich and deep. UIKit follows much of it, but not all. (For example, on the Mac, Cocoa supports custom keybindings — a very powerful feature that lets you customize text editing shortcuts and have them work almost<em>everywhere</em>.)</p><p>This 2006 document by Jacob Rus remains an essential resource for anyone who wants to dig in. The good news about Catalyst: Catalyst apps just inherit these features and shortcuts automatically on the Mac. System-wide <a href="https://www.macworld.com/article/1163996/how-to-use-services-in-mac-os-x.html">Services</a> “just work” too, even though iOS doesn’t have them.</p><div><a  title="Permanent link to ‘The Cocoa Text System’"  href="https://daringfireball.net/linked/2019/12/20/the-cocoa-text-system">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Page Up, Page Down, Home, and End in Catalyst Apps</title>
+    <link rel="alternate" type="text/html" href="https://douglashill.co/page-up-page-down-home-end-catalyst/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0p" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/20/hill-keyboardkit" />
+    <id>tag:daringfireball.net,2019:/linked//6.36313</id>
+    <published>2019-12-20T20:23:50Z</published>
+    <updated>2019-12-20T20:25:33Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Douglas Hill, following up on <a href="https://daringfireball.net/2019/12/catalyst_two_months_in">my piece yesterday</a> on scrolling with standard keyboard shortcuts in UIKit and Catalyst apps:</p><blockquote><p>I wish this was the case, but unfortunately it is not. The
+standard UIKit scrolling class, UIScrollView, does not provide any
+keyboard-driven scrolling functionality. […]</p><p>What’s going on here is that Apple did not add support for Page Up
+and Page Down in UIKit: They added this in WebKit/Safari.
+Fortunately <a href="https://opensource.apple.com/source/WebKit2/WebKit2-7601.1.46.9/UIProcess/ios/WKContentViewInteraction.mm.auto.html">WebKit is open source so we can see how they did
+it</a>. Developers need to use the undocumented input strings<code>UIKeyInputPageUp</code> and<code>UIKeyInputPageDown</code> and write their own
+code to scroll up or down by the correct amount in response to
+those input events. While WebKit doesn’t support Home and End it’s
+possible to do some guessing: The strings<code>UIKeyInputHome</code> and<code>UIKeyInputEnd</code> do in fact work.</p></blockquote><p>Hill has an open source framework, <a href="https://github.com/douglashill/KeyboardKit">KeyboardKit</a>, to fill these gaps.</p><div><a  title="Permanent link to ‘Page Up, Page Down, Home, and End in Catalyst Apps’"  href="https://daringfireball.net/linked/2019/12/20/hill-keyboardkit">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <link rel="alternate" type="text/html" href="https://daringfireball.net/2019/12/catalyst_two_months_in" />
+    <link rel="shorturl" href="http://df4.us/s0o" />
+    <id>tag:daringfireball.net,2019://1.36312</id>
+    <published>2019-12-20T04:32:22Z</published>
+    <updated>2019-12-20T04:39:28Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <summary type="text">In short, I remain unconvinced that *standard* UIKit iPad apps are a good starting point for good Mac apps. But it’s pretty obvious — and should have been right from the start — that *nonstandard* not-really-using-UIKit iPad apps make for a terrible starting point for a good Mac app.</summary>
+    <content type="html" xml:base="https://daringfireball.net/" xml:lang="en">
+        <![CDATA[
+<p>Jack Wellborn, “<a href="https://wormsandviruses.com/2019/12/catalyst-and-cohesion/">Catalyst and Cohesion</a>”:</p><blockquote><p>The crux of the issue in my mind is that iOS and Mac OS are so
+fundamentally different that the whole notion of getting a
+cohesive experience through porting apps with minimal effort
+becomes absurd. The problem goes beyond touch vs pointer UX into
+how apps exist and interact within their wider OSes. While both
+Mac OS and iOS are easy to use, their ease stem from very
+different conventions.</p><p>The more complicated Mac builds ease almost entirely through
+cohesion. Wherever possible, Mac applications are expected to
+share the same shortcuts, controls, windowing behavior, etc… so
+users can immediately find their bearings regardless of the
+application. This also means that several applications existing in
+the same space largely share the same visual and UX language.
+Having Finder, Safari, BBEdit and Transmit open on the same
+desktop looks and feels natural.</p><p>By comparison, the bulk of iOS’s simplicity stems from a single
+app paradigm. Tap an icon on the home screen to enter an app that
+takes over the entire user experience until exited. Cohesion
+exists and is still important, but its surface area is much
+smaller because most iOS users only ever see and use a single app
+at a time. For better and worse, the single app paradigm allows
+for more diverse conventions within apps. Having different
+conventions for doing the same thing across multiple full screen
+apps is not an issue because users only have to ever deal with one
+of those conventions at a given time. That innocuous diversity
+becomes incongruous once those same apps have to live
+side-by-side.</p></blockquote><p>I’m just not seeing it with Catalyst apps. They almost all look and feel and work wrong. I’ll pick on Twitter because they’re a big company. They’ve made a bunch of improvements to <a href="https://apps.apple.com/us/app/twitter/id1482454543?mt=12">their Catalyst Mac</a> app in the two months or so since it shipped. Some really<a href="https://twitter.com/wongmjane/status/1182672138291032068">preposterous</a><a href="https://twitter.com/gruber/status/1197405159111966720">shortcomings</a> in the initial release have been fixed in a short amount of time, and I get the impression — both through their public comments and some private ones I’ve exchanged with developers on their team — that they’re trying to do the right thing and make Twitter for Mac a good Mac app, not just the iPad app running in a window on the Mac. But<a href="/misc/2019/12/twitter-mac-release-notes.png">the release notes for the latest update</a> this week include new features like support for scrolling with the Page Up, Page Down, Home, and End keys. It’s kind of crazy that support for those keys wasn’t there from the start. 15 years ago you’d almost never find a Mac app that didn’t support them.</p><p>I think part of the problem is Catalyst itself — it just doesn’t feel like nearly a full-fledged framework for creating proper Mac apps yet. But I think another problem is the culture of doing a <em>lot</em> of nonstandard custom UI on iOS. As Wellborn points out, that flies on iOS — we UI curmudgeons may not like it, but it flies — because you’re only ever using one app at a time on iOS. It cracks a bit with split-screen multitasking on iPadOS, but I’ve found that a lot of the iPad apps with the least-standard UIs don’t even support split-screen multitasking on iPadOS, so the incongruities — or incoherences, to borrow Wellborn’s well-chosen word — don’t matter as much. But try moving these apps to the Mac and the nonstandard UIs stick out like a sore thumb, and whatever work the Catalyst frameworks do to support Mac conventions automatically doesn’t kick in if the apps aren’t even using the standard UIKit controls to start with. E.g. scrolling a view with Page Up, Page Down, Home, and End.<sup id="fnr1-2019-12-19"><a href="#fn1-2019-12-19">1</a></sup> An iOS app using standard UIKit controls for scrollable views should, in theory, pick up support for those keys automatically. But a lot of apps don’t because they’re not using standard controls.</p><p>In short, I remain unconvinced that <em>standard</em> UIKit iPad apps are a good starting point for good Mac apps. But it’s pretty obvious — and should have been right from the start — that<em>nonstandard</em> not-really-using-UIKit iPad apps make for a terrible starting point for a good Mac app. Developers can make it work — as a programmer friend once told me, “It’s all just typing” — but it’s so much work it seems to defeat the entire “Just click a checkbox in Xcode” premise and promise of Catalyst.</p><div class="footnotes"><hr /><ol><li id="fn1-2019-12-19"><p>At some point a while back I wrote about Page Up/Down and Home/End keys and some wiseacre responded that almost no one has those keys on their keyboards, because most people use MacBooks and regular Magic Keyboards, which don’t have those keys. And Twitter’s aforementioned release notes <a href="/misc/2019/12/twitter-mac-release-notes.png">describe these features</a> as “extended keyboard support”. But<em>every</em> Apple keyboard does have the ability to invoke the same functions: Fn↑ = Page Up, Fn↓ = Page Down, Fn← = Home, and Fn→ = End. These are great shortcuts to know.</p><p>On the Mac at least.</p><p>On iOS, it seems only Fn↑ = Page Up and Fn↓ = Page Down are standard in UIKit — the Fn←/Fn→ shortcuts for Home/End seem to be supported nowhere. But even some of Apple’s own iPad apps — like Mail and Notes to name two — don’t support Fn↑ / Fn↓ either. In a read-only view you can get Home/End behavior (jumping to the very top/bottom of the view) with ⌘↑ and ⌘↓, but in an <em>editing</em> view those shortcuts will move the insertion point to the beginning/end, not just scroll the view port, as true Home/End behavior should.</p><p>Neither Twitter nor Slack for iPad — two apps that frequently irritate me with their nonstandard non-native UIs — support any of the Fn-arrow key shortcuts for scrolling.&nbsp;<a href="#fnr1-2019-12-19"  class="footnoteBackLink"  title="Jump back to footnote 1 in the text.">&#x21A9;&#xFE0E;</a></p></li></ol></div>
+
+
+
+    ]]>
+</content>
+<title>★ Catalyst, Two Months In</title>
+</entry>
+<entry>
+    <title>Apple’s Updated Platform Security Site</title>
+    <link rel="alternate" type="text/html" href="https://support.apple.com/guide/security/welcome/web" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0m" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/19/apple-platform-security" />
+    <id>tag:daringfireball.net,2019:/linked//6.36310</id>
+    <published>2019-12-19T19:18:19Z</published>
+    <updated>2019-12-20T04:33:07Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Comprehensive human-readable guide to all things security- and privacy-related at Apple: hardware, software, and services. Well-written and well-organized.</p><div><a  title="Permanent link to ‘Apple’s Updated Platform Security Site’"  href="https://daringfireball.net/linked/2019/12/19/apple-platform-security">&nbsp;★&nbsp;</a></div>
+
+	]]>
+    </content>
+</entry>
+<entry>
+    <title>Why Photographer David Burnett Shot 4×5 Film at Impeachment Hearing</title>
+    <link rel="alternate" type="text/html" href="https://pdnpulse.pdnonline.com/2019/11/why-photographer-david-burnett-shot-4x5-film-at-impeachment-hearing.html" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0l" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/19/burnett-4-by-5-film" />
+    <id>tag:daringfireball.net,2019:/linked//6.36309</id>
+    <published>2019-12-19T15:35:38Z</published>
+    <updated>2019-12-19T16:04:53Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Holly Hughes, writing for PDN:</p><blockquote><p>“Shooting large-format today was a reminder that even though I have many frames per second with my Sony a6500, I’m still shooting film one solitary, isolated frame at a time. In a world of 10 or 20 fps, two frames in 30 seconds is a big deal,” Burnett tells PDN. While his press colleagues were firing fast, Burnett says, “I shot 16 frames today.” […]</p><p>Burnett shot both the hearing and a Veterans Day parade earlier in the week using Ilford HP5 black-and-white film. “Unlike the all-digital shooters to my left and right,” he told PDN, “I won’t know for a few days if I have a picture — or two.  It’s a fun wait. Builds character.”</p></blockquote><p><a href="https://www.davidburnett.com/gallery.html?gallery=The%20Presidents%20&amp;folio=Galleries">Examples of Burnett’s work</a>.</p><div><a  title="Permanent link to ‘Why Photographer David Burnett Shot 4×5 Film at Impeachment Hearing’"  href="https://daringfireball.net/linked/2019/12/19/burnett-4-by-5-film">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>The Next Generation of Xbox Is Just Called Xbox</title>
+    <link rel="alternate" type="text/html" href="https://www.polygon.com/xbox-scarlett/2019/12/16/21025133/xbox-series-x-name-scarlett" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0k" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/18/xbox-xbox" />
+    <id>tag:daringfireball.net,2019:/linked//6.36308</id>
+    <published>2019-12-19T01:01:15Z</published>
+    <updated>2019-12-19T01:01:15Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Ryan Gilliam, writing for Polygon:</p><blockquote><p>During The Game Awards 2019, Microsoft unveiled the next
+generation of Xbox: the Xbox Series X. Or that’s what we and
+everyone else thought it was called. However, <a href="https://www.businessinsider.com/microsoft-only-using-xbox-name-going-forward-2019-12">Business Insider
+recently spoke to a Microsoft representative</a> who confirmed
+the next generation’s name is simple. Xbox — Series X is the name
+of the model coming next year.</p><p>“The name we’re carrying forward to the next generation is simply
+Xbox,” said the Microsoft representative. “And at The Game Awards
+you saw that name come to life through the Xbox Series X.” In a
+separate quote, the representative told Business Insider: “Similar
+to what fans have seen with previous generations, the name ‘Xbox
+Series X’ allows room for additional consoles in the future.”</p></blockquote><p>I would have gone with “Xbox X Xbox” — that way they’d go <a href="https://www.theonion.com/fuck-everything-were-doing-five-blades-1819584036">straight to <em>five</em> X’s</a> in the name.</p><div><a  title="Permanent link to ‘The Next Generation of Xbox Is Just Called Xbox’"  href="https://daringfireball.net/linked/2019/12/18/xbox-xbox">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Amazon, Apple, Google, and the Zigbee Alliance to Develop Connectivity Standard</title>
+    <link rel="alternate" type="text/html" href="https://www.apple.com/newsroom/2019/12/amazon-apple-google-and-the-zigbee-alliance-to-develop-connectivity-standard/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0j" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/18/chip" />
+    <id>tag:daringfireball.net,2019:/linked//6.36307</id>
+    <published>2019-12-18T23:14:43Z</published>
+    <updated>2019-12-18T23:23:32Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Apple Newsroom:</p><blockquote><p>Amazon, Apple, Google, and the Zigbee Alliance today announced a new working group that plans to develop and promote the adoption of a new, royalty-free connectivity standard to increase compatibility among smart home products, with security as a fundamental design tenet. Zigbee Alliance board member companies such as IKEA, Legrand, NXP Semiconductors, Resideo, Samsung SmartThings, Schneider Electric, Signify (formerly Philips Lighting), Silicon Labs, Somfy, and Wulian are also onboard to join the working group and contribute to the project.</p><p>The goal of the Connected Home over IP project is to simplify development for manufacturers and increase compatibility for consumers.</p></blockquote><p>Connected Home over IP = CHIP. A good acronym is a good place to start. I’d love to see this succeed — it’d be so great if connected home devices worked across platforms as well as USB devices do. And let’s face it, right now Siri is on the short end of the stick on that front.</p><p>(Conspicuously absent: Microsoft?)</p><div><a  title="Permanent link to ‘Amazon, Apple, Google, and the Zigbee Alliance to Develop Connectivity Standard’"  href="https://daringfireball.net/linked/2019/12/18/chip">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Mac Pro With Afterburner in Action</title>
+    <link rel="alternate" type="text/html" href="https://m.youtube.com/watch?v=pvS7FHtm2BI" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0i" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/18/morrison-afterburber" />
+    <id>tag:daringfireball.net,2019:/linked//6.36306</id>
+    <published>2019-12-18T23:10:49Z</published>
+    <updated>2019-12-18T23:12:48Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Jonathan Morrison:</p><blockquote><p>To test out the Mac Pro Afterburner acceleration, I initially created a 4K Multi-Cam project with 9 and even 15 streams of 4.5K Pro Res 4444 XQ video which didn’t even break a sweat on the Mac Pro. I figured let’s make an 8K timeline, nah. Let’s make a 16K timeline and the results blew me away.</p></blockquote><p>Impressive results, and a good case that the base model Mac Pro with the Afterburner card could be a hell of a machine for video pros.</p><div><a  title="Permanent link to ‘Mac Pro With Afterburner in Action’"  href="https://daringfireball.net/linked/2019/12/18/morrison-afterburber">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>The New ML Super Resolution Feature in Pixelmator Pro</title>
+    <link rel="alternate" type="text/html" href="https://www.pixelmator.com/blog/2019/12/17/all-about-the-new-ml-super-resolution-feature-in-pixelmator-pro/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0h" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/18/mlsuperresolution-feature-in-pixelmatorpro" />
+    <id>tag:daringfireball.net,2019:/linked//6.36305</id>
+    <published>2019-12-18T21:49:00Z</published>
+    <updated>2019-12-18T22:02:10Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>The Pixelmator blog:</p><blockquote><p>It’s no secret that we’re pretty big fans of machine learning and we love thinking of new and exciting ways to use it in Pixelmator Pro. Our latest ML-powered feature is called ML Super Resolution, released in today’s update, and it makes it possible to increase the resolution of images while keeping them stunningly sharp and detailed. Yes, zooming and enhancing images like they do in all those cheesy police dramas is now a reality!</p></blockquote><p>First, these results are incredibly impressive. I’ve tried it on a few small images and their samples accurately reflect how good this is. There’s a film-like quality to the results that I find visually pleasing beyond the interpolated increase in resolution. Really hard to believe how good these results are.</p><p>Second, there is nothing cheesy about <em>Blade Runner</em>.</p><div><a  title="Permanent link to ‘The New ML Super Resolution Feature in Pixelmator Pro’"  href="https://daringfireball.net/linked/2019/12/18/mlsuperresolution-feature-in-pixelmatorpro">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>SGI Workstation Prices From 20 Years Ago</title>
+    <link rel="alternate" type="text/html" href="https://www.cnet.com/news/sgi-to-slash-workstation-prices/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0g" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/17/sgi-workstations" />
+    <id>tag:daringfireball.net,2019:/linked//6.36304</id>
+    <published>2019-12-17T20:49:06Z</published>
+    <updated>2019-12-17T20:49:30Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>CNet, back in July 1998:</p><blockquote><p>The Octane line’s entry-level product, which comes with a 225-MHz
+R10000 MIPS processor, 128MB of memory, a 4GB hard drive, and a
+20-inch monitor, will fall to $17,995 from $19,995. The pricing
+action comes two months after the company introduced it.</p><p>An Octane system featuring 250-MHz R10000 processor, meanwhile,
+will drop from $38,995 to $24,995. […]</p><p>SGI will further cut the price of its Onyx2 Reality supercomputer
+with two 250-MHz R10000 processors by 45 percent, to $75,000.</p></blockquote><p>Historically speaking, the pricing for the new Mac Pro is <em>not</em> outlandish. The problem isn’t with the $30,000–50,000 models. The people who can make good use of those machines will do so. I think what’s bothersome to many traditional Mac Pro users is the lack of a Mac Pro in the, say, $2,500–5,000 range. There are a lot of pro users who want a desktop system that’s less expensive than these new Mac Pros but more performant and expandable than a Mac Mini. Something, I think, roughly like an iMac Pro without the built-in display.</p><p>I get why Apple kept the “Mac Pro” name. But in theory it would have been nice to have a new Mac Pro similar in scope — and pricing! — to the old pre-2013 Mac Pros, and to have these new Mac Pros occupy a new “hypercar” slot <em>above</em> the Mac Pro in the lineup. “Mac Workstation” is not a catchy name, I know, but something to that effect.</p><div><a  title="Permanent link to ‘SGI Workstation Prices From 20 Years Ago’"  href="https://daringfireball.net/linked/2019/12/17/sgi-workstations">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>The Thermodynamics Behind the Mac Pro</title>
+    <link rel="alternate" type="text/html" href="https://www.popularmechanics.com/technology/gadgets/a30170910/apple-mac-pro/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0f" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/17/mac-pro-thermodynamics" />
+    <id>tag:daringfireball.net,2019:/linked//6.36303</id>
+    <published>2019-12-17T20:24:40Z</published>
+    <updated>2019-12-17T20:24:40Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Alexander George, writing for Popular Mechanics:</p><blockquote><p>Ligtenberg’s group built the Pro’s fan system — three axial fans
+in the front, with a blower in the back. Since most off-the-shelf
+fans would be too loud, Apple designs them internally.</p><p>“Years ago, we started redistributing the blades ,” he says.
+“They’re still dynamically balanced, but they’re actually
+randomized in terms of their BPF [blade pass frequency]. So you
+don’t get huge harmonics that tend to be super annoying.”</p><p>Noise is a major factor in the design of modern machinery. In this
+case: “That [solution is] borrowed almost entirely from automobile
+tires,” Ligtenberg says. “There’s a bit of math behind it, but you
+can create broadband noise instead of total noise with that
+technique.”</p></blockquote><p>Obsessing over the fan noise — reducing it where possible, and making what noise there is as pleasing to the ears as possible — is Apple at its best.</p><div><a  title="Permanent link to ‘The Thermodynamics Behind the Mac Pro’"  href="https://daringfireball.net/linked/2019/12/17/mac-pro-thermodynamics">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>iFixit’s Mac Pro 2019 Teardown</title>
+    <link rel="alternate" type="text/html" href="https://www.ifixit.com/Teardown/Mac+Pro+2019+Teardown/128922" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0e" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/17/mac-pro-ifixit" />
+    <id>tag:daringfireball.net,2019:/linked//6.36302</id>
+    <published>2019-12-17T20:09:57Z</published>
+    <updated>2019-12-17T20:09:58Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>iFixit:</p><blockquote><p>The new Mac Pro is a Fixmas miracle: beautiful, amazingly well put
+together, and a masterclass in repairability.</p><p>We love that a good portion of the modules can be swapped without
+tools; we love the use of (mostly) standard screws and connectors;
+we love the step numbers and diagrams for certain repairs right on
+the device; and most of all, we love the free public repair
+manuals and videos.</p><p>Despite the many things to love, however, Apple still keeps the
+keys to certain repairs, like the proprietary SSD. And some of
+Apple’s repair manuals include (or entirely comprise) a disclaimer
+insisting that you contact an Apple Authorized Service Provider,
+when in reality the repair could easily be done at your desk.</p></blockquote><p>9/10 overall, and I’m guessing it would have been 10/10 if not for the SSD tied to the T2. I get it that iFixit is going to be iFixit, and that they might value a just-plain-easily-replaced-SSD over the security of the T2 subsystem. But I think they conveniently avoid mentioning <a href="https://www.apple.com/mac/docs/Apple_T2_Security_Chip_Overview.pdf">the security of the T2 subsystem</a>. Merely calling it “proprietary” and leaving it at that is ignoring just how significant a system the T2 is.</p><p>It does occur to me that it would have been nice if Apple had figured out a way to provide Touch ID for the Mac Pro. I totally get that doing Touch ID wirelessly — where the sensor would be on the keyboard (or trackpad or mouse?) and the secure enclave inside the Mac Pro — is a devilishly tricky problem to solve securely.</p><div><a  title="Permanent link to ‘iFixit’s Mac Pro 2019 Teardown’"  href="https://daringfireball.net/linked/2019/12/17/mac-pro-ifixit">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Walt Mossberg on Apple’s Decade</title>
+    <link rel="alternate" type="text/html" href="https://www.theverge.com/2019/12/17/21026112/apple-tim-cook-iphone-watch-tv-decade-blockbusters-walt-mossberg" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0d" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/17/mossberg-apple-decade" />
+    <id>tag:daringfireball.net,2019:/linked//6.36301</id>
+    <published>2019-12-17T19:40:29Z</published>
+    <updated>2019-12-17T19:40:53Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Walt Mossberg, writing for The Verge:</p><blockquote><p>How do you replace a legend like Steve Jobs and, at the same time,
+adapt to the slow decline of your most important, most iconic
+product? Those were the twin challenges Apple faced in the 2010s.
+Under CEO Tim Cook, the company has found some answers and
+flourished financially, but it hasn’t been without a few wrong
+turns and big changes to the very nature of its business.</p><p>In the past decade, Apple has grown huge. Its fiscal 2019 revenues
+were six times the size of revenues in fiscal 2009. Its new
+<a href="https://www.theverge.com/2019/12/17/21026112/apple-tim-cook-iphone-watch-tv-decade-blockbusters-walt-mossberg">headquarters building is larger than the Pentagon</a>. Each of its
+five business segments would be a Fortune 500 company on its own.</p><p>But what about its products? Its culture?</p></blockquote><p>A fair look back at Tim Cook’s first decade in charge of Apple. The biggest knock? Taking their eyes off the Mac ball in the middle of the decade — with a Mac Pro that wound up not being very pro and a MacBook Air that stagnated with a non-retina display.</p><div><a  title="Permanent link to ‘Walt Mossberg on Apple’s Decade’"  href="https://daringfireball.net/linked/2019/12/17/mossberg-apple-decade">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>The Purpose of a Political Party Is to Win and Exercise Power</title>
+    <link rel="alternate" type="text/html" href="https://www.theguardian.com/commentisfree/2019/dec/13/corbynism-labour-left-party" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0c" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/17/freedland-labour" />
+    <id>tag:daringfireball.net,2019:/linked//6.36300</id>
+    <published>2019-12-17T18:12:26Z</published>
+    <updated>2019-12-17T18:12:26Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Jonathan Freedland, writing for The Guardian:</p><blockquote><p>Well, guess what. Labour’s “radical” manifesto of 2019 achieved
+precisely nothing. Not one proposal in it will be implemented, not
+one pound in it will be spent. It is worthless. And if judged not
+by the academic standard of “expanding the discourse”, but by the
+hard, practical measure of improving actual people’s actual lives,
+those hate figures of Corbynism — Tony Blair and Gordon Brown —
+achieved more in four hours than Corbyn achieved in four years.
+Why? Because they did what it took to win power.</p><p>That’s what a political party is for. It’s not a hobby; it’s not a
+pressure group that exists to open <a href="https://www.newstatesman.com/politics/2015/04/what-overton-window">the Overton window</a> a
+little wider; it’s not an association for<a href="https://twitter.com/PeoplesMomentum/status/1205238566709800991">making friends</a> or
+hosting stimulating conversations and seminars; it’s not “<a href="https://twitter.com/nealmeyer/status/1205257597928067078">a
+30-year project</a>”. Its purpose is to win and exercise power in
+the here and now. It is either a plausible vehicle for government
+or it is nothing.</p></blockquote><p>Bingo. Politics is first and foremost about winning elections. Labour clearly did not approach last week’s election with that in mind — but the Tories sure did. That this should serve as a warning to Democrats here in the U.S. goes without saying.</p><div><a  title="Permanent link to ‘The Purpose of a Political Party Is to Win and Exercise Power’"  href="https://daringfireball.net/linked/2019/12/17/freedland-labour">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Amazon’s Alexa Skill Revenue</title>
+    <link rel="alternate" type="text/html" href="https://voicebot.ai/2019/12/16/amazon-brings-in-1-4-million-in-2019-of-alexa-skill-revenue-so-far-well-short-of-the-5-5-million-target-according-to-the-information/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0b" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/17/amazon-alexa" />
+    <id>tag:daringfireball.net,2019:/linked//6.36299</id>
+    <published>2019-12-17T17:36:18Z</published>
+    <updated>2019-12-17T17:36:18Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Bret Kinsella, writing for Voicebot.ai:</p><blockquote><p><a href="https://www.theinformation.com/articles/amazon-learns-a-new-skill-making-money-from-alexa">The Information published</a> (N.B. paywall) an article this
+morning saying that Amazon earned $1.4 million Alexa skill revenue
+through the first 10 months of 2019 which was well short of its
+$5.5 million target. This refers to the revenue that Amazon earns
+from in-skill purchases (ISP) where consumers pay for added
+features of Alexa skills from third-party developers. The article
+also says that 2018 revenue was “in the low hundreds of thousands
+of dollars” though the target was $5 million.</p><p>Amazon did not confirm these figures, but a spokesperson did
+respond by email today regarding The Information’s article saying
+that, “Alexa is a long-term bet for Amazon, and we’re as
+optimistic as ever about its future. We’ve just scratched the
+surface of what’s possible with Alexa.”</p><p>Alexa skill revenue referred to here is a similar approach to
+Apple’s fees for purchases through the iOS app store. Amazon takes
+a 30% fee and the developer gets the remaining 70%.</p></blockquote><p>We have a few Alexa devices, and use them, but I didn’t even realize you could pay for additional skills like this. Never even occurred to me. I just don’t even think Amazon is trying on this front — they seem focused on the stuff you can do with Alexa out of the box and that’s it.</p><div><a  title="Permanent link to ‘Amazon’s Alexa Skill Revenue’"  href="https://daringfireball.net/linked/2019/12/17/amazon-alexa">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>iPods Pro</title>
+    <link rel="alternate" type="text/html" href="http://www.asymco.com/2019/12/12/ipods-pro/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s0a" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/17/ipods-pro" />
+    <id>tag:daringfireball.net,2019:/linked//6.36298</id>
+    <published>2019-12-17T17:30:50Z</published>
+    <updated>2019-12-17T17:30:50Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Horace Dediu:</p><blockquote><p>For the AirPods to overtake the iPod highlights just what a
+phenomenal category Wearables has become. In combination with Home
+and other accessories the category is going to decidedly overtake
+the Mac, having already passed the iPad.</p><p>And so it goes, something dismissed as inconsequential — “does
+not move the needle” — ends up becoming a massive force of
+change. The iPod was that, the original Apple II, the Mac and yes,
+also the iPhone. It’s the asymmetry of humility that this happens
+over and over again.</p></blockquote><p>The thing about AirPods is that you just have to walk down the street in a city to see how popular they are.</p><div><a  title="Permanent link to ‘iPods Pro’"  href="https://daringfireball.net/linked/2019/12/17/ipods-pro">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <link rel="alternate" type="text/html" href="http://atoms.com/df" />
+    <link rel="shorturl" href="http://df4.us/s09" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/feeds/sponsors/2019/12/atoms_ideal_everyday_shoes_4" />
+    <id>tag:daringfireball.net,2019:/feeds/sponsors//11.36297</id>
+    <author>
+        <name>Daring Fireball Department of Commerce</name>
+    </author>
+    <published>2019-12-16T19:04:05-05:00</published>
+    <updated>2019-12-16T19:04:05-05:00</updated>
+    <content type="html" xml:base="https://daringfireball.net/feeds/sponsors/" xml:lang="en">
+        <![CDATA[
+<p>Atoms is a whole different approach to shoes. Focused on comfort and simplicity and built with innovative materials, Atoms are designed for how you live, work and play – everyday. They are unlike any shoes you have ever worn. They reconsidered every aspect of what a shoe can be. First-of-its-kind quarter sizing gives you the perfect fit. Atoms stretchy laces make it easy to slip on and off. Insoles made with copper thread neutralize odor. And lightweight materials make Atoms exceptionally comfortable, and durable. Atoms is offering $20 off of one pair or $60 off of two this holiday season. <a href="http://atoms.com/df">Experience them for yourself</a>.</p><div><a  title="Permanent link to ‘Atoms — Ideal Everyday Shoes’"  href="https://daringfireball.net/feeds/sponsors/2019/12/atoms_ideal_everyday_shoes_4">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+<title>[Sponsor] Atoms — Ideal Everyday Shoes</title>
+</entry>
+<entry>
+    <title>Nevermind</title>
+    <link rel="alternate" type="text/html" href="https://www.thurrott.com/hardware/225335/samsung-didnt-sell-1-million-galaxy-folds-after-all" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s08" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/16/nevermind" />
+    <id>tag:daringfireball.net,2019:/linked//6.36296</id>
+    <published>2019-12-16T17:12:47Z</published>
+    <updated>2019-12-16T17:12:48Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Mehedi Hassan, writing for Paul Thurrott’s Supersite for Windows or whatever the hell he calls it nowadays:</p><blockquote><p>This week, however, Samsung Electronic’s President Young Sohn
+claimed the company had sold 1 million foldable Galaxy Fold
+smartphones. Talking at TechCrunch Disrupt Berlin, Sohn said that
+“there’s a million people” that want to use the Galaxy Fold. He
+later claimed that Samsung had indeed sold 1 million units of the
+Galaxy Fold.</p><p>As it turns out, though, Samsung may not have actually sold 1
+million Galaxy Fold units. A Samsung spokesperson told Yonhap News
+that Sohn had confused the 1 million figure with Samsung’s sales
+target. The spokesperson later confirmed that Samsung is yet to
+sell 1 million units of the Galaxy Fold.</p></blockquote><p>Again, I think of Dr. Evil’s “One millllllion dollars” extortion scheme.</p><div><a  title="Permanent link to ‘Nevermind’"  href="https://daringfireball.net/linked/2019/12/16/nevermind">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Doxie Mobile Scanners</title>
+    <link rel="alternate" type="text/html" href="http://www.getdoxie.com/hello/daringfireball/?utm_source=daringfireball&amp;utm_medium=ad&amp;utm_campaign=2019-12" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s07" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/14/doxie-mobile-scanners" />
+    <id>tag:daringfireball.net,2019:/linked//6.36295</id>
+    <published>2019-12-14T17:47:49Z</published>
+    <updated>2019-12-14T17:47:50Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>My thanks to Doxie for sponsoring this week at DF. Designed with all your paper in mind, Doxie quickly and reliably scans all your documents, receipts, and detailed photographs with ease.</p><p>Thanks to its small footprint, rechargeable battery, and expansive memory, Doxie consistently delivers high-resolution scans wherever you are — no computer required. The free MacOS and iOS apps let you save, share, and send your paper to the cloud.</p><p>A Doxie scanner is what you want if you refuse to compromise on quality and want a straightforward way to finally go (and stay) paperless.</p><p>This week only, Doxie is offering DF readers a secret 35% discount. Enter Amazon promotion code <strong>FIREBALL</strong> at checkout on any of Doxie’s three great models:<a href="http://www.getdoxie.com/product/doxie-go/buyamazon">Doxie Go SE</a>,<a href="http://www.getdoxie.com/product/doxie-go/buyamazonwifi">Doxie Go SE + Wi-Fi</a>, or<a href="http://www.getdoxie.com/product/doxie-q/buyamazon">Doxie Q</a>.</p><div><a  title="Permanent link to ‘Doxie Mobile Scanners’"  href="https://daringfireball.net/linked/2019/12/14/doxie-mobile-scanners">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>DF T-Shirts and Hoodies — Get Them While the Getting Is Good</title>
+    <link rel="alternate" type="text/html" href="https://daringfireball.net/shirts" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s06" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/13/df-tshirts-and-hoodies-get-em" />
+    <id>tag:daringfireball.net,2019:/linked//6.36294</id>
+    <published>2019-12-13T05:10:41Z</published>
+    <updated>2019-12-16T19:55:01Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p><a href="/shirts" class="no_underlines"><img class="roundrect" src="/members/images/2018/classic.png" alt="Thumbnail of a Daring Fireball logo t-shirt." height="445" width="445"></a></p><p><a href="/shirts" class="no_underlines"><img class="roundrect" src="/members/images/2015/classic-triblend-976.png" alt="Thumbnail of a Daring Fireball logo t-shirt." height="445" width="445"></a></p><p>Look at these shirts. They’re gorgeous. One — or both! — of them could be yours. But if you want one you have to order by the end of the day Friday. That’s probably <em>today</em> when you’re reading this. I’m not trying to give you the hard sell, I’m just saying that if you don’t order now you’re going to miss out and you’re going to regret it.</p><p>We’ve got hoodies too.</p><p><strong>Update:</strong> The store is now closed. Thanks to everyone who ordered.</p><div><a  title="Permanent link to ‘DF T-Shirts and Hoodies — Get Them While the Getting Is Good’"  href="https://daringfireball.net/linked/2019/12/13/df-tshirts-and-hoodies-get-em">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>The Talk Show: ‘A Perfect Wheel’</title>
+    <link rel="alternate" type="text/html" href="https://daringfireball.net/thetalkshow/2019/12/12/ep-271" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s05" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/12/the-talk-show-271" />
+    <id>tag:daringfireball.net,2019:/linked//6.36293</id>
+    <published>2019-12-13T04:50:14Z</published>
+    <updated>2019-12-13T05:17:44Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Special guest Jason Snell returns to the show to talk about the new Mac Pro and Pro Display XDR, which are both — dare I say — finally available for ordering. Also: Ming Chi Kuo’s intriguing rumors on the 2020 and 2021 iPhone lineups.</p><p>You don’t get cheated on the show notes this week, either.</p><p>Brought to you by these fine sponsors:</p><ul><li><a href="https://expressvpn.com/tts">ExpressVPN</a>: Protect your online activity today with the VPN service rated #1 by TechRadar and get 3 months free with a 1-year package.</li><li><a href="https://linode.com/thetalkshow">Linode</a>: Instantly deploy and manage an SSD server in the Linode Cloud. Get a server running in seconds with your choice of Linux distro, resources, and choice of 10 node locations.</li><li><a href="https://clearbanc.com/talkshow">Clearbanc</a>: Find out how you can receive Clearbanc capital by getting your 20 minute term sheet.</li></ul><div><a  title="Permanent link to ‘The Talk Show: ‘A Perfect Wheel’’"  href="https://daringfireball.net/linked/2019/12/12/the-talk-show-271">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Time’s 2019 Person of the Year: Greta Thunberg</title>
+    <link rel="alternate" type="text/html" href="https://time.com/person-of-the-year-2019-greta-thunberg/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s04" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/12/time-thunberg" />
+    <id>tag:daringfireball.net,2019:/linked//6.36292</id>
+    <published>2019-12-12T19:44:41Z</published>
+    <updated>2019-12-13T06:26:04Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Charlotte Alter, Suyin Haynes, and Justin Worland, writing for Time:</p><blockquote><p>Greta Thunberg sits in silence in the cabin of the boat that will
+take her across the Atlantic Ocean. Inside, there’s a cow skull
+hanging on the wall, a faded globe, a child’s yellow raincoat.
+Outside, it’s a tempest: rain pelts the boat, ice coats the decks,
+and the sea batters the vessel that will take this slight girl,
+her father and a few companions from Virginia to Portugal. For a
+moment, it’s as if Thunberg were the eye of a hurricane, a pool of
+resolve at the center of swirling chaos. In here, she speaks
+quietly. Out there, the entire natural world seems to amplify her
+small voice, screaming along with her.</p><p>“We can’t just continue living as if there was no tomorrow,
+because there is a tomorrow,” she says, tugging on the sleeve of
+her blue sweatshirt. “That is all we are saying.”</p></blockquote><p>Thunberg <em>really</em> riles up conservatives. “<em>Why are we listening to a child?</em>”, they ask, when they’re not frothing at their mouths over her celebrity and prominence. “<em>Why are we doing nothing while global calamity grows ever more imminent?</em>” is the response. They really seem to go after her in a viciously personal way — proof to me that she’s somehow really touched a nerve.</p><p>Superman is an inherently goofy premise even among the goofy premises of nearly all comic book superheroes. Most superheroes have limited powers and some sort of balanced weaknesses. Superman has nearly unlimited powers and just one very specific, very narrow weakness. And that weakness makes no sense whatsoever — how in the world would chunks of the planet Krypton make their way anywhere outside the Krypton solar system? And don’t get me started on the way no one notices Clark Kent looks like Superman because he’s wearing glasses. I mean <a href="https://twitter.com/glennf/status/1205232970048499712">come on</a>.</p><p>But when I was a kid the thing I found most bothersome about the whole premise was the idea that if a scientist determined and had evidence to prove a severe global calamity was imminent, the public would simply ignore the warning. Here on real Earth, scientists are the ones who warn us of incoming hurricanes and who told us that vaccines could keep us from contracting terrible diseases, and we listened to them.</p><p>But here we are with climate change. The Krypton parable no longer seems funny. And with climate change it’s not just one scientist — it’s as close to expert consensus as science ever gets. I’m sure it never even occurred to Jerry Siegel and Joe Shuster to have not just Jor-El but 99 percent of Krypton’s scientists arguing that the planet was doomed — and still having the leaders of the world respond with inaction. That Thunberg has been able to nudge the world in the direction of action — to move the needle even a little — is remarkable.</p><div><a  title="Permanent link to ‘Time’s 2019 Person of the Year: Greta Thunberg’"  href="https://daringfireball.net/linked/2019/12/12/time-thunberg">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Merriam-Webster’s 2019 Word of the Year: ‘They’</title>
+    <link rel="alternate" type="text/html" href="https://www.merriam-webster.com/words-at-play/word-of-the-year/they" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s03" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/12/mw-nonbinary-they" />
+    <id>tag:daringfireball.net,2019:/linked//6.36291</id>
+    <published>2019-12-12T18:47:35Z</published>
+    <updated>2019-12-13T00:07:33Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Merriam-Webster:</p><blockquote><p>Although our lookups are often driven by events in the news,
+the dictionary is also a primary resource for information
+about language itself, and the shifting use of <em>they</em> has
+been the subject of increasing study and commentary in recent
+years. Lookups for<em>they</em> increased by 313% in 2019 over the
+previous year.</p><p>English famously lacks a gender-neutral singular pronoun to
+correspond neatly with singular pronouns like <em>everyone</em> or<em>someone</em>, and as a consequence<em>they</em> has been used for this
+purpose for over 600 years.</p><p>More recently, though, <em>they</em> has also been used to refer to one
+person whose gender identity is<a href="https://www.merriam-webster.com/dictionary/nonbinary">nonbinary</a>, a sense that is
+increasingly common in published, edited text, as well as social
+media and in daily personal interactions between English speakers.
+There’s no doubt that its use is established in the English
+language, which is why it was added to the Merriam-Webster.com
+dictionary this past September.</p></blockquote><p>I’ve <a href="https://daringfireball.net/linked/2009/07/27/singular-they">long been a staunch advocate of singular <em>they</em></a>, which I don’t find contrary to my generally conservative linguistic stance. As Merriam-Webster points out, singular <em>they</em> in English has a 600-year history. It’s the “<em>they</em> is always plural” pedants who are the upstarts, just like the Victorian know-nothings who<a href="https://languagelog.ldc.upenn.edu/nll/?p=4680">wrongly insist</a> one should never split an infinitive. Nonbinary<em>they</em> is a natural extension of that history.</p><div><a  title="Permanent link to ‘Merriam-Webster’s 2019 Word of the Year: ‘They’’"  href="https://daringfireball.net/linked/2019/12/12/mw-nonbinary-they">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>‘Link in Bio’ Is a Slow Knife</title>
+    <link rel="alternate" type="text/html" href="http://anildash.com/2019/12/10/link-in-bio-is-how-they-tried-to-kill-the-web/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s02" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/12/link-in-bio" />
+    <id>tag:daringfireball.net,2019:/linked//6.36290</id>
+    <published>2019-12-12T05:27:31Z</published>
+    <updated>2019-12-12T05:28:24Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Anil Dash:</p><blockquote><p>We don’t even notice it anymore — “link in bio”. It’s a pithy
+phrase, usually found on Instagram, which directs an audience to
+be aware that a pertinent web link can be found on that user’s
+profile. Its presence is so subtle, and so pervasive, that we
+barely even noticed it was an attempt to kill the web.</p></blockquote><p>Dash calls it a slow knife. I think “link in bio” is fucking bullshit.</p><div><a  title="Permanent link to ‘‘Link in Bio’ Is a Slow Knife’"  href="https://daringfireball.net/linked/2019/12/12/link-in-bio">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Yours Truly on The Omni Show</title>
+    <link rel="alternate" type="text/html" href="https://theomnishow.omnigroup.com/episode/how-john-gruber-raconteur-uses-omnioutliner" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s01" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/11/yours-truly-on-the-omni-show" />
+    <id>tag:daringfireball.net,2019:/linked//6.36289</id>
+    <published>2019-12-12T00:49:19Z</published>
+    <updated>2019-12-12T05:46:45Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>It was my distinct pleasure to chat with my old friend Brent Simmons on The Omni Show, mainly about one of my very favorite and most essential apps, OmniOutliner — but believe it or not there were several long digressions, replete with much nostalgia.</p><div><a  title="Permanent link to ‘Yours Truly on The Omni Show’"  href="https://daringfireball.net/linked/2019/12/11/yours-truly-on-the-omni-show">&nbsp;★&nbsp;</a></div>
+
+	]]>
+    </content>
+</entry>
+<entry>
+    <title>Apple Card Offering 6 Percent Daily Cash Back on Apple Product Purchases Until December 31</title>
+    <link rel="alternate" type="text/html" href="https://www.macrumors.com/2019/12/10/apple-card-6-daily-cash-back/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/s00" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/11/apple-card-6-percent" />
+    <id>tag:daringfireball.net,2019:/linked//6.36288</id>
+    <published>2019-12-11T20:17:09Z</published>
+    <updated>2019-12-11T20:17:10Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>This is an astoundingly good offer — over $400 cash back if you’re buying a Pro Display XDR and stand, for example.</p><div><a  title="Permanent link to ‘Apple Card Offering 6 Percent Daily Cash Back on Apple Product Purchases Until December 31’"  href="https://daringfireball.net/linked/2019/12/11/apple-card-6-percent">&nbsp;★&nbsp;</a></div>
+
+	]]>
+    </content>
+</entry>
+<entry>
+    <link rel="alternate" type="text/html" href="https://daringfireball.net/2019/12/bluesky" />
+    <link rel="shorturl" href="http://df4.us/rzz" />
+    <id>tag:daringfireball.net,2019://1.36287</id>
+    <published>2019-12-11T19:58:18Z</published>
+    <updated>2019-12-12T01:36:36Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <summary type="text">But why create something new? There’s a whiff of boil-the-ocean in Dorsey’s description of the plan — “blockchain” is the new second step in the South Park “(1) Steal underpants, (2) ..., (3) Profit!” to my mind).</summary>
+    <content type="html" xml:base="https://daringfireball.net/" xml:lang="en">
+        <![CDATA[
+<p><a href="https://twitter.com/jack/status/1204766078468911106">Jack Dorsey drops a bombshell</a>:</p><blockquote><p>Twitter is funding a small independent team of up to five open
+source architects, engineers, and designers to develop an open and
+decentralized standard for social media. The goal is for Twitter
+to ultimately be a client of this standard.</p><p>Twitter was so open early on that many saw its potential to be a
+decentralized internet standard, like SMTP (email protocol). For a
+variety of reasons, all reasonable at the time, we took a
+different path and increasingly centralized Twitter. But a lot’s
+changed over the years…</p><p>First, we’re facing entirely new challenges centralized solutions
+are struggling to meet. For instance, centralized enforcement of
+global policy to address abuse and misleading information is
+unlikely to scale over the long-term without placing far too much
+burden on people.</p></blockquote><p>The whole thing could (and perhaps is likely to) fizzle out, but if successful, decentralizing Twitter-like social media should be a huge win for the world. But why create something new? There’s a whiff of boil-the-ocean in Dorsey’s description of the plan — “blockchain” is the new second step in the South Park “(1) Steal underpants, (2) …, (3) Profit!” to my mind).</p><p><a href="http://scripting.com/2019/12/11.html">Dave Winer</a>:</p><blockquote><p>I advocate something different, Twitter already has the bugs and
+scaling issues solved for a global notification network. Let’s add
+a few APIs and create a new universe. It’ll happen a lot faster
+with much better results imho. […]</p><p>It’s time for a <em>proprietary</em> approach, one that is open to
+cloning. That can work because there’s a single decision-making
+entity. If their goal really is to create a standard they can do
+it, much the way we created standards for content syndication when
+our product dominated.</p></blockquote><p><a href="https://twitter.com/lorenb/status/1204773107942203393">Loren Brichter</a>:</p><blockquote><p>What’s the downside to letting the Twitter API as it stands be
+v1.0? Let third parties implement it, clients could connect to any
+compatible service, communication between services would evolve as
+needs evolve, you end up with something designed naturally (see
+HTML5 vs XHTML).</p></blockquote><p>The HTML5 vs. XHTML analogy is exactly what triggers my spidey sense with Bluesky. XHTML was a boil-the-ocean plan to create a new version of HTML, its creators’ ideal for how HTML <em>should</em> be used — a<em>prescriptive</em> spec. HTML5 took the approach of standardizing how HTML already was being used — a<em>descriptive</em> spec.  We all use HTML5 today.</p>
+
+
+
+    ]]>
+</content>
+<title>★ Bluesky: Twitter Announces Effort to Build ‘Decentralized Standard for Social Media’</title>
+</entry>
+<entry>
+    <title>Jason Del Rey on the Away Saga</title>
+    <link rel="alternate" type="text/html" href="https://www.vox.com/recode/2019/12/11/21003305/away-luggage-ceo-steph-korey-stuart-haselden-culture" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/rzy" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/11/del-ray-away" />
+    <id>tag:daringfireball.net,2019:/linked//6.36286</id>
+    <published>2019-12-11T18:15:22Z</published>
+    <updated>2019-12-12T05:13:41Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Jason Del Rey, reporting for Recode:</p><blockquote><p>The company told the Wall Street Journal that <a href="https://www.wsj.com/articles/online-luggage-startup-away-says-ceo-is-stepping-down-11575930577">the CEO search had
+been in progress since the spring</a>, insinuating that the
+fallout from the article, published by The Verge, did not play a
+role in Korey’s resignation.</p><p>But multiple sources tell Recode that while new CEO Stuart
+Haselden had indeed planned to join Away before The Verge piece
+was published, he was not meant to immediately helm the CEO role;
+instead, he would join the company as Away’s chief operating
+officer, or COO, reporting to Korey, and would later move into the
+top spot if all went according to plan.</p><p>Under that original plan, Haselden would eventually replace Korey
+as CEO — perhaps as early as mid-2020 — after he got to know the
+business better. It was also meant to allow Korey time to get
+comfortable with the transition, according to a person familiar
+with the plan. (Haselden was already COO of Lululemon, a public
+company worth $29 billion, and wouldn’t have taken the COO role at
+a much smaller company without the understanding that he would
+eventually hold the top spot.)</p><p>But after the workplace culture story erupted late last week, some
+of Away’s investors pushed to rip the band aid off and accelerate
+the CEO swap.</p></blockquote><p>Almost like they were ready to pounce.</p><p>(I happen to know a bunch of outlets were digging into this drama — kudos to Del Rey for getting the scoop.)</p><div><a  title="Permanent link to ‘Jason Del Rey on the Away Saga’"  href="https://daringfireball.net/linked/2019/12/11/del-ray-away">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Daring Fireball T-Shirts and Hoodies</title>
+    <link rel="alternate" type="text/html" href="https://daringfireball.net/shirts" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/rzx" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/11/df-tshirts-and-hoodies" />
+    <id>tag:daringfireball.net,2019:/linked//6.36285</id>
+    <published>2019-12-11T05:18:55Z</published>
+    <updated>2019-12-11T05:21:22Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p><a href="/shirts" class="no_underlines"><img class="roundrect" src="/members/images/2018/hoodie-square.png" alt="Thumbnail of a Daring Fireball logo hoodie." height="445" width="445"></a></p><p>Just like we did last year, we’ll take orders on these through the end of the week, and start shipping them out at the beginning of next week. These hoodies proved very popular last year, and feedback on them was really great. They’re surprisingly warm for how thin and light they are. In the winter I become that guy who sits around the house wearing his own logo’d hoodie.</p><div><a  title="Permanent link to ‘Daring Fireball T-Shirts and Hoodies’"  href="https://daringfireball.net/linked/2019/12/11/df-tshirts-and-hoodies">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <link rel="alternate" type="text/html" href="https://daringfireball.net/2019/12/away_replaces_ceo" />
+    <link rel="shorturl" href="http://df4.us/rzw" />
+    <id>tag:daringfireball.net,2019://1.36284</id>
+    <published>2019-12-10T03:10:51Z</published>
+    <updated>2019-12-11T07:33:12Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <summary type="text">So now the narrative is not “Away fires woman CEO and co-founder, replaces her with a man”. Instead, the narrative is “Away fires CEO who created ‘toxic culture’, brings in fresh leadership” — a narrative that wouldn’t be possible without The Verge’s story last Thursday.</summary>
+    <content type="html" xml:base="https://daringfireball.net/" xml:lang="en">
+        <![CDATA[
+<p>Charity L. Scott, reporting for The Wall Street Journal, “<a href="https://www.wsj.com/articles/online-luggage-startup-away-says-ceo-is-stepping-down-11575930577">Online Luggage Startup Away Says CEO Is Stepping Down</a>”:</p><blockquote><p>Away, an online seller of luggage that investors valued at $1.4
+billion earlier this year, said Chief Executive Steph Korey is
+stepping down.</p><p>Ms. Korey will become executive chairman of the New York
+City-based startup. Stuart Haselden, who is departing as chief
+operating officer at Lululemon Athletica Inc., will succeed her as
+CEO, according to the company. Away co-founder Jen Rubio will
+remain president and chief brand officer.</p><p>The news comes <a href="https://www.theverge.com/2019/12/5/20995453/away-luggage-ceo-steph-korey-toxic-work-environment-travel-inclusion">after an article in the Verge last week</a>
+criticized Ms. Korey’s management style as harsh, citing several
+former employees unhappy with the work environment. Ms. Korey
+apologized<a href="https://twitter.com/stephkorey/status/1203051598961954816">in a statement on Twitter</a> last week, saying she has
+worked with an executive coach to “improve as a leader.”</p><p>Away said the CEO search has been under way since this spring, and
+Mr. Haselden will take over Jan. 13. Lululemon announced his
+departure Monday.</p></blockquote><p>[<strong>Disclosure:</strong> Away has sponsored 21 episodes of my podcast,<a href="/thetalkshow">The Talk Show</a>, in the last three years, and they are on the schedule for an upcoming episode. The following is what I’d write if they never had and never would sponsor my show or website.]</p><p>It surely is not spin that Away’s board — led by Rubio, Korey’s fellow co-founder — had been searching to replace Korey for months. You can’t hire the COO of Lululemon in three days in light of a PR crisis.</p><p>So I think it’s pretty clear that The Verge inadvertently got played. They got <del>fed</del> the story and ran with it in a way that pinned all of the company’s purported cultural problems on Korey. All six quoted sources were anonymous former employees (and, coincidentally or not, women). There was a lot about<a href="https://www.theverge.com/2019/12/5/20995453/away-luggage-ceo-steph-korey-toxic-work-environment-travel-inclusion">that Verge story</a> that struck me as weird. Why<em>shouldn’t</em> the CEO be furious that the company somehow sent customers suitcases that had been used in a beach photo shoot and were covered with sand and other debris?<sup id="fnr1-2019-12-09"><a href="#fn1-2019-12-09">1</a></sup> But one of the strangest things was that while it was ostensibly a story about the company, the actual story felt almost entirely like a hit on Korey, personally. No other executive’s Slack messages were quoted as evidence of the perceived cultural problems.<sup id="fnr2-2019-12-09"><a href="#fn2-2019-12-09">2</a></sup></p><p>So now the narrative is not “Away fires woman CEO and co-founder, replaces her with a man”. Instead, the narrative is “Away fires CEO who created ‘toxic culture’, brings in fresh leadership” — a narrative that wouldn’t be possible without The Verge’s story last Thursday. It also seems clear that Korey had no idea this was coming — <a href="https://twitter.com/stephkorey/status/1203051598961954816">her statement on Twitter</a> responding to The Verge report sure doesn’t sound like the words of a woman who realizes her company board was on the cusp of replacing her after a months-long executive search.</p><p>It’s entirely possible that Korey really was responsible for a “toxic work culture”, and the truthful narrative really is “Away fires CEO who created ‘toxic culture’, brings in fresh leadership”. I’m just pointing out it beggars belief that it’s pure coincidence this story leaked to The Verge <em>just before</em> Away was set to fire Korey, such that when the company made the announcement the controversy was still fresh in everyone’s minds.</p><p><strong><span id="dec-10-update">Update</span>:</strong> Let me clarify my theory here. I doubt the Away board “planted” this story at The Verge. I’ve struck out the word “fed” in the phrase “got fed the story” above to make that clear, but I’m leaving it as struck-out text in fairness. I think The Verge’s sources for the story are actual disgruntled ex-Away employees, who really did believe that they should have been allowed to use their work-supplied Slack for inappropriate-for-work communication and who really do believe that calling it “unacceptable” when customers were shipped dented, dirty suitcases is “toxic”.</p><p>But if you take the perspective of a cutthroat startup board — and these are some mean people — it’s not outlandish to think these former employees <em>could</em> have been simply nudged to go to the press with their Steph Korey grievances, via a route untraceable back to the Away board. I doubt that. But I don’t rule it out. (One of the companies funding three of Away’s four rounds<a href="https://pitchbook.com/news/articles/scoop-away-could-land-up-to-100-million">is Global Founders Capital</a>, led by<a href="https://techcrunch.com/2011/12/22/in-confidential-email-samwer-describes-online-furniture-strategy-as-a-blitzkrieg/">Oliver Samwer</a>, who<a href="https://www.eu-startups.com/2011/12/oliver-samwer-the-most-aggressive-guy-on-the-internet/">once closed an email to a company he invested in with</a> “I am the most aggressive guy on internet [<em>sic</em>] on the planet. I will die to win and i [<em>sic</em>] expect the same from you!” Sounds to me like a guy who would maybe play some dirty pool.)</p><p>The Verge’s story was reported over weeks or months. (Months, I hear.) During their reporting they contacted Away for comment and response. Now-former CEO Steph Korey was even quoted in the story. What I think happened is that once Jen Rubio and the board — who were already plotting Korey’s ouster — became aware of the story, and the all-in-on-outrage-culture/startups-are-toxic angle it was taking, they simply let it happen without pushing back whatsoever. No vast conspiracy necessary — just let it happen. The most conspicuous thing between the publication of The Verge’s original story on Thursday and Monday night’s announcement that Korey had been replaced is that neither the company nor Rubio offered a single word of support for Korey. Not even something milquetoast or anodyne. Not a fucking word. She was hung out to dry.</p><p>The only response was <a href="https://twitter.com/stephkorey/status/1203051598961954816">Korey’s own statement</a>, issued from her personal Twitter account, and again, it<em>did not sound at all</em> like the words of a CEO who knew she was “stepping down” or who had, as now claimed, personally been involved in the search for her successor. What they sound like are the words of a CEO who thought the company and its board had her back and had no idea they’d been plotting to oust her for months.</p><p><div class="footnotes"><hr /><ol><li id="fn1-2019-12-09"><p><p>Here’s the anecdote in question from The Verge:</p></p><blockquote><p>When the photo team took suitcases to a shoot in the Hamptons and
+brought them back banged up and covered in sand, an employee who’d
+started that week was blamed for the “unacceptable” error and
+called out publicly on Slack. (The bags had eventually made their
+way to customers, and executives were furious.) “It could’ve just
+been a co-worker pulling them aside and saying this isn’t cool,”
+Erica says. “It felt like they were publicly outing the situation
+so that everybody could follow along.”</p></blockquote><p>Wouldn’t the problem be if the CEO just shrugged something like that off? How does sending those obviously-used suitcases to customers even happen? They weren’t just dented, but dirty. If a waiter served a customer a half-eaten sandwich, I’d expect the manager to immediately berate him in front of the other staff in the kitchen — not take him aside and say “Hey, that isn’t cool.”&nbsp;<a href="#fnr1-2019-12-09"  class="footnoteBackLink"  title="Jump back to footnote 1 in the text.">&#x21A9;&#xFE0E;</a></p><p></li></p><p><li id="fn2-2019-12-09"></p><p>The Verge’s next-day follow-up also struck me as odd. Their headline and sub-head: “<a href="https://www.theverge.com/2019/12/6/20999091/away-ceo-steph-korey-apology-employees-toxic-work-slack-logs-luggage-brand">Here’s the Leaked Memo in Which Away Tells Employees Not to Fave the Verge’s Investigation: CEO Steph Korey Apologizes for Her Behavior — Just as Away Clamps Down on Employee Speech</a>”. But read the memo. Away wasn’t “clamping down on employee speech” — they were dealing with a serious PR crisis. What company in the midst of a PR crisis would<em>not</em> tell employees not to talk about it? Well-run companies speak with one voice, whether in the midst of a crisis or not, but<em>especially</em> in the midst of a crisis.&nbsp;<a href="#fnr2-2019-12-09"  class="footnoteBackLink"  title="Jump back to footnote 2 in the text.">&#x21A9;&#xFE0E;︎</a></p><p></li></p><p></ol></div></p>
+
+
+
+    ]]>
+</content>
+<title>★ The Other Shoe Drops: Away Fires CEO Steph Korey After Months-Long Search for Her Replacement</title>
+</entry>
+<entry>
+    <title>WSJ: ‘Elizabeth Warren Made About $2 Million for Legal Work Over Three Decades’</title>
+    <link rel="alternate" type="text/html" href="https://www.wsj.com/articles/elizabeth-warren-made-about-2-million-for-legal-work-over-three-decades-11575854904" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/rzp" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/09/warren-wsj-2m-headline" />
+    <id>tag:daringfireball.net,2019:/linked//6.36277</id>
+    <published>2019-12-09T23:11:04Z</published>
+    <updated>2019-12-10T02:44:33Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Am I reading this headline wrong? My take is that the emphasis is on “Elizabeth Warren Made $2 Million” — which to my ears implies an angle of “<em>See, she’s made a lot of money too</em>”. But $2 million really isn’t that much money. And in the world of corporate law, it seems only a pittance. Let’s round “three decades” to 30 years — that’s only $67,000 a year. If the WSJ ran a story on the 40-year career of, say, a public school teacher who averaged, say, $50,000 in salary over that span, I highly doubt they’d start with a headline like “Public School Teacher Earned $2 Million Over Four Decades”.</p><p>“Elizabeth Warren Averaged $67,000 Per Year in Legal Work Over Three Decades” gives the exact same story a very different slant.</p><p><strong>Update:</strong> Holy hell The Washington Post is even worse than the Journal, running its story under the headline “<a href="https://www.washingtonpost.com/politics/sen-elizabeth-warren-earned-nearly-2-million-consulting-for-corporations-and-financial-firms-records-show/2019/12/08/e8f56638-1a18-11ea-87f7-f2e91143c60d_story.html">Sen. Elizabeth Warren Earned Nearly $2 Million Consulting for Corporations and Financial Firms, Records Show</a>” —<em>with no timeline whatsoever for the period over which she earned the money</em>, which clearly leads the reader to assume it was over a brief period of time before she became a senator. This framing is genuinely outrageous.</p><p>This whole thing where the news media is trying to gin up controversy over what is <em>not a lot of money</em> recalls<a href="https://www.youtube.com/watch?v=EJR1H5tf5wE">Dr. Evil’s “One <em>million</em> dollars” blackmail threat</a>. Except Dr. Evil was just a character in a silly comedy and Elizabeth Warren is a leading candidate for the Democratic presidential nomination whom her opponents are trying to stick with the tag that she’s a hypocrite. 2016’s endless “but her emails” <a href="https://www.theguardian.com/us-news/2019/oct/18/clinton-emails-investigation-ends-state-department">bullshit</a> proves that when the straight news media plays along with these narratives, they stick, with disastrous results.</p><div><a  title="Permanent link to ‘WSJ: ‘Elizabeth Warren Made About $2 Million for Legal Work Over Three Decades’’"  href="https://daringfireball.net/linked/2019/12/09/warren-wsj-2m-headline">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>The Information: ‘Apple’s Ad-Targeting Crackdown Shakes Up Ad Market’</title>
+    <link rel="alternate" type="text/html" href="https://www.theinformation.com/articles/apples-ad-targeting-crackdown-shakes-up-ad-market" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/rzu" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/09/the-information-ad-tracking" />
+    <id>tag:daringfireball.net,2019:/linked//6.36282</id>
+    <published>2019-12-09T21:50:00Z</published>
+    <updated>2019-12-09T21:50:01Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Tom Dotan, writing for the subscriber-only The Information:</p><blockquote><p>Two years ago, Apple launched an aggressive battle against ads
+that track users across the web. Today executives in the online
+publishing and advertising industries say that effort has been
+stunningly effective — posing a problem for advertisers looking
+to reach affluent consumers.</p><p>Since Apple introduced what it calls its Intelligent Tracking
+Prevention feature in September 2017, and with subsequent updates
+last year, advertisers have largely lost the ability to target
+people on Safari based on their browsing habits with cookies, the
+most commonly used technology for tracking. One result: The cost
+of reaching Safari users has fallen over 60% in the past two
+years, according to data from ad tech firm Rubicon Project.
+Meanwhile ad prices on Google’s Chrome browser have risen
+slightly.</p><p>That reflects the fact that advertisers pay more money for ads
+that can be targeted at people with specific demographics and
+interests. “The allure of a Safari user in an auction has
+plummeted,” said Rubicon Project CEO Michael Barrett. “There’s no
+easy ability to ID a user.”</p></blockquote><p>So: Intelligent Tracking Prevention is working.</p><div><a  title="Permanent link to ‘The Information: ‘Apple’s Ad-Targeting Crackdown Shakes Up Ad Market’’"  href="https://daringfireball.net/linked/2019/12/09/the-information-ad-tracking">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>The Grouch</title>
+    <link rel="alternate" type="text/html" href="https://www.youtube.com/watch?v=GE7EWDKVM1Y" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/rzt" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/09/the-grouch" />
+    <id>tag:daringfireball.net,2019:/linked//6.36281</id>
+    <published>2019-12-09T21:46:34Z</published>
+    <updated>2019-12-09T21:46:35Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Indirectly, Caroll Spinney’s Oscar the Grouch played an obscure footnote role in Macintosh history, starring in Eric Shapiro’s unsanctioned, utterly-useless-yet-utterly-delightful <a href="https://macintoshgarden.org/apps/the-grouch">The Grouch system extension for classic Mac OS</a>. If anything, The Grouch was anti-productivity software, because it made emptying the Trash take<em>longer</em>, but we loved it nonetheless. Obviously, our affection for Spinney’s Oscar was at the heart of that. There was an entire genre of just-for-fun gag extensions for the old Mac OS, and to my mind, The Grouch was the king of them.</p><div><a  title="Permanent link to ‘The Grouch’"  href="https://daringfireball.net/linked/2019/12/09/the-grouch">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Caroll Spinney, Puppeteer Who Gave Life to Big Bird of ‘Sesame Street’, Dies at 85</title>
+    <link rel="alternate" type="text/html" href="https://www.washingtonpost.com/local/obituaries/caroll-spinney-puppeteer-who-gave-life-to-big-bird-of-sesame-street-dies-at-85/2019/12/08/9a305ff0-402d-11e9-9361-301ffb5bd5e6_story.html?outputType=amp" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/rzs" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/09/caroll-spinney-rip" />
+    <id>tag:daringfireball.net,2019:/linked//6.36280</id>
+    <published>2019-12-09T21:38:38Z</published>
+    <updated>2019-12-09T21:38:38Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Emily Langer, writing for The Washington Post:</p><blockquote><p>Caroll Spinney, the puppeteer who gave life to Big Bird, the
+towering yellow avian of TV’s “Sesame Street” who accompanied
+generations of youngsters in the arduous, yet wondrous, work of
+growing up, died Dec. 8 at his home in Connecticut. He was 85 and
+died hours before “Sesame Street” received Kennedy Center Honors
+for achievement in the arts. […]</p><p>Mr. Spinney, who said he had been teased in childhood for his
+fascination with what his tormentors mocked as “dolls,” met Henson
+at a puppetry convention and first donned Big Bird’s 4,000
+canary-yellow feathers for the show’s opening season. In thousands
+of episodes over nearly a half-century, he gave voice and motion
+to Big Bird and to Oscar the Grouch, the shaggy green trash
+can-dweller who showed children that they needed not always be
+happy and that it was okay to like things others didn’t — trash,
+for instance. […]</p></blockquote><p>Spinney’s characters were a huge part of my childhood — and my son’s. That’s an amazing testament to Sesame Street’s timelessness and durability.</p><div><a  title="Permanent link to ‘Caroll Spinney, Puppeteer Who Gave Life to Big Bird of ‘Sesame Street’, Dies at 85’"  href="https://daringfireball.net/linked/2019/12/09/caroll-spinney-rip">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Nike Swoosh to Appear on the Front of Every MLB Uniform in 2020</title>
+    <link rel="alternate" type="text/html" href="https://mlb.nbcsports.com/2019/12/09/nike-swoosh-to-appear-on-the-front-off-every-uniform-in-2020/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/rzr" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/09/nike-mlb-uniforms" />
+    <id>tag:daringfireball.net,2019:/linked//6.36279</id>
+    <published>2019-12-09T21:08:45Z</published>
+    <updated>2019-12-09T21:08:46Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Craig Calcaterra, writing for NBC Sports:</p><blockquote><p><a href="https://mlb.nbcsports.com/2019/01/25/swoosh-up-front-nike-to-replace-under-armour-for-mlb/">We knew as of last January that this was coming</a> — and the
+new uniform designs teams like the Padres, Brewers and Rangers
+have released in the past few weeks have shown it — but today the
+images were all released: all 30 teams will wear jerseys with the
+Nike Swoosh prominently placed on the front starting in the 2020
+season. […]</p><p>They aren’t all <em>that</em> bothersome on most uniform styles,
+particularly the newer and busier ones. But to my eyes the Swoosh
+is a desecration of the more classic, cleaner uniforms like the
+Yankees, Dodgers, and Tigers as shown above. Yeah, that’s some
+traditionalism on my part talking — OK, a LOT of traditionalism
+on my part talking — but it does, objectively, throw off the
+balance that some of the better uniform designs have long had.</p></blockquote><p>I’m of course most partial to the Yankees, but I’d say the swoosh is even more objectionably prominent on the Dodger and Tiger jerseys, because they’re so utterly plain. The Yankee pinstripes disguise it to some degree.</p><p>On the good news front, the old-is-new uniforms for the <a href="https://uni-watch.com/2019/11/19/big-news-brewers-unveil-new-uni-set/">Brewers</a> and<a href="https://uni-watch.com/2019/11/10/order-restored-to-uni-verse-as-padres-bring-back-brown/">Padres</a> are both excellent. The Brewers have too many alternates — the pinstriped home alternates feel off-brand, and the alternate cap is just dumb-looking — but both of these uniforms are spot-on for the teams, both of which had gone way off track in recent decades. Kudos to the Padres for sticking with just one cap.</p><div><a  title="Permanent link to ‘Nike Swoosh to Appear on the Front of Every MLB Uniform in 2020’"  href="https://daringfireball.net/linked/2019/12/09/nike-mlb-uniforms">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Beijing Orders State Offices to Replace Foreign PCs and Software</title>
+    <link rel="alternate" type="text/html" href="https://www.ft.com/content/b55fc6ee-1787-11ea-8d73-6303645ac406" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/rzq" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/09/china-bans-foreign-pcs" />
+    <id>tag:daringfireball.net,2019:/linked//6.36278</id>
+    <published>2019-12-09T19:44:41Z</published>
+    <updated>2019-12-09T20:44:53Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>Yuan Yang and Nian Liu, reporting for The Financial Times from Beijing:</p><blockquote><p>Beijing has ordered all government offices and public institutions
+to remove foreign computer equipment and software within three
+years, in a potential blow to the likes of HP, Dell and Microsoft.</p><p>The directive is the first publicly known instruction with
+specific targets given to Chinese buyers to switch to domestic
+technology vendors, and echoes efforts by the Trump administration
+to curb the use of Chinese technology in the US and its allies.</p></blockquote><p>I can’t decide if this is part of the Trump-initiated US-China trade war, or if this is just China being China and part of an initiative that would’ve happened regardless of who the current U.S. president was.</p><p>Also, I doubt Chinese government offices buy many Macs, but what about iPhones? This could be a bit of a blow to Apple as well.</p><div><a  title="Permanent link to ‘Beijing Orders State Offices to Replace Foreign PCs and Software’"  href="https://daringfireball.net/linked/2019/12/09/china-bans-foreign-pcs">&nbsp;★&nbsp;</a></div>
+
+	]]>
+</content>
+</entry>
+<entry>
+    <title>Mac Pro and Pro Display XDR Orders Start Tuesday</title>
+    <link rel="alternate" type="text/html" href="https://techcrunch.com/2019/12/08/the-new-mac-pro-goes-up-for-order-december-10/" />
+    <link rel="shorturl" type="text/html" href="http://df4.us/rzo" />
+    <link rel="related" type="text/html" href="https://daringfireball.net/linked/2019/12/08/mac-pro-orders-december-10" />
+    <id>tag:daringfireball.net,2019:/linked//6.36276</id>
+    <published>2019-12-09T03:09:15Z</published>
+    <updated>2019-12-09T03:13:34Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <content type="html" xml:base="https://daringfireball.net/linked/" xml:lang="en">
+        <![CDATA[
+<p>No news on build-to-order pricing or when they’ll actually ship.</p><div><a  title="Permanent link to ‘Mac Pro and Pro Display XDR Orders Start Tuesday’"  href="https://daringfireball.net/linked/2019/12/08/mac-pro-orders-december-10">&nbsp;★&nbsp;</a></div>
+
+	]]>
+    </content>
+</entry>
+<entry>
+    <link rel="alternate" type="text/html" href="https://daringfireball.net/2019/11/cook_trump_campaign_ad" />
+    <link rel="shorturl" href="http://df4.us/rz4" />
+    <id>tag:daringfireball.net,2019://1.36256</id>
+    <published>2019-11-21T05:57:15Z</published>
+    <updated>2019-11-21T06:18:41Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <summary type="text">A low moment in Apple’s proud history, and a sadly iconic moment for Tim Cook. I hope avoiding those tariffs is worth it.</summary>
+    <content type="html" xml:base="https://daringfireball.net/" xml:lang="en">
+        <![CDATA[
+<p><a href="https://twitter.com/realdonaldtrump/status/1197316106236481539">Donald Trump, tweeting a re-election video shot during his tour of Apple’s Mac Pro assembly plant today</a>:</p><blockquote><p>Today I opened a major Apple Manufacturing [<em>sic</em>] plant in Texas
+that will bring high paying jobs back to America. Today Nancy
+Pelosi closed Congress because she doesn’t care about American
+Workers! [<em>sic</em>]</p></blockquote><p>I’ve been on board with Cook’s stance on engaging Trump. <a href="https://fortune.com/2017/06/20/tim-cook-jeff-bezos-trump-american-technology-council-photos/">Participating in Trump’s technology council</a> does not imply support for Trump. Engaging Trump personally, in private phone calls and<a href="https://www.instagram.com/p/BmWnGxuh6Oz/">dinners</a>, does not imply support. But appearing alongside Trump at an Apple facility in a staged photo-op is implicit support for Trump and his re-election.</p><p>This wasn’t a promotion for the Mac Pro or its assembly plant. It was a promotion for Trump. This video makes it look like Trump’s trade policies have been good for Apple and that Tim Cook supports Trump. Both of those things are false. Even Trump’s predictable claim that this is a new facility is false — Apple, in what at the time was <a href="https://www.nbcnews.com/video/exclusive-brian-williams-interviews-apple-ceo-11421251878">a high-profile shift</a>, has been manufacturing Mac Pros at the same facility since 2013. Apple isn’t bringing Mac Pro assembly back to the U.S. because of Trump’s trade policies; Apple is<em>keeping</em> Mac Pro production here solely because Trump granted Apple an<em>exemption</em> to his tariffs — tariffs that he himself<a href="https://www.nytimes.com/2019/08/08/opinion/trump-china-trade.html">clearly does not understand</a>.</p><p>But Cook went into this knowing that this is how Trump would play it — a big pile of nonsensical horseshit all the way down.</p><p>This is how Apple chose to unveil the packaging for the Mac Pro — in a poorly-shot overexposed propaganda video by the White House, scored with bombastic music that sounds like it came from an SNL parody of a Michael Bay film. Think about how it feels to work on that team at Apple. </p><p><a href="https://www.nytimes.com/2019/11/20/us/politics/trump-texas-apple-factory.html">Jack Nicas, in an acerbic news analysis piece at The New York Times</a>:</p><blockquote><p>On Wednesday, Mr. Trump called Mr. Cook a “very special person”
+because of his ability to create jobs. He turned to Mr. Cook and
+said, “What would you say about our economy compared to
+everybody else?”</p><p>Mr. Cook replied, “I think we have the strongest economy in
+the world.”</p><p>“Strongest in the world,” Mr. Trump said.</p><p>The president then took questions on the impeachment inquiry and
+launched into a tirade against “the fake press.” Mr. Cook stood
+silently nearby.</p></blockquote><p>“Mr. Cook stood silently nearby.”</p><p>A low moment in Apple’s proud history, and a sadly iconic moment for Tim Cook. I hope avoiding those tariffs is worth it.</p>
+
+
+
+    ]]>
+</content>
+<title>★ Tim Cook Appears Alongside Trump in Re-Election Campaign Ad Shot in Mac Pro Plant in Austin</title>
+</entry>
+<entry>
+    <link rel="alternate" type="text/html" href="https://daringfireball.net/2019/11/vaperware" />
+    <link rel="shorturl" href="http://df4.us/rz3" />
+    <id>tag:daringfireball.net,2019://1.36255</id>
+    <published>2019-11-21T04:37:27Z</published>
+    <updated>2019-11-22T17:40:05Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <summary type="text">On Apple’s decision to ban vaping-related apps from the App Store.</summary>
+    <content type="html" xml:base="https://daringfireball.net/" xml:lang="en">
+        <![CDATA[
+<p><a href="https://www.macworld.com/article/3453674/dangerous-lifestyles-you-re-not-my-dad-apple.html">The Macalope is not a fan of Apple’s ban on vaping-related apps from the App Store</a>:</p><blockquote><p>If you’re not into vaping, it’s pretty easy to cheer this action.
+For starters, some vaping companies are terrible people. Second,
+some kinds of vaping are simply not good for you, even when they
+don’t contain cyanide. So who could be against this move?</p><p>Well, vapers, certainly. There are actually very good reasons why
+some people vape, medical ones. For now those who have installed
+the apps can continue to use them, but in the long term developers
+have no way to deliver updates that could provide bug fixes or
+firmware updates.</p><p>It’s worth pointing out that the canisters that did contain
+cyanide were counterfeit. The Macalope just checked his local
+liquor store and we haven’t banned alcohol sales because prison
+wine blinded some people. He also checked the App Store and we
+haven’t banned mixology apps, either. But one of the apps Apple
+banned actually checked canisters to see if they were counterfeit.</p></blockquote><p><a href="https://www.zdnet.com/article/nannytechnology-thanks-for-breaking-my-medical-marijuana-vape-apple/">Neither is medical marijuana user Jason Perlow</a>:</p><blockquote><p>But there are also more sophisticated devices that have USB and
+even Bluetooth interfaces to enable the patient to control heat
+settings, display lights, and update the firmware. The Bluetooth
+devices are accompanied by apps on the iOS and Android mobile
+platforms which can allow the patient to measure and monitor their
+usage, and, <a href="https://www.pax.com/blogs/press/apple-cannabis-and-the-law-of-unintended-consequences">as is the case with PAX</a> to identify the
+medication loaded into the device, and to understand its contents,
+such as the overall cannabinoid profile, the terpene mix, and
+other components. It also allows a user to validate the
+authenticity of the medication as well as testing and batch
+results.</p></blockquote><p><a href="https://stratechery.com/2019/integration-and-monopoly/">Neither is Ben Thompson</a>:</p><blockquote><p>Those apps — and by extension, device functionality — are no
+longer available to iPhone users — you can’t get this level of
+functionality in a browser — not because regulators ruled them
+illegal, or because Congress passed a law, but because a group of
+technology executives said so. And, what they said held sway
+because the App Store is integrated with the iPhone: Apple has a
+monopoly on what apps can or cannot be installed.</p></blockquote><p>To keep it all here on one page, <a href="https://daringfireball.net/linked/2019/11/18/app-store-vaping">my take from Monday</a>:</p><blockquote><p>I think I’m OK with this overall, but it’s a close call. The stuff
+about selling cartridges, and sharing news — it’s fine for that
+stuff to be out of the App Store because you can get it on the
+web. But Bluetooth stuff where apps were used as the interface for
+controlling hardware — web apps can’t do that (nor should they be
+able to). There is no alternative to a native app, and native apps
+are only available on the App Store. This would be an easy call to
+make (and would have been made from the get-go by Apple) if vaping
+were illegal. But it’s not illegal.</p></blockquote><h2>Booze Is Not a Good Comparison</h2><p>A few readers, objecting to my “I think I’m OK with this overall” stance, posed the same question The Macalope did: why not alcohol-related apps, too? Wouldn’t I — who partakes of an occasional libation — staunchly object to a ban on, say, <a href="https://apps.apple.com/us/app/highball-by-studio-neat/id973319934">cocktail recipe apps</a>? Well, no. If Apple were to issue a blanket ban on alcohol-related apps, I wouldn’t<em>object</em> so much as I would worry that Apple had lost its mind. Vaping and alcohol are both legal in the U.S., but they are<em>not</em> in the same ballpark.</p><p>There is a stigma — growing rapidly — attached to vaping that is not attached to alcohol. Vaping is controversial in ways that drinking is not. Is that fair? No. Apple cited <a href="https://www.usnews.com/news/top-news/articles/2019-11-14/us-vaping-related-deaths-rise-to-42-cases-of-illness-to-2-172">42 recent vaping-related deaths</a> in the U.S.<a href="https://www.axios.com/exclusive-apple-to-remove-vaping-apps-from-store-8669fd94-e92a-4ce4-a9e2-ce5afa598b67.html">in its decision to ban vaping apps</a> from the App Store. The National Institute of Health estimates that<a href="https://www.niaaa.nih.gov/publications/brochures-and-fact-sheets/alcohol-facts-and-statistics">88,000 Americans die from alcohol-related causes annually</a> — which, if true, means over 240<em>per day</em>. There’s a good chance someone in the U.S. will die from an alcohol-related cause by the time you finish reading this article. Is it fair that we as a society have accepted that, but consider 42 vaping-relating deaths a crisis? No.</p><p>This isn’t about vaping being bad and alcohol being good. It’s about vaping being controversial and alcohol being firmly socially accepted. President Trump has not called for a ban on fruit-flavored vodka, but he did call for a ban on fruit-flavored vape cartridges. Now, in the past week, <a href="https://www.washingtonpost.com/national/health-science/trump-pulls-back-from-flavored-vaping-ban/2019/11/17/30853ece-07ae-11ea-924a-28d87132c7ec_story.html">Trump has walked away from that proposed ban</a>, because, it turns out,<a href="https://www.nytimes.com/2019/11/19/opinion/trump-vaping-ban.html">his proposed ban was politically risky</a>. My point here isn’t whether vape users skew toward being Trump supporters — I have no idea, and wouldn’t be surprised if vaping demographics showed no tilt toward the left or right, per se, but<a href="https://www.pewresearch.org/fact-tank/2019/09/26/vaping-survey-data-roundup/">merely toward being young</a> — but simply to point out that vaping is so controversial as to have risen to the level of presidential politics.</p><p>If alcohol were as contentious an issue in the U.S. today <a href="https://constitutioncenter.org/interactive-constitution/amendment/amendment-xviii">as it was 100 years ago</a>, I would expect Apple to ban alcohol-related apps long before Prohibition became the law of the land. But it’s<em>not</em> contentious today.</p><p>And, speaking of alcohol-related apps, in the early days of the App Store there were apps that flagged the locations of DUI checkpoints. These apps were not illegal — in some cases the data for the apps came from the police departments themselves. <a href="https://www.macworld.com/article/1159850/dui_checkpoint_apps_apple.html">In testimony before the U.S. Senate in May 2011</a>, Apple VP Bud Tribble cited that fact as one reason why Apple allowed the apps in the App Store.</p><p>Three weeks later, <a href="https://www.cnet.com/news/apple-bans-dui-checkpoint-apps-on-ios-devices/">Apple updated its App Store guidelines to ban such apps, and removed them from the store</a>. They have not returned.</p><p>Like vaping apps, those DUI apps were perfectly legal. Also like vaping, they were controversial. The analogy is not perfect. Having executives drawn into testimony before Congress — as with the DUI checkpoint apps — is no small matter. There are no Senate hearings on the vaping epidemic — <em>yet</em>. Look at those graphs in<a href="https://www.pewresearch.org/fact-tank/2019/09/26/vaping-survey-data-roundup/">the PEW Research demographic study of vapers</a> I linked to above —<a href="https://www.pewresearch.org/fact-tank/2019/09/26/vaping-survey-data-roundup/ft_19-09-20_vapingfacts_1_3/">particularly this one</a>. The rate at which vaping is growing among high school and college students is striking. In 2016 13 percent of high school seniors reported vaping in the previous 30 days; two years later it was double that figure. If this continues apace, it seems inevitable vaping will soon reach the level of Congressional investigations.</p><p>I would wager that Apple changed its mind back in 2011 on DUI checkpoint apps not because of political pressure — remember, they defended them in a Senate hearing — but because they decided it was simply the right thing to do. I would bet that’s a factor with the vaping ban.</p><p>Online gambling is legal in several U.S. states today. It’s perfectly legal in numerous countries around the word. There have never been any apps in the App Store that let you gamble with real money.<sup id="fnr1-2019-11-20"><a href="#fn1-2019-11-20">1</a></sup> Most pornography is legal — never been in the App Store, never will be. All of it: controversial. And, to varying extents: seedy.</p><p>Apple certainly isn’t being cowardly here. If anything, the quick political backlash to Trump’s proposed outlawing of flavored vape cartridges shows that taking a stand <em>against</em> vaping is the riskier route.</p><h2>The Better Comparison: Tobacco and ‘Weed’ Smoking</h2><p>Search the App Store for “tobacco” or “cigarettes” and most of what you’ll find are apps intended to help people quit smoking. But there are some eyebrow-raising exceptions.</p><p>“<a href="https://apps.apple.com/us/app/tobacco-inc-cigarette-inc/id993090851">Tobacco Inc. (Cigarette Inc.)</a>” is an iOS game with the following premise:</p><blockquote><p>You have been a president of tobacco company. By developing
+new varieties and diverse additives and by making cigarette
+having high-addictiveness, grow the company as the best
+company in the world. Achieve 99.9% of global smoking rate and
+99.9% of market share.</p><p>The future of cigarette is up to you.</p></blockquote><p>It’s not clear if that 99.9% figure includes children. (Also, consider one big “[<em>sic</em>]” applied to that whole description.)</p><p>A few others: “<a href="https://apps.apple.com/us/app/itsmoke/id861595313">itSmoke</a>” (a cigarette smoking simulator — with decent graphics!), “<a href="https://apps.apple.com/us/app/iroll-up-the-rolling-and-smoking-simulator-game/id490726292">iRoll Up the Rolling and Smoking Simulator Game</a>” (a “game” in which you roll and “spark up” your own “cigarettes”), and an entire sub-genre of games that show up when you search for “weed baron”.</p><p>As it stands today, tobacco and marijuana are OK in the App Store if you smoke them but banned if you vape them. That distinction seems impossible to defend, other than by noting that vaping is a hot topic in the news, and cigarettes and weed baroning are not.</p><h2>The Case Against the Vaperware Ban</h2><p>All that said, my personal take remains unchanged: I think I’m OK with Apple’s decision, but it’s a close call. I’m not even saying I <em>agree</em> with it. If the decision were mine to make, I’d have left the vape apps in the store — for now at least. But I think it’s an edge case that makes for a close call, so I’m OK with it.</p><p>This seems to be problematic for some readers to come to grips with — that I can accept a decision I disagree with. To me, it’s like watching an instant replay in baseball. The umpire calls the baserunner out. One replay camera angle makes the runner look safe; a different angle makes the runner look out. Neither angle is conclusive. Maybe I feel the angle that makes the runner look safe is more compelling. But the umps review the play and the call stands: out. I’m OK with that, <em>because it was close</em>. Usually, instant replays in baseball<em>are</em> conclusive. Usually, with App Store rejections and policy changes, the correct course of action for Apple is clear.</p><p>My strong preference for the App Store, so long as it remains the only way to install apps as a consumer<sup id="fnr2-2019-11-20"><a href="#fn2-2019-11-20">2</a></sup> (that is to say, non-developer, non-enterprise users), is for Apple to be guided by two factors: the law, and compliance with App Store technical policies.</p><p>The legal part is obvious. Apple has no choice but to comply with the laws around the world in every country in which the App Store operates. On the matter of technical polices, I mean things like forbidding the use of private APIs, abusing system resources, violating the privacy or security of users, etc. Rules that should apply equally to all apps from all third-party developers.</p><p>Does the app adhere to the law? Does the app adhere to Apple’s rules? If the answer is yes to both questions then the app should be in the App Store.</p><p>But there are always going to be exceptions. Pornography, gambling, and hate speech have been exceptions from the beginning. </p><p>The X-factor with Apple’s vaperware ban is Bluetooth — using apps to control hardware devices. All sorts of things that are banned from the App Store are adequately, if not equally, accessible via the web. The <a href="https://daringfireball.net/linked/2019/10/10/apple-pulls-hkmaps">HKMaps.live app</a> is a great example of that: the<a href="https://hkmaps.live/">hkmaps.live website</a> offers almost the exact same features<em>and</em> experience as the native app Apple yanked from the App Store. (To be clear, I oppose Apple’s decision in that case — I simply feel better about it knowing that iPhone-owning Hongkongers still have access to the same information.)</p><p>Hardware is different. Web apps can’t access Bluetooth. Without a native app there is no workaround. From <a href="https://www.pax.com/blogs/press/apple-cannabis-and-the-law-of-unintended-consequences">Pax’s well-argued response to Apple’s ban</a>:</p><blockquote><p>At PAX, we are committed to delivering technology that enables
+adults to make educated, informed choices. Millions of consumers
+in 34 legal states, including a large number of medical patients
+and veterans, rely on the PAX Mobile App to control their session
+size, set the correct temperature and have lockout abilities to
+prevent children from accessing our devices. Last Tuesday, we
+announced our new PodID feature, which — in light of the current
+threats posed by the illicit market — provides consumers with
+unprecedented access to information about what’s in their pods,
+including strain information, cannabinoid and terpene profiles,
+access to state-regulated test results and more.</p></blockquote><p>There are exceptions to almost every rule, and if Apple is considering exceptions to its vaping ban — and they should be — they should start with companies like Pax, whose apps cannot be replicated on the web and whose products can and often are used in legal, medically-sanctioned ways.</p><div class="footnotes"><hr /><ol><li id="fn1-2019-11-20"><p>Unless it’s on Wall Street, where it’s called “investing” and is A-OK.&nbsp;<a href="#fnr1-2019-11-20"  class="footnoteBackLink"  title="Jump back to footnote 1 in the text.">&#x21A9;&#xFE0E;</a></p></li><li id="fn2-2019-11-20"><p>Which of course raises the obvious and long-debated solution to any dispute regarding Apple’s unconstrained control over what is allowed in the App Store: allowing apps to be sideloaded. Allow iOS to work like MacOS — where only App Store apps are allowed by default but users have the option to also install apps from identified developers. That would be a solution to the problem of Apple’s capriciousness and/or moral rectitude — but the full ramifications of allowing sideloading on iOS aren’t simple at all. It’s a complicated situation that would require a complicated explication, and to pretend that it’s <em>only</em> about Apple protecting its 15-30 percent revenue cut — although undeniably that’s a huge factor — is disingenuous.&nbsp;<a href="#fnr2-2019-11-20"  class="footnoteBackLink"  title="Jump back to footnote 2 in the text.">&#x21A9;&#xFE0E;︎</a></p></li>
+
+</ol></div>
+
+
+
+    ]]>
+</content>
+<title>★ L’Affaire Vaperware</title>
+</entry>
+<entry>
+    <link rel="alternate" type="text/html" href="https://daringfireball.net/2019/11/16-inch_macbook_pro_first_impressions" />
+    <link rel="shorturl" href="http://df4.us/rym" />
+    <id>tag:daringfireball.net,2019://1.36238</id>
+    <published>2019-11-13T13:40:34Z</published>
+    <updated>2019-11-20T18:42:18Z</updated>
+    <author>
+        <name>John Gruber</name>
+        <uri>http://daringfireball.net/</uri>
+    </author>
+    <summary type="text">We shouldn’t be celebrating the return of longstanding features we never should have lost in the first place. But Apple’s willingness to revisit these decisions — their explicit acknowledgment that, yes, keyboards are meant to by typed upon, not gazed upon — is, if not cause for a party, at the very least cause for a jubilant toast.</summary>
+    <content type="html" xml:base="https://daringfireball.net/" xml:lang="en">
+        <![CDATA[
+<h2>If You Try Sometimes, You Just Might Find, You Get What You Need</h2><p>Apple today released its much-rumored new <a href="https://www.apple.com/macbook-pro-16/">16-inch MacBook Pro</a>.</p><p>It is full of good news.</p><p>Yesterday, Apple held a series of roundtable briefings for the media in New York. There was an on-the-record introduction followed by an off-the-record series of demos.<sup id="fnr1-2019-11-13"><a href="#fn1-2019-11-13">1</a></sup> The introduction was led by MacBook Pro product manager Shruti Haldea, along with senior director of Mac product marketing Tom Boger and Phil Schiller. Attending media received loaner units to review. Let’s not even pretend that a few hours is enough time for a proper review, but it’s more than enough time to establish some strong broad impressions. Here’s what you need to know, in what I think is the order of importance.</p><h2>The Keyboard</h2><p>We got it all: a return of scissor key mechanisms in lieu of butterfly switches, a return of the inverted-T arrow key arrangement, and a hardware Escape key. Apple stated explicitly that their inspiration for this keyboard is the Magic Keyboard that ships with iMacs. At a glance, it looks very similar to the butterfly-switch keyboards on the previous 15-inch MacBook Pros. But don’t let that fool you — it feels completely different. There’s a full 1mm of key travel; the butterfly keyboards only have 0.5mm. This is a very good compromise on key travel, balancing the superior feel and accuracy of more travel with the goal of keeping the overall device thin. (The new 16-inch MacBook Pro is, in fact, a little thicker than the previous 15-inch models overall.) Calling it the “Magic Keyboard” threads the impossible marketing needle they needed to thread: <a href="https://twitter.com/danielpunkass/status/1194613277227208705">it concedes everything while confessing nothing</a>. Apple has always had a great keyboard that could fit in a MacBook — it just hasn’t been in a MacBook the last three years.</p><p>There’s also more space between keys — about 0.5mm. This difference is much more noticeable by feel than by sight. Making it easier to feel the gaps between keys really does make a difference. Like the 15-inch MacBook Pro, all 16-inch models come with the Touch Bar. But even there, there’s a slight improvement: it’s been nudged further above the top row of keys, to help avoid accidental touches. No haptic feedback or any other functional changes to the Touch Bar, though.</p><p>It’s hard not to speculate that all of these changes are, to some degree, a de-Jony-Ive-ification of the keyboard. For all we on the outside know, this exact same keyboard might have shipped today even if Jony Ive were still at Apple.<sup id="fnr2-2019-11-13"><a href="#fn2-2019-11-13">2</a></sup> I’m not sure I know anyone, though, who would disagree that over the last 5-6 years, Apple’s balance of how things <em>work</em> versus how things<em>look</em> has veered problematically toward making things look better — hardware and software — at the expense of how they function.</p><p>Allow me to fixate on one particular detail: the arrow keys. The only reason to switch from the classic upside-down T arrangement to full-size left and right arrow keys is that it makes the keyboard look better. With the upside-down T arrangement, the gaps above the left and right arrow look a little funny, in the abstract. But those gaps serve a huge functional purpose — they make it so much easier to put your fingers on those keys without looking at the keyboard. The gaps give you something to feel for. Having used recent MacBook family keyboards for months at a time over the past few years, the arrow key arrangement has been my biggest annoyance by far. More than the low-travel keys, more than the missing hardware Escape button, more than narrow gaps between keys. I just could never get used to not having those gaps in the arrow key layout. I resorted to putting small strips of <a href="https://en.wikipedia.org/wiki/Gaffer_tape">gaffer tape</a> on the lower half of the left and right keys to have<em>something</em> to feel for.</p><p>What Apple emphasized yesterday in its presentation is not that the butterfly-switch keyboards are problematic or unpopular. They can’t do that — they still include them on every MacBook other than this new 16-inch model. And even if they do eventually switch the whole lineup to this new keyboard — and I think they will, but of course, when asked about that, they had no comment on any future products — it’s not Apple’s style to throw one of their old products under the proverbial bus. What Apple emphasized is simply that they listened to the complaints from professional MacBook users. They recognized how important the Escape key is to developers — they even mentioned <a href="https://www.vim.org/">Vim</a> by name during a developer tool demo. And they emphasized that they studied what makes for a good keyboard. What reduces mistakes, what increases efficiency. And they didn’t throw away the good parts of the butterfly keyboard — including excellent backlighting and especially the increased stability, where keys go down flat even when pressed off-center. The keys on this keyboard don’t wobble like the keys on pre-2016 MacBook Pro keyboards do.</p><p>Typing is very quiet on the new keyboard, and the sound it does make is satisfying. Less click-ity, more chunk-ity.</p><p>In short, Apple did not simply go back to the old style keyboards. It’s a new design, with the best attributes of the old 2015 keyboards and the recent butterfly-switch keyboards.</p><p>Lastly, Apple seems very confident that this new keyboard design is durable and reliable. The new 16-inch MacBook Pro is not covered by Apple’s <a href="https://support.apple.com/keyboard-service-program-for-mac-notebooks">keyboard service program</a>, because they apparently don’t need to be.</p><p>I expected Apple to do this — to correct the mistakes of the previous keyboard. But I feared that they wouldn’t, out of stubborn pride or just plain bad taste in keyboard design. It is a bit frustrating that it took them three years to do it, but they did it. This is what their modern MacBook keyboards should have been like all along.</p><h2>Audio</h2><p>A keyboard reboot we all saw coming. Here’s one I did not: the new 16-inch MacBook Pro has radically improved built-in speakers. This is the audio equivalent of going from chunky pixels to retina displays. It’s that big a difference.</p><p>It’s not simply about being louder, although they are louder at maximum volume. They just sound impossibly better. They don’t merely sound like good laptop speakers — they sound like good dedicated portable speakers, period. In a small room, you can credibly use the 16-inch MacBook Pro to play music as though it’s an entertainment speaker system. And at maximum volume they really are a <em>lot</em> louder — without the sort of distortion we’ve all come to expect from laptop speakers at high volume.</p><p>Apple’s demos pitted the new MacBook Pro against high-end models from Dell, Razer, and (I think) HP. It was an embarrassing comparison. I of course can see why Apple’s own demo compared the new MacBook Pro against laptops from competitors, but the difference is just as stark when compared to the 15-inch MacBook Pro from 2018.</p><p>In addition to sounding <em>holy-shit-I-can’t-believe-these-are-laptop-speakers</em> better, the new speakers also vibrate less when the volume is high. Other laptop speakers, including Apple’s, pump audio through the keyboard. You can feel the whole machine vibrate with your fingers on the keys. Not so much with the new 16-inch MacBook Pro, even with the volume pumped all the way. Apple credits this to force-canceling woofers. Speaker drivers are paired back-to-back, emitting sound both up<em>and</em> down, which cancels out the physical force that creates vibrations and distorted sound. They provide some real bass.</p><p>The amazing acoustic engineering that led to the HomePod and AirPods Pro is now starting to pay dividends in every product Apple makes with speakers. iPhone and iPad speakers have gotten really good too, but with those products, there’s been a steady improvement year after year. I can’t recall one single iPhone or iPad where the difference in sound quality over the previous generation was this significant.</p><p>Really, I don’t think there’s anything I can write here that will convince you how good these speakers sound. However good you think I’m saying they sound, they sound way better than that.</p><p>There’s more! Audio <em>input</em> is improved as well. The 16-inch MacBook Pro has a new 3-microphone array that Apple describes as “studio quality”. They claim you can credibly use it to record a podcast — a bold claim. The new three-microphone array certainly sounds noticeably better than the old built-in microphone. Here are some samples I recorded last night, at the desk in my basement where I usually record my podcast.</p><p>2018 15-inch MacBook Pro:</p><p><audio
+    src = "/misc/2019/11/mbp-mic/2018-15-inch-MBP-Mic-Test.m4a"
+    controls
+    preload = "none"
+/></p><p>The new 2019 16-inch MacBook Pro:</p><p><audio
+    src = "/misc/2019/11/mbp-mic/2019-16-inch-MBP-Mic-Test.m4a"
+    controls
+    preload = "none"
+/></p><p>My iPhone 11 Pro:</p><p><audio
+    src = "/misc/2019/11/mbp-mic/iPhone-11-Pro-Mic-Test.m4a"
+    controls
+    preload = "none"
+/></p><p>Shure Beta 87A microphone connected to an Onyx Blackjack XLR interface — the setup I use for my show:</p><p><audio
+    src = "/misc/2019/11/mbp-mic/Shure-Beta-87A-Mic-Test.m4a"
+    controls
+    preload = "none"
+/></p><p>Would I recommend the new built-in MacBook Pro microphone for recording a podcast? No. But would I be willing to use it for my own show in a pinch? Yes. And it should be a great improvement to audio for teleconferencing and FaceTime.</p><h2>The New Display</h2><p>The new 16-inch display has a native resolution of 3072&#8201;&#215;&#8201;1920 pixels, with a density of 226 pixels per inch. The old 15-inch retina display was 2880&#8201;&#215;&#8201;1800 pixels, with a density of 220 pixels per inch. Apple didn’t just use the same number of pixels and make the pixels bigger — they actually made the pixels slightly <em>smaller</em> and added more of them to make a bigger display. Brightness and color gamut are unchanged. No rounded corners (like on the iPad Pro and iPhone X/XS/11) — the display is still a good old-fashioned rectangle with pure corners.</p><h2>Computery Stuff</h2><p>The 16-inch MacBook Pro is the new “big” MacBook Pro — it replaces the previous 15-inch MacBook Pro in the lineup at the same prices: $2400 for a 6-core base model and $2800 for the 8-core base model.</p><p>The Intel chips are the same as the ones available on the May 2019 15-inch MacBook Pro. So it goes, until Apple switches to its own chips for Macs — these are still the best laptop chips Intel makes. It’s a bit unusual, to say the least, that a major update to the flagship MacBook uses the same CPUs as the generation it’s replacing.</p><p>But there are performance improvements. An all-new thermal system means the chips can run at peak performance longer. Graphics are faster, with the debut of <a href="https://www.amd.com/en/products/graphics/amd-radeon-rx-5500m">AMD’s Radeon Pro 5000M series GPUs</a>. The base models come with 16 GB of faster DDR4 RAM, and can now be configured with up to 64 GB. Apple also now offers up to 8 TB of SSD storage, which they believe to be the first 8 TB SSD on the market.</p><p>The port situation is unchanged: four Thunderbolt 3 (USB-C) ports, two on each side, and a headphone jack.</p><p>The 16-inch MacBook Pro does have a slightly larger footprint than the old 15-inch models. It’s slightly heavier too (4.3 vs. 4.02 pounds) and as mentioned before, it’s slightly thicker (1.62 vs. 1.55 cm). But in hand and in use, it effectively feels the same size as the 15-inch MacBook Pro.</p><h2>Conclusion</h2><p>It feels a bit silly to be excited about a classic arrow key layout, a hardware Escape key, and key switches that function reliably and feel good when you type with them, but that’s where we are. The risk of being a Mac user is that we’re captive to a single company’s whims.</p><p>No one would ever suggest that the steering wheel for a car be designed by people who don’t drive. But yet somehow the entire Macintosh world has spent the last three years dealing with or avoiding keyboards that were seemingly designed by people who don’t type.<sup id="fnr3-2019-11-13"><a href="#fn3-2019-11-13">3</a></sup> The whole saga of the butterfly keyboards — their unreliable switches, poor typing feel, and anti-functional layout — betrays a certain arrogance. The more powerful an organization — a corporation, a nation, a sports team, whatever — the more at risk that organization is to hubris. It’s power that allows one to act on hubris.</p><p>We shouldn’t be celebrating the return of longstanding features we never should have lost in the first place. But Apple’s willingness to revisit these decisions — their explicit acknowledgment that, yes, keyboards are meant to be typed upon, not gazed upon — is, if not cause for a party, at the very least cause for a jubilant toast.</p><p>This is a MacBook you can once again argue is the best laptop hardware money can buy.</p><div class="footnotes"><hr /><ol><li id="fn1-2019-11-13"><p>The demos all included the new Mac Pro too, which they announced will be shipping in “December”. No additional information on Mac Pro pricing until it ships, alas.&nbsp;<a href="#fnr1-2019-11-13"  class="footnoteBackLink"  title="Jump back to footnote 1 in the text.">&#x21A9;&#xFE0E;</a></p></li><li id="fn2-2019-11-13"><p>Actually, Ive is still listed on <a href="https://www.apple.com/leadership/">Apple’s leadership page</a> as Chief Design Officer.&nbsp;<a href="#fnr2-2019-11-13"  class="footnoteBackLink"  title="Jump back to footnote  in the text.">&#x21A9;&#xFE0E;︎</a></p></li><li id="fn3-2019-11-13"><p>One could argue too, that in addition to keyboards designed by people who don’t type, modern MacBooks offer ports selected by people who never connect peripherals to their computers. But while USB-C is clearly taking over slower than Apple expected, it <em>is</em> taking over. Apple still thinks it will be proven right on going all-in on USB-C for MacBook ports.&nbsp;<a href="#fnr3-2019-11-13"  class="footnoteBackLink"  title="Jump back to footnote 3 in the text.">&#x21A9;&#xFE0E;︎</a></p></li>
+
+</ol></div>
+
+
+
+    ]]>
+</content>
+<title>★ 16-Inch MacBook Pro First Impressions: Great Keyboard, Outstanding Speakers</title>
+</entry>
+</feed>
+<!-- THE END -->

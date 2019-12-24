@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
@@ -17,7 +18,7 @@ namespace SmallRss.Feeds
 
         public bool CanRead(XDocument doc)
         {
-            return doc.Root.Name.LocalName.Contains(AtomRootElementName);
+            return doc?.Root?.Name.LocalName.Equals(AtomRootElementName, StringComparison.OrdinalIgnoreCase) ?? false;
         }
 
         public Task<FeedParseResult> ReadAsync(XDocument doc)
