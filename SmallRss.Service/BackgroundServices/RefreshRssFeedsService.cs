@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SmallRss.Data;
 using SmallRss.Feeds;
 
 namespace SmallRss.Service.BackgroundServices
@@ -29,8 +30,10 @@ namespace SmallRss.Service.BackgroundServices
                     await Task.Delay(TimeSpan.FromMinutes(10), stoppingToken);
                     using (var scope = _serviceProvider.CreateScope())
                     {
+                        var context = scope.ServiceProvider.GetRequiredService<SqliteDataContext>();
                         var feedRefreshService = scope.ServiceProvider.GetRequiredService<IRefreshRssFeeds>();
-                        await feedRefreshService.ExecuteAsync(stoppingToken);
+                        if (await feedRefreshService.ExecuteAsync(stoppingToken))
+                            await context.SaveChangesAsync();
                     }
                 }
             }

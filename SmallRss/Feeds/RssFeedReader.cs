@@ -27,7 +27,7 @@ namespace SmallRss.Feeds
         public Task<FeedParseResult> ReadAsync(XDocument doc)
         {
             _logger.LogTrace("Parsing RSS feed");
-            return Task.FromResult(new FeedParseResult());
+            throw new NotImplementedException();
         }
     }
 }

@@ -25,24 +25,24 @@ namespace SmallRss.Feeds
             _refreshRssFeed = refreshRssFeed;
         }
 
-        public async Task ExecuteAsync(CancellationToken stoppingToken)
+        public async Task<bool> ExecuteAsync(CancellationToken cancellationToken)
         {
+            var refreshed = 0;
             _logger.LogInformation("Refreshing feeds");
             try
             {
-                var refreshed = 0;
                 var failed = 0;
                 var feedsToRefresh = await FindFeedsToRefreshAsync();
                 foreach (var rssFeed in feedsToRefresh)
                 {
-                    if (stoppingToken.IsCancellationRequested)
+                    if (cancellationToken.IsCancellationRequested)
                         break;
-                        
+
                     try
                     {
                         _logger.LogInformation($"Refreshing {rssFeed.Uri}");
-                        await _refreshRssFeed.RefreshAsync(rssFeed, stoppingToken);
-                        refreshed++;
+                        if (await _refreshRssFeed.RefreshAsync(rssFeed, cancellationToken))
+                            refreshed++;
                     }
                     catch (Exception ex)
                     {
@@ -50,12 +50,15 @@ namespace SmallRss.Feeds
                         failed++;
                     }
                 }
+
                 _logger.LogInformation($"Completed feed refresh. {refreshed} refreshed / {failed} failed");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error refreshing feeds");
             }
+
+            return refreshed > 0;
         }
 
         private Task<List<RssFeed>> FindFeedsToRefreshAsync()
@@ -72,6 +75,7 @@ namespace SmallRss.Feeds
         {
             services.AddScoped<IRefreshRssFeeds, RefreshRssFeeds>();
             services.AddScoped<IRefreshRssFeed, RefreshRssFeed>();
+            services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<IRssFeedRepository, RssFeedRepository>();
             services.AddScoped<IBackgroundServiceSettingRepository, BackgroundServiceSettingRepository>();
             services.AddScoped<IFeedParser, FeedParser>();

@@ -6,6 +6,6 @@ namespace SmallRss.Feeds
 {
     public interface IRefreshRssFeed
     {
-        Task RefreshAsync(RssFeed rssFeed, CancellationToken cancellationToken);
+        Task<bool> RefreshAsync(RssFeed rssFeed, CancellationToken cancellationToken);
     }
 }

@@ -5,6 +5,6 @@ namespace SmallRss.Feeds
 {
     public interface IRefreshRssFeeds
     {
-        Task ExecuteAsync(CancellationToken stoppingToken);
+        Task<bool> ExecuteAsync(CancellationToken stoppingToken);
     }
 }

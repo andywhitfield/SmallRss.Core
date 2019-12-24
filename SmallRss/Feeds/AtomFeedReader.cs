@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
+using SmallRss.Models;
 
 namespace SmallRss.Feeds
 {
@@ -24,7 +25,14 @@ namespace SmallRss.Feeds
         public Task<FeedParseResult> ReadAsync(XDocument doc)
         {
             _logger.LogTrace("Parsing Atom feed");
-            return Task.FromResult(new FeedParseResult());
+            var feed = new RssFeed { LastUpdated = DateTime.UtcNow };
+            var articles = new[] { new Article {
+                ArticleGuid = "article-1",
+                Body = "hello from feed, this is the content",
+                Heading = "hello from feed",
+                Published = DateTime.UtcNow
+            }};
+            return Task.FromResult(new FeedParseResult(feed, articles));
         }
     }
 }
