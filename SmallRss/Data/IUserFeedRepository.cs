@@ -6,6 +6,7 @@ namespace SmallRss.Data
 {
     public interface IUserFeedRepository
     {
+        Task<UserFeed> GetByIdAsync(int id);
         Task<List<UserFeed>> GetAllByUserAsync(UserAccount loggedInUser);
     }
 }

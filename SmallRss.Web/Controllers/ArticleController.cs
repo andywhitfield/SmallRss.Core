@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SmallRss.Data;
 using SmallRss.Models;
 using SmallRss.Web.Models;
 
@@ -13,23 +15,25 @@ namespace SmallRss.Web.Controllers
     public class ArticleController : ControllerBase
     {
         private readonly ILogger<FeedController> _logger;
+        private readonly IArticleRepository _articleRepository;
 
-        public ArticleController(ILogger<FeedController> logger)
+        public ArticleController(ILogger<FeedController> logger, IArticleRepository articleRepository)
         {
             _logger = logger;
+            _articleRepository = articleRepository;
         }
 
-        [HttpGet]
-        public ActionResult<Article> Get(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Article>> Get(int id)
         {
-            var article = new Article{ Id = 1 }; //TODO: datastore.Load<Article>(id);
+            var article = await _articleRepository.GetByIdAsync(id);
             if (article == null)
                 return NotFound();
-            return new Article { Id = id, Body = HttpUtility.HtmlDecode(article.Body), Url = article.Url, Author = article.Author ?? string.Empty };
+            return new Article { Id = id, Body = HttpUtility.HtmlDecode(article.Body), Url = article.Url, Author = article.Author };
         }
 
         [HttpPost]
-        public ActionResult<IEnumerable<object>> Post(ArticleReadViewModel feed)
+        public ActionResult<IEnumerable<object>> Post([FromForm]ArticleReadViewModel feed)
         {
             _logger.LogDebug($"Marking story as {(feed.Read ? "read" : "unread")}: {feed.Story}");
             var newArticles = new List<Article>();

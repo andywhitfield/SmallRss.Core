@@ -15,9 +15,27 @@ namespace SmallRss.Data
             _context = context;
         }
 
+        public Task<Article> GetByIdAsync(int id)
+        {
+            return _context.Articles.FindAsync(id).AsTask();
+        }
+
         public Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId)
         {
-            return _context.Articles.Where(a => a.RssFeedId == rssFeedId).ToListAsync();
+            return GetByRssFeedIdAsync(rssFeedId, new List<UserArticlesRead>());
+        }
+
+        public Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId, List<UserArticlesRead> excludingReadArticles)
+        {
+            var articlesForFeed = _context.Articles.Where(a => a.RssFeedId == rssFeedId).ToListAsync();
+            if (!excludingReadArticles?.Any() ?? true)
+                return articlesForFeed;
+            return FilterByReadAsync(articlesForFeed, excludingReadArticles);
+        }
+
+        private async Task<List<Article>> FilterByReadAsync(Task<List<Article>> articles, List<UserArticlesRead> excludingReadArticles)
+        {
+            return (await articles).Except(excludingReadArticles.Select(ra => new Article { Id = ra.ArticleId }), Article.IdComparer).ToList();
         }
 
         public Task CreateAsync(RssFeed rssFeed, Article articleToCreate)

@@ -13,20 +13,26 @@ namespace SmallRss.Web.Controllers
     public class FeedController : ControllerBase
     {
         private readonly ILogger<FeedController> _logger;
+        private readonly IArticleRepository _articleRepository;
         private readonly IUserAccountRepository _userAccountRepository;
         private readonly IUserFeedRepository _userFeedRepository;
         private readonly IRssFeedRepository _rssFeedRepository;
+        private readonly IUserArticlesReadRepository _userArticlesReadRepository;
 
         public FeedController(
             ILogger<FeedController> logger,
+            IArticleRepository articleRepository,
             IUserAccountRepository userAccountRepository,
             IUserFeedRepository userFeedRepository,
-            IRssFeedRepository rssFeedRepository)
+            IRssFeedRepository rssFeedRepository,
+            IUserArticlesReadRepository userArticlesReadRepository)
         {
             _logger = logger;
+            _articleRepository = articleRepository;
             _userAccountRepository = userAccountRepository;
             _userFeedRepository = userFeedRepository;
             _rssFeedRepository = rssFeedRepository;
+            _userArticlesReadRepository = userArticlesReadRepository;
         }
 
         [HttpGet]
@@ -54,31 +60,24 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpGet("{id}/{offset?}")]
-        public ActionResult<IEnumerable<object>> Get(int id, int? offset)
+        public async Task<ActionResult<IEnumerable<object>>> Get(int id, int? offset)
         {
             _logger.LogDebug($"Getting articles for feed {id} from db, using client UTC offset {offset}");
 
-            /*
-            var loggedInUser = this.CurrentUser(datastore);
-            var feed = datastore.Load<UserFeed>(id);
-            var readArticles = datastore.LoadAll<UserArticlesRead>("UserFeedId", feed.Id).ToList();
+            var loggedInUser = await _userAccountRepository.FindOrCreateAsync(User);
+            var feed = await _userFeedRepository.GetByIdAsync(id);
+            var readArticles = await _userArticlesReadRepository.GetByUserFeedIdAsync(feed.Id);
 
             IEnumerable<Article> articles;
             if (loggedInUser.ShowAllItems)
-            {
-                articles = datastore.LoadAll<Article>("RssFeedId", feed.RssFeedId);
-            }
+                articles = await _articleRepository.GetByRssFeedIdAsync(feed.RssFeedId);
             else
-            {
-                articles = datastore.LoadUnreadArticlesInUserFeed(feed);
-            }
+                articles = await _articleRepository.GetByRssFeedIdAsync(feed.RssFeedId, readArticles);
 
             return articles
                 .OrderBy(a => a.Published)
-                .Select(a => new { read = readArticles.Any(uar => uar.ArticleId == a.Id), feed = id, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body), posted = FriendlyDate.ToString(a.Published, offset) });
-            */
-
-            return new object[0];
+                .Select(a => new { read = readArticles.Any(uar => uar.ArticleId == a.Id), feed = id, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body), posted = FriendlyDate.ToString(a.Published, offset) })
+                .ToList();
         }
     }
 }

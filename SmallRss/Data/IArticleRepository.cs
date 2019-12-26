@@ -6,7 +6,9 @@ namespace SmallRss.Data
 {
     public interface IArticleRepository
     {
+        Task<Article> GetByIdAsync(int id);
         Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId);
+        Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId, List<UserArticlesRead> excludingReadArticles);
         Task CreateAsync(RssFeed rssFeed, Article articleToCreate);
     }
 }

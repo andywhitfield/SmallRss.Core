@@ -15,6 +15,11 @@ namespace SmallRss.Data
             _context = context;
         }
 
+        public Task<UserFeed> GetByIdAsync(int id)
+        {
+            return _context.UserFeeds.FindAsync(id).AsTask();
+        }
+
         public Task<List<UserFeed>> GetAllByUserAsync(UserAccount loggedInUser)
         {
             if (loggedInUser == null)

@@ -98,6 +98,8 @@ namespace SmallRss.Web
             services.AddScoped<IRssFeedRepository, RssFeedRepository>();
             services.AddScoped<IUserAccountRepository, UserAccountRepository>();
             services.AddScoped<IUserFeedRepository, UserFeedRepository>();
+            services.AddScoped<IArticleRepository, ArticleRepository>();
+            services.AddScoped<IUserArticlesReadRepository, UserArticlesReadRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
