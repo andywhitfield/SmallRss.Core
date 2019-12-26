@@ -1,4 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SmallRss.Models;
 
 namespace SmallRss.Data
 {
@@ -13,5 +18,27 @@ namespace SmallRss.Data
             _context = context;
         }
 
+        public Task<BackgroundServiceSetting> FindSettingByNameAsync(string settingName)
+        {
+            return _context.BackgroundServiceSettings.Where(bss => bss.SettingName == settingName).FirstOrDefaultAsync();
+        }
+
+        public async Task AddOrUpdateAsync(string settingName, string settingValue)
+        {
+            var currentSetting = await FindSettingByNameAsync(settingName);
+            if (currentSetting != null)
+                currentSetting.SettingValue = settingValue;
+            else
+                await _context.BackgroundServiceSettings.AddAsync(new BackgroundServiceSetting {
+                    SettingName = settingName,
+                    SettingValue = settingValue
+                });
+            await _context.SaveChangesAsync();
+        }
+
+        public Task<List<BackgroundServiceSetting>> GetAllAsync()
+        {
+            return _context.BackgroundServiceSettings.ToListAsync();
+        }
     }
 }

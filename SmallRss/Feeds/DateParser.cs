@@ -5,6 +5,13 @@ namespace SmallRss.Feeds
 {
     public static class DateParser
     {
+        public static TimeSpan? ToTimeSpan(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return null;
+            return TimeSpan.TryParse(value, out var ts) ? (TimeSpan?)ts : null;
+        }
+
         public static DateTime? ToDateTime(this string value)
         {
             if (string.IsNullOrEmpty(value))

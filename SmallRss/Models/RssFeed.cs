@@ -10,6 +10,5 @@ namespace SmallRss.Models
         public string Uri { get; set; }
         public string Link { get; set; }
         public DateTime? LastUpdated { get; set; }
-        public DateTime? LastRefreshed { get; set; }
     }
 }

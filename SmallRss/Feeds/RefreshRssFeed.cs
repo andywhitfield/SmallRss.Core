@@ -49,10 +49,11 @@ namespace SmallRss.Feeds
                 _logger.LogTrace($"Feed {rssFeed.Uri} has new items...updating articles");
                 await UpdateFeedItemsAsync(rssFeed, parseResult);
                 rssFeed.LastUpdated = parseResult.Feed.LastUpdated;
+                rssFeed.Link = parseResult.Feed.Link;
+                return true;
             }
-            rssFeed.LastRefreshed = DateTime.UtcNow;
-            rssFeed.Link = parseResult.Feed.Link;
-            return true;
+
+            return false;
         }
 
         private async Task UpdateFeedItemsAsync(RssFeed rssFeed, FeedParseResult parseResult)

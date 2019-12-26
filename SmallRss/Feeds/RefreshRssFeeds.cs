@@ -12,27 +12,26 @@ namespace SmallRss.Feeds
     public class RefreshRssFeeds : IRefreshRssFeeds
     {
         private readonly ILogger<RefreshRssFeeds> _logger;
-        private readonly IBackgroundServiceSettingRepository _settingsRepository;
         private readonly IRssFeedRepository _rssFeedRepository;
         private readonly IRefreshRssFeed _refreshRssFeed;
 
-        public RefreshRssFeeds(ILogger<RefreshRssFeeds> logger, IBackgroundServiceSettingRepository settingsRepository,
-            IRssFeedRepository rssFeedRepository, IRefreshRssFeed refreshRssFeed)
+        public RefreshRssFeeds(ILogger<RefreshRssFeeds> logger, IRssFeedRepository rssFeedRepository, IRefreshRssFeed refreshRssFeed)
         {
             _logger = logger;
-            _settingsRepository = settingsRepository;
             _rssFeedRepository = rssFeedRepository;
             _refreshRssFeed = refreshRssFeed;
         }
 
-        public async Task<bool> ExecuteAsync(CancellationToken cancellationToken)
+        public async Task<bool> ExecuteAsync(List<RssFeed> feedsToRefresh, CancellationToken cancellationToken)
         {
-            var refreshed = 0;
+            if (feedsToRefresh == null)
+                return false;
+
+            var updated = 0;
             _logger.LogInformation("Refreshing feeds");
             try
             {
                 var failed = 0;
-                var feedsToRefresh = await FindFeedsToRefreshAsync();
                 foreach (var rssFeed in feedsToRefresh)
                 {
                     if (cancellationToken.IsCancellationRequested)
@@ -42,7 +41,7 @@ namespace SmallRss.Feeds
                     {
                         _logger.LogInformation($"Refreshing {rssFeed.Uri}");
                         if (await _refreshRssFeed.RefreshAsync(rssFeed, cancellationToken))
-                            refreshed++;
+                            updated++;
                     }
                     catch (Exception ex)
                     {
@@ -51,21 +50,14 @@ namespace SmallRss.Feeds
                     }
                 }
 
-                _logger.LogInformation($"Completed feed refresh. {refreshed} refreshed / {failed} failed");
+                _logger.LogInformation($"Completed feed refresh. {updated} updated / {failed} failed / {feedsToRefresh.Count} total checked");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error refreshing feeds");
             }
 
-            return refreshed > 0;
-        }
-
-        private Task<List<RssFeed>> FindFeedsToRefreshAsync()
-        {
-            // TOOD: work out which ones to refresh based on the time the feed was last updated and when we last checked
-            // TODO: for now, just load em all
-            return _rssFeedRepository.FindByLastUpdatedSinceAsync(null);
+            return updated > 0;
         }
     }
 
