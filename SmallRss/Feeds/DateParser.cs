@@ -5,6 +5,20 @@ namespace SmallRss.Feeds
 {
     public static class DateParser
     {
+        public static DateTime? ToDateTime(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return null;
+            
+            if (DateParser.TryParseRfc3339DateTime(value, out var date))
+                return (DateTime?)(date > DateTime.UtcNow ? DateTime.UtcNow : date);
+            
+            if (DateParser.TryParseRfc822DateTime(value, out date))
+                return (DateTime?)(date > DateTime.UtcNow ? DateTime.UtcNow : date);
+            
+            return null;
+        }
+
         //============================================================
         //	RFC-3339 FORMAT METHODS
         //============================================================

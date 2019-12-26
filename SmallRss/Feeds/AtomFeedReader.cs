@@ -43,7 +43,7 @@ namespace SmallRss.Feeds
 
                 feed.Link = linkNode?.Attribute("href").Value;
             }
-            feed.LastUpdated = ToDateTime(channel.Element(ns + "updated")?.Value) ?? DateTime.UtcNow;
+            feed.LastUpdated = channel.Element(ns + "updated")?.Value.ToDateTime() ?? DateTime.UtcNow;
 
             var articles = channel.Elements(ns + "entry").Select(ReadFeedEntry).Where(e => e != null).ToList();
             var latestArticle = articles.Max(a => a.Published ?? DateTime.MinValue);
@@ -65,7 +65,7 @@ namespace SmallRss.Feeds
             }
 
             article.Heading = entry.Element(ns + "title")?.Value;
-            article.Published = ToDateTime(entry.Element(ns + "updated")?.Value) ?? DateTime.UtcNow;
+            article.Published = entry.Element(ns + "updated")?.Value.ToDateTime() ?? DateTime.UtcNow;
             article.Author = entry.Element(ns + "author")?.Element(ns + "name")?.Value;
             article.Body = entry.Element(ns + "content")?.Value ?? entry.Element(ns + "summary")?.Value;
 
@@ -78,14 +78,6 @@ namespace SmallRss.Feeds
             _logger.LogTrace($"Parsed feed entry {article.ArticleGuid}");
 
             return article;
-        }
-
-        private DateTime? ToDateTime(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-                return null;
-
-            return DateParser.TryParseRfc3339DateTime(value, out var date) ? (DateTime?)(date > DateTime.UtcNow ? DateTime.UtcNow : date) : null;
         }
     }
 }
