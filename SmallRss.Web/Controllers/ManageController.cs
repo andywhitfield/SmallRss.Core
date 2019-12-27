@@ -1,11 +1,13 @@
-﻿using System;
+﻿using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SmallRss.Data;
 using SmallRss.Web.Models.Manage;
 
 namespace SmallRss.Web.Controllers
@@ -15,22 +17,31 @@ namespace SmallRss.Web.Controllers
     {
         internal const string PocketConsumerKey = "41619-1a5decf504173a588fd1b492";
         private readonly ILogger<ManageController> _logger;
+        private readonly IUserAccountRepository _userAccountRepository;
+        private readonly IUserFeedRepository _userFeedRepository;
+        private readonly IRssFeedRepository _rssFeedRepository;
 
-        public ManageController(ILogger<ManageController> logger)
+        public ManageController(ILogger<ManageController> logger,
+            IUserAccountRepository userAccountRepository,
+            IUserFeedRepository userFeedRepository,
+            IRssFeedRepository rssFeedRepository)
         {
             _logger = logger;
+            _userAccountRepository = userAccountRepository;
+            _userFeedRepository = userFeedRepository;
+            _rssFeedRepository = rssFeedRepository;
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(CreateIndexViewModel());
+            return View(await CreateIndexViewModelAsync());
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            var vm = CreateEditViewModel(id);
+            var vm = await CreateEditViewModelAsync(id);
             if (vm == null)
                 return RedirectToAction("index");
 
@@ -38,25 +49,19 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            /*
-            TODO
-            var user = this.CurrentUser(datastore);
-            var feeds = datastore.LoadAll<UserFeed>("UserAccountId", user.Id);
+            var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
+            var userFeeds = await _userFeedRepository.GetAllByUserAsync(userAccount);
 
-            var feed = feeds.FirstOrDefault(f => f.Id == id);
+            var feed = userFeeds.FirstOrDefault(f => f.Id == id);
             if (feed == null)
-                return RedirectToAction("index");
+                return RedirectToAction(nameof(Index));
 
-            var removeCount = datastore.RemoveUserArticleRead(user, feed);
-            log.InfoFormat("Removed {0} user article read records: {1}:{2}", removeCount, feed.Id, feed.Name);
+            await _userFeedRepository.RemoveAsync(feed);
+            _logger.LogInformation($"Removed feed: {feed.Id}:{feed.Name}");
 
-            removeCount = datastore.Remove(feed);
-            log.InfoFormat("Removed {0} feed: {1}:{2}", removeCount, feed.Id, feed.Name);
-            */
-
-            return RedirectToAction("index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
@@ -176,7 +181,7 @@ namespace SmallRss.Web.Controllers
             */
         }
 
-        public ActionResult PocketAuth()
+        public async Task<ActionResult> PocketAuth()
         {
             var code = this.HttpContext.Session.GetString("POCKET_CODE");
             var requestJson = JsonSerializer.Serialize(new { consumer_key = PocketConsumerKey, code });
@@ -188,37 +193,33 @@ namespace SmallRss.Web.Controllers
             if (!result.TryParseJson(out PocketAuthResult authResult, _logger))
                 return RedirectToAction("Index");
 
-            /*
             // save access token into the user's account
-            var userAccount = this.CurrentUser(datastore);
-            userAccount.PocketAccessToken = authResult.access_token;
-            datastore.UpdateAccount(userAccount);
-            */
+            var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
+            userAccount.PocketAccessToken = authResult.AccessToken;
+            await _userAccountRepository.UpdateAsync(userAccount);
 
             return RedirectToAction("Index");
         }
 
-        private IndexViewModel CreateIndexViewModel()
+        private async Task<IndexViewModel> CreateIndexViewModelAsync()
         {
-            /*
-            var feeds = datastore.LoadUserRssFeeds(user.Id);
-            return new IndexViewModel { UserAccount = user, Feeds = feeds.Select(f => new FeedSubscriptionViewModel(f.Item1, f.Item2)).OrderBy(f => f.Name).OrderBy(f => f.Group) };
-            */
-            return new IndexViewModel();
+            var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
+            var userFeeds = await _userFeedRepository.GetAllByUserAsync(userAccount);
+            var rssFeeds = await _rssFeedRepository.GetByIdsAsync(userFeeds.Select(uf => uf.RssFeedId));
+            return new IndexViewModel { UserAccount = userAccount, Feeds = userFeeds.Select(f => new FeedSubscriptionViewModel(f, rssFeeds.Single(rf => rf.Id == f.RssFeedId))).OrderBy(f => f.Name).OrderBy(f => f.Group) };
         }
 
-        private EditViewModel CreateEditViewModel(int feedId)
+        private async Task<EditViewModel> CreateEditViewModelAsync(int userFeedId)
         {
-            /*
-            var feeds = datastore.LoadAll<UserFeed>("UserAccountId", user.Id);
-            var feed = feeds.FirstOrDefault(f => f.Id == feedId);
-            if (feed == null)
+            var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
+            var userFeeds = await _userFeedRepository.GetAllByUserAsync(userAccount);
+
+            var userFeed = userFeeds.FirstOrDefault(uf => uf.Id == userFeedId);
+            if (userFeed == null)
                 return null;
 
-            var rss = datastore.Load<RssFeed>(feed.RssFeedId);
-            return new EditViewModel { Feed = new FeedSubscriptionViewModel(feed, rss), CurrentGroups = feeds.Select(f => f.GroupName).Distinct().OrderBy(g => g) };
-            */
-            return new EditViewModel();
+            var rss = await _rssFeedRepository.GetByIdAsync(userFeed.RssFeedId);
+            return new EditViewModel { Feed = new FeedSubscriptionViewModel(userFeed, rss), CurrentGroups = userFeeds.Select(f => f.GroupName).Distinct().OrderBy(g => g) };
         }
 
         private class PocketAuthResult

@@ -16,6 +16,11 @@ namespace SmallRss.Data
             _context = context;
         }
 
+        public Task<RssFeed> GetByIdAsync(int rssFeedId)
+        {
+            return _context.RssFeeds.FindAsync(rssFeedId).AsTask();
+        }
+
         public Task<List<RssFeed>> GetByIdsAsync(IEnumerable<int> rssFeedIds)
         {
             if (rssFeedIds == null)

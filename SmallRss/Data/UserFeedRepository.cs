@@ -32,5 +32,12 @@ namespace SmallRss.Data
         {
             return _context.UserFeeds.Where(uf => uf.UserAccountId == userAccount.Id && uf.RssFeedId == rssFeedId).ToListAsync();
         }
+
+        public Task RemoveAsync(UserFeed toRemove)
+        {
+            _context.UserArticlesRead.RemoveRange(_context.UserArticlesRead.Where(uar => uar.UserFeedId == toRemove.Id));
+            _context.UserFeeds.Remove(toRemove);
+            return _context.SaveChangesAsync();
+        }
     }
 }

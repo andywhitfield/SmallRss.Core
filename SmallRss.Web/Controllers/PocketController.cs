@@ -1,10 +1,11 @@
 ﻿using System.Net;
 using System.Text.Json;
+using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SmallRss.Models;
+using SmallRss.Data;
 using SmallRss.Web.Models;
 
 namespace SmallRss.Web.Controllers
@@ -13,37 +14,34 @@ namespace SmallRss.Web.Controllers
     public class PocketController : ControllerBase
     {
         private readonly ILogger<PocketController> _logger;
+        private readonly IUserAccountRepository _userAccountRepository;
+        private readonly IArticleRepository _articleRepository;
 
-        public PocketController(ILogger<PocketController> logger)
+        public PocketController(ILogger<PocketController> logger,
+            IUserAccountRepository userAccountRepository,
+            IArticleRepository articleRepository)
         {
             _logger = logger;
+            _userAccountRepository = userAccountRepository;
+            _articleRepository = articleRepository;
         }
 
         [HttpPost]
-        public ActionResult<object> Post([FromForm]PocketViewModel model)
+        public async Task<ActionResult<object>> PostAsync([FromForm]PocketViewModel model)
         {
-            /*
-            TODO
-            var userAccount = this.CurrentUser(datastore);
+            var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
             if (!userAccount.HasPocketAccessToken)
-            {
                 return new { saved = false, reason = "Your account is not connected to Pocket." };
-            }
 
-            var article = datastore.Load<Article>(model.ArticleId.GetValueOrDefault());
+            var article = await _articleRepository.GetByIdAsync(model.ArticleId.GetValueOrDefault());
             if (article == null)
-            {
                 return new { saved = false, reason = "Could not find article with id " + model.ArticleId };
-            }
-            */
-            var userAccount = new UserAccount();
-            var article = new Article();
-            
+
             var requestJson = JsonSerializer.Serialize(new {
                 consumer_key = ManageController.PocketConsumerKey,
                 access_token = userAccount.PocketAccessToken,
                 url = HttpUtility.UrlPathEncode(article.Url),
-                title = HttpUtility.UrlEncode(article.Heading)
+                title = HttpUtility.UrlEncode(article.Heading ?? string.Empty)
             });
 
             var webClient = new WebClient();
