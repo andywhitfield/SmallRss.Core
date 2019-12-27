@@ -2,10 +2,10 @@
 {
     public class ArticleReadViewModel
     {
-        public int? Feed { get; set; }
-        public int? Story { get; set; }
+        public int? FeedId { get; set; }
+        public int? StoryId { get; set; }
         public bool Read { get; set; }
-        public int? MaxStory { get; set; }
-        public int? Offset { get; set; }
+        public int? MaxStoryId { get; set; }
+        public int? OffsetId { get; set; }
     }
 }

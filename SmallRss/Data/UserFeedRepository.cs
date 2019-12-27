@@ -27,5 +27,10 @@ namespace SmallRss.Data
 
             return _context.UserFeeds.Where(uf => uf.UserAccountId == loggedInUser.Id).ToListAsync();
         }
+
+        public Task<List<UserFeed>> GetAllByUserAndRssFeedAsync(UserAccount userAccount, int rssFeedId)
+        {
+            return _context.UserFeeds.Where(uf => uf.UserAccountId == userAccount.Id && uf.RssFeedId == rssFeedId).ToListAsync();
+        }
     }
 }

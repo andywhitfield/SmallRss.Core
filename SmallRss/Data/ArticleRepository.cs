@@ -51,5 +51,19 @@ namespace SmallRss.Data
                 RssFeedId = rssFeed.Id
             }).AsTask();
         }
+
+        public Task<List<Article>> FindUnreadArticlesInUserFeedAsync(UserFeed feedToMarkAllAsRead)
+        {
+            return _context.Articles.FromSqlInterpolated(
+$@"select a.*
+from Articles a
+join RssFeeds rf
+on rf.Id = a.RssFeedId
+left join UserArticlesRead uar
+on uar.ArticleId = a.Id
+and uar.UserAccountId = {feedToMarkAllAsRead.UserAccountId}
+where rf.Id = {feedToMarkAllAsRead.RssFeedId}
+and uar.Id is null").ToListAsync();
+        }
     }
 }

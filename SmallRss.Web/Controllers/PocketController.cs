@@ -20,7 +20,7 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult<object> Post(PocketViewModel model)
+        public ActionResult<object> Post([FromForm]PocketViewModel model)
         {
             /*
             TODO

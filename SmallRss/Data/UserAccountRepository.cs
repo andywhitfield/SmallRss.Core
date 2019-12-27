@@ -35,6 +35,42 @@ namespace SmallRss.Data
             return await GetByIdAsync(userAccountSetting.UserAccountId);
         }
 
+        public async Task UpdateAsync(UserAccount userAccount)
+        {
+            var userAccountSettings = await _context.UserAccountSettings.Where(uas => uas.UserAccountId == userAccount.Id).ToListAsync();
+            var userAccountSetting = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "ShowAllItems" && uas.SettingName == "ShowAllItems");
+            if (userAccountSetting == null)
+                await _context.UserAccountSettings.AddAsync(new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "ShowAllItems", SettingName = "ShowAllItems", SettingValue = Convert.ToString(userAccount.ShowAllItems) });
+            else
+                userAccountSetting.SettingValue = Convert.ToString(userAccount.ShowAllItems);
+
+            userAccountSetting = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "PocketAccessToken" && uas.SettingName == "PocketAccessToken");
+            if (userAccountSetting == null)
+                await _context.UserAccountSettings.AddAsync(new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "PocketAccessToken", SettingName = "PocketAccessToken", SettingValue = userAccount.PocketAccessToken });
+            else
+                userAccountSetting.SettingValue = userAccount.PocketAccessToken;
+
+            _context.UserAccountSettings.RemoveRange(userAccountSettings.Where(uas => uas.SettingType == "ExpandedGroup"));
+            await _context.UserAccountSettings.AddRangeAsync(userAccount.ExpandedGroups.Select(g => new UserAccountSetting
+            {
+                UserAccountId = userAccount.Id,
+                SettingType = "ExpandedGroup",
+                SettingName = "ExpandedGroup",
+                SettingValue = g
+            }));
+
+            _context.UserAccountSettings.RemoveRange(userAccountSettings.Where(uas => uas.SettingType == "SavedLayout"));
+            await _context.UserAccountSettings.AddRangeAsync(userAccount.SavedLayout.Select(l => new UserAccountSetting
+            {
+                UserAccountId = userAccount.Id,
+                SettingType = "SavedLayout",
+                SettingName = l.Key,
+                SettingValue = l.Value
+            }));
+
+            await _context.SaveChangesAsync();
+        }
+
         private async Task<UserAccount> CreateAsync(string authenticationId)
         {
             _logger.LogInformation($"Creating account for auth: {authenticationId}");

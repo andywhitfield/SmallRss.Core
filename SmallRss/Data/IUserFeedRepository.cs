@@ -8,5 +8,6 @@ namespace SmallRss.Data
     {
         Task<UserFeed> GetByIdAsync(int id);
         Task<List<UserFeed>> GetAllByUserAsync(UserAccount loggedInUser);
+        Task<List<UserFeed>> GetAllByUserAndRssFeedAsync(UserAccount userAccount, int rssFeedId);
     }
 }

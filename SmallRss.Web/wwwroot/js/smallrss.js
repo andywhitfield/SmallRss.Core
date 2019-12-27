@@ -287,7 +287,7 @@ function markAllArticlesRead() {
     }
     if (serverUpdateRequired) {
         notifyWindow.show('Marking all read...', false);
-        $.post(smallrss_config.article_api, { feed: feeds.selectedFeed.id, read: true, maxStory: maxArticleId, offset: getUtcOffset() }, function () {
+        $.post(smallrss_config.article_api, { feedId: feeds.selectedFeed.id, read: true, maxStoryId: maxArticleId, offsetId: getUtcOffset() }, function () {
             notifyWindow.close();
             console.log('marked all articles read');
             feeds.selectedFeed.count = 0;
@@ -330,7 +330,7 @@ function toggleArticleIdRead(articleId) {
 
     if (feedToUpdate != null) {
         notifyWindow.show('Marking as ' + (feedToUpdate.read ? 'read' : 'unread') + '...', false);
-        $.post(smallrss_config.article_api, { feed: feeds.selectedFeed.id, story: articleId, read: feedToUpdate.read }, function () {
+        $.post(smallrss_config.article_api, { feedId: feeds.selectedFeed.id, storyId: articleId, read: feedToUpdate.read }, function () {
             notifyWindow.close();
             updateUI();
         });
@@ -457,7 +457,7 @@ function markArticleId(articleId, read, markedAsReadCompleted) {
     if (serverUpdateRequired) {
         console.log('letting server know that story ' + articleId + ' should be marked read/unread: ' + read);
         notifyWindow.show('Marking as ' + (read ? 'read' : 'unread') + '...', false);
-        $.post(smallrss_config.article_api, { feed: feeds.selectedFeed.id, story: articleId, read: read }, function () {
+        $.post(smallrss_config.article_api, { feedId: feeds.selectedFeed.id, storyId: articleId, read: read }, function () {
             notifyWindow.close();
             if (markedAsReadCompleted != undefined && markedAsReadCompleted != null)
                 markedAsReadCompleted(unreadArticle);

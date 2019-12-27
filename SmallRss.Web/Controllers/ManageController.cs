@@ -60,7 +60,7 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(AddFeedViewModel addFeed)
+        public ActionResult Add([FromForm]AddFeedViewModel addFeed)
         {
             /*
             var user = this.CurrentUser(datastore);
@@ -95,7 +95,7 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(SaveFeedViewModel saveFeed)
+        public ActionResult Save([FromForm]SaveFeedViewModel saveFeed)
         {
             /*
             TODO

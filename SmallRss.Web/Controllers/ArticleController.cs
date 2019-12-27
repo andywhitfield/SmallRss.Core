@@ -16,11 +16,21 @@ namespace SmallRss.Web.Controllers
     {
         private readonly ILogger<FeedController> _logger;
         private readonly IArticleRepository _articleRepository;
+        private readonly IUserAccountRepository _userAccountRepository;
+        private readonly IUserFeedRepository _userFeedRepository;
+        private readonly IUserArticlesReadRepository _userArticlesReadRepository;
 
-        public ArticleController(ILogger<FeedController> logger, IArticleRepository articleRepository)
+        public ArticleController(ILogger<FeedController> logger,
+            IArticleRepository articleRepository,
+            IUserAccountRepository userAccountRepository,
+            IUserFeedRepository userFeedRepository,
+            IUserArticlesReadRepository userArticlesReadRepository)
         {
             _logger = logger;
             _articleRepository = articleRepository;
+            _userAccountRepository = userAccountRepository;
+            _userFeedRepository = userFeedRepository;
+            _userArticlesReadRepository = userArticlesReadRepository;
         }
 
         [HttpGet("{id}")]
@@ -29,83 +39,66 @@ namespace SmallRss.Web.Controllers
             var article = await _articleRepository.GetByIdAsync(id);
             if (article == null)
                 return NotFound();
-            return new Article { Id = id, Body = HttpUtility.HtmlDecode(article.Body), Url = article.Url, Author = article.Author };
+            return new Article { Id = id, Body = HttpUtility.HtmlDecode(article.Body ?? string.Empty), Url = article.Url ?? string.Empty, Author = article.Author ?? string.Empty };
         }
 
         [HttpPost]
-        public ActionResult<IEnumerable<object>> Post([FromForm]ArticleReadViewModel feed)
+        public async Task<ActionResult<IEnumerable<object>>> PostAsync([FromForm]ArticleReadViewModel feed)
         {
-            _logger.LogDebug($"Marking story as {(feed.Read ? "read" : "unread")}: {feed.Story}");
+            _logger.LogDebug($"Marking story [{feed.StoryId}] as {(feed.Read ? "read" : "unread")} for feed {feed.FeedId}");
+            
             var newArticles = new List<Article>();
+
+            var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
             var userFeedId = 0;
-            /*
-            TODO
-            var user = this.CurrentUser(datastore);
-            var userFeedId = 0;
-            if (feed.Feed.HasValue && !feed.Story.HasValue)
+            if (feed.FeedId.HasValue && !feed.StoryId.HasValue)
             {
-                if (!feed.MaxStory.HasValue || feed.MaxStory.Value <= 0)
-                    feed.MaxStory = int.MaxValue;
+                if (!feed.MaxStoryId.HasValue || feed.MaxStoryId.Value <= 0)
+                    feed.MaxStoryId = int.MaxValue;
 
-                _logger.LogDebug($"Marking all stories as {(feed.Read ? "read" : "unread")}: {feed.Feed} up to id {feed.MaxStory}");
-                userFeedId = feed.Feed.Value;
+                _logger.LogDebug($"Marking all stories as {(feed.Read ? "read" : "unread")}: {feed.FeedId} up to id {feed.MaxStoryId}");
+                userFeedId = feed.FeedId.Value;
 
-                var feedToMarkAllAsRead = datastore.Load<UserFeed>(feed.Feed.Value);
-                if (feedToMarkAllAsRead != null && feedToMarkAllAsRead.UserAccountId == user.Id)
+                var feedToMarkAllAsRead = await _userFeedRepository.GetByIdAsync(feed.FeedId.Value);
+                if (feedToMarkAllAsRead != null && feedToMarkAllAsRead.UserAccountId == userAccount.Id)
                 {
-                    foreach (var article in datastore.LoadUnreadArticlesInUserFeed(feedToMarkAllAsRead).ToList())
+                    foreach (var article in await _articleRepository.FindUnreadArticlesInUserFeedAsync(feedToMarkAllAsRead))
                     {
-                        if (article.Id > feed.MaxStory)
+                        if (article.Id > feed.MaxStoryId)
                         {
                             newArticles.Add(article);
                             continue;
                         }
-                        MarkAsRead(feedToMarkAllAsRead, article.Id, feed.Read);
+                        await MarkAsAsync(feedToMarkAllAsRead, article.Id, feed.Read);
                     }
                 }
             }
-            else if (feed.Story.HasValue)
+            else if (feed.StoryId.HasValue)
             {
-                var article = datastore.Load<Article>(feed.Story.Value);
-                var feedToMarkAsRead = datastore.LoadAll<UserFeed>(Tuple.Create<string, object, ClauseComparsion>("RssFeedId", article.RssFeedId, ClauseComparsion.Equals), Tuple.Create<string, object, ClauseComparsion>("UserAccountId", user.Id, ClauseComparsion.Equals)).FirstOrDefault();
-                if (feedToMarkAsRead != null && feedToMarkAsRead.UserAccountId == user.Id)
+                var article = await _articleRepository.GetByIdAsync(feed.StoryId.Value);
+                var feedToMarkAsRead = (await _userFeedRepository.GetAllByUserAndRssFeedAsync(userAccount, article.RssFeedId)).FirstOrDefault();
+                if (feedToMarkAsRead != null)
                 {
                     userFeedId = feedToMarkAsRead.Id;
-                    MarkAsRead(feedToMarkAsRead, article.Id, feed.Read);
+                    await MarkAsAsync(feedToMarkAsRead, article.Id, feed.Read);
                 }
                 else
                 {
-                    _logger.LogWarning($"Feed {feed.Feed} could not be found or is not associated with the current user, will not make any changes");
+                    _logger.LogWarning($"Feed {feed.FeedId} could not be found or is not associated with the current user, will not make any changes");
                 }
             }
-            */
 
             return newArticles
                 .OrderBy(a => a.Published)
-                .Select(a => new { read = false, feed = userFeedId, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body), posted = FriendlyDate.ToString(a.Published, feed.Offset) })
+                .Select(a => new { read = false, feed = userFeedId, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body), posted = FriendlyDate.ToString(a.Published, feed.OffsetId) })
                 .ToList();
         }
 
-        private void MarkAsRead(UserFeed feed, int articleId, bool read)
+        private Task MarkAsAsync(UserFeed feed, int articleId, bool read)
         {
-            /*
-            var userArticleRead = new UserArticlesRead { UserAccountId = feed.UserAccountId, UserFeedId = feed.Id, ArticleId = articleId };
             if (read)
-            {
-                if (!datastore.LoadAll<UserArticlesRead>(
-                    Tuple.Create("UserAccountId", (object)userArticleRead.UserAccountId, ClauseComparsion.Equals),
-                    Tuple.Create("UserFeedId", (object)userArticleRead.UserFeedId, ClauseComparsion.Equals),
-                    Tuple.Create("ArticleId", (object)userArticleRead.ArticleId, ClauseComparsion.Equals)
-                    ).Any())
-                {
-                    datastore.Store(userArticleRead);
-                }
-            }
-            else
-            {
-                datastore.RemoveUserArticleRead(userArticleRead);
-            }
-            */
+                return _userArticlesReadRepository.TryCreateAsync(feed.UserAccountId, feed.Id, articleId);
+            return _userArticlesReadRepository.TryRemoveAsync(feed.UserAccountId, feed.Id, articleId);
         }
     }
 }

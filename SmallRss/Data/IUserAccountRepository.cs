@@ -7,5 +7,6 @@ namespace SmallRss.Data
     public interface IUserAccountRepository
     {
         Task<UserAccount> FindOrCreateAsync(ClaimsPrincipal user);
+        Task UpdateAsync(UserAccount userAccount);
     }
 }
