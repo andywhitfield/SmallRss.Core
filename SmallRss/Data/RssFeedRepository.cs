@@ -16,9 +16,24 @@ namespace SmallRss.Data
             _context = context;
         }
 
+        public async Task<RssFeed> CreateAsync(string uri)
+        {
+            var feed = await GetByUriAsync(uri);
+            if (feed != null)
+                throw new ArgumentException($"RSS feed already exists with uri: [{uri}]");
+            var added = await _context.RssFeeds.AddAsync(new RssFeed { Uri = uri });
+            await _context.SaveChangesAsync();
+            return added.Entity;
+        }
+
         public Task<RssFeed> GetByIdAsync(int rssFeedId)
         {
             return _context.RssFeeds.FindAsync(rssFeedId).AsTask();
+        }
+
+        public Task<RssFeed> GetByUriAsync(string uri)
+        {
+            return _context.RssFeeds.FirstOrDefaultAsync(rf => rf.Uri == uri);
         }
 
         public Task<List<RssFeed>> GetByIdsAsync(IEnumerable<int> rssFeedIds)

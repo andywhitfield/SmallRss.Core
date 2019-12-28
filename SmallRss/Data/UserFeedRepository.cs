@@ -33,6 +33,18 @@ namespace SmallRss.Data
             return _context.UserFeeds.Where(uf => uf.UserAccountId == userAccount.Id && uf.RssFeedId == rssFeedId).ToListAsync();
         }
 
+        public async Task<UserFeed> CreateAsync(int rssFeedId, int userAccountId, string name, string groupName)
+        {
+            var userFeed = await _context.UserFeeds.AddAsync(new UserFeed {
+                RssFeedId = rssFeedId,
+                UserAccountId = userAccountId,
+                Name = name,
+                GroupName = groupName
+            });
+            await _context.SaveChangesAsync();
+            return userFeed.Entity;
+        }
+
         public Task RemoveAsync(UserFeed toRemove)
         {
             _context.UserArticlesRead.RemoveRange(_context.UserArticlesRead.Where(uar => uar.UserFeedId == toRemove.Id));

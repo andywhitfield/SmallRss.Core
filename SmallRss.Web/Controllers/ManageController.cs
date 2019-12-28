@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -8,8 +10,10 @@ using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SmallRss.Data;
+using SmallRss.Models;
 using SmallRss.Web.Models.Manage;
 
 namespace SmallRss.Web.Controllers
@@ -22,16 +26,22 @@ namespace SmallRss.Web.Controllers
         private readonly IUserAccountRepository _userAccountRepository;
         private readonly IUserFeedRepository _userFeedRepository;
         private readonly IRssFeedRepository _rssFeedRepository;
+        private readonly IHttpClientFactory _clientFactory;
+        private readonly string _serviceUri;
 
         public ManageController(ILogger<ManageController> logger,
             IUserAccountRepository userAccountRepository,
             IUserFeedRepository userFeedRepository,
-            IRssFeedRepository rssFeedRepository)
+            IRssFeedRepository rssFeedRepository,
+            IHttpClientFactory clientFactory,
+            IConfiguration configuration)
         {
             _logger = logger;
             _userAccountRepository = userAccountRepository;
             _userFeedRepository = userFeedRepository;
             _rssFeedRepository = rssFeedRepository;
+            _clientFactory = clientFactory;
+            _serviceUri = configuration.GetValue<string>("ServiceUri");
         }
 
         [HttpGet]
@@ -67,36 +77,43 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add([FromForm]AddFeedViewModel addFeed)
+        public async Task<ActionResult> AddAsync([FromForm]AddFeedViewModel addFeed)
         {
-            /*
-            var user = this.CurrentUser(datastore);
-
             if (!ModelState.IsValid || (string.IsNullOrWhiteSpace(addFeed.GroupSel) && string.IsNullOrWhiteSpace(addFeed.Group)))
             {
-                var vm = CreateIndexViewModel(user);
+                var vm = await CreateIndexViewModelAsync();
                 vm.Error = "Missing feed URL, group or name. Please complete all fields and try again.";
-                return View("Index", vm);
+                return View(nameof(Index), vm);
             }
 
-            var rss = datastore.LoadAll<RssFeed>("Uri", addFeed.Url).FirstOrDefault();
+            var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
+            var rss = await _rssFeedRepository.GetByUriAsync(addFeed.Url);
             if (rss == null)
             {
-                rss = datastore.Store(new RssFeed { Uri = addFeed.Url });
-                log.InfoFormat("Created new RSS feed: {0}", addFeed.Url);
-                serviceApi.RefreshFeed(user.Id, rss.Id);
+                using var httpClient = _clientFactory.CreateClient();
+                var jsonRequest = JsonSerializer.Serialize(new { Uri = addFeed.Url, UserAccountId = userAccount.Id });
+                using var response = await httpClient.PostAsync($"{_serviceUri}/api/feed/create", new StringContent(jsonRequest, Encoding.UTF8, "application/json"));
+                var responseJson = await response.Content?.ReadAsStringAsync();
+                CreateRssFeedResponse createRssFeedResult = null;
+                if (!response.IsSuccessStatusCode || !responseJson.TryParseJson(out createRssFeedResult, _logger))
+                {
+                    _logger.LogError($"Could not create feed: response code {response.StatusCode}: content: {responseJson}");
+                    var vm = await CreateIndexViewModelAsync();
+                    vm.Error = "Could not create feed, please try again.";
+                    return View(nameof(Index), vm);                    
+                }
+                rss = new RssFeed { Id = createRssFeedResult.RssFeedId };
+
+                _logger.LogInformation($"Created new RSS feed: {addFeed.Url} Id: {rss.Id}");
             }
 
-            var newFeed = new UserFeed {
-                GroupName = string.IsNullOrWhiteSpace(addFeed.GroupSel) ? addFeed.Group : addFeed.GroupSel,
-                Name = addFeed.Name,
-                RssFeedId = rss.Id,
-                UserAccountId = user.Id
-            };
-            datastore.Store(newFeed);
+            await _userFeedRepository.CreateAsync(
+                rss.Id,
+                userAccount.Id,
+                addFeed.Name,
+                string.IsNullOrWhiteSpace(addFeed.GroupSel) ? addFeed.Group : addFeed.GroupSel);
 
-            log.InfoFormat("Created new user feed: {0} - {1}", addFeed.Name, addFeed.Url);
-            */
+            _logger.LogInformation($"Created new user feed: {addFeed.Name} - {addFeed.Url}");
 
             return RedirectToAction(nameof(Index));
         }
@@ -161,7 +178,7 @@ namespace SmallRss.Web.Controllers
             var redirectUri = Url.Action(nameof(PocketAuth), "Manage", null, Request.Scheme);
             var requestJson = "{\"consumer_key\":\"" + PocketConsumerKey + "\", \"redirect_uri\":\"" + HttpUtility.UrlEncode(redirectUri) + "\"}";
 
-            var webClient = new WebClient();
+            using var webClient = new WebClient();
             webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=UTF-8");
             webClient.Headers.Add("X-Accept", "application/json");
             var result = await webClient.UploadStringTaskAsync("https://getpocket.com/v3/oauth/request", requestJson);
@@ -178,7 +195,7 @@ namespace SmallRss.Web.Controllers
             var code = HttpContext.Session.GetString("POCKET_CODE");
             var requestJson = JsonSerializer.Serialize(new { consumer_key = PocketConsumerKey, code });
 
-            var webClient = new WebClient();
+            using var webClient = new WebClient();
             webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=UTF-8");
             webClient.Headers.Add("X-Accept", "application/json");
             var result = await webClient.UploadStringTaskAsync("https://getpocket.com/v3/oauth/authorize", requestJson);
@@ -224,6 +241,11 @@ namespace SmallRss.Web.Controllers
             [JsonPropertyName("access_token")]
             public string AccessToken { get; set; }
             public string Username { get; set; }
+        }
+
+        private class CreateRssFeedResponse
+        {
+            public int RssFeedId { get; set; }
         }
     }
 }
