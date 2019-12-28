@@ -87,24 +87,12 @@ namespace SmallRss.Web.Controllers
             }
 
             var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
-            var rss = await _rssFeedRepository.GetByUriAsync(addFeed.Url);
+            var rss = await GetOrCreateRssFeedAsync(addFeed.Url, userAccount.Id);
             if (rss == null)
             {
-                using var httpClient = _clientFactory.CreateClient();
-                var jsonRequest = JsonSerializer.Serialize(new { Uri = addFeed.Url, UserAccountId = userAccount.Id });
-                using var response = await httpClient.PostAsync($"{_serviceUri}/api/feed/create", new StringContent(jsonRequest, Encoding.UTF8, "application/json"));
-                var responseJson = await response.Content?.ReadAsStringAsync();
-                CreateRssFeedResponse createRssFeedResult = null;
-                if (!response.IsSuccessStatusCode || !responseJson.TryParseJson(out createRssFeedResult, _logger))
-                {
-                    _logger.LogError($"Could not create feed: response code {response.StatusCode}: content: {responseJson}");
-                    var vm = await CreateIndexViewModelAsync();
-                    vm.Error = "Could not create feed, please try again.";
-                    return View(nameof(Index), vm);                    
-                }
-                rss = new RssFeed { Id = createRssFeedResult.RssFeedId };
-
-                _logger.LogInformation($"Created new RSS feed: {addFeed.Url} Id: {rss.Id}");
+                var vm = await CreateIndexViewModelAsync();
+                vm.Error = "Could not create feed, please try again.";
+                return View(nameof(Index), vm);
             }
 
             await _userFeedRepository.CreateAsync(
@@ -119,47 +107,37 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save([FromForm]SaveFeedViewModel saveFeed)
+        public async Task<ActionResult> Save([FromForm]SaveFeedViewModel saveFeed)
         {
-            /*
-            TODO
-            var user = this.CurrentUser(datastore);
             if (!ModelState.IsValid || (string.IsNullOrWhiteSpace(saveFeed.GroupSel) && string.IsNullOrWhiteSpace(saveFeed.Group)))
             {
-                var vm = CreateEditViewModel(user, saveFeed.Id);
+                var vm = await CreateEditViewModelAsync(saveFeed.Id);
                 if (vm == null)
-                    return RedirectToAction("index");
+                    return RedirectToAction(nameof(Index));
 
                 vm.Error = "Could not update feed due to a missing feed URL, group or name. Please complete all fields and try again.";
-                return View("Edit", vm);
+                return View(nameof(Edit), vm);
             }
 
-            var rss = datastore.LoadAll<RssFeed>("Uri", saveFeed.Url).FirstOrDefault();
-            if (rss == null)
+            var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
+            var rss = await GetOrCreateRssFeedAsync(saveFeed.Url, userAccount.Id);
+            var feed = await _userFeedRepository.GetByIdAsync(saveFeed.Id);
+            if (rss ==null || feed == null || feed.UserAccountId != userAccount.Id)
             {
-                rss = datastore.Store(new RssFeed { Uri = saveFeed.Url });
-                log.InfoFormat("Updating user feed, created new rss: {0}", saveFeed.Url);
-            }
-
-            var feed = datastore.Load<UserFeed>(saveFeed.Id);
-            if (feed == null || feed.UserAccountId != user.Id)
-            {
-                var vm = CreateEditViewModel(user, saveFeed.Id);
+                var vm = await CreateEditViewModelAsync(saveFeed.Id);
                 if (vm == null)
-                    return RedirectToAction("index");
+                    return RedirectToAction(nameof(Index));
 
                 vm.Error = "Could not update feed due to a security check failure. Please try again";
-                return View("Edit", vm);
+                return View(nameof(Edit), vm);
             }
 
             feed.GroupName = string.IsNullOrWhiteSpace(saveFeed.GroupSel) ? saveFeed.Group : saveFeed.GroupSel;
             feed.Name = saveFeed.Name;
             feed.RssFeedId = rss.Id;
-            datastore.Update(feed);
+            await _userFeedRepository.UpdateAsync(feed);
 
-            log.InfoFormat("Updating user feed: {0}", saveFeed.Name);
-            */
-
+            _logger.LogInformation($"Updated user feed: {saveFeed.Name}");
             return RedirectToAction(nameof(Index));
         }
 
@@ -208,6 +186,29 @@ namespace SmallRss.Web.Controllers
             await _userAccountRepository.UpdateAsync(userAccount);
 
             return RedirectToAction(nameof(Index));
+        }
+        
+        private async Task<RssFeed> GetOrCreateRssFeedAsync(string feedUri, int userAccountId)
+        {
+            var rss = await _rssFeedRepository.GetByUriAsync(feedUri);
+            if (rss == null)
+            {
+                using var httpClient = _clientFactory.CreateClient();
+                var jsonRequest = JsonSerializer.Serialize(new { Uri = feedUri, UserAccountId = userAccountId });
+                using var response = await httpClient.PostAsync($"{_serviceUri}/api/feed/create", new StringContent(jsonRequest, Encoding.UTF8, "application/json"));
+                var responseJson = await response.Content?.ReadAsStringAsync();
+                CreateRssFeedResponse createRssFeedResult = null;
+                if (!response.IsSuccessStatusCode || !responseJson.TryParseJson(out createRssFeedResult, _logger))
+                {
+                    _logger.LogError($"Could not create feed: response code {response.StatusCode}: content: {responseJson}");
+                    return null;
+                }
+
+                rss = new RssFeed { Id = createRssFeedResult.RssFeedId };
+
+                _logger.LogInformation($"Created new RSS feed: {feedUri} Id: {rss.Id}");
+            }
+            return rss;
         }
 
         private async Task<IndexViewModel> CreateIndexViewModelAsync()

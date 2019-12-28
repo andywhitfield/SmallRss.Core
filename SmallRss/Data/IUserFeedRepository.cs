@@ -11,5 +11,6 @@ namespace SmallRss.Data
         Task<List<UserFeed>> GetAllByUserAndRssFeedAsync(UserAccount userAccount, int rssFeedId);
         Task<UserFeed> CreateAsync(int rssFeedId, int userAccountId, string name, string groupName);
         Task RemoveAsync(UserFeed toRemove);
+        Task UpdateAsync(UserFeed userFeed);
     }
 }

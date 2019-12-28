@@ -51,5 +51,11 @@ namespace SmallRss.Data
             _context.UserFeeds.Remove(toRemove);
             return _context.SaveChangesAsync();
         }
+
+        public Task UpdateAsync(UserFeed userFeed)
+        {
+            _context.UserFeeds.Update(userFeed);
+            return _context.SaveChangesAsync();
+        }
     }
 }
