@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
@@ -47,7 +48,7 @@ namespace SmallRss.Web.Controllers
             var webClient = new WebClient();
             webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=UTF-8");
             webClient.Headers.Add("X-Accept", "application/json");
-            var result = webClient.UploadString("https://getpocket.com/v3/add", requestJson);
+            var result = await webClient.UploadStringTaskAsync("https://getpocket.com/v3/add", requestJson);
             if (!result.TryParseJson(out AddResponse addResult, _logger))
                 return new { saved = false };
             // TODO: handle response and return appropriate json response to client

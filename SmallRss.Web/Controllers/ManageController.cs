@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,7 +45,7 @@ namespace SmallRss.Web.Controllers
         {
             var vm = await CreateEditViewModelAsync(id);
             if (vm == null)
-                return RedirectToAction("index");
+                return RedirectToAction(nameof(Index));
 
             return View(vm);
         }
@@ -96,7 +98,7 @@ namespace SmallRss.Web.Controllers
             log.InfoFormat("Created new user feed: {0} - {1}", addFeed.Name, addFeed.Url);
             */
 
-            return RedirectToAction("index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
@@ -141,55 +143,45 @@ namespace SmallRss.Web.Controllers
             log.InfoFormat("Updating user feed: {0}", saveFeed.Name);
             */
 
-            return RedirectToAction("index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        public ActionResult Pocket()
+        public async Task<ActionResult> Pocket()
         {
-            return RedirectToAction("Index");
-            /*
-            TODO
-            var userAccount = this.CurrentUser(datastore);
+            var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
             if (userAccount.HasPocketAccessToken)
             {
                 // disconnect from pocket requested
                 userAccount.PocketAccessToken = string.Empty;
-                datastore.UpdateAccount(userAccount);
-                return RedirectToAction("Index");
+                await _userAccountRepository.UpdateAsync(userAccount);
+                return RedirectToAction(nameof(Index));
             }
 
-            var redirectUri = Url.Action("PocketAuth", "Manage", routeValues: null, protocol: Request.Url.Scheme);
-            var requestJson = "{\"consumer_key\":\"" + PocketConsumerKey + "\", \"redirect_uri\":\"" + Url.Encode(redirectUri) + "\"}";
+            var redirectUri = Url.Action(nameof(PocketAuth), "Manage", null, Request.Scheme);
+            var requestJson = "{\"consumer_key\":\"" + PocketConsumerKey + "\", \"redirect_uri\":\"" + HttpUtility.UrlEncode(redirectUri) + "\"}";
 
             var webClient = new WebClient();
             webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=UTF-8");
             webClient.Headers.Add("X-Accept", "application/json");
-            var result = webClient.UploadString("https://getpocket.com/v3/oauth/request", requestJson);
+            var result = await webClient.UploadStringTaskAsync("https://getpocket.com/v3/oauth/request", requestJson);
+            if (!result.TryParseJson(out RequestToken requestToken, _logger))
+                throw new InvalidOperationException($"Cannot deserialize response: {result}");
 
-            var jsonDeserializer = new DataContractJsonSerializer(typeof(RequestToken));
-            var requestToken = jsonDeserializer.ReadObject(new MemoryStream(Encoding.UTF8.GetBytes(result))) as RequestToken;
-            if (requestToken == null)
-            {
-                throw new InvalidOperationException("Cannot deserialize response: " + result);
-            }
             // parse result: {"code":"f5efd910-9415-7fb1-a1f7-981402","state":null}
-            Session["POCKET_CODE"] = requestToken.code;
-            var redirectToPocket = string.Format("https://getpocket.com/auth/authorize?request_token={0}&redirect_uri={1}", Url.Encode(requestToken.code), Url.Encode(redirectUri));
-
-            return Redirect(redirectToPocket);
-            */
+            HttpContext.Session.SetString("POCKET_CODE", requestToken.Code);
+            return Redirect($"https://getpocket.com/auth/authorize?request_token={HttpUtility.UrlEncode(requestToken.Code)}&redirect_uri={HttpUtility.UrlEncode(redirectUri)}");
         }
 
         public async Task<ActionResult> PocketAuth()
         {
-            var code = this.HttpContext.Session.GetString("POCKET_CODE");
+            var code = HttpContext.Session.GetString("POCKET_CODE");
             var requestJson = JsonSerializer.Serialize(new { consumer_key = PocketConsumerKey, code });
 
             var webClient = new WebClient();
             webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=UTF-8");
             webClient.Headers.Add("X-Accept", "application/json");
-            var result = webClient.UploadString("https://getpocket.com/v3/oauth/authorize", requestJson);
+            var result = await webClient.UploadStringTaskAsync("https://getpocket.com/v3/oauth/authorize", requestJson);
             if (!result.TryParseJson(out PocketAuthResult authResult, _logger))
                 return RedirectToAction("Index");
 
@@ -198,7 +190,7 @@ namespace SmallRss.Web.Controllers
             userAccount.PocketAccessToken = authResult.AccessToken;
             await _userAccountRepository.UpdateAsync(userAccount);
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         private async Task<IndexViewModel> CreateIndexViewModelAsync()
@@ -222,11 +214,16 @@ namespace SmallRss.Web.Controllers
             return new EditViewModel { Feed = new FeedSubscriptionViewModel(userFeed, rss), CurrentGroups = userFeeds.Select(f => f.GroupName).Distinct().OrderBy(g => g) };
         }
 
+        private class RequestToken
+        {
+            public string Code { get; set; }
+        }
+
         private class PocketAuthResult
         {
             [JsonPropertyName("access_token")]
-            public string AccessToken{ get; set; }
-            public string Username{ get; set; }
+            public string AccessToken { get; set; }
+            public string Username { get; set; }
         }
     }
 }
