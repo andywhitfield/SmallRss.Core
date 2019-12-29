@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,6 +65,8 @@ namespace SmallRss.Feeds
 
     public static class RefreshRssFeedsServiceProviderExtensions
     {
+        public const string DefaultHttpClient = "default";
+
         public static IServiceCollection AddRefreshRssFeeds(this IServiceCollection services)
         {
             services.AddScoped<IRefreshRssFeeds, RefreshRssFeeds>();
@@ -73,7 +77,10 @@ namespace SmallRss.Feeds
             services.AddScoped<IFeedParser, FeedParser>();
             services.AddScoped<IFeedReader, RssFeedReader>();
             services.AddScoped<IFeedReader, AtomFeedReader>();
-            services.AddHttpClient();
+            services.AddHttpClient(DefaultHttpClient).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
+            });;
             return services;
         }
     }

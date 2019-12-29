@@ -20,16 +20,16 @@ namespace SmallRss.Feeds
             _readers = readers;
         }
 
-        public Task<FeedParseResult> ParseAsync(Stream feedContent, CancellationToken cancellationToken)
+        public async Task<FeedParseResult> ParseAsync(Stream feedContent, CancellationToken cancellationToken)
         {
             try
             {
-                return ParseInternalAsync(feedContent, cancellationToken);
+                return await ParseInternalAsync(feedContent, cancellationToken);
             }
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "Error parsing feed content");
-                return Task.FromResult(FeedParseResult.FailureResult);
+                return FeedParseResult.FailureResult;
             }
         }
 

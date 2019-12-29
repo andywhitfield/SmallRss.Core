@@ -27,7 +27,7 @@ namespace SmallRss.Feeds
 
         public async Task<bool> RefreshAsync(RssFeed rssFeed, CancellationToken cancellationToken)
         {
-            var client = _clientFactory.CreateClient();
+            var client = _clientFactory.CreateClient(RefreshRssFeedsServiceProviderExtensions.DefaultHttpClient);
             var response = await client.GetAsync(rssFeed.Uri, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
