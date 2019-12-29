@@ -46,6 +46,7 @@ namespace SmallRss.Feeds
                 return Task.FromResult(FeedParseResult.FailureResult);
             }
 
+            var feedTitle = channel.Element("title")?.Value ?? channel.Element("description")?.Value ?? string.Empty;
             feed.Link = channel.Element("link")?.Value;
 
             feed.LastUpdated = channel.Elements("pubDate").FirstOrDefault()?.Value.ToDateTime();
@@ -61,7 +62,7 @@ namespace SmallRss.Feeds
             if (latestArticle > feed.LastUpdated)
                 feed.LastUpdated = latestArticle;
             
-            return Task.FromResult(new FeedParseResult(feed, articles));
+            return Task.FromResult(new FeedParseResult(feedTitle, feed, articles));
         }
 
         private Article ReadFeedItem(XElement item)

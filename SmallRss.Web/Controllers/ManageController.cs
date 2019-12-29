@@ -10,7 +10,6 @@ using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SmallRss.Data;
 using SmallRss.Models;
@@ -27,21 +26,18 @@ namespace SmallRss.Web.Controllers
         private readonly IUserFeedRepository _userFeedRepository;
         private readonly IRssFeedRepository _rssFeedRepository;
         private readonly IHttpClientFactory _clientFactory;
-        private readonly string _serviceUri;
 
         public ManageController(ILogger<ManageController> logger,
             IUserAccountRepository userAccountRepository,
             IUserFeedRepository userFeedRepository,
             IRssFeedRepository rssFeedRepository,
-            IHttpClientFactory clientFactory,
-            IConfiguration configuration)
+            IHttpClientFactory clientFactory)
         {
             _logger = logger;
             _userAccountRepository = userAccountRepository;
             _userFeedRepository = userFeedRepository;
             _rssFeedRepository = rssFeedRepository;
             _clientFactory = clientFactory;
-            _serviceUri = configuration.GetValue<string>("ServiceUri");
         }
 
         [HttpGet]
@@ -193,9 +189,9 @@ namespace SmallRss.Web.Controllers
             var rss = await _rssFeedRepository.GetByUriAsync(feedUri);
             if (rss == null)
             {
-                using var httpClient = _clientFactory.CreateClient();
+                using var httpClient = _clientFactory.CreateClient(Startup.DefaultHttpClient);
                 var jsonRequest = JsonSerializer.Serialize(new { Uri = feedUri, UserAccountId = userAccountId });
-                using var response = await httpClient.PostAsync($"{_serviceUri}/api/feed/create", new StringContent(jsonRequest, Encoding.UTF8, "application/json"));
+                using var response = await httpClient.PostAsync("/api/feed/create", new StringContent(jsonRequest, Encoding.UTF8, "application/json"));
                 var responseJson = await response.Content?.ReadAsStringAsync();
                 CreateRssFeedResponse createRssFeedResult = null;
                 if (!response.IsSuccessStatusCode || !responseJson.TryParseJson(out createRssFeedResult, _logger))

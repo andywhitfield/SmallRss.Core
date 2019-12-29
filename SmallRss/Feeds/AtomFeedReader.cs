@@ -34,6 +34,7 @@ namespace SmallRss.Feeds
             var feed = new RssFeed();
 
             var channel = doc.Root;
+            var feedTitle = channel.Element(ns + "title")?.Value ?? channel.Element(ns + "id")?.Value ?? string.Empty;
             feed.Link = channel.Element(ns + "author")?.Element(ns + "uri")?.Value;
             if (feed.Link == null)
             {
@@ -50,7 +51,7 @@ namespace SmallRss.Feeds
             if (latestArticle > feed.LastUpdated)
                 feed.LastUpdated = latestArticle;
             
-            return Task.FromResult(new FeedParseResult(feed, articles));
+            return Task.FromResult(new FeedParseResult(feedTitle, feed, articles));
         }
 
         private Article ReadFeedEntry(XElement entry)

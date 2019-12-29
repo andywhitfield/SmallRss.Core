@@ -18,6 +18,8 @@ namespace SmallRss.Web
 {
     public class Startup
     {
+        public const string DefaultHttpClient = "default";
+
         private IWebHostEnvironment hostingEnvironment;
 
         public Startup(IWebHostEnvironment env)
@@ -100,7 +102,7 @@ namespace SmallRss.Web
             services.AddScoped<IUserFeedRepository, UserFeedRepository>();
             services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<IUserArticlesReadRepository, UserArticlesReadRepository>();
-            services.AddHttpClient();
+            services.AddHttpClient(DefaultHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetValue<string>("ServiceUri")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
