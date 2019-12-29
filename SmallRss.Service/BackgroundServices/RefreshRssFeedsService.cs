@@ -28,6 +28,7 @@ namespace SmallRss.Service.BackgroundServices
             _logger.LogInformation("Running refresh rss feeds background service");
             try
             {
+                await Task.Delay(1000, stoppingToken);
                 do
                 {
                     TimeSpan fastRefreshInterval;
@@ -40,14 +41,18 @@ namespace SmallRss.Service.BackgroundServices
                         (fastRefreshInterval, slowRefreshInterval, lastSlowRefreshDateTime) = await GetFeedRefreshIntervalsAsync(backgroundServiceSettingRepository);
                         
                         var timeWhenFullRefreshDue = lastSlowRefreshDateTime + slowRefreshInterval;
-                        if (timeWhenFullRefreshDue < DateTime.UtcNow)
+                        _logger.LogTrace($"Fast refresh interval: {fastRefreshInterval}; slow refresh interval: {slowRefreshInterval}; " +
+                            $"last refresh: {lastSlowRefreshDateTime}; time until next full refresh: {timeWhenFullRefreshDue}");
+                            
+                        if (timeWhenFullRefreshDue <= DateTime.UtcNow)
                         {
                             _logger.LogInformation($"Refreshing all feeds");
                             await backgroundServiceSettingRepository.AddOrUpdateAsync("LastSlowRefreshDateTime", DateParser.ToRfc3339DateTime(DateTime.UtcNow));
                         }
                         else
                         {
-                            var diff = (int)((slowRefreshInterval.TotalSeconds - fastRefreshInterval.TotalSeconds) / slowRefreshInterval.TotalSeconds) * 100;
+                            var secondsTillFullRefresh = (timeWhenFullRefreshDue - DateTime.UtcNow).TotalSeconds;
+                            var diff = (int)((secondsTillFullRefresh / slowRefreshInterval.TotalSeconds) * 100);
                             var loadFeedsUpdatedPeriod = TimeSpan.FromHours(2);
                             if (diff % 30 == 0)
                                 loadFeedsUpdatedPeriod = TimeSpan.FromDays(3);
@@ -57,7 +62,7 @@ namespace SmallRss.Service.BackgroundServices
                                 loadFeedsUpdatedPeriod = TimeSpan.FromHours(12);
                             else if (diff % 5 == 0)
                                 loadFeedsUpdatedPeriod = TimeSpan.FromHours(6);
-                            _logger.LogTrace($"Refresh feed period: {loadFeedsUpdatedPeriod}");
+                            _logger.LogTrace($"Refresh feed period: {loadFeedsUpdatedPeriod} based on time till next refresh diff: {diff}%");
                             loadFeedsUpdatedSince = DateTime.UtcNow - loadFeedsUpdatedPeriod;
                         }
                     }
