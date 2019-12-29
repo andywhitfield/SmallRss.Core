@@ -15,14 +15,17 @@ namespace SmallRss.Web.Controllers
         private readonly ILogger<FeedController> _logger;
         private readonly IRssFeedRepository _rssFeedRepository;
         private readonly IRefreshRssFeed _refreshRssFeed;
+        private readonly SqliteDataContext _context;
 
         public FeedController(ILogger<FeedController> logger,
             IRssFeedRepository rssFeedRepository,
-            IRefreshRssFeed refreshRssFeed)
+            IRefreshRssFeed refreshRssFeed,
+            SqliteDataContext context)
         {
             _logger = logger;
             _rssFeedRepository = rssFeedRepository;
             _refreshRssFeed = refreshRssFeed;
+            _context = context;
         }
 
         [HttpGet("{id}")]
@@ -40,8 +43,11 @@ namespace SmallRss.Web.Controllers
             var existing = await _rssFeedRepository.GetByUriAsync(createFeedModel.Uri);
             if (existing != null)
                 return Conflict();
+            
             var rssFeed = await _rssFeedRepository.CreateAsync(createFeedModel.Uri);
-            await _refreshRssFeed.RefreshAsync(rssFeed, CancellationToken.None);
+            if (await _refreshRssFeed.RefreshAsync(rssFeed, CancellationToken.None))
+                await _context.SaveChangesAsync();
+            
             return Created(Url.ActionLink(nameof(Get), values: new { id = rssFeed.Id }), rssFeed);
         }
    }
