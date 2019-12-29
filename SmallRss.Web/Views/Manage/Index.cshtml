@@ -1,0 +1,81 @@
+﻿@model SmallRss.Web.Models.Manage.IndexViewModel
+<h2>Add New Feed</h2>
+<p class="error" id="errorMessage">@Model.Error</p>
+<form method="post" action="@Url.Action("add")">
+    <div class="manageForm">
+        <label for="groupSel">Group:</label>
+        @if (Model.CurrentGroups.Any())
+        {
+            <select id="groupSel" name="groupSel">
+                <option value="">New...</option>
+                @foreach (var group in Model.CurrentGroups) {
+                <option>@group</option>
+                }
+            </select>
+        }
+        <input type="text" id="group" name="group" />
+    </div>
+    <div class="manageForm">
+        <label for="url">Feed URL:</label>
+        <input type="url" id="url" name="url" class="longinput" />
+    </div>
+    <div class="manageForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" class="longinput" /> <input id="fillNameFromFeed" type="button" value="Fill from feed" />
+    </div>
+    <div class="manageForm">
+        <input type="submit" value="Add" />
+    </div>
+</form>
+
+<h2>Current Feeds</h2>
+@if (Model.Feeds.Any())
+{
+    <table>
+        @foreach (var feed in Model.Feeds)
+        {
+            <tr class="manage">
+                <td title="@feed.Url">@feed.Group / @feed.Name</td><td><input type="button" class="editFeed" data-id="@feed.Id" value="Edit" title="Edit this feed" /></td><td><form action="@Url.Action("delete")" method="post"><input type="hidden" name="id" value="@feed.Id" /><input type="submit" class="deleteFeed" value="Delete" title="Delete this feed" /></form></td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>
+        You currently have no subscriptions.
+    </p>
+}
+
+<h2>Pocket Integration</h2>
+
+<form method="post" action="@Url.Action("pocket")">
+    <input type="submit" value="@(Model.UserAccount.HasPocketAccessToken ? "Disconnect from Pocket" : "Connect to Pocket")">
+</form>
+
+@section Scripts {
+<script type="text/javascript">
+    $(function () {
+        $('#fillNameFromFeed').click(function () {
+            $.get('@Url.Action("rss", "api")', { url: $('#url').val() }, function (result) {
+                if (result.title != null) {
+                    $('#name').val(result.title);
+                } else {
+                    $('#errorMessage').text(result.error);
+                }
+            });
+        });
+        $('#groupSel').change(function () {
+            var newGroup = $('#group');
+            if ($(this).val() == "") newGroup.css('visibility', 'visible');
+            else newGroup.css('visibility', 'hidden');
+        });
+        $('.editFeed').click(function () {
+            document.location = '@Url.Action("edit")/' + $(this).attr('data-id');
+        });
+        $('.deleteFeed').click(function () {
+            return confirm('Are you sure you want to delete this feed?');
+        });
+    });
+</script>
+}

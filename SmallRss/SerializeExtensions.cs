@@ -10,7 +10,9 @@ namespace SmallRss
         {
             try
             {
-                result = JsonSerializer.Deserialize<T>(jsonString);
+                result = JsonSerializer.Deserialize<T>(jsonString, new JsonSerializerOptions{
+                    PropertyNameCaseInsensitive = true
+                });
                 if (result != null)
                     return true;
 

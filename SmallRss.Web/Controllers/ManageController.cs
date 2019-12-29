@@ -203,8 +203,9 @@ namespace SmallRss.Web.Controllers
                     _logger.LogError($"Could not create feed: response code {response.StatusCode}: content: {responseJson}");
                     return null;
                 }
+                _logger.LogTrace($"Received response - location:{response.Headers.Location} content:{responseJson}");
 
-                rss = new RssFeed { Id = createRssFeedResult.RssFeedId };
+                rss = new RssFeed { Id = createRssFeedResult.Id };
 
                 _logger.LogInformation($"Created new RSS feed: {feedUri} Id: {rss.Id}");
             }
@@ -246,7 +247,7 @@ namespace SmallRss.Web.Controllers
 
         private class CreateRssFeedResponse
         {
-            public int RssFeedId { get; set; }
+            public int Id { get; set; }
         }
     }
 }

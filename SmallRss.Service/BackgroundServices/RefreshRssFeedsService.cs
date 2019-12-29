@@ -97,9 +97,9 @@ namespace SmallRss.Service.BackgroundServices
         private async Task<(TimeSpan FastRefreshInterval, TimeSpan SlowRefreshInterval, DateTime LastSlowRefreshDateTime)> GetFeedRefreshIntervalsAsync(IBackgroundServiceSettingRepository backgroundServiceSettingRepository)
         {
             var allSettings = await backgroundServiceSettingRepository.GetAllAsync();
-            return (allSettings.FirstOrDefault(s => s.SettingName == "FastRefreshInterval").SettingValue.ToTimeSpan() ?? TimeSpan.FromMinutes(10),
-                allSettings.FirstOrDefault(s => s.SettingName == "SlowRefreshInterval").SettingValue.ToTimeSpan() ?? TimeSpan.FromDays(1),
-                allSettings.FirstOrDefault(s => s.SettingName == "LastSlowRefreshDateTime").SettingValue.ToDateTime() ?? DateTime.MinValue);
+            return (allSettings.FirstOrDefault(s => s.SettingName == "FastRefreshInterval")?.SettingValue.ToTimeSpan() ?? TimeSpan.FromMinutes(10),
+                allSettings.FirstOrDefault(s => s.SettingName == "SlowRefreshInterval")?.SettingValue.ToTimeSpan() ?? TimeSpan.FromDays(1),
+                allSettings.FirstOrDefault(s => s.SettingName == "LastSlowRefreshDateTime")?.SettingValue.ToDateTime() ?? DateTime.MinValue);
         }
     }
 }

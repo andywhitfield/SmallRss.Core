@@ -100,6 +100,7 @@ namespace SmallRss.Web
             services.AddScoped<IUserFeedRepository, UserFeedRepository>();
             services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<IUserArticlesReadRepository, UserArticlesReadRepository>();
+            services.AddHttpClient();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
