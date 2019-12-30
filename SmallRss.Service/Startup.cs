@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using SmallRss.Data;
 using SmallRss.Feeds;
 using SmallRss.Service.BackgroundServices;
@@ -50,6 +51,7 @@ namespace SmallRss.Service
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseSerilogRequestLogging();
             app.UseRouting();
             app.UseEndpoints(options => options.MapControllerRoute(
                 name: "default",
