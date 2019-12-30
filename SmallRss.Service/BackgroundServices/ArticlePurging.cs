@@ -10,12 +10,14 @@ using SmallRss.Feeds;
 
 namespace SmallRss.Service.BackgroundServices
 {
-    public class RemoveOrphanedRssFeeds : BackgroundService
+    public class ArticlePurging : BackgroundService
     {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<RemoveOrphanedRssFeeds> _logger;
+        private const int PurgeCount = 200;
 
-        public RemoveOrphanedRssFeeds(IServiceProvider serviceProvider, ILogger<RemoveOrphanedRssFeeds> logger)
+        private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger<ArticlePurging> _logger;
+
+        public ArticlePurging(IServiceProvider serviceProvider, ILogger<ArticlePurging> logger)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
@@ -23,16 +25,17 @@ namespace SmallRss.Service.BackgroundServices
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Running remove orphaned rss feeds background service");
+            _logger.LogInformation("Running article purge background service");
             try
             {
-                await Task.Delay(2000, stoppingToken);
+                await Task.Delay(3000, stoppingToken);
                 do
                 {
                     TimeSpan timeUntilDue;
                     using (var scope = _serviceProvider.CreateScope())
                     {
                         var backgroundServiceSettingRepository = scope.ServiceProvider.GetRequiredService<IBackgroundServiceSettingRepository>();
+                        var articleRepository = scope.ServiceProvider.GetRequiredService<IArticleRepository>();
                         (var runInterval, var lastRunDateTime) = await GetRunIntervalsAsync(backgroundServiceSettingRepository);
                         
                         var timeWhenRunDue = lastRunDateTime + runInterval;
@@ -40,9 +43,9 @@ namespace SmallRss.Service.BackgroundServices
                         var now = DateTime.UtcNow;
                         if (timeWhenRunDue <= now)
                         {
-                            _logger.LogInformation("Removing any orphaned rss feeds");
-                            await scope.ServiceProvider.GetRequiredService<IRssFeedRepository>().RemoveWhereNoUserFeedAsync();
-                            await backgroundServiceSettingRepository.AddOrUpdateAsync("RemoveOrphanedRssFeeds.LastRunDateTime", DateParser.ToRfc3339DateTime(DateTime.UtcNow));
+                            _logger.LogInformation("Removing old articles");
+                            await articleRepository.RemoveArticlesWhereCountOverAsync(PurgeCount);
+                            await backgroundServiceSettingRepository.AddOrUpdateAsync("ArticlePurging.LastRunDateTime", DateParser.ToRfc3339DateTime(DateTime.UtcNow));
                             timeUntilDue = runInterval;
                         }
                         else
@@ -51,31 +54,31 @@ namespace SmallRss.Service.BackgroundServices
                         }
                     }
  
-                    _logger.LogInformation($"Remove orphaned rss feeds - waiting [{timeUntilDue}] before running again");
+                    _logger.LogInformation($"Article purge job - waiting [{timeUntilDue}] before running again");
                     await Task.Delay(timeUntilDue, stoppingToken);
                 } while (!stoppingToken.IsCancellationRequested);
             }
             catch (TaskCanceledException)
             {
-                _logger.LogDebug("Remove orphaned rss feeds background service cancellation token cancelled - service stopping");
+                _logger.LogDebug("Article purging background service cancellation token cancelled - service stopping");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred running the remove orphaned rss feeds background service");
+                _logger.LogError(ex, "An error occurred running the article purge background service");
             }
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Stopped remove orphaned rss feeds background service");
+            _logger.LogInformation("Stopped article purge background service");
             return Task.CompletedTask;
         }
 
         private async Task<(TimeSpan RunInterval, DateTime LastRunDateTime)> GetRunIntervalsAsync(IBackgroundServiceSettingRepository backgroundServiceSettingRepository)
         {
             var allSettings = await backgroundServiceSettingRepository.GetAllAsync();
-            return (allSettings.FirstOrDefault(s => s.SettingName == "RemoveOrphanedRssFeeds.RunInterval")?.SettingValue.ToTimeSpan() ?? TimeSpan.FromDays(1),
-                allSettings.FirstOrDefault(s => s.SettingName == "RemoveOrphanedRssFeeds.LastRunDateTime")?.SettingValue.ToDateTime() ?? DateTime.MinValue);
+            return (allSettings.FirstOrDefault(s => s.SettingName == "ArticlePurging.RunInterval")?.SettingValue.ToTimeSpan() ?? TimeSpan.FromDays(1),
+                allSettings.FirstOrDefault(s => s.SettingName == "ArticlePurging.LastRunDateTime")?.SettingValue.ToDateTime() ?? DateTime.MinValue);
         }
     }
 }

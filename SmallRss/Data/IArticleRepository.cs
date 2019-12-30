@@ -11,5 +11,6 @@ namespace SmallRss.Data
         Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId, List<UserArticlesRead> excludingReadArticles);
         Task CreateAsync(RssFeed rssFeed, Article articleToCreate);
         Task<List<Article>> FindUnreadArticlesInUserFeedAsync(UserFeed feedToMarkAllAsRead);
+        Task RemoveArticlesWhereCountOverAsync(int purgeCount);
     }
 }
