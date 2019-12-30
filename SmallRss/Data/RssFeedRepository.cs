@@ -51,5 +51,11 @@ namespace SmallRss.Data
                 return _context.RssFeeds.ToListAsync();
             return _context.RssFeeds.Where(r => r.LastUpdated >= lastUpdatedSince).ToListAsync();
         }
+
+        public async Task RemoveWhereNoUserFeedAsync()
+        {
+            _context.RssFeeds.RemoveRange(_context.RssFeeds.FromSqlRaw("select * from RssFeeds where Id not in (select RssFeedId from UserFeeds)"));
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -47,6 +47,7 @@ namespace SmallRss.Service
 
             services.AddRefreshRssFeeds();
             services.AddHostedService<RefreshRssFeedsService>();
+            services.AddHostedService<RemoveOrphanedRssFeeds>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)

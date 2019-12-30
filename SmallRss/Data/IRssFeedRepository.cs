@@ -12,5 +12,6 @@ namespace SmallRss.Data
         Task<RssFeed> GetByUriAsync(string uri);
         Task<List<RssFeed>> GetByIdsAsync(IEnumerable<int> rssFeedIds);
         Task<List<RssFeed>> FindByLastUpdatedSinceAsync(DateTime? lastUpdatedSince);
+        Task RemoveWhereNoUserFeedAsync();
     }
 }

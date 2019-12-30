@@ -11,13 +11,14 @@ namespace SmallRss.Service
     {
         public static async Task Main(string[] args)
         {
+            const string logOutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] [{SourceContext}] {Message:lj}{NewLine}{Exception}";
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .WriteTo.File(@"smallrss.service.log", LogEventLevel.Verbose, fileSizeLimitBytes: 10_000_000,
-                    rollOnFileSizeLimit: true, shared: true, flushToDiskInterval: TimeSpan.FromSeconds(1))
+                .WriteTo.Console(outputTemplate: logOutputTemplate)
+                .WriteTo.File(@"smallrss.service.log", LogEventLevel.Verbose, outputTemplate: logOutputTemplate,
+                    fileSizeLimitBytes: 10_000_000, rollOnFileSizeLimit: true, shared: true, flushToDiskInterval: TimeSpan.FromSeconds(1))
                 .CreateLogger();
 
             var host = Host
