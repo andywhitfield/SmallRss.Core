@@ -47,10 +47,22 @@ button.image { background-color: transparent; cursor: pointer; margin: 0; paddin
 
 /* manage screen styles */
 .openid { background-repeat: no-repeat; background-position: left; border: 1px solid black; padding: 3px 6px 3px 6px; }
-.openidGoogle { background-image: url(../image/google.ico.png); }
-.openidMyopenid { background-image: url(../image/myopenid.ico.png); }
-.openidSymantec { background-image: url(../image/symantec.ico.png); }
-.openidCustom { background-image: url(../image/openid.ico.png); }
 .manageForm label { float: left; width: 100px; }
 tr.manage { vertical-align: top; }
 .longinput { width: 217px; }
+
+@media (prefers-color-scheme: dark) {
+	body { background-color: black; }
+	header h1, div, h2, td, p { color: white; }
+	a, a:active, a:link, a:visited, a:hover { color: white; }
+
+	.group-section div, .feed-title { color: black; }
+
+	.feed-list li { color: #bac6cf; background-color: #444444; }
+	.feed-list li:hover { color: white; }
+	.feed-list li[data-count="0"] { color: #aaaaaa; }
+
+	.article-list thead td { color: white; }
+	.article-list td { color: #bac6cf; background-color: #444444; }
+	.article-list tbody tr:hover td { color: white; }	
+}
