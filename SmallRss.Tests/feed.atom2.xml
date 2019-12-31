@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title type="text" xml:lang="en">Visual Studio Code - Code Editing. Redefined.</title>
+    <link type="application/atom+xml" href="https://code.visualstudio.com/feed.xml" rel="self"/>
+    <link type="text/html" href="https://code.visualstudio.com/" rel="alternate"/>
+    <updated>Thu Dec 12 2019 17:00:00 GMT+0000 (UTC)</updated>
+    <id>https://code.visualstudio.com/</id>
+    <rights>Copyright (c) 2018, Microsoft, Inc.; all rights reserved.</rights>
+    <entry>
+        <title>Visual Studio Code November 2019</title>
+        <link href="https://code.visualstudio.com/updates/v1_41"/>
+        <updated>Thu Dec 12 2019 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_41</id>
+        <content type="html">
+            <p>Visual Studio Code November 2019</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_41">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code October 2019</title>
+        <link href="https://code.visualstudio.com/updates/v1_40"/>
+        <updated>Thu Nov 07 2019 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_40</id>
+        <content type="html">
+            <p>Visual Studio Code October 2019</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_40">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Inspecting Docker Containers with Visual Studio Code</title>
+        <link href="https://code.visualstudio.com/blogs/2019/10/31/inspecting-containers"/>
+        <updated>Thu Oct 31 2019 00:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/blogs/2019/10/31/inspecting-containers</id>
+        <content type="html">
+            <p>Inspecting Docker Containers with Visual Studio Code</p>
+            <p>
+                <a href="https://code.visualstudio.com/blogs/2019/10/31/inspecting-containers">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Bowden Kelly</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code September 2019</title>
+        <link href="https://code.visualstudio.com/updates/v1_39"/>
+        <updated>Wed Oct 09 2019 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_39</id>
+        <content type="html">
+            <p>Visual Studio Code September 2019</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_39">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code Remote SSH Tips and Tricks</title>
+        <link href="https://code.visualstudio.com/blogs/2019/10/03/remote-ssh-tips-and-tricks"/>
+        <updated>Thu Oct 03 2019 00:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/blogs/2019/10/03/remote-ssh-tips-and-tricks</id>
+        <content type="html">
+            <p>Remote SSH Tips and Tricks with Visual Studio Code</p>
+            <p>
+                <a href="https://code.visualstudio.com/blogs/2019/10/03/remote-ssh-tips-and-tricks">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Sana Ajani</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code August 2019</title>
+        <link href="https://code.visualstudio.com/updates/v1_38"/>
+        <updated>Wed Sep 04 2019 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_38</id>
+        <content type="html">
+            <p>Visual Studio Code August 2019</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_38">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Using WSL 2 with Visual Studio Code</title>
+        <link href="https://code.visualstudio.com/blogs/2019/09/03/wsl2"/>
+        <updated>Tue Sep 03 2019 00:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/blogs/2019/09/03/wsl2</id>
+        <content type="html">
+            <p>WSL 2 with VS Code</p>
+            <p>
+                <a href="https://code.visualstudio.com/blogs/2019/09/03/wsl2">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Matt Hernandez</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code July 2019</title>
+        <link href="https://code.visualstudio.com/updates/v1_37"/>
+        <updated>Thu Aug 08 2019 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_37</id>
+        <content type="html">
+            <p>Visual Studio Code July 2019</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_37">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Remote SSH access with Visual Studio Code</title>
+        <link href="https://code.visualstudio.com/blogs/2019/07/25/remote-ssh"/>
+        <updated>Thu Jul 25 2019 00:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/blogs/2019/07/25/remote-ssh</id>
+        <content type="html">
+            <p>Remote SSH</p>
+            <p>
+                <a href="https://code.visualstudio.com/blogs/2019/07/25/remote-ssh">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Sana Ajani</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code June 2019</title>
+        <link href="https://code.visualstudio.com/updates/v1_36"/>
+        <updated>Wed Jul 03 2019 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_36</id>
+        <content type="html">
+            <p>Visual Studio Code June 2019</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_36">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code May 2019</title>
+        <link href="https://code.visualstudio.com/updates/v1_35"/>
+        <updated>Wed Jun 05 2019 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_35</id>
+        <content type="html">
+            <p>Visual Studio Code May 2019</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_35">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Strict null checking the Visual Studio Code codebase</title>
+        <link href="https://code.visualstudio.com/blogs/2019/05/23/strict-null"/>
+        <updated>Thu May 23 2019 00:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/blogs/2019/05/23/strict-null</id>
+        <content type="html">
+            <p>Strict null checking</p>
+            <p>
+                <a href="https://code.visualstudio.com/blogs/2019/05/23/strict-null">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Matt Bierner</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code April 2019</title>
+        <link href="https://code.visualstudio.com/updates/v1_34"/>
+        <updated>Wed May 15 2019 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_34</id>
+        <content type="html">
+            <p>Visual Studio Code April 2019</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_34">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Remote Development with Visual Studio Code</title>
+        <link href="https://code.visualstudio.com/blogs/2019/05/02/remote-development"/>
+        <updated>Thu May 02 2019 00:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/blogs/2019/05/02/remote-development</id>
+        <content type="html">
+            <p>Remote Development with Visual Studio Code</p>
+            <p>
+                <a href="https://code.visualstudio.com/blogs/2019/05/02/remote-development">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Chris Dias</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code March 2019</title>
+        <link href="https://code.visualstudio.com/updates/v1_33"/>
+        <updated>Thu Apr 04 2019 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_33</id>
+        <content type="html">
+            <p>Visual Studio Code March 2019</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_33">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code February 2019</title>
+        <link href="https://code.visualstudio.com/updates/v1_32"/>
+        <updated>Thu Mar 07 2019 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_32</id>
+        <content type="html">
+            <p>Visual Studio Code February 2019</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_32">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Language Server Index Format</title>
+        <link href="https://code.visualstudio.com/blogs/2019/02/19/lsif"/>
+        <updated>Tue Feb 19 2019 00:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/blogs/2019/02/19/lsif</id>
+        <content type="html">
+            <p>Rich Code Navigation without Checkout</p>
+            <p>
+                <a href="https://code.visualstudio.com/blogs/2019/02/19/lsif">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Dirk Bäumer</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code January 2019</title>
+        <link href="https://code.visualstudio.com/updates/v1_31"/>
+        <updated>Wed Feb 06 2019 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_31</id>
+        <content type="html">
+            <p>Visual Studio Code January 2019</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_31">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Visual Studio Code November 2018</title>
+        <link href="https://code.visualstudio.com/updates/v1_30"/>
+        <updated>Wed Dec 12 2018 17:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/updates/v1_30</id>
+        <content type="html">
+            <p>Visual Studio Code November 2018</p>
+            <p>
+                <a href="https://code.visualstudio.com/updates/v1_30">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Visual Studio Code Team</name>
+        </author>
+    </entry>
+    <entry>
+        <title>Rich Code Navigation</title>
+        <link href="https://code.visualstudio.com/blogs/2018/12/04/rich-navigation"/>
+        <updated>Tue Dec 04 2018 00:00:00 GMT+0000 (UTC)</updated>
+        <id>https://code.visualstudio.com/blogs/2018/12/04/rich-navigation</id>
+        <content type="html">
+            <p>First look at a rich code navigation experience in Visual Studio</p>
+            <p>
+                <a href="https://code.visualstudio.com/blogs/2018/12/04/rich-navigation">Read the full article</a>
+            </p>
+        </content>
+        <author>
+            <name>Jonathan Carter</name>
+        </author>
+    </entry>
+</feed>

@@ -325,56 +325,58 @@ namespace SmallRss.Feeds
             //	Local members
             //------------------------------------------------------------
             DateTimeFormatInfo dateTimeFormat = CultureInfo.InvariantCulture.DateTimeFormat;
-            string[] formats = new string[36];
+            string[] formats = new[] {
+                //------------------------------------------------------------
+                //	Define valid RFC-822 formats
+                //------------------------------------------------------------
+                // two-digit day, four-digit year patterns
+                "ddd',' dd MMM yyyy HH':'mm':'ss'.'fffffff zzz",
+                "ddd',' dd MMM yyyy HH':'mm':'ss'.'ffffff zzz",
+                "ddd',' dd MMM yyyy HH':'mm':'ss'.'fffff zzz",
+                "ddd',' dd MMM yyyy HH':'mm':'ss'.'ffff zzz",
+                "ddd',' dd MMM yyyy HH':'mm':'ss'.'fff zzz",
+                "ddd',' dd MMM yyyy HH':'mm':'ss'.'ff zzz",
+                "ddd',' dd MMM yyyy HH':'mm':'ss'.'f zzz",
+                "ddd',' dd MMM yyyy HH':'mm':'ss zzz",
+                // odd one
+                "ddd MMM dd yyyy HH':'mm':'ss '+0000 (UTC)'",
 
-            //------------------------------------------------------------
-            //	Define valid RFC-822 formats
-            //------------------------------------------------------------
-            // two-digit day, four-digit year patterns
-            formats[0] = "ddd',' dd MMM yyyy HH':'mm':'ss'.'fffffff zzz";
-            formats[1] = "ddd',' dd MMM yyyy HH':'mm':'ss'.'ffffff zzz";
-            formats[2] = "ddd',' dd MMM yyyy HH':'mm':'ss'.'fffff zzz";
-            formats[3] = "ddd',' dd MMM yyyy HH':'mm':'ss'.'ffff zzz";
-            formats[4] = "ddd',' dd MMM yyyy HH':'mm':'ss'.'fff zzz";
-            formats[5] = "ddd',' dd MMM yyyy HH':'mm':'ss'.'ff zzz";
-            formats[6] = "ddd',' dd MMM yyyy HH':'mm':'ss'.'f zzz";
-            formats[7] = "ddd',' dd MMM yyyy HH':'mm':'ss zzz";
+                // two-digit day, two-digit year patterns
+                "ddd',' dd MMM yy HH':'mm':'ss'.'fffffff zzz",
+                "ddd',' dd MMM yy HH':'mm':'ss'.'ffffff zzz",
+                "ddd',' dd MMM yy HH':'mm':'ss'.'fffff zzz",
+                "ddd',' dd MMM yy HH':'mm':'ss'.'ffff zzz",
+                "ddd',' dd MMM yy HH':'mm':'ss'.'fff zzz",
+                "ddd',' dd MMM yy HH':'mm':'ss'.'ff zzz",
+                "ddd',' dd MMM yy HH':'mm':'ss'.'f zzz",
+                "ddd',' dd MMM yy HH':'mm':'ss zzz",
 
-            // two-digit day, two-digit year patterns
-            formats[8] = "ddd',' dd MMM yy HH':'mm':'ss'.'fffffff zzz";
-            formats[9] = "ddd',' dd MMM yy HH':'mm':'ss'.'ffffff zzz";
-            formats[10] = "ddd',' dd MMM yy HH':'mm':'ss'.'fffff zzz";
-            formats[11] = "ddd',' dd MMM yy HH':'mm':'ss'.'ffff zzz";
-            formats[12] = "ddd',' dd MMM yy HH':'mm':'ss'.'fff zzz";
-            formats[13] = "ddd',' dd MMM yy HH':'mm':'ss'.'ff zzz";
-            formats[14] = "ddd',' dd MMM yy HH':'mm':'ss'.'f zzz";
-            formats[15] = "ddd',' dd MMM yy HH':'mm':'ss zzz";
+                // one-digit day, four-digit year patterns
+                "ddd',' d MMM yyyy HH':'mm':'ss'.'fffffff zzz",
+                "ddd',' d MMM yyyy HH':'mm':'ss'.'ffffff zzz",
+                "ddd',' d MMM yyyy HH':'mm':'ss'.'fffff zzz",
+                "ddd',' d MMM yyyy HH':'mm':'ss'.'ffff zzz",
+                "ddd',' d MMM yyyy HH':'mm':'ss'.'fff zzz",
+                "ddd',' d MMM yyyy HH':'mm':'ss'.'ff zzz",
+                "ddd',' d MMM yyyy HH':'mm':'ss'.'f zzz",
+                "ddd',' d MMM yyyy HH':'mm':'ss zzz",
 
-            // one-digit day, four-digit year patterns
-            formats[16] = "ddd',' d MMM yyyy HH':'mm':'ss'.'fffffff zzz";
-            formats[17] = "ddd',' d MMM yyyy HH':'mm':'ss'.'ffffff zzz";
-            formats[18] = "ddd',' d MMM yyyy HH':'mm':'ss'.'fffff zzz";
-            formats[19] = "ddd',' d MMM yyyy HH':'mm':'ss'.'ffff zzz";
-            formats[20] = "ddd',' d MMM yyyy HH':'mm':'ss'.'fff zzz";
-            formats[21] = "ddd',' d MMM yyyy HH':'mm':'ss'.'ff zzz";
-            formats[22] = "ddd',' d MMM yyyy HH':'mm':'ss'.'f zzz";
-            formats[23] = "ddd',' d MMM yyyy HH':'mm':'ss zzz";
+                // two-digit day, two-digit year patterns
+                "ddd',' d MMM yy HH':'mm':'ss'.'fffffff zzz",
+                "ddd',' d MMM yy HH':'mm':'ss'.'ffffff zzz",
+                "ddd',' d MMM yy HH':'mm':'ss'.'fffff zzz",
+                "ddd',' d MMM yy HH':'mm':'ss'.'ffff zzz",
+                "ddd',' d MMM yy HH':'mm':'ss'.'fff zzz",
+                "ddd',' d MMM yy HH':'mm':'ss'.'ff zzz",
+                "ddd',' d MMM yy HH':'mm':'ss'.'f zzz",
+                "ddd',' d MMM yy HH':'mm':'ss zzz",
 
-            // two-digit day, two-digit year patterns
-            formats[24] = "ddd',' d MMM yy HH':'mm':'ss'.'fffffff zzz";
-            formats[25] = "ddd',' d MMM yy HH':'mm':'ss'.'ffffff zzz";
-            formats[26] = "ddd',' d MMM yy HH':'mm':'ss'.'fffff zzz";
-            formats[27] = "ddd',' d MMM yy HH':'mm':'ss'.'ffff zzz";
-            formats[28] = "ddd',' d MMM yy HH':'mm':'ss'.'fff zzz";
-            formats[29] = "ddd',' d MMM yy HH':'mm':'ss'.'ff zzz";
-            formats[30] = "ddd',' d MMM yy HH':'mm':'ss'.'f zzz";
-            formats[31] = "ddd',' d MMM yy HH':'mm':'ss zzz";
-
-            // Fall back patterns
-            formats[32] = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK"; // RoundtripDateTimePattern
-            formats[33] = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern;
-            formats[34] = DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern;
-            formats[35] = dateTimeFormat.RFC1123Pattern;
+                // Fall back patterns
+                "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK", // RoundtripDateTimePattern
+                DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern,
+                DateTimeFormatInfo.InvariantInfo.SortableDateTimePattern,
+                dateTimeFormat.RFC1123Pattern
+            };
 
             //------------------------------------------------------------
             //	Validate parameter  
