@@ -51,15 +51,11 @@ namespace SmallRss.Feeds
 
             feed.LastUpdated = channel.Elements("pubDate").FirstOrDefault()?.Value.ToDateTime();
             if (feed.LastUpdated == null)
-            {
                 feed.LastUpdated = channel.Element("lastBuildDate")?.Value.ToDateTime();
-                if (feed.LastUpdated == null)
-                    feed.LastUpdated = DateTime.UtcNow;
-            }
 
             var articles = channel.Elements("item").Select(ReadFeedItem).Where(e => e != null).ToList();
-            var latestArticle = articles.Max(a => a.Published ?? DateTime.MinValue);
-            if (latestArticle > feed.LastUpdated)
+            var latestArticle = articles.Any() ? articles.Max(a => a.Published ?? DateTime.MinValue) : DateTime.UtcNow;
+            if (feed.LastUpdated == null || latestArticle > feed.LastUpdated)
                 feed.LastUpdated = latestArticle;
             
             return Task.FromResult(new FeedParseResult(feedTitle, feed, articles));

@@ -20,7 +20,7 @@ namespace SmallRss.Service
 
             const string logOutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] [{SourceContext}] {Message:lj}{NewLine}{Exception}";
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
+                .MinimumLevel.Is(WindowsServiceHelpers.IsWindowsService() ? LogEventLevel.Debug : LogEventLevel.Verbose)
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Console(outputTemplate: logOutputTemplate)
