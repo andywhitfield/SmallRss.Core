@@ -58,11 +58,11 @@ tr.manage { vertical-align: top; }
 
 	.group-section div, .feed-title { color: black; }
 
-	.feed-list li { color: #bac6cf; background-color: #444444; }
+	.feed-list li { color: #d8e0e6; background-color: #313131; }
 	.feed-list li:hover { color: white; }
 	.feed-list li[data-count="0"] { color: #aaaaaa; }
 
 	.article-list thead td { color: white; }
-	.article-list td { color: #bac6cf; background-color: #444444; }
+	.article-list td { color: #d8e0e6; background-color: #313131; }
 	.article-list tbody tr:hover td { color: white; }	
 }
