@@ -50,7 +50,9 @@ namespace SmallRss.Web
                     o.LoginPath = "/signin";
                     o.LogoutPath = "/signout";
                     o.Cookie.HttpOnly = true;
+                    o.Cookie.MaxAge = TimeSpan.FromDays(150);
                     o.ExpireTimeSpan = TimeSpan.FromDays(150);
+                    o.SlidingExpiration = true;
                 })
                 .AddOpenIdConnect(options =>
                 {
@@ -58,7 +60,6 @@ namespace SmallRss.Web
                     options.ClientId = "smallrss";
                     options.ClientSecret = "1ff5cdbb-c967-41a8-b9d6-8347ac2cbb10";
 
-                    options.RequireHttpsMetadata = false;
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
                     options.ResponseType = OpenIdConnectResponseType.Code;
@@ -119,8 +120,8 @@ namespace SmallRss.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSession();
             app.UseCookiePolicy();
+            app.UseSession();
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
