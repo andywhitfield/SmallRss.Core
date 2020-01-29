@@ -79,7 +79,7 @@ namespace SmallRss.Feeds
             services.AddScoped<IFeedReader, AtomFeedReader>();
             services
                 .AddHttpClient(DefaultHttpClient)
-                .ConfigureHttpClient(c => c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0"))
+                .ConfigureHttpClient(c => c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows)"))
                 .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler {
                     AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
                 });
