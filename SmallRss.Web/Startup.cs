@@ -38,6 +38,7 @@ namespace SmallRss.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var tokenLifespan = TimeSpan.FromDays(7);
             services.AddSingleton<IConfiguration>(Configuration);
 
             services
@@ -50,8 +51,8 @@ namespace SmallRss.Web
                     o.LoginPath = "/signin";
                     o.LogoutPath = "/signout";
                     o.Cookie.HttpOnly = true;
-                    o.Cookie.MaxAge = TimeSpan.FromDays(150);
-                    o.ExpireTimeSpan = TimeSpan.FromDays(150);
+                    o.Cookie.MaxAge = tokenLifespan;
+                    o.ExpireTimeSpan = tokenLifespan;
                     o.SlidingExpiration = true;
                 })
                 .AddOpenIdConnect(options =>
@@ -68,9 +69,11 @@ namespace SmallRss.Web
 
                     options.SecurityTokenValidator = new JwtSecurityTokenHandler
                     {
-                        InboundClaimTypeMap = new Dictionary<string, string>()
+                        InboundClaimTypeMap = new Dictionary<string, string>(),
+                        TokenLifetimeInMinutes = (int)tokenLifespan.TotalMinutes
                     };
 
+                    options.MaxAge = tokenLifespan;
                     options.TokenValidationParameters.NameClaimType = "name";
                     options.TokenValidationParameters.RoleClaimType = "role";
 

@@ -98,6 +98,12 @@ function refreshFeedCounts(onRefreshCompleteFunc) {
 
         if (onRefreshCompleteFunc != undefined)
             onRefreshCompleteFunc();
+    })
+    .fail(function(jqxhr, textStatus, error) {
+        if (jqxhr.status === 401) {
+            console.log('Not authenticated, reloading')
+            location.reload();
+        }
     });
 }
 function findGroup(groupId) {
