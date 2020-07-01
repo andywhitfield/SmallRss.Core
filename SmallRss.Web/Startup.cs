@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +40,7 @@ namespace SmallRss.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var tokenLifespan = TimeSpan.FromDays(7);
+            var tokenLifespan = TimeSpan.FromDays(1);
             services.AddSingleton<IConfiguration>(Configuration);
 
             services
@@ -79,6 +81,11 @@ namespace SmallRss.Web
 
                     options.AccessDeniedPath = "/";
                 });
+
+            services
+                .AddDataProtection()
+                .SetApplicationName(typeof(Startup).Namespace)
+                .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(hostingEnvironment.ContentRootPath, ".keys")));
 
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(5));
             services.AddLogging(logging =>
