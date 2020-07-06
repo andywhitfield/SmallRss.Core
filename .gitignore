@@ -167,3 +167,4 @@ pip-log.txt
 *.db
 *.db-*
 smallrss*.log
+.keys
