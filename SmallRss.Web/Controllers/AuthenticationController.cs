@@ -16,16 +16,16 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpGet("~/signin")]
-        public IActionResult SignIn() => View("SignIn");
+        public IActionResult Signin() => View("SignIn");
 
         [HttpPost("~/signin")]
-        public IActionResult SignInChallenge()
+        public IActionResult SigninChallenge()
         {
             return Challenge(new AuthenticationProperties { RedirectUri = "/" }, OpenIdConnectDefaults.AuthenticationScheme);
         }
 
         [HttpGet("~/signout"), HttpPost("~/signout")]
-        public IActionResult SignOut()
+        public IActionResult Signout()
         {
             HttpContext.Session.Clear();
             return SignOut(CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);

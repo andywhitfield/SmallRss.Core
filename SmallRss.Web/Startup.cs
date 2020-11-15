@@ -90,7 +90,7 @@ namespace SmallRss.Web
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(5));
             services.AddLogging(logging =>
             {
-                logging.AddConsole(opt => opt.TimestampFormat = "[HH:mm:ss] ");
+                logging.AddConsole();
                 logging.AddDebug();
             });
 
