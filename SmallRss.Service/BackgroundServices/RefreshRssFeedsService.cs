@@ -72,9 +72,16 @@ namespace SmallRss.Service.BackgroundServices
                         var feedRefreshService = scope.ServiceProvider.GetRequiredService<IRefreshRssFeeds>();
 
                         _logger.LogInformation($"Getting feeds updated after: {loadFeedsUpdatedSince}");
-                        var feedsToRefresh = await rssFeedRepository.FindByLastUpdatedSinceAsync(loadFeedsUpdatedSince);
-                        if (await feedRefreshService.ExecuteAsync(feedsToRefresh, stoppingToken))
-                            await context.SaveChangesAsync();
+                        try
+                        {
+                            var feedsToRefresh = await rssFeedRepository.FindByLastUpdatedSinceAsync(loadFeedsUpdatedSince);
+                            if (await feedRefreshService.ExecuteAsync(feedsToRefresh, stoppingToken))
+                                await context.SaveChangesAsync();
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "An error occurred refreshing rss feeds");
+                        }
                     }
 
                     _logger.LogInformation($"Refreshed rss feeds - waiting [{fastRefreshInterval}] before running again");
