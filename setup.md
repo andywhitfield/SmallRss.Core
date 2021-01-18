@@ -2,4 +2,4 @@
 
 ## Commands
 
-dotnet publish -c Release -t win-x64
+dotnet publish -c Release -r win-x64
