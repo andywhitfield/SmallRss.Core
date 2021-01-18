@@ -47,7 +47,7 @@ namespace SmallRss.Feeds
             feed.LastUpdated = channel.Element(ns + "updated")?.Value.ToDateTime() ?? DateTime.UtcNow;
 
             var articles = channel.Elements(ns + "entry").Select(ReadFeedEntry).Where(e => e != null).ToList();
-            var latestArticle = articles.Max(a => a.Published ?? DateTime.MinValue);
+            var latestArticle = articles.Max(a => a.Published) ?? DateTime.MinValue;
             if (latestArticle > feed.LastUpdated)
                 feed.LastUpdated = latestArticle;
             

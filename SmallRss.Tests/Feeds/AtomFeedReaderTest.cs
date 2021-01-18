@@ -49,6 +49,22 @@ namespace SmallRss.Tests.Feeds
         }
 
         [Fact]
+        public async Task ReadEmptyAtomFeed()
+        {
+            using var fs = new FileStream("feed.atom.empty.xml", FileMode.Open);
+            var validDoc = await XDocument.LoadAsync(fs, LoadOptions.None, CancellationToken.None);
+            var readResult = await _feedReader.ReadAsync(validDoc);
+            Assert.NotNull(readResult);
+            Assert.True(readResult.IsValid);
+            Assert.NotNull(readResult.Feed);
+            Assert.NotNull(readResult.Articles);
+            Assert.Equal(DateTime.ParseExact("2019-12-24T01:42:28Z", "yyyy-MM-dd'T'HH:mm:ssZ", null), readResult.Feed.LastUpdated);
+            Assert.Equal("https://daringfireball.net/", readResult.Feed.Link);
+
+            Assert.Empty(readResult.Articles);
+        }
+
+        [Fact]
         public async Task ReadValidAtomFeed()
         {
             using var fs = new FileStream("feed.atom.xml", FileMode.Open);
