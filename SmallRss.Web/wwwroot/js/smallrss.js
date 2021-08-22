@@ -42,7 +42,7 @@ function buildTreeFromFeeds() {
         newSection += '</section>';
         feeds.allGroupsSection.append(newSection);
     }
-    feeds.allGroupsSection.append('<div><button id="refresh-feed-status">Refresh Feed Status</button></div>');
+    feeds.allGroupsSection.append('<div><button id="refresh-feed-status" title="Refresh all feeds">Refresh Feed Status</button></div>');
 
     // if we're not showing all, hide all the feeds and then once
     // the feed status query completes, the unread feeds will magically
@@ -214,7 +214,7 @@ function updateSelectedFeed() {
 function buildFeedArticles() {
     var feedHtml = '<div class="feed-title">' + feeds.selectedFeedGroup.item + ' &gt; ' + feeds.selectedFeed.item + ' (' + feeds.selectedFeed.count + ')</div>';
     feedHtml += '<table class="article-list">';
-    feedHtml += '<thead><tr><td class="article-title">Title</td><td class="article-summary">Summary</td><td class="article-date">Posted</td>' + (smallrss_config.connectedToPocket ? '<td class="article-pocket">&nbsp;</td>' : '') + '<td class="article-read"><button class="image"><img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark all as read"></button></td></tr></thead>';
+    feedHtml += '<thead><tr><td class="article-title">Title</td><td class="article-summary">Summary</td><td class="article-date">Posted</td>' + (smallrss_config.connectedToPocket ? '<td class="article-pocket">&nbsp;</td>' : '') + '<td class="article-read"><button class="image" title="Mark all as read"><img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark all as read"></button></td></tr></thead>';
     feedHtml += '<tbody>';
     for (var i = 0; i < feeds.selectedFeedArticles.length; i++) {
         var article = feeds.selectedFeedArticles[i];
@@ -223,8 +223,8 @@ function buildFeedArticles() {
         feedHtml += '<td class="article-summary">' + article.article + '</td>';
         feedHtml += '<td class="article-date">' + article.posted + '</td>';
         if (smallrss_config.connectedToPocket)
-            feedHtml += '<td class="article-pocket"><button class="image"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Save to Pocket"></button></td>';
-        feedHtml += '<td class="article-read"><button class="image">' + (article.read ? '<img src="' + smallrss_config.imageroot + 'images/markunread.png" alt="Mark as unread">' : '<img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark as read">') + '</button></td>';
+            feedHtml += '<td class="article-pocket"><button class="image" title="Save to Pocket"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Save to Pocket"></button></td>';
+        feedHtml += '<td class="article-read"><button class="image" title="Mark as ' + (article.read ? 'unread' : 'read') + '">' + (article.read ? '<img src="' + smallrss_config.imageroot + 'images/markunread.png" alt="Mark as unread">' : '<img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark as read">') + '</button></td>';
         feedHtml += '</tr>';
     }
     feedHtml += '</tbody></table>';
@@ -391,10 +391,10 @@ function buildFeedArticle() {
     articleHtml += '</div>';
 
     articleHtml += '<div>';
-    articleHtml += '<div><span class="article-info">' + articleSummary.posted + '<br><em>' + feeds.selectedFeedArticle.author + '</em></span><span class="article-actions">' + (smallrss_config.connectedToPocket ? '<button class="send-to-pocket image"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Send to Pocket"></button>' : '') + '<button class="toggle-read image">' + (articleSummary.read ? '<img src="' + smallrss_config.imageroot + 'images/markunread.png" alt="Mark as unread">' : '<img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark as read">') + '</button></span></div>';
+    articleHtml += '<div><span class="article-info">' + articleSummary.posted + '<br><em>' + feeds.selectedFeedArticle.author + '</em></span><span class="article-actions">' + (smallrss_config.connectedToPocket ? '<button class="send-to-pocket image" title="Send to Pocket"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Send to Pocket"></button>' : '') + '<button class="toggle-read image" title="Mark as ' + (articleSummary.read ? 'unread' : 'read') + '">' + (articleSummary.read ? '<img src="' + smallrss_config.imageroot + 'images/markunread.png" alt="Mark as unread">' : '<img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark as read">') + '</button></span></div>';
     articleHtml += '<div class="article-heading"><a href="' + feeds.selectedFeedArticle.url + '" target="_blank">' + articleSummary.heading + '</a></div>';
     articleHtml += '<div>' + feeds.selectedFeedArticle.body + '</div>';
-    articleHtml += '<div><span class="article-actions"><button class="next-article image"><img src="' + smallrss_config.imageroot + 'images/next.png" alt="Next article"></button></span></div>';
+    articleHtml += '<div><span class="article-actions">' + (smallrss_config.connectedToPocket ? '<button class="send-to-pocket image" title="Send to Pocket"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Send to Pocket"></button>' : '') + '<button class="next-article image" title="Next article"><img src="' + smallrss_config.imageroot + 'images/next.png" alt="Next article"></button></span></div>';
     articleHtml += '</div>';
 
     return articleHtml;
