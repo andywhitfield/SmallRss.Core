@@ -102,7 +102,7 @@ namespace SmallRss.Web
 
             services.AddDbContext<SqliteDataContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
+            services.AddMvc().AddSessionStateTempDataProvider();
             services.AddRazorPages();
             services.AddCors();
             services.AddDistributedMemoryCache();
