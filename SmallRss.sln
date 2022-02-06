@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallRss.Service", "SmallRs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallRss.Tests", "SmallRss.Tests\SmallRss.Tests.csproj", "{93798D12-8420-47A1-A94F-BC64927B5FD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallRss.Cli", "SmallRss.Cli\SmallRss.Cli.csproj", "{DF27EA44-4197-47DB-86B4-4B2F0171F64E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,17 @@ Global
 		{93798D12-8420-47A1-A94F-BC64927B5FD7}.Release|x64.Build.0 = Release|Any CPU
 		{93798D12-8420-47A1-A94F-BC64927B5FD7}.Release|x86.ActiveCfg = Release|Any CPU
 		{93798D12-8420-47A1-A94F-BC64927B5FD7}.Release|x86.Build.0 = Release|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Debug|x64.Build.0 = Debug|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Debug|x86.Build.0 = Debug|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Release|x64.ActiveCfg = Release|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Release|x64.Build.0 = Release|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Release|x86.ActiveCfg = Release|Any CPU
+		{DF27EA44-4197-47DB-86B4-4B2F0171F64E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

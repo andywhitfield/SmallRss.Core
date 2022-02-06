@@ -59,11 +59,11 @@ namespace SmallRss.Feeds
         private async Task UpdateFeedItemsAsync(RssFeed rssFeed, FeedParseResult parseResult)
         {
             var existing = await _articleRepository.GetByRssFeedIdAsync(rssFeed.Id);
-            var oldestItem = existing.Any() ? existing.Min(a => a.Published ?? DateTime.MinValue) : DateTime.MinValue;
+            var oldestItem = (existing?.Any() ?? false) ? existing.Min(a => a.Published ?? DateTime.MinValue) : DateTime.MinValue;
 
             foreach (var itemInFeed in parseResult.Articles)
             {
-                var existingArticle = existing.FirstOrDefault(e => e.ArticleGuid == itemInFeed.ArticleGuid);
+                var existingArticle = existing?.FirstOrDefault(e => e.ArticleGuid == itemInFeed.ArticleGuid);
                 if (existingArticle != null)
                 {
                     if (itemInFeed.Published > existingArticle.Published)
