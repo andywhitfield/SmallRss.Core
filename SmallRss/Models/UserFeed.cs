@@ -9,8 +9,8 @@ namespace SmallRss.Models
         public int RssFeedId { get; set; }
 
         [Required]
-        public string GroupName { get; set; }
+        public string? GroupName { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

@@ -16,13 +16,13 @@ namespace SmallRss.Data
             _logger = logger;
         }
         
-        public DbSet<Article> Articles { get; set; }
-        public DbSet<BackgroundServiceSetting> BackgroundServiceSettings { get; set; }
-        public DbSet<RssFeed> RssFeeds { get; set; }
-        public DbSet<UserAccount> UserAccounts { get; set; }
-        public DbSet<UserAccountSetting> UserAccountSettings { get; set; }
-        public DbSet<UserArticlesRead> UserArticlesRead { get; set; }
-        public DbSet<UserFeed> UserFeeds { get; set; }
+        public DbSet<Article>? Articles { get; set; }
+        public DbSet<BackgroundServiceSetting>? BackgroundServiceSettings { get; set; }
+        public DbSet<RssFeed>? RssFeeds { get; set; }
+        public DbSet<UserAccount>? UserAccounts { get; set; }
+        public DbSet<UserAccountSetting>? UserAccountSettings { get; set; }
+        public DbSet<UserArticlesRead>? UserArticlesRead { get; set; }
+        public DbSet<UserFeed>? UserFeeds { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

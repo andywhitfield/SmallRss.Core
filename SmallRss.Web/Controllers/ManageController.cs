@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -41,10 +40,7 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
-        {
-            return View(await CreateIndexViewModelAsync());
-        }
+        public async Task<ActionResult> Index() => View(await CreateIndexViewModelAsync());
 
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
@@ -83,7 +79,7 @@ namespace SmallRss.Web.Controllers
             }
 
             var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
-            var rss = await GetOrCreateRssFeedAsync(addFeed.Url, userAccount.Id);
+            var rss = await GetOrCreateRssFeedAsync(addFeed.Url ?? "", userAccount.Id);
             if (rss == null)
             {
                 var vm = await CreateIndexViewModelAsync();
@@ -94,8 +90,8 @@ namespace SmallRss.Web.Controllers
             await _userFeedRepository.CreateAsync(
                 rss.Id,
                 userAccount.Id,
-                addFeed.Name,
-                string.IsNullOrWhiteSpace(addFeed.GroupSel) ? addFeed.Group : addFeed.GroupSel);
+                addFeed.Name ?? "",
+                (string.IsNullOrWhiteSpace(addFeed.GroupSel) ? addFeed.Group : addFeed.GroupSel) ?? "");
 
             _logger.LogInformation($"Created new user feed: {addFeed.Name} - {addFeed.Url}");
 
@@ -116,7 +112,7 @@ namespace SmallRss.Web.Controllers
             }
 
             var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
-            var rss = await GetOrCreateRssFeedAsync(saveFeed.Url, userAccount.Id);
+            var rss = await GetOrCreateRssFeedAsync(saveFeed.Url ?? "", userAccount.Id);
             var feed = await _userFeedRepository.GetByIdAsync(saveFeed.Id);
             if (rss ==null || feed == null || feed.UserAccountId != userAccount.Id)
             {
@@ -128,8 +124,8 @@ namespace SmallRss.Web.Controllers
                 return View(nameof(Edit), vm);
             }
 
-            feed.GroupName = string.IsNullOrWhiteSpace(saveFeed.GroupSel) ? saveFeed.Group : saveFeed.GroupSel;
-            feed.Name = saveFeed.Name;
+            feed.GroupName = (string.IsNullOrWhiteSpace(saveFeed.GroupSel) ? saveFeed.Group : saveFeed.GroupSel) ?? "";
+            feed.Name = saveFeed.Name ?? "";
             feed.RssFeedId = rss.Id;
             await _userFeedRepository.UpdateAsync(feed);
 
@@ -152,16 +148,17 @@ namespace SmallRss.Web.Controllers
             var redirectUri = Url.Action(nameof(PocketAuth), "Manage", null, Request.Scheme);
             var requestJson = "{\"consumer_key\":\"" + PocketConsumerKey + "\", \"redirect_uri\":\"" + HttpUtility.UrlEncode(redirectUri) + "\"}";
 
-            using var webClient = new WebClient();
-            webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=UTF-8");
-            webClient.Headers.Add("X-Accept", "application/json");
-            var result = await webClient.UploadStringTaskAsync("https://getpocket.com/v3/oauth/request", requestJson);
-            if (!result.TryParseJson(out RequestToken requestToken, _logger))
+            using var pocketClient = _clientFactory.CreateClient(Startup.PocketHttpClient);
+            using var response = await pocketClient.PostAsync("oauth/request", new StringContent(requestJson, Encoding.UTF8, "application/json"));
+            if (!response.IsSuccessStatusCode)
+                throw new InvalidOperationException($"Invalid pocket response: {response.StatusCode}");
+
+            var result = await response.Content.ReadAsStringAsync();
+            if (!result.TryParseJson(out RequestToken? requestToken, _logger))
                 throw new InvalidOperationException($"Cannot deserialize response: {result}");
 
-            // parse result: {"code":"f5efd910-9415-7fb1-a1f7-981402","state":null}
-            HttpContext.Session.SetString("POCKET_CODE", requestToken.Code);
-            return Redirect($"https://getpocket.com/auth/authorize?request_token={HttpUtility.UrlEncode(requestToken.Code)}&redirect_uri={HttpUtility.UrlEncode(redirectUri)}");
+            HttpContext.Session.SetString("POCKET_CODE", requestToken?.Code ?? "");
+            return Redirect($"https://getpocket.com/auth/authorize?request_token={HttpUtility.UrlEncode(requestToken?.Code)}&redirect_uri={HttpUtility.UrlEncode(redirectUri)}");
         }
 
         public async Task<ActionResult> PocketAuth()
@@ -169,22 +166,24 @@ namespace SmallRss.Web.Controllers
             var code = HttpContext.Session.GetString("POCKET_CODE");
             var requestJson = JsonSerializer.Serialize(new { consumer_key = PocketConsumerKey, code });
 
-            using var webClient = new WebClient();
-            webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=UTF-8");
-            webClient.Headers.Add("X-Accept", "application/json");
-            var result = await webClient.UploadStringTaskAsync("https://getpocket.com/v3/oauth/authorize", requestJson);
-            if (!result.TryParseJson(out PocketAuthResult authResult, _logger))
+            using var pocketClient = _clientFactory.CreateClient(Startup.PocketHttpClient);
+            using var response = await pocketClient.PostAsync("oauth/authorize", new StringContent(requestJson, Encoding.UTF8, "application/json"));
+            if (!response.IsSuccessStatusCode)
+                throw new InvalidOperationException($"Invalid pocket response: {response.StatusCode}");
+
+            var result = await response.Content.ReadAsStringAsync();
+            if (!result.TryParseJson(out PocketAuthResult? authResult, _logger))
                 return RedirectToAction("Index");
 
             // save access token into the user's account
             var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
-            userAccount.PocketAccessToken = authResult.AccessToken;
+            userAccount.PocketAccessToken = authResult?.AccessToken ?? "";
             await _userAccountRepository.UpdateAsync(userAccount);
 
             return RedirectToAction(nameof(Index));
         }
         
-        private async Task<RssFeed> GetOrCreateRssFeedAsync(string feedUri, int userAccountId)
+        private async Task<RssFeed?> GetOrCreateRssFeedAsync(string feedUri, int userAccountId)
         {
             var rss = await _rssFeedRepository.GetByUriAsync(feedUri);
             if (rss == null)
@@ -192,8 +191,8 @@ namespace SmallRss.Web.Controllers
                 using var httpClient = _clientFactory.CreateClient(Startup.DefaultHttpClient);
                 var jsonRequest = JsonSerializer.Serialize(new { Uri = feedUri, UserAccountId = userAccountId });
                 using var response = await httpClient.PostAsync("/api/feed/create", new StringContent(jsonRequest, Encoding.UTF8, "application/json"));
-                var responseJson = await response.Content?.ReadAsStringAsync();
-                CreateRssFeedResponse createRssFeedResult = null;
+                var responseJson = await response.Content.ReadAsStringAsync();
+                CreateRssFeedResponse? createRssFeedResult = null;
                 if (!response.IsSuccessStatusCode || !responseJson.TryParseJson(out createRssFeedResult, _logger))
                 {
                     _logger.LogError($"Could not create feed: response code {response.StatusCode}: content: {responseJson}");
@@ -201,7 +200,7 @@ namespace SmallRss.Web.Controllers
                 }
                 _logger.LogTrace($"Received response - location:{response.Headers.Location} content:{responseJson}");
 
-                rss = new RssFeed { Id = createRssFeedResult.Id };
+                rss = new RssFeed { Id = createRssFeedResult?.Id ?? 0 };
 
                 _logger.LogInformation($"Created new RSS feed: {feedUri} Id: {rss.Id}");
             }
@@ -216,7 +215,7 @@ namespace SmallRss.Web.Controllers
             return new IndexViewModel { UserAccount = userAccount, Feeds = userFeeds.Select(f => new FeedSubscriptionViewModel(f, rssFeeds.Single(rf => rf.Id == f.RssFeedId))).OrderBy(f => f.Name).OrderBy(f => f.Group) };
         }
 
-        private async Task<EditViewModel> CreateEditViewModelAsync(int userFeedId)
+        private async Task<EditViewModel?> CreateEditViewModelAsync(int userFeedId)
         {
             var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
             var userFeeds = await _userFeedRepository.GetAllByUserAsync(userAccount);
@@ -226,19 +225,22 @@ namespace SmallRss.Web.Controllers
                 return null;
 
             var rss = await _rssFeedRepository.GetByIdAsync(userFeed.RssFeedId);
-            return new EditViewModel { Feed = new FeedSubscriptionViewModel(userFeed, rss), CurrentGroups = userFeeds.Select(f => f.GroupName).Distinct().OrderBy(g => g) };
+            if (rss == null)
+                return null;
+
+            return new EditViewModel { Feed = new FeedSubscriptionViewModel(userFeed, rss), CurrentGroups = userFeeds.Select(f => f.GroupName ?? "").Distinct().OrderBy(g => g) };
         }
 
         private class RequestToken
         {
-            public string Code { get; set; }
+            public string? Code { get; set; }
         }
 
         private class PocketAuthResult
         {
             [JsonPropertyName("access_token")]
-            public string AccessToken { get; set; }
-            public string Username { get; set; }
+            public string? AccessToken { get; set; }
+            public string? Username { get; set; }
         }
 
         private class CreateRssFeedResponse

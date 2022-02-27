@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,6 +20,7 @@ namespace SmallRss.Web
     public class Startup
     {
         public const string DefaultHttpClient = "default";
+        public const string PocketHttpClient = "pocket";
 
         private IWebHostEnvironment hostingEnvironment;
 
@@ -84,7 +84,7 @@ namespace SmallRss.Web
 
             services
                 .AddDataProtection()
-                .SetApplicationName(typeof(Startup).Namespace)
+                .SetApplicationName(typeof(Startup).Namespace ?? "")
                 .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(hostingEnvironment.ContentRootPath, ".keys")));
 
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(5));
@@ -114,6 +114,11 @@ namespace SmallRss.Web
             services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<IUserArticlesReadRepository, UserArticlesReadRepository>();
             services.AddHttpClient(DefaultHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetValue<string>("ServiceUri")));
+            services.AddHttpClient(PocketHttpClient).ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri("https://getpocket.com/v3/");
+                c.DefaultRequestHeaders.Add("X-Accept", "application/json");
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)

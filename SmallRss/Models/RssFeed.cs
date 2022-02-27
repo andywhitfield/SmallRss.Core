@@ -7,8 +7,8 @@ namespace SmallRss.Models
     {
         public int Id { get; set; }
         [Required]
-        public string Uri { get; set; }
-        public string Link { get; set; }
+        public string? Uri { get; set; }
+        public string? Link { get; set; }
         public DateTime? LastUpdated { get; set; }
     }
 }

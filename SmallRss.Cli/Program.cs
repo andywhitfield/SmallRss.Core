@@ -20,7 +20,7 @@ namespace SmallRss.Cli
                 client.DefaultRequestHeaders.Add("User-Agent", args.Length > 1 ? args[1] : "Mozilla/5.0 (Windows)");
 
                 using var response = await client.GetAsync(args[0]);
-                var responseContent = await response.Content?.ReadAsStringAsync();
+                var responseContent = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                     Console.WriteLine($"Could not download feed [{args[0]}]: response status: {response.StatusCode}, content: {responseContent}");
                 else

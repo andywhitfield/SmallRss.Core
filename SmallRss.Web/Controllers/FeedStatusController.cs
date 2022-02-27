@@ -26,7 +26,7 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<object>>> Get()
+        public async Task<IEnumerable<object>> Get()
         {
             var user = await _userAccountRepository.FindOrCreateAsync(User);
             return (await _userArticlesReadRepository.FindUnreadArticlesAsync(user))
@@ -38,9 +38,7 @@ namespace SmallRss.Web.Controllers
                         unread = group.Sum(g => g.UnreadCount),
                         items = group.Select(f => new { value = f.UserFeedId, unread = f.UnreadCount })
                     }
-                )
-                .ToList();
-
+                );
         }
 
         [HttpPost]

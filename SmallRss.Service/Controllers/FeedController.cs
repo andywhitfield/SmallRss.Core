@@ -60,7 +60,7 @@ namespace SmallRss.Web.Controllers
             using var response = await client.GetAsync(feedUri.ToString(), CancellationToken.None);
             if (!response.IsSuccessStatusCode)
             {
-                _logger.LogWarning($"Could not load feed {feedUri}: response status: {response.StatusCode}, content: {await response.Content?.ReadAsStringAsync()}");
+                _logger.LogWarning($"Could not load feed {feedUri}: response status: {response.StatusCode}, content: {await response.Content.ReadAsStringAsync()}");
                 return BadRequest();
             }
 
@@ -78,15 +78,15 @@ namespace SmallRss.Web.Controllers
         [HttpPost("create")]
         public async Task<ActionResult> Create([FromBody]CreateFeedModel createFeedModel)
         {
-            var existing = await _rssFeedRepository.GetByUriAsync(createFeedModel.Uri);
+            var existing = await _rssFeedRepository.GetByUriAsync(createFeedModel.Uri ?? "");
             if (existing != null)
                 return Conflict();
             
-            var rssFeed = await _rssFeedRepository.CreateAsync(createFeedModel.Uri);
+            var rssFeed = await _rssFeedRepository.CreateAsync(createFeedModel.Uri ?? "");
             if (await _refreshRssFeed.RefreshAsync(rssFeed, CancellationToken.None))
                 await _context.SaveChangesAsync();
             
-            return Created(Url.ActionLink(nameof(Get), values: new { id = rssFeed.Id }), rssFeed);
+            return Created(Url.ActionLink(nameof(Get), values: new { id = rssFeed.Id }) ?? "", rssFeed);
         }
    }
 }

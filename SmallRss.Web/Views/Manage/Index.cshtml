@@ -50,7 +50,7 @@ else
 <h2>Pocket Integration</h2>
 
 <form method="post" action="@Url.Action("pocket")">
-    <input type="submit" value="@(Model.UserAccount.HasPocketAccessToken ? "Disconnect from Pocket" : "Connect to Pocket")">
+    <input type="submit" value="@(Model.UserAccount?.HasPocketAccessToken ?? false ? "Disconnect from Pocket" : "Connect to Pocket")">
 </form>
 
 @section Scripts {

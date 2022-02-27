@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -25,32 +26,30 @@ namespace SmallRss.Data
             if (userIdentifier == null)
                 throw new ArgumentException($"Cannot find identifier claim from user: {user}", nameof(user));
 
-            var userAccountSetting = await _context.UserAccountSettings.SingleOrDefaultAsync(uas =>
+            var userAccountSetting = await _context.UserAccountSettings!.SingleOrDefaultAsync(uas =>
                 uas.SettingType == "AuthenticationId" &&
                 uas.SettingValue == userIdentifier);
-            if (userAccountSetting == null)
-                return await CreateAsync(userIdentifier);
-            
-            _logger.LogInformation($"Found existing account with id {userAccountSetting.Id} for {userIdentifier}");
-            return await GetByIdAsync(userAccountSetting.UserAccountId);
+
+            var userAccount = userAccountSetting == null ? null : await GetByIdAsync(userAccountSetting.UserAccountId);
+            return userAccount ?? await CreateAsync(userIdentifier);
         }
 
         public async Task UpdateAsync(UserAccount userAccount)
         {
-            var userAccountSettings = await _context.UserAccountSettings.Where(uas => uas.UserAccountId == userAccount.Id).ToListAsync();
+            var userAccountSettings = await _context.UserAccountSettings!.Where(uas => uas.UserAccountId == userAccount.Id).ToListAsync();
             var userAccountSetting = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "ShowAllItems" && uas.SettingName == "ShowAllItems");
             if (userAccountSetting == null)
-                await _context.UserAccountSettings.AddAsync(new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "ShowAllItems", SettingName = "ShowAllItems", SettingValue = Convert.ToString(userAccount.ShowAllItems) });
+                await _context.UserAccountSettings!.AddAsync(new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "ShowAllItems", SettingName = "ShowAllItems", SettingValue = Convert.ToString(userAccount.ShowAllItems) });
             else
                 userAccountSetting.SettingValue = Convert.ToString(userAccount.ShowAllItems);
 
             userAccountSetting = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "PocketAccessToken" && uas.SettingName == "PocketAccessToken");
             if (userAccountSetting == null)
-                await _context.UserAccountSettings.AddAsync(new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "PocketAccessToken", SettingName = "PocketAccessToken", SettingValue = userAccount.PocketAccessToken });
+                await _context.UserAccountSettings!.AddAsync(new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "PocketAccessToken", SettingName = "PocketAccessToken", SettingValue = userAccount.PocketAccessToken });
             else
                 userAccountSetting.SettingValue = userAccount.PocketAccessToken;
 
-            _context.UserAccountSettings.RemoveRange(userAccountSettings.Where(uas => uas.SettingType == "ExpandedGroup"));
+            _context.UserAccountSettings!.RemoveRange(userAccountSettings.Where(uas => uas.SettingType == "ExpandedGroup"));
             await _context.UserAccountSettings.AddRangeAsync(userAccount.ExpandedGroups.Select(g => new UserAccountSetting
             {
                 UserAccountId = userAccount.Id,
@@ -75,12 +74,12 @@ namespace SmallRss.Data
         {
             _logger.LogInformation($"Creating account for auth: {authenticationId}");
             var userAccount = new UserAccount {LastLogin = DateTime.UtcNow};
-            await _context.UserAccounts.AddAsync(userAccount);
+            await _context.UserAccounts!.AddAsync(userAccount);
             await _context.SaveChangesAsync();
             _logger.LogInformation($"Created account with id {userAccount.Id}");
 
             _logger.LogInformation($"Creating account settings for id {userAccount.Id}");
-            await _context.UserAccountSettings.AddRangeAsync(
+            await _context.UserAccountSettings!.AddRangeAsync(
                 new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "AuthenticationId", SettingName = "AuthenticationId", SettingValue = authenticationId },
                 new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "ShowAllItems", SettingName = "ShowAllItems", SettingValue = Convert.ToString(userAccount.ShowAllItems) },
                 new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "PocketAccessToken", SettingName = "PocketAccessToken", SettingValue = userAccount.PocketAccessToken }
@@ -90,23 +89,23 @@ namespace SmallRss.Data
             return userAccount;
         }
 
-        private async Task<UserAccount> GetByIdAsync(int userAccountId)
+        private async Task<UserAccount?> GetByIdAsync(int userAccountId)
         {
-            var userAccount = await _context.UserAccounts.FindAsync(userAccountId);
+            var userAccount = await _context.UserAccounts!.FindAsync(userAccountId);
             if (userAccount == null)
                 return null;
-            var userAccountSettings = await _context.UserAccountSettings.Where(uas => uas.UserAccountId == userAccountId).ToListAsync();
+            var userAccountSettings = await _context.UserAccountSettings!.Where(uas => uas.UserAccountId == userAccountId).ToListAsync();
             
             foreach (var authId in userAccountSettings.Where(uas => uas.SettingType == "AuthenticationId"))
-                userAccount.AuthenticationIds.Add(authId.SettingValue);
+                userAccount.AuthenticationIds.Add(authId.SettingValue ?? "");
             foreach (var expandedGroup in userAccountSettings.Where(uas => uas.SettingType == "ExpandedGroup"))
-                userAccount.ExpandedGroups.Add(expandedGroup.SettingValue);
+                userAccount.ExpandedGroups.Add(expandedGroup.SettingValue ?? "");
             foreach (var savedLayout in userAccountSettings.Where(uas => uas.SettingType == "SavedLayout"))
-                userAccount.SavedLayout.Add(savedLayout.SettingName, savedLayout.SettingValue);
+                userAccount.SavedLayout.Add(savedLayout.SettingName ?? "", savedLayout.SettingValue ?? "");
             var showAllItemsSetting = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "ShowAllItems");
             userAccount.ShowAllItems = showAllItemsSetting == null ? false : Convert.ToBoolean(showAllItemsSetting.SettingValue);
             var pocketAccessToken = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "PocketAccessToken");
-            userAccount.PocketAccessToken = pocketAccessToken == null ? string.Empty : pocketAccessToken.SettingValue;
+            userAccount.PocketAccessToken = pocketAccessToken == null ? string.Empty : pocketAccessToken.SettingValue ?? "";
             
             return userAccount;
         }

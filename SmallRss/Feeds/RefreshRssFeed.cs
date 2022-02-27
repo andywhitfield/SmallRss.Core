@@ -31,7 +31,7 @@ namespace SmallRss.Feeds
             using var response = await client.GetAsync(rssFeed.Uri, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
-                _logger.LogWarning($"Could not refresh feed {rssFeed.Id} from {rssFeed.Uri}: response status: {response.StatusCode}, content: {await response.Content?.ReadAsStringAsync()}");
+                _logger.LogWarning($"Could not refresh feed {rssFeed.Id} from {rssFeed.Uri}: response status: {response.StatusCode}, content: {await response.Content.ReadAsStringAsync()}");
                 return false;
             }
 

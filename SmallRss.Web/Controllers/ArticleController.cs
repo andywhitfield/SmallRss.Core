@@ -43,7 +43,7 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<IEnumerable<object>>> PostAsync([FromForm]ArticleReadViewModel feed)
+        public async Task<IEnumerable<object>> PostAsync([FromForm]ArticleReadViewModel feed)
         {
             _logger.LogDebug($"Marking story [{feed.StoryId}] as {(feed.Read ? "read" : "unread")} for feed {feed.FeedId}");
             
@@ -76,8 +76,8 @@ namespace SmallRss.Web.Controllers
             else if (feed.StoryId.HasValue)
             {
                 var article = await _articleRepository.GetByIdAsync(feed.StoryId.Value);
-                var feedToMarkAsRead = (await _userFeedRepository.GetAllByUserAndRssFeedAsync(userAccount, article.RssFeedId)).FirstOrDefault();
-                if (feedToMarkAsRead != null)
+                var feedToMarkAsRead = (await _userFeedRepository.GetAllByUserAndRssFeedAsync(userAccount, article?.RssFeedId ?? 0)).FirstOrDefault();
+                if (article != null && feedToMarkAsRead != null)
                 {
                     userFeedId = feedToMarkAsRead.Id;
                     await MarkAsAsync(feedToMarkAsRead, article.Id, feed.Read);
@@ -90,8 +90,7 @@ namespace SmallRss.Web.Controllers
 
             return newArticles
                 .OrderBy(a => a.Published)
-                .Select(a => new { read = false, feed = userFeedId, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body), posted = FriendlyDate.ToString(a.Published, feed.OffsetId) })
-                .ToList();
+                .Select(a => new { read = false, feed = userFeedId, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body ?? ""), posted = FriendlyDate.ToString(a.Published, feed.OffsetId) });
         }
 
         private Task MarkAsAsync(UserFeed feed, int articleId, bool read)

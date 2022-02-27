@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SmallRss.Models;
 
 namespace SmallRss.Feeds
@@ -11,6 +12,9 @@ namespace SmallRss.Feeds
         private FeedParseResult()
         {
             IsValid = false;
+            FeedTitle = "";
+            Feed = new RssFeed();
+            Articles = Enumerable.Empty<Article>();
         }
 
         public FeedParseResult(string feedTitle, RssFeed feed, IEnumerable<Article> articles)

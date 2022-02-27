@@ -19,12 +19,12 @@ namespace SmallRss.Feeds
             _logger = logger;
         }
 
-        public bool CanRead(XDocument doc)
+        public bool CanRead(XDocument? doc)
         {
             return doc?.Root?.Name.LocalName.Equals(AtomRootElementName, StringComparison.OrdinalIgnoreCase) ?? false;
         }
 
-        public Task<FeedParseResult> ReadAsync(XDocument doc)
+        public Task<FeedParseResult> ReadAsync(XDocument? doc)
         {
             if (doc == null)
                 throw new ArgumentNullException(nameof(doc));
@@ -34,27 +34,27 @@ namespace SmallRss.Feeds
             var feed = new RssFeed();
 
             var channel = doc.Root;
-            var feedTitle = channel.Element(ns + "title")?.Value ?? channel.Element(ns + "id")?.Value ?? string.Empty;
-            feed.Link = channel.Element(ns + "author")?.Element(ns + "uri")?.Value;
+            var feedTitle = channel?.Element(ns + "title")?.Value ?? channel?.Element(ns + "id")?.Value ?? string.Empty;
+            feed.Link = channel?.Element(ns + "author")?.Element(ns + "uri")?.Value;
             if (feed.Link == null)
             {
                 var linkNode =
-                    channel.Elements(ns + "link").SingleOrDefault(x => x.HasAttributes && x.Attribute("rel") == null) ??
-                    channel.Elements(ns + "link").SingleOrDefault(x => x.HasAttributes && x.Attribute("rel") != null && x.Attribute("rel").Value == "alternate");
+                    channel?.Elements(ns + "link").SingleOrDefault(x => x.HasAttributes && x.Attribute("rel") == null) ??
+                    channel?.Elements(ns + "link").SingleOrDefault(x => x.HasAttributes && x.Attribute("rel") != null && x.Attribute("rel")?.Value == "alternate");
 
-                feed.Link = linkNode?.Attribute("href").Value;
+                feed.Link = linkNode?.Attribute("href")?.Value;
             }
-            feed.LastUpdated = channel.Element(ns + "updated")?.Value.ToDateTime() ?? DateTime.UtcNow;
+            feed.LastUpdated = channel?.Element(ns + "updated")?.Value.ToDateTime() ?? DateTime.UtcNow;
 
-            var articles = channel.Elements(ns + "entry").Select(ReadFeedEntry).Where(e => e != null).ToList();
-            var latestArticle = articles.Max(a => a.Published) ?? DateTime.MinValue;
+            var articles = channel?.Elements(ns + "entry").Select(ReadFeedEntry).Where(e => e != null).Select(a => a!);
+            var latestArticle = articles?.Max(a => a.Published) ?? DateTime.MinValue;
             if (latestArticle > feed.LastUpdated)
                 feed.LastUpdated = latestArticle;
             
-            return Task.FromResult(new FeedParseResult(feedTitle, feed, articles));
+            return Task.FromResult(new FeedParseResult(feedTitle, feed, articles ?? Enumerable.Empty<Article>()));
         }
 
-        private Article ReadFeedEntry(XElement entry)
+        private Article? ReadFeedEntry(XElement entry)
         {
             var article = new Article();
 
@@ -72,7 +72,7 @@ namespace SmallRss.Feeds
 
             var linkElements = entry.Elements(ns + "link");
             var linkElement = linkElements.SingleOrDefault(x =>
-                x.HasAttributes && x.Attribute("rel") != null && x.Attribute("rel").Value == "alternate"
+                x.HasAttributes && x.Attribute("rel") != null && x.Attribute("rel")?.Value == "alternate"
             ) ?? linkElements.FirstOrDefault();
             article.Url = linkElement?.Attribute("href")?.Value;
 

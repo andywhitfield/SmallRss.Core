@@ -5,7 +5,7 @@ namespace SmallRss.Feeds
 {
     public interface IFeedReader
     {
-        bool CanRead(XDocument doc);
-        Task<FeedParseResult> ReadAsync(XDocument doc);
+        bool CanRead(XDocument? doc);
+        Task<FeedParseResult> ReadAsync(XDocument? doc);
     }
 }

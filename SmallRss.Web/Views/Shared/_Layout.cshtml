@@ -19,7 +19,7 @@
     <header>
         <a href="@Url.Action("", "")"><img src="@Url.Content("~/images/smallrss.png")" width="28" height="28" alt="SmallRss" /><h1>SmallRss</h1></a>
         <span class="actions">
-        @if (User != null && User.Identity.IsAuthenticated) {
+        @if (User != null && (User.Identity?.IsAuthenticated ?? false)) {
             <text>
             <a href="@Url.Content("~/manage")">Manage Feeds</a> |
             <a href="@Url.Content("~/signout")">Logout</a>

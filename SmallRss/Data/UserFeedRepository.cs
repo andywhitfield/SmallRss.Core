@@ -15,9 +15,9 @@ namespace SmallRss.Data
             _context = context;
         }
 
-        public Task<UserFeed> GetByIdAsync(int id)
+        public Task<UserFeed?> GetByIdAsync(int id)
         {
-            return _context.UserFeeds.FindAsync(id).AsTask();
+            return _context.UserFeeds!.FindAsync(id).AsTask();
         }
 
         public Task<List<UserFeed>> GetAllByUserAsync(UserAccount loggedInUser)
@@ -25,17 +25,17 @@ namespace SmallRss.Data
             if (loggedInUser == null)
                 return Task.FromResult(new List<UserFeed>(0));
 
-            return _context.UserFeeds.Where(uf => uf.UserAccountId == loggedInUser.Id).ToListAsync();
+            return _context.UserFeeds!.Where(uf => uf.UserAccountId == loggedInUser.Id).ToListAsync();
         }
 
         public Task<List<UserFeed>> GetAllByUserAndRssFeedAsync(UserAccount userAccount, int rssFeedId)
         {
-            return _context.UserFeeds.Where(uf => uf.UserAccountId == userAccount.Id && uf.RssFeedId == rssFeedId).ToListAsync();
+            return _context.UserFeeds!.Where(uf => uf.UserAccountId == userAccount.Id && uf.RssFeedId == rssFeedId).ToListAsync();
         }
 
         public async Task<UserFeed> CreateAsync(int rssFeedId, int userAccountId, string name, string groupName)
         {
-            var userFeed = await _context.UserFeeds.AddAsync(new UserFeed {
+            var userFeed = await _context.UserFeeds!.AddAsync(new UserFeed {
                 RssFeedId = rssFeedId,
                 UserAccountId = userAccountId,
                 Name = name,
@@ -47,14 +47,14 @@ namespace SmallRss.Data
 
         public Task RemoveAsync(UserFeed toRemove)
         {
-            _context.UserArticlesRead.RemoveRange(_context.UserArticlesRead.Where(uar => uar.UserFeedId == toRemove.Id));
-            _context.UserFeeds.Remove(toRemove);
+            _context.UserArticlesRead!.RemoveRange(_context.UserArticlesRead.Where(uar => uar.UserFeedId == toRemove.Id));
+            _context.UserFeeds!.Remove(toRemove);
             return _context.SaveChangesAsync();
         }
 
         public Task UpdateAsync(UserFeed userFeed)
         {
-            _context.UserFeeds.Update(userFeed);
+            _context.UserFeeds!.Update(userFeed);
             return _context.SaveChangesAsync();
         }
     }

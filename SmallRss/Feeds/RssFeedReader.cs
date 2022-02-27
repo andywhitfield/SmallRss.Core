@@ -23,14 +23,14 @@ namespace SmallRss.Feeds
             _logger = logger;
         }
 
-        public bool CanRead(XDocument doc)
+        public bool CanRead(XDocument? doc)
         {
             return
                 (doc?.Root?.Name.LocalName.Equals(RssRootElementName, StringComparison.OrdinalIgnoreCase) ?? false) &&
                 (doc?.Root?.Attribute(RssVersionAttributeName)?.Value.Equals("2.0") ?? false);
         }
 
-        public Task<FeedParseResult> ReadAsync(XDocument doc)
+        public Task<FeedParseResult> ReadAsync(XDocument? doc)
         {
             if (doc == null)
                 throw new ArgumentNullException(nameof(doc));
@@ -39,7 +39,7 @@ namespace SmallRss.Feeds
 
             var feed = new RssFeed();
 
-            var channel = doc.Root.Element("channel");
+            var channel = doc.Root?.Element("channel");
             if (channel == null)
             {
                 _logger.LogWarning("RSS feed has no channel element, badly formed feed, returning failure result");
@@ -53,7 +53,7 @@ namespace SmallRss.Feeds
             if (feed.LastUpdated == null)
                 feed.LastUpdated = channel.Element("lastBuildDate")?.Value.ToDateTime();
 
-            var articles = channel.Elements("item").Select(ReadFeedItem).Where(e => e != null).ToList();
+            var articles = channel.Elements("item").Select(ReadFeedItem).Where(e => e != null).Select(e => e!);
             var latestArticle = articles.Any() ? articles.Max(a => a.Published ?? DateTime.MinValue) : DateTime.UtcNow;
             if (feed.LastUpdated == null || latestArticle > feed.LastUpdated)
                 feed.LastUpdated = latestArticle;
@@ -61,7 +61,7 @@ namespace SmallRss.Feeds
             return Task.FromResult(new FeedParseResult(feedTitle, feed, articles));
         }
 
-        private Article ReadFeedItem(XElement item)
+        private Article? ReadFeedItem(XElement item)
         {
             var article = new Article();
 

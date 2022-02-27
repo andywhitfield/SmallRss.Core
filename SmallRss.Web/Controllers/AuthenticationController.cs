@@ -19,10 +19,8 @@ namespace SmallRss.Web.Controllers
         public IActionResult Signin() => View("SignIn");
 
         [HttpPost("~/signin")]
-        public IActionResult SigninChallenge()
-        {
-            return Challenge(new AuthenticationProperties { RedirectUri = "/" }, OpenIdConnectDefaults.AuthenticationScheme);
-        }
+        public IActionResult SigninChallenge() =>
+            Challenge(new AuthenticationProperties { RedirectUri = "/" }, OpenIdConnectDefaults.AuthenticationScheme);
 
         [HttpGet("~/signout"), HttpPost("~/signout")]
         public IActionResult Signout()

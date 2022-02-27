@@ -2,15 +2,15 @@
 <h2>Edit Feed</h2>
 <p class="error" id="errorMessage">@Model.Error</p>
 <form method="post" action="@Url.Action("save")">
-    <input type="hidden" name="id" value="@Model.Feed.Id" />
+    <input type="hidden" name="id" value="@Model.Feed?.Id" />
     <div class="manageForm">
         <label for="groupSel">Group:</label>
-        @if (Model.CurrentGroups.Any())
+        @if (Model.CurrentGroups?.Any() ?? false)
         {
             <select id="groupSel" name="groupSel">
                 <option value="">New...</option>
                 @foreach (var group in Model.CurrentGroups) {
-                    if (Model.Feed.Group == group) {
+                    if (Model.Feed?.Group == group) {
                     <option selected>@group</option>
                     } else {
                     <option>@group</option>
@@ -18,15 +18,15 @@
                 }
             </select>
         }
-        <input type="text" id="group" name="group" value="@Model.Feed.Group" />
+        <input type="text" id="group" name="group" value="@Model.Feed?.Group" />
     </div>
     <div class="manageForm">
         <label for="url">Feed URL:</label>
-        <input type="url" id="url" name="url" value="@Model.Feed.Url" />
+        <input type="url" id="url" name="url" value="@Model.Feed?.Url" />
     </div>
     <div class="manageForm">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="@Model.Feed.Name" />  <input id="fillNameFromFeed" type="button" value="Fill from feed" />
+        <input type="text" id="name" name="name" value="@Model.Feed?.Name" />  <input id="fillNameFromFeed" type="button" value="Fill from feed" />
     </div>
     <div class="manageForm">
         <input type="submit" value="Update" />

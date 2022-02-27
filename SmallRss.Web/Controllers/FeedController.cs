@@ -36,7 +36,7 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<object>>> Get()
+        public async Task<IEnumerable<object>> Get()
         {
             _logger.LogDebug("Getting all feeds from db");
             
@@ -52,20 +52,22 @@ namespace SmallRss.Web.Controllers
                 {
                     id = group.Key,
                     item = group.Key,
-                    props = new { isFolder = true, open = loggedInUser.ExpandedGroups.Contains(group.Key) },
+                    props = new { isFolder = true, open = loggedInUser.ExpandedGroups.Contains(group.Key ?? "") },
                     items = group.OrderBy(g => g.Name).Select(g =>
                         new { id = g.Id, item = g.Name, link = feeds[g.RssFeedId].Link ?? string.Empty, props = new { isFolder = false } })
-                })
-                .ToList();
+                });
         }
 
         [HttpGet("{id}/{offset?}")]
-        public async Task<ActionResult<IEnumerable<object>>> Get(int id, int? offset)
+        public async Task<IEnumerable<object>> Get(int id, int? offset)
         {
             _logger.LogDebug($"Getting articles for feed {id} from db, using client UTC offset {offset}");
 
             var loggedInUser = await _userAccountRepository.FindOrCreateAsync(User);
             var feed = await _userFeedRepository.GetByIdAsync(id);
+            if (feed == null)
+                return Enumerable.Empty<Article>();
+
             var readArticles = await _userArticlesReadRepository.GetByUserFeedIdAsync(feed.Id);
 
             IEnumerable<Article> articles;
@@ -76,8 +78,7 @@ namespace SmallRss.Web.Controllers
 
             return articles
                 .OrderBy(a => a.Published)
-                .Select(a => new { read = readArticles.Any(uar => uar.ArticleId == a.Id), feed = id, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body), posted = FriendlyDate.ToString(a.Published, offset) })
-                .ToList();
+                .Select(a => new { read = readArticles.Any(uar => uar.ArticleId == a.Id), feed = id, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body ?? ""), posted = FriendlyDate.ToString(a.Published, offset) });
         }
     }
 }

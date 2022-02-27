@@ -19,14 +19,11 @@ namespace SmallRss.Data
             _context = context;
         }
 
-        public Task<List<UserArticlesRead>> GetByUserFeedIdAsync(int userFeedId)
-        {
-            return _context.UserArticlesRead.Where(uar => uar.UserFeedId == userFeedId).ToListAsync();
-        }
+        public Task<List<UserArticlesRead>> GetByUserFeedIdAsync(int userFeedId) =>
+            _context.UserArticlesRead!.Where(uar => uar.UserFeedId == userFeedId).ToListAsync();
 
-        public Task<IEnumerable<(int UserFeedId, string GroupName, int UnreadCount)>> FindUnreadArticlesAsync(UserAccount userAccount)
-        {
-            return _context.Database.GetDbConnection().QueryAsync<(int UserFeedId, string GroupName, int UnreadCount)>(
+        public Task<IEnumerable<(int UserFeedId, string GroupName, int UnreadCount)>> FindUnreadArticlesAsync(UserAccount userAccount) =>
+            _context.Database.GetDbConnection().QueryAsync<(int UserFeedId, string GroupName, int UnreadCount)>(
 @"select uf.Id as UserFeedId, uf.GroupName as GroupName, COUNT(a.Id) as UnreadCount
 from UserAccounts ua
 join UserFeeds uf on ua.Id = uf.UserAccountId
@@ -36,17 +33,16 @@ left join UserArticlesRead uar on uar.ArticleId = a.Id and uar.UserFeedId = uf.I
 where uar.Id is null
 and ua.Id = @userAccountId
 group by uf.Id, uf.GroupName", new { userAccountId = userAccount.Id });
-        }
 
         public async Task<bool> TryCreateAsync(int userAccountId, int userFeedId, int articleId)
         {
-            if (await _context.UserArticlesRead.AnyAsync(uar =>
+            if (await _context.UserArticlesRead!.AnyAsync(uar =>
                 uar.UserAccountId == userAccountId &&
                 uar.UserFeedId == userFeedId &&
                 uar.ArticleId == articleId))
                 return false;
             
-            await _context.UserArticlesRead.AddAsync(new UserArticlesRead {
+            await _context.UserArticlesRead!.AddAsync(new UserArticlesRead {
                 UserAccountId = userAccountId,
                 UserFeedId = userFeedId,
                 ArticleId = articleId
@@ -57,14 +53,14 @@ group by uf.Id, uf.GroupName", new { userAccountId = userAccount.Id });
 
         public async Task<bool> TryRemoveAsync(int userAccountId, int userFeedId, int articleId)
         {
-            var userArticlesRead = await _context.UserArticlesRead.Where(uar =>
+            var userArticlesRead = await _context.UserArticlesRead!.Where(uar =>
                 uar.UserAccountId == userAccountId &&
                 uar.UserFeedId == userFeedId &&
                 uar.ArticleId == articleId).ToListAsync();
             if (!userArticlesRead.Any())
                 return false;
             
-            _context.UserArticlesRead.RemoveRange(userArticlesRead);
+            _context.UserArticlesRead!.RemoveRange(userArticlesRead);
             await _context.SaveChangesAsync();
             return true;
         }

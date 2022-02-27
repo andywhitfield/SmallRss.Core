@@ -1,5 +1,5 @@
-﻿using System;
-using System.Net;
+﻿using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,18 +17,21 @@ namespace SmallRss.Web.Controllers
         private readonly ILogger<PocketController> _logger;
         private readonly IUserAccountRepository _userAccountRepository;
         private readonly IArticleRepository _articleRepository;
+        private readonly IHttpClientFactory _httpClientFactory;
 
         public PocketController(ILogger<PocketController> logger,
             IUserAccountRepository userAccountRepository,
-            IArticleRepository articleRepository)
+            IArticleRepository articleRepository,
+            IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
             _userAccountRepository = userAccountRepository;
             _articleRepository = articleRepository;
+            _httpClientFactory = httpClientFactory;
         }
 
         [HttpPost]
-        public async Task<ActionResult<object>> PostAsync([FromForm]PocketViewModel model)
+        public async Task<object> PostAsync([FromForm] PocketViewModel model)
         {
             var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
             if (!userAccount.HasPocketAccessToken)
@@ -38,26 +41,36 @@ namespace SmallRss.Web.Controllers
             if (article == null)
                 return new { saved = false, reason = "Could not find article with id " + model.ArticleId };
 
-            var requestJson = JsonSerializer.Serialize(new {
+            var requestJson = JsonSerializer.Serialize(new
+            {
                 consumer_key = ManageController.PocketConsumerKey,
                 access_token = userAccount.PocketAccessToken,
                 url = HttpUtility.UrlPathEncode(article.Url),
                 title = HttpUtility.UrlEncode(article.Heading ?? string.Empty)
             });
 
-            var webClient = new WebClient();
-            webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=UTF-8");
-            webClient.Headers.Add("X-Accept", "application/json");
-            var result = await webClient.UploadStringTaskAsync("https://getpocket.com/v3/add", requestJson);
-            if (!result.TryParseJson(out AddResponse addResult, _logger))
+            _logger.LogInformation($"Saving article [{article.Id}:{article.Url}:{article.Heading}] to pocket");
+
+            using var pocketClient = _httpClientFactory.CreateClient(Startup.PocketHttpClient);
+            using var response = await pocketClient.PostAsync("add", new StringContent(requestJson, Encoding.UTF8, "application/json"));
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogError($"Error response attempting to save to pocket: {response.StatusCode}");
                 return new { saved = false };
+            }
+
+            var result = await response.Content.ReadAsStringAsync();
+            if (!result.TryParseJson(out AddResponse? addResult, _logger))
+                return new { saved = false };
+
+            _logger.LogInformation($"Successfully saved article [{article.Id}:{article.Url}:{article.Heading}] to pocket");
             // TODO: handle response and return appropriate json response to client
             return new { saved = true };
         }
 
         private class AddResponse
         {
-            public string Status { get; set; }
+            public int Status { get; set; }
         }
     }
 }

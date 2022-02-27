@@ -34,8 +34,8 @@ namespace SmallRss.Service
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
                     .UseKestrel()
                     .UseStartup<Startup>()
-                    .UseSerilog()
                 )
+                .UseSerilog()
                 .Build();
 
             await host.RunAsync();

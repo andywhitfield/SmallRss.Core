@@ -77,8 +77,8 @@ namespace SmallRss.Service.BackgroundServices
         private async Task<(TimeSpan RunInterval, DateTime LastRunDateTime)> GetRunIntervalsAsync(IBackgroundServiceSettingRepository backgroundServiceSettingRepository)
         {
             var allSettings = await backgroundServiceSettingRepository.GetAllAsync();
-            return (allSettings.FirstOrDefault(s => s.SettingName == "ArticlePurging.RunInterval")?.SettingValue.ToTimeSpan() ?? TimeSpan.FromDays(1),
-                allSettings.FirstOrDefault(s => s.SettingName == "ArticlePurging.LastRunDateTime")?.SettingValue.ToDateTime() ?? DateTime.MinValue);
+            return (allSettings.FirstOrDefault(s => s.SettingName == "ArticlePurging.RunInterval")?.SettingValue?.ToTimeSpan() ?? TimeSpan.FromDays(1),
+                allSettings.FirstOrDefault(s => s.SettingName == "ArticlePurging.LastRunDateTime")?.SettingValue?.ToDateTime() ?? DateTime.MinValue);
         }
     }
 }

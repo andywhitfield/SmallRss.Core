@@ -7,9 +7,9 @@ namespace SmallRss.Models
         public int Id { get; set; }
         public int UserAccountId { get; set; }
         [Required]
-        public string SettingType { get; set; }
+        public string? SettingType { get; set; }
         [Required]
-        public string SettingName { get; set; }
-        public string SettingValue { get; set; }
+        public string? SettingName { get; set; }
+        public string? SettingValue { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace SmallRss.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<object>> Get(string url)
+        public async Task<object?> Get(string url)
         {
             if (string.IsNullOrWhiteSpace(url))
                 return new { Error = "No URL specified. Please enter an RSS or Atom feed URL and try again." };
@@ -31,8 +31,8 @@ namespace SmallRss.Web.Controllers
             {
                 using var httpClient = _clientFactory.CreateClient(Startup.DefaultHttpClient);
                 using var response = await httpClient.GetAsync($"/api/feed/read/{HttpUtility.UrlEncode(url)}");
-                var responseJson = await response.Content?.ReadAsStringAsync();
-                ReadRssFeedResponse readRssFeedResult = null;
+                var responseJson = await response.Content.ReadAsStringAsync();
+                ReadRssFeedResponse? readRssFeedResult = null;
                 if (!response.IsSuccessStatusCode || !responseJson.TryParseJson(out readRssFeedResult, _logger))
                 {
                     _logger.LogError($"Could not create feed: response code {response.StatusCode}: content: {responseJson}");
@@ -40,7 +40,7 @@ namespace SmallRss.Web.Controllers
                 }
                 _logger.LogTrace($"Received response content:{responseJson}");
 
-                return new { Title = readRssFeedResult.Title };
+                return new { Title = readRssFeedResult?.Title };
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace SmallRss.Web.Controllers
 
         private class ReadRssFeedResponse
         {
-            public string Title { get; set; }
+            public string? Title { get; set; }
         }
     }
 }

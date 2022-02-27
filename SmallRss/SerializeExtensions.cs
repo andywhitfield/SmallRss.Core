@@ -6,7 +6,7 @@ namespace SmallRss
 {
     public static class SerializeExtensions
     {
-        public static bool TryParseJson<T>(this string jsonString, out T result, ILogger logger = null)
+        public static bool TryParseJson<T>(this string jsonString, out T? result, ILogger? logger = null)
         {
             try
             {

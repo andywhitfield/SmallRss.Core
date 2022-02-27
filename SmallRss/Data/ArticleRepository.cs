@@ -19,32 +19,25 @@ namespace SmallRss.Data
             _logger = logger;
         }
 
-        public Task<Article> GetByIdAsync(int id)
-        {
-            return _context.Articles.FindAsync(id).AsTask();
-        }
+        public Task<Article?> GetByIdAsync(int id) =>
+            _context.Articles!.FindAsync(id).AsTask();
 
-        public Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId)
-        {
-            return GetByRssFeedIdAsync(rssFeedId, new List<UserArticlesRead>());
-        }
+        public Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId) =>
+            GetByRssFeedIdAsync(rssFeedId, new List<UserArticlesRead>());
 
-        public Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId, List<UserArticlesRead> excludingReadArticles)
+        public Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId, List<UserArticlesRead>? excludingReadArticles)
         {
-            var articlesForFeed = _context.Articles.Where(a => a.RssFeedId == rssFeedId).ToListAsync();
+            var articlesForFeed = _context.Articles!.Where(a => a.RssFeedId == rssFeedId).ToListAsync();
             if (!excludingReadArticles?.Any() ?? true)
                 return articlesForFeed;
             return FilterByReadAsync(articlesForFeed, excludingReadArticles);
         }
 
-        private async Task<List<Article>> FilterByReadAsync(Task<List<Article>> articles, List<UserArticlesRead> excludingReadArticles)
-        {
-            return (await articles).Except(excludingReadArticles.Select(ra => new Article { Id = ra.ArticleId }), Article.IdComparer).ToList();
-        }
+        private async Task<List<Article>> FilterByReadAsync(Task<List<Article>> articles, List<UserArticlesRead>? excludingReadArticles) =>
+            (await articles).Except((excludingReadArticles ?? Enumerable.Empty<UserArticlesRead>()).Select(ra => new Article { Id = ra.ArticleId }), Article.IdComparer).ToList();
 
-        public Task CreateAsync(RssFeed rssFeed, Article articleToCreate)
-        {
-            return _context.Articles.AddAsync(new Article
+        public Task CreateAsync(RssFeed rssFeed, Article articleToCreate) =>
+            _context.Articles!.AddAsync(new Article
             {
                 Heading = articleToCreate.Heading,
                 Body = articleToCreate.Body,
@@ -54,11 +47,9 @@ namespace SmallRss.Data
                 ArticleGuid = articleToCreate.ArticleGuid,
                 RssFeedId = rssFeed.Id
             }).AsTask();
-        }
 
-        public Task<List<Article>> FindUnreadArticlesInUserFeedAsync(UserFeed feedToMarkAllAsRead)
-        {
-            return _context.Articles.FromSqlInterpolated(
+        public Task<List<Article>> FindUnreadArticlesInUserFeedAsync(UserFeed feedToMarkAllAsRead) =>
+            _context.Articles!.FromSqlInterpolated(
 $@"select a.*
 from Articles a
 join RssFeeds rf
@@ -68,7 +59,6 @@ on uar.ArticleId = a.Id
 and uar.UserAccountId = {feedToMarkAllAsRead.UserAccountId}
 where rf.Id = {feedToMarkAllAsRead.RssFeedId}
 and uar.Id is null").ToListAsync();
-        }
 
         public async Task RemoveArticlesWhereCountOverAsync(int purgeCount)
         {
@@ -77,12 +67,12 @@ and uar.Id is null").ToListAsync();
             foreach (var feedId in feedIdsWithTooManyArticles)
             {
                 _logger.LogTrace($"Removing old articles from feed {feedId}");
-                var articlesToDelete = _context.Articles.Where(a => a.RssFeedId == feedId).OrderByDescending(a => a.Published).ThenByDescending(a => a.Id).Skip(purgeCount);
-                _context.Articles.RemoveRange(articlesToDelete);
+                var articlesToDelete = _context.Articles!.Where(a => a.RssFeedId == feedId).OrderByDescending(a => a.Published).ThenByDescending(a => a.Id).Skip(purgeCount);
+                _context.Articles!.RemoveRange(articlesToDelete);
                 await _context.SaveChangesAsync();
             }
 
-            _context.UserArticlesRead.RemoveRange(_context.UserArticlesRead.FromSqlRaw("select uar.* from UserArticlesRead uar left join Articles a on uar.ArticleId = a.Id where a.Id is null"));
+            _context.UserArticlesRead!.RemoveRange(_context.UserArticlesRead.FromSqlRaw("select uar.* from UserArticlesRead uar left join Articles a on uar.ArticleId = a.Id where a.Id is null"));
             await _context.SaveChangesAsync();
         }
     }
