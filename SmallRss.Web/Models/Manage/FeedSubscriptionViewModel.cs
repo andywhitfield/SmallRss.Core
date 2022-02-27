@@ -17,5 +17,6 @@ namespace SmallRss.Web.Models.Manage
         public string Group => _feed.GroupName ?? "";
         public string Name => _feed.Name ?? "";
         public string Url => _rss.Uri ?? "";
+        public string LastUpdated => _rss.LastUpdated == null ? "" : _rss.LastUpdated.Value.ToString("R");
     }
 }

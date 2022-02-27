@@ -41,7 +41,7 @@ namespace SmallRss.Web.Controllers
             _logger.LogDebug("Getting all feeds from db");
             
             var loggedInUser = await _userAccountRepository.FindOrCreateAsync(User);            
-            var userFeeds = (await _userFeedRepository.GetAllByUserAsync(loggedInUser)).ToList();
+            var userFeeds = await _userFeedRepository.GetAllByUserAsync(loggedInUser);
 
             if (!userFeeds.Any())
                 return new[] { new { id = "", item = "" } };

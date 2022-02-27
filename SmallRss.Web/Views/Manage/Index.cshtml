@@ -35,7 +35,7 @@
         @foreach (var feed in Model.Feeds)
         {
             <tr class="manage">
-                <td title="@feed.Url">@feed.Group / @feed.Name</td><td><input type="button" class="editFeed" data-id="@feed.Id" value="Edit" title="Edit this feed" /></td><td><form action="@Url.Action("delete")" method="post"><input type="hidden" name="id" value="@feed.Id" /><input type="submit" class="deleteFeed" value="Delete" title="Delete this feed" /></form></td>
+                <td title="@feed.Url">@feed.Group / @feed.Name</td><td><input type="button" class="editFeed" data-id="@feed.Id" value="Edit" title="Edit this feed" /></td><td><form action="@Url.Action("delete")" method="post"><input type="hidden" name="id" value="@feed.Id" /><input type="submit" class="deleteFeed" value="Delete" title="Delete this feed" /></form></td><td title="Last updated" class="last-updated">@feed.LastUpdated</td>
             </tr>
         }
     </table>
