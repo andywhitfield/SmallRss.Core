@@ -113,7 +113,7 @@ namespace SmallRss.Web
             services.AddScoped<IUserFeedRepository, UserFeedRepository>();
             services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<IUserArticlesReadRepository, UserArticlesReadRepository>();
-            services.AddHttpClient(DefaultHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetValue<string>("ServiceUri")));
+            services.AddHttpClient(DefaultHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetValue<string>("ServiceUri") ?? throw new Exception("ServiceUri not configured")));
             services.AddHttpClient(PocketHttpClient).ConfigureHttpClient(c =>
             {
                 c.BaseAddress = new Uri("https://getpocket.com/v3/");
