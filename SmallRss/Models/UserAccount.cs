@@ -13,6 +13,7 @@ namespace SmallRss.Models
             ExpandedGroups = new HashSet<string>();
             SavedLayout = new Dictionary<string, string>();
             PocketAccessToken = string.Empty;
+            RaindropRefreshToken = string.Empty;
         }
 
         public int Id { get; set; }
@@ -30,5 +31,9 @@ namespace SmallRss.Models
         public string PocketAccessToken { get; set; }
         [NotMapped]
         public bool HasPocketAccessToken { get { return !string.IsNullOrWhiteSpace(PocketAccessToken); } }
+        [NotMapped]
+        public string RaindropRefreshToken { get; set; }
+        [NotMapped]
+        public bool HasRaindropRefreshToken { get { return !string.IsNullOrWhiteSpace(RaindropRefreshToken); } }
     }
 }

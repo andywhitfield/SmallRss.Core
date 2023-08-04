@@ -123,7 +123,7 @@ tr.article {
     min-width: 70px;
 }
 
-.article-pocket {
+.article-save {
     width: 42px;
     text-align: center;
 }
@@ -235,6 +235,7 @@ tr.manage {
     header h1,
     div,
     h2,
+    h3,
     td,
     p {
         color: white;

@@ -49,6 +49,12 @@ namespace SmallRss.Data
             else
                 userAccountSetting.SettingValue = userAccount.PocketAccessToken;
 
+            userAccountSetting = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "RaindropRefreshToken" && uas.SettingName == "RaindropRefreshToken");
+            if (userAccountSetting == null)
+                await _context.UserAccountSettings!.AddAsync(new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "RaindropRefreshToken", SettingName = "RaindropRefreshToken", SettingValue = userAccount.RaindropRefreshToken });
+            else
+                userAccountSetting.SettingValue = userAccount.RaindropRefreshToken;
+
             _context.UserAccountSettings!.RemoveRange(userAccountSettings.Where(uas => uas.SettingType == "ExpandedGroup"));
             await _context.UserAccountSettings.AddRangeAsync(userAccount.ExpandedGroups.Select(g => new UserAccountSetting
             {
@@ -82,7 +88,8 @@ namespace SmallRss.Data
             await _context.UserAccountSettings!.AddRangeAsync(
                 new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "AuthenticationId", SettingName = "AuthenticationId", SettingValue = authenticationId },
                 new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "ShowAllItems", SettingName = "ShowAllItems", SettingValue = Convert.ToString(userAccount.ShowAllItems) },
-                new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "PocketAccessToken", SettingName = "PocketAccessToken", SettingValue = userAccount.PocketAccessToken }
+                new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "PocketAccessToken", SettingName = "PocketAccessToken", SettingValue = userAccount.PocketAccessToken },
+                new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "RaindropRefreshToken", SettingName = "RaindropRefreshToken", SettingValue = userAccount.RaindropRefreshToken }
             );
             await _context.SaveChangesAsync();
 
@@ -106,6 +113,8 @@ namespace SmallRss.Data
             userAccount.ShowAllItems = showAllItemsSetting == null ? false : Convert.ToBoolean(showAllItemsSetting.SettingValue);
             var pocketAccessToken = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "PocketAccessToken");
             userAccount.PocketAccessToken = pocketAccessToken == null ? string.Empty : pocketAccessToken.SettingValue ?? "";
+            var raindropRefreshToken = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "RaindropRefreshToken");
+            userAccount.RaindropRefreshToken = raindropRefreshToken == null ? string.Empty : raindropRefreshToken.SettingValue ?? "";
             
             return userAccount;
         }

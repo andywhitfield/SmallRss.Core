@@ -24,7 +24,7 @@ namespace SmallRss.Web.Controllers
             var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
             return View(new IndexViewModel {
                 ShowAllArticles = userAccount.ShowAllItems,
-                ConnectedToPocket = userAccount.HasPocketAccessToken
+                ConnectedToSave = userAccount.HasPocketAccessToken || userAccount.HasRaindropRefreshToken
             });
         }
 

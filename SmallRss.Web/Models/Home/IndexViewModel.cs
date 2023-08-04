@@ -3,6 +3,6 @@
     public class IndexViewModel
     {
         public bool ShowAllArticles { get; set; }
-        public bool ConnectedToPocket { get; set; }
+        public bool ConnectedToSave { get; set; }
     }
 }
