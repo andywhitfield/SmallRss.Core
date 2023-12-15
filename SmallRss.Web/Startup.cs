@@ -69,13 +69,12 @@ public class Startup
                 options.ResponseType = OpenIdConnectResponseType.Code;
                 options.AuthenticationMethod = OpenIdConnectRedirectBehavior.RedirectGet;
                 options.Scope.Add("roles");
-
-                options.SecurityTokenValidator = new JwtSecurityTokenHandler
+                options.TokenHandler = new JwtSecurityTokenHandler
                 {
                     InboundClaimTypeMap = new Dictionary<string, string>(),
                     TokenLifetimeInMinutes = (int)tokenLifespan.TotalMinutes
                 };
-
+                options.UseSecurityTokenValidator = true;
                 options.MaxAge = tokenLifespan;
                 options.TokenValidationParameters.NameClaimType = "name";
                 options.TokenValidationParameters.RoleClaimType = "role";

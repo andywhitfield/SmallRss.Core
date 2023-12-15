@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <NoWarn>CA2254</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.*" />
+    <PackageReference Include="Dapper" Version="2.1.*" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.*"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.*" PrivateAssets="All"/>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.*" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.*"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.*" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.*" />
   </ItemGroup>
 </Project>
