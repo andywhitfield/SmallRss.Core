@@ -1,8 +1,11 @@
+@model string
 <h2>Login</h2>
-
 <form action="@Url.Content("~/signin")" method="post">
     <p>
-        Sign in using SmallAuth:
-        <input type="submit" value="Login"/>
+        <label for="email">Email address:</label>
+        <input type="email" id="email" name="email" />
+        <button type="submit">Next...</button>
     </p>
+    <input type="hidden" name="returnurl" value="@Model" />
+    @Html.AntiForgeryToken()
 </form>

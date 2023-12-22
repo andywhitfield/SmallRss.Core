@@ -7,8 +7,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="*"/>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.*" />
+    <PackageReference Include="Fido2.AspNet" Version="3.0.*" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.*"/>
+    <PackageReference Include="System.Linq.Async" Version="6.0.*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmallRss\SmallRss.csproj"/>

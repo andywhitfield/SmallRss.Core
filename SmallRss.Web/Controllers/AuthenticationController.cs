@@ -1,32 +1,61 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using SmallRss.Web.Authorisation;
+using SmallRss.Web.Models.Authorisation;
 
-namespace SmallRss.Web.Controllers
+namespace SmallRss.Web.Controllers;
+
+public class AuthenticationController(IAuthorisationHandler authorisationHandler) : Controller
 {
-    public class AuthenticationController : Controller
+    [HttpGet("~/signin")]
+    public IActionResult Signin([FromQuery] string? returnUrl) => View("SignIn", returnUrl);
+
+    [HttpPost("~/signin")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Signin([FromForm] string? returnUrl, [FromForm, Required] string email)
     {
-        private readonly ILogger<AuthenticationController> _logger;
+        if (!ModelState.IsValid)
+            return View("SignIn", returnUrl);
 
-        public AuthenticationController(ILogger<AuthenticationController> logger)
+        var (isReturningUser, verifyOptions) = await authorisationHandler.HandleSigninRequest(email);
+        return View("SignInVerify", new SignInVerifyViewModel(returnUrl, email, isReturningUser, verifyOptions));
+    }
+
+    [HttpPost("~/signin/verify")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SigninVerify(
+        [FromForm] string? returnUrl,
+        [FromForm, Required] string email,
+        [FromForm, Required] string verifyOptions,
+        [FromForm, Required] string verifyResponse,
+        CancellationToken cancellationToken)
+    {
+        if (!ModelState.IsValid)
+            return Redirect("~/signin");
+
+        var isValid = await authorisationHandler.HandleSigninVerifyRequest(HttpContext, email, verifyOptions, verifyResponse, cancellationToken);
+        if (isValid)
         {
-            _logger = logger;
+            var redirectUri = "~/";
+            if (!string.IsNullOrEmpty(returnUrl) && Uri.TryCreate(returnUrl, UriKind.Relative, out var uri))
+                redirectUri = uri.ToString();
+
+            return Redirect(redirectUri);
         }
+        
+        return Redirect("~/signin");
+    }
 
-        [HttpGet("~/signin")]
-        public IActionResult Signin() => View("SignIn");
-
-        [HttpPost("~/signin")]
-        public IActionResult SigninChallenge() =>
-            Challenge(new AuthenticationProperties { RedirectUri = "/" }, OpenIdConnectDefaults.AuthenticationScheme);
-
-        [HttpGet("~/signout"), HttpPost("~/signout")]
-        public IActionResult Signout()
-        {
-            HttpContext.Session.Clear();
-            return SignOut(CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
-        }
+    [HttpGet("~/signout"), HttpPost("~/signout")]
+    public async Task<IActionResult> Signout()
+    {
+        HttpContext.Session.Clear();
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return Redirect("~/");
     }
 }

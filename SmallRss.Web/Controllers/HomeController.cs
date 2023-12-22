@@ -6,17 +6,12 @@ using SmallRss.Web.Models.Home;
 
 namespace SmallRss.Web.Controllers;
 
-public class HomeController : Controller
+public class HomeController(IUserAccountRepository userAccountRepository) : Controller
 {
-    private readonly IUserAccountRepository _userAccountRepository;
-
-    public HomeController(IUserAccountRepository userAccountRepository) =>
-        _userAccountRepository = userAccountRepository;
-
     [Authorize]
     public async Task<IActionResult> Index()
     {
-        var userAccount = await _userAccountRepository.FindOrCreateAsync(User);
+        var userAccount = await userAccountRepository.GetAsync(User);
         return View(new IndexViewModel {
             ShowAllArticles = userAccount.ShowAllItems,
             ConnectedToSave = userAccount.HasPocketAccessToken || userAccount.HasRaindropRefreshToken
