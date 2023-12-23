@@ -1,5 +1,9 @@
 @model SmallRss.Web.Models.Authorisation.SignInVerifyViewModel
+@if (Model.IsReturningUser) {
 <h2>Login</h2>
+} else {
+<h2>Register</h2>
+}
 <form action="/signin/verify" method="post" id="signinVerifyForm">
     @if (Model.IsReturningUser) {
     <p>Welcome back, please login</p>
