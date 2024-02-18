@@ -38,7 +38,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        var tokenLifespan = TimeSpan.FromDays(1);
+        var tokenLifespan = TimeSpan.FromDays(7);
         services.AddSingleton(Configuration);
 
         services
