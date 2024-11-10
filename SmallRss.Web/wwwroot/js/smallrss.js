@@ -104,10 +104,9 @@ function refreshFeedCounts(onRefreshCompleteFunc) {
                 onRefreshCompleteFunc();
         })
         .fail(function(jqxhr, textStatus, error) {
-            if (jqxhr.status === 401) {
-                console.log('Not authenticated, reloading')
-                location.reload();
-            }
+            notifyWindow.show('Could not refresh, reloading...', false);
+            console.log('failed refresh, reloading')
+            location.reload();
         });
 }
 
@@ -246,6 +245,11 @@ function showAllArticles() {
         notifyWindow.close();
         if (feeds.selectedFeed == null || feeds.selectedFeedGroup == null) return;
         loadArticlesForFeedAndGroup(feeds.selectedFeed, feeds.selectedFeedGroup);
+    })
+    .fail(function() {
+        notifyWindow.show('Could not update articles, reloading...', false);
+        console.log('failed feed status api call, reloading');
+        location.reload();
     });
 }
 
@@ -266,6 +270,9 @@ function handleArticleClicked(clickedArticle) {
             // and scroll to the top
             $(window).scrollTop(0);
         });
+    })
+    .fail(function() {
+        notifyWindow.show('Could not load article', true);
     });
 }
 
@@ -290,6 +297,9 @@ function saveArticleId(articleId, onSaveCompleted) {
         console.log('save api completed for article ' + articleId + ': ' + result.saved);
         if (onSaveCompleted != undefined && onSaveCompleted != null)
             onSaveCompleted(articleId);
+    })
+    .fail(function() {
+        notifyWindow.show('Could not save article', true);
     });
 }
 
@@ -315,6 +325,9 @@ function markAllArticlesRead() {
             console.log('marked all articles read');
             feeds.selectedFeed.count = 0;
             updateUI();
+        })
+        .fail(function() {
+            notifyWindow.show('Could not mark all read', true);
         });
     } else {
         console.log('all articles already read, nothing to do');
@@ -360,6 +373,9 @@ function toggleArticleIdRead(articleId) {
         $.post(smallrss_config.article_api, { feedId: feeds.selectedFeed.id, storyId: articleId, read: feedToUpdate.read }, function() {
             notifyWindow.close();
             updateUI();
+        })
+        .fail(function() {
+            notifyWindow.show('Could not mark article as read/unread', true);
         });
     } else {
         updateUI();
@@ -434,6 +450,11 @@ function loadArticlesForFeedAndGroup(feed, group) {
         feeds.selectedFeedArticles = data;
         updateSelectedFeedCount();
         updateUI();
+    })
+    .fail(function() {
+        notifyWindow.show('Could not load articles, reloading...', false);
+        console.log('failed loading articles, reloading');
+        location.reload();
     });
 }
 
@@ -497,7 +518,10 @@ function markArticleId(articleId, read, markedAsReadCompleted) {
             notifyWindow.close();
             if (markedAsReadCompleted != undefined && markedAsReadCompleted != null)
                 markedAsReadCompleted(unreadArticle);
-        });
+        })
+        .fail(function() {
+            notifyWindow.show('Could not mark article as read/unread', true);
+        });    
     } else {
         if (markedAsReadCompleted != undefined && markedAsReadCompleted != null)
             markedAsReadCompleted(unreadArticle);
