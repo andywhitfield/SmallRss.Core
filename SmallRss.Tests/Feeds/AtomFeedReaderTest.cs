@@ -14,7 +14,7 @@ namespace SmallRss.Tests.Feeds
     [TestClass]
     public class AtomFeedReaderTest
     {
-        private AtomFeedReader _feedReader;
+        private AtomFeedReader? _feedReader;
 
         [TestInitialize]
         public void Setup()
@@ -27,19 +27,19 @@ namespace SmallRss.Tests.Feeds
         {
             using var fs = new FileStream("feed.atom.xml", FileMode.Open);
             var validDoc = await XDocument.LoadAsync(fs, LoadOptions.None, CancellationToken.None);
-            Assert.IsTrue(_feedReader.CanRead(validDoc));
+            Assert.IsTrue(_feedReader!.CanRead(validDoc));
         }
 
         [TestMethod]
         public void CannotReadEmptyXml()
         {
-            Assert.IsFalse(_feedReader.CanRead(new XDocument()));
+            Assert.IsFalse(_feedReader!.CanRead(new XDocument()));
         }
 
         [TestMethod]
         public void CannotReadNull()
         {
-            Assert.IsFalse(_feedReader.CanRead(null));
+            Assert.IsFalse(_feedReader!.CanRead(null));
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace SmallRss.Tests.Feeds
         [DataRow("<rss version=\"2.0\" />")]
         public void CannotReadInvalidFeed(string xml)
         {
-            Assert.IsFalse(_feedReader.CanRead(XDocument.Parse(xml)));
+            Assert.IsFalse(_feedReader!.CanRead(XDocument.Parse(xml)));
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@ namespace SmallRss.Tests.Feeds
         {
             using var fs = new FileStream("feed.atom.empty.xml", FileMode.Open);
             var validDoc = await XDocument.LoadAsync(fs, LoadOptions.None, CancellationToken.None);
-            var readResult = await _feedReader.ReadAsync(validDoc);
+            var readResult = await _feedReader!.ReadAsync(validDoc);
             Assert.IsNotNull(readResult);
             Assert.IsTrue(readResult.IsValid);
             Assert.IsNotNull(readResult.Feed);
@@ -71,7 +71,7 @@ namespace SmallRss.Tests.Feeds
         {
             using var fs = new FileStream("feed.atom.xml", FileMode.Open);
             var validDoc = await XDocument.LoadAsync(fs, LoadOptions.None, CancellationToken.None);
-            var readResult = await _feedReader.ReadAsync(validDoc);
+            var readResult = await _feedReader!.ReadAsync(validDoc);
             Assert.IsNotNull(readResult);
             Assert.IsTrue(readResult.IsValid);
             Assert.IsNotNull(readResult.Feed);
@@ -104,7 +104,7 @@ namespace SmallRss.Tests.Feeds
         {
             using var fs = new FileStream("feed.atom2.xml", FileMode.Open);
             var validDoc = await XDocument.LoadAsync(fs, LoadOptions.None, CancellationToken.None);
-            var readResult = await _feedReader.ReadAsync(validDoc);
+            var readResult = await _feedReader!.ReadAsync(validDoc);
             Assert.IsNotNull(readResult);
             Assert.IsTrue(readResult.IsValid);
             Assert.IsNotNull(readResult.Feed);

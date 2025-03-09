@@ -82,7 +82,8 @@ public class SaveController(ILogger<SaveController> logger,
         var requestJson = JsonSerializer.Serialize(new
         {
             pleaseParse = new {},
-            link = article.Url
+            link = article.Url,
+            title = article.Heading ?? ""
         });
         logger.LogInformation($"Saving article {article.Id}:{article.Url} {requestJson} to raindrop.io");
 
