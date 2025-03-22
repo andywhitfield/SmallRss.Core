@@ -168,3 +168,5 @@ pip-log.txt
 *.db-*
 smallrss*.log
 .keys
+
+appsettings.Development.json
