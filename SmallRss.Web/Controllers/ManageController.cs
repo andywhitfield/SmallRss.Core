@@ -1,15 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SmallRss.Data;
 using SmallRss.Models;
@@ -58,7 +52,41 @@ public class ManageController(ILogger<ManageController> logger,
     }
 
     [HttpPost]
-    public async Task<ActionResult> AddAsync([FromForm]AddFeedViewModel addFeed)
+    public async Task<ActionResult> Refresh(int id)
+    {
+        var userAccount = await userAccountRepository.GetAsync(User);
+        var userFeeds = await userFeedRepository.GetAllByUserAsync(userAccount);
+
+        var feed = userFeeds.FirstOrDefault(f => f.Id == id);
+        if (feed == null)
+        {
+            logger.LogWarning("UserFeed {Id} not found, nothing to do", id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        using var httpClient = clientFactory.CreateClient(Startup.DefaultHttpClient);
+        HttpResponseMessage? response = null;
+        try
+        {
+            logger.LogInformation("Refreshing feed {Id}", feed.RssFeedId);
+            response = await httpClient.PostAsync($"/api/feed/refresh/{feed.RssFeedId}", new StringContent("{}", Encoding.UTF8, "application/json"));
+            response.EnsureSuccessStatusCode();
+            logger.LogInformation("Refresh feed {Id}, status: {ResponseStatusCode}", feed.RssFeedId, response.StatusCode);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Could not refresh feed {Id}, status: {ResponseStatusCode}", feed.RssFeedId, response?.StatusCode);
+        }
+        finally
+        {
+            response?.Dispose();
+        }
+
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> AddAsync([FromForm] AddFeedViewModel addFeed)
     {
         if (!ModelState.IsValid || (string.IsNullOrWhiteSpace(addFeed.GroupSel) && string.IsNullOrWhiteSpace(addFeed.Group)))
         {
@@ -88,7 +116,7 @@ public class ManageController(ILogger<ManageController> logger,
     }
 
     [HttpPost]
-    public async Task<ActionResult> Save([FromForm]SaveFeedViewModel saveFeed)
+    public async Task<ActionResult> Save([FromForm] SaveFeedViewModel saveFeed)
     {
         if (!ModelState.IsValid || (string.IsNullOrWhiteSpace(saveFeed.GroupSel) && string.IsNullOrWhiteSpace(saveFeed.Group)))
         {
@@ -103,7 +131,7 @@ public class ManageController(ILogger<ManageController> logger,
         var userAccount = await userAccountRepository.GetAsync(User);
         var rss = await GetOrCreateRssFeedAsync(saveFeed.Url ?? "", userAccount.Id);
         var feed = await userFeedRepository.GetByIdAsync(saveFeed.Id);
-        if (rss ==null || feed == null || feed.UserAccountId != userAccount.Id)
+        if (rss == null || feed == null || feed.UserAccountId != userAccount.Id)
         {
             var vm = await CreateEditViewModelAsync(saveFeed.Id);
             if (vm == null)
@@ -171,7 +199,7 @@ public class ManageController(ILogger<ManageController> logger,
 
         return RedirectToAction(nameof(Index));
     }
-    
+
     [HttpPost]
     public async Task<ActionResult> Raindrop()
     {
@@ -208,7 +236,7 @@ public class ManageController(ILogger<ManageController> logger,
         var result = await response.Content.ReadAsStringAsync();
         if (!result.TryParseJson(out RaindropTokenResult? authResult, logger))
             return RedirectToAction("Index");
-        
+
         logger.LogInformation($"Got token result: result={result}");
 
         // save refresh token into the user's account
@@ -220,7 +248,7 @@ public class ManageController(ILogger<ManageController> logger,
     }
 
     private string RaindropDirectUri => Url.Action(nameof(RaindropAuth), "Manage", null, Request.Scheme) ?? throw new InvalidOperationException("Cannot create raindrop.io redirect uri");
-    
+
     private async Task<RssFeed?> GetOrCreateRssFeedAsync(string feedUri, int userAccountId)
     {
         var rss = await rssFeedRepository.GetByUriAsync(feedUri);
