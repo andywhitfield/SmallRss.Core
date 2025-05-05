@@ -1,34 +1,42 @@
+using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SmallRss.Models;
 
-namespace SmallRss.Data
+namespace SmallRss.Data;
+
+public class SqliteDataContext(IConfiguration configuration, ILogger<SqliteDataContext> logger)
+    : DbContext
 {
-    public class SqliteDataContext : DbContext
+    public DbSet<Article>? Articles { get; set; }
+    public DbSet<BackgroundServiceSetting>? BackgroundServiceSettings { get; set; }
+    public DbSet<RssFeed>? RssFeeds { get; set; }
+    public DbSet<UserAccount>? UserAccounts { get; set; }
+    public DbSet<UserAccountSetting>? UserAccountSettings { get; set; }
+    public DbSet<UserArticlesRead>? UserArticlesRead { get; set; }
+    public DbSet<UserFeed>? UserFeeds { get; set; }
+
+    public void EnsureRssFeedLastRefreshColumns()
     {
-        private readonly IConfiguration _configuration;
-        private readonly ILogger<SqliteDataContext> _logger;
-
-        public SqliteDataContext(IConfiguration configuration, ILogger<SqliteDataContext> logger)
+        if (Database.IsSqlite())
         {
-            _configuration = configuration;
-            _logger = logger;
+            logger.LogDebug("Checking RssFeeds is up to date");
+            var columnExists = Database.GetDbConnection().ExecuteScalar<int>("SELECT COUNT(*) FROM PRAGMA_TABLE_INFO('RssFeeds') WHERE name = 'LastRefreshSuccess'");
+            if (columnExists == 0)
+            {
+                logger.LogInformation("Creating new columns RssFeeds.LastRefreshSuccess and RssFeedsLastRefreshMessage");
+                Database.ExecuteSqlRaw("ALTER TABLE RssFeeds ADD COLUMN LastRefreshSuccess BOOLEAN");
+                Database.ExecuteSqlRaw("ALTER TABLE RssFeeds ADD COLUMN LastRefreshMessage TEXT");
+            }
+            logger.LogDebug("RssFeeds table is up to date");
         }
-        
-        public DbSet<Article>? Articles { get; set; }
-        public DbSet<BackgroundServiceSetting>? BackgroundServiceSettings { get; set; }
-        public DbSet<RssFeed>? RssFeeds { get; set; }
-        public DbSet<UserAccount>? UserAccounts { get; set; }
-        public DbSet<UserAccountSetting>? UserAccountSettings { get; set; }
-        public DbSet<UserArticlesRead>? UserArticlesRead { get; set; }
-        public DbSet<UserFeed>? UserFeeds { get; set; }
+    }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var sqliteConnectionString = _configuration.GetConnectionString("SmallRss");
-            _logger.LogInformation($"Using Sqlite connection string: {sqliteConnectionString}");
-            optionsBuilder.UseSqlite(sqliteConnectionString);
-        }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        var sqliteConnectionString = configuration.GetConnectionString("SmallRss");
+        logger.LogInformation($"Using Sqlite connection string: {sqliteConnectionString}");
+        optionsBuilder.UseSqlite(sqliteConnectionString);
     }
 }

@@ -1,14 +1,5 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using SmallRss.Data;
 using SmallRss.Web.Authorisation;
 
@@ -129,6 +120,9 @@ public class Startup
             pattern: "{controller=Home}/{action=Index}/{id?}"));
 
         using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-        scope.ServiceProvider.GetRequiredService<SqliteDataContext>().Database.EnsureCreated();
+        var context = scope.ServiceProvider.GetRequiredService<SqliteDataContext>();
+        context.Database.EnsureCreated();
+        // should move to EF migrations, but for now, just create the RssFeed columns if required
+        context.EnsureRssFeedLastRefreshColumns();
     }
 }

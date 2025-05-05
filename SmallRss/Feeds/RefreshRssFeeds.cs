@@ -1,89 +1,72 @@
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SmallRss.Data;
 using SmallRss.Models;
 
-namespace SmallRss.Feeds
+namespace SmallRss.Feeds;
+
+public class RefreshRssFeeds(ILogger<RefreshRssFeeds> logger,
+    IRefreshRssFeed refreshRssFeed)
+    : IRefreshRssFeeds
 {
-    public class RefreshRssFeeds : IRefreshRssFeeds
+    public async Task ExecuteAsync(List<RssFeed> feedsToRefresh, CancellationToken cancellationToken)
     {
-        private readonly ILogger<RefreshRssFeeds> _logger;
-        private readonly IRssFeedRepository _rssFeedRepository;
-        private readonly IRefreshRssFeed _refreshRssFeed;
+        if (feedsToRefresh == null)
+            return;
 
-        public RefreshRssFeeds(ILogger<RefreshRssFeeds> logger, IRssFeedRepository rssFeedRepository, IRefreshRssFeed refreshRssFeed)
+        var updated = 0;
+        logger.LogInformation("Refreshing feeds");
+        try
         {
-            _logger = logger;
-            _rssFeedRepository = rssFeedRepository;
-            _refreshRssFeed = refreshRssFeed;
-        }
-
-        public async Task<bool> ExecuteAsync(List<RssFeed> feedsToRefresh, CancellationToken cancellationToken)
-        {
-            if (feedsToRefresh == null)
-                return false;
-
-            var updated = 0;
-            _logger.LogInformation("Refreshing feeds");
-            try
+            var failed = 0;
+            foreach (var rssFeed in feedsToRefresh)
             {
-                var failed = 0;
-                foreach (var rssFeed in feedsToRefresh)
+                if (cancellationToken.IsCancellationRequested)
+                    break;
+
+                try
                 {
-                    if (cancellationToken.IsCancellationRequested)
-                        break;
-
-                    try
-                    {
-                        _logger.LogInformation($"Refreshing {rssFeed.Uri}");
-                        if (await _refreshRssFeed.RefreshAsync(rssFeed, cancellationToken))
-                            updated++;
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, $"Error refreshing feed {rssFeed.Id}:{rssFeed.Uri}");
-                        failed++;
-                    }
+                    logger.LogInformation($"Refreshing {rssFeed.Uri}");
+                    if (await refreshRssFeed.RefreshAsync(rssFeed, cancellationToken))
+                        updated++;
                 }
-
-                _logger.LogInformation($"Completed feed refresh. {updated} updated / {failed} failed / {feedsToRefresh.Count} total checked");
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, $"Error refreshing feed {rssFeed.Id}:{rssFeed.Uri}");
+                    failed++;
+                }
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error refreshing feeds");
-            }
 
-            return updated > 0;
+            logger.LogInformation($"Completed feed refresh. {updated} updated / {failed} failed / {feedsToRefresh.Count} total checked");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error refreshing feeds");
         }
     }
+}
 
-    public static class RefreshRssFeedsServiceProviderExtensions
+public static class RefreshRssFeedsServiceProviderExtensions
+{
+    public const string DefaultHttpClient = "default";
+
+    public static IServiceCollection AddRefreshRssFeeds(this IServiceCollection services)
     {
-        public const string DefaultHttpClient = "default";
-
-        public static IServiceCollection AddRefreshRssFeeds(this IServiceCollection services)
-        {
-            services.AddScoped<IRefreshRssFeeds, RefreshRssFeeds>();
-            services.AddScoped<IRefreshRssFeed, RefreshRssFeed>();
-            services.AddScoped<IArticleRepository, ArticleRepository>();
-            services.AddScoped<IRssFeedRepository, RssFeedRepository>();
-            services.AddScoped<IBackgroundServiceSettingRepository, BackgroundServiceSettingRepository>();
-            services.AddScoped<IFeedParser, FeedParser>();
-            services.AddScoped<IFeedReader, RssFeedReader>();
-            services.AddScoped<IFeedReader, AtomFeedReader>();
-            services
-                .AddHttpClient(DefaultHttpClient)
-                .ConfigureHttpClient(c => c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows)"))
-                .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler {
-                    AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
-                });
-            return services;
-        }
+        services.AddScoped<IRefreshRssFeeds, RefreshRssFeeds>();
+        services.AddScoped<IRefreshRssFeed, RefreshRssFeed>();
+        services.AddScoped<IArticleRepository, ArticleRepository>();
+        services.AddScoped<IRssFeedRepository, RssFeedRepository>();
+        services.AddScoped<IBackgroundServiceSettingRepository, BackgroundServiceSettingRepository>();
+        services.AddScoped<IFeedParser, FeedParser>();
+        services.AddScoped<IFeedReader, RssFeedReader>();
+        services.AddScoped<IFeedReader, AtomFeedReader>();
+        services
+            .AddHttpClient(DefaultHttpClient)
+            .ConfigureHttpClient(c => c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows)"))
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler {
+                AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
+            });
+        return services;
     }
 }

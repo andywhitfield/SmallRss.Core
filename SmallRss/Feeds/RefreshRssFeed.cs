@@ -1,44 +1,57 @@
-using System;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using SmallRss.Data;
 using SmallRss.Models;
 
 namespace SmallRss.Feeds;
 
-public class RefreshRssFeed(ILogger<RefreshRssFeed> logger, IHttpClientFactory clientFactory, IFeedParser feedParser,
+public class RefreshRssFeed(ILogger<RefreshRssFeed> logger,
+    IHttpClientFactory clientFactory,
+    IFeedParser feedParser,
     IArticleRepository articleRepository)
     : IRefreshRssFeed
 {
     public async Task<bool> RefreshAsync(RssFeed rssFeed, CancellationToken cancellationToken)
     {
         using var client = clientFactory.CreateClient(RefreshRssFeedsServiceProviderExtensions.DefaultHttpClient);
-        using var response = await client.GetAsync(rssFeed.Uri, cancellationToken);
-        if (!response.IsSuccessStatusCode)
+        try
         {
-            logger.LogWarning($"Could not refresh feed {rssFeed.Id} from {rssFeed.Uri}: response status: {response.StatusCode}, content: {await response.Content.ReadAsStringAsync()}");
-            return false;
-        }
+            using var response = await client.GetAsync(rssFeed.Uri, cancellationToken);
+            if (!response.IsSuccessStatusCode)
+            {
+                logger.LogWarning("Could not refresh feed {RssFeedId} from {RssFeedUri}: response status: {ResponseStatusCode}, content: {ResponseContent}", rssFeed.Id, rssFeed.Uri, response.StatusCode, await response.Content.ReadAsStringAsync());
+                rssFeed.LastRefreshSuccess = false;
+                rssFeed.LastRefreshMessage = $"Feed response: {response.StatusCode}";
+                return false;
+            }
 
-        logger.LogInformation($"Successfully download feed from {rssFeed.Uri}");
-        FeedParseResult parseResult;
-        if (!((parseResult = await feedParser.ParseAsync(await response.Content.ReadAsStreamAsync(), cancellationToken))?.IsValid ?? false))
-        {
-            logger.LogWarning($"Could not parse feed response from {rssFeed.Uri} - content: {await response.Content.ReadAsStringAsync()}");
-            return false;
-        }
+            logger.LogInformation("Successfully download feed from {RssFeedUri}", rssFeed.Uri);
+            FeedParseResult parseResult;
+            if (!((parseResult = await feedParser.ParseAsync(await response.Content.ReadAsStreamAsync(), cancellationToken))?.IsValid ?? false))
+            {
+                logger.LogWarning("Could not parse feed response from {RssFeedUri} - content: {ResponseContent}", rssFeed.Uri, await response.Content.ReadAsStringAsync());
+                rssFeed.LastRefreshSuccess = false;
+                rssFeed.LastRefreshMessage = $"Feed response could not be parsed - invalid RSS / Atom content";
+                return false;
+            }
 
-        logger.LogDebug($"Feed {rssFeed.Uri} was last updated {parseResult.Feed.LastUpdated} - our version was updated: {rssFeed.LastUpdated}");
-        if (!rssFeed.LastUpdated.HasValue || parseResult.Feed.LastUpdated > rssFeed.LastUpdated)
+            rssFeed.LastRefreshSuccess = true;
+            rssFeed.LastRefreshMessage = "";
+
+            logger.LogDebug("Feed {RssFeedUri} was last updated {ParseResultFeedLastUpdated} - our version was updated: {RssFeedLastUpdated}", rssFeed.Uri, parseResult.Feed.LastUpdated, rssFeed.LastUpdated);
+            if (!rssFeed.LastUpdated.HasValue || parseResult.Feed.LastUpdated > rssFeed.LastUpdated)
+            {
+                logger.LogTrace("Feed {RssFeedUri} has new items...updating articles", rssFeed.Uri);
+                await UpdateFeedItemsAsync(rssFeed, parseResult);
+                rssFeed.LastUpdated = parseResult.Feed.LastUpdated;
+                rssFeed.Link = parseResult.Feed.Link;
+                return true;
+            }
+        }
+        catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            logger.LogTrace($"Feed {rssFeed.Uri} has new items...updating articles");
-            await UpdateFeedItemsAsync(rssFeed, parseResult);
-            rssFeed.LastUpdated = parseResult.Feed.LastUpdated;
-            rssFeed.Link = parseResult.Feed.Link;
-            return true;
+            rssFeed.LastRefreshSuccess = false;
+            rssFeed.LastRefreshMessage = $"Failed to download or parse feed";
+            throw;
         }
 
         return false;
@@ -56,7 +69,7 @@ public class RefreshRssFeed(ILogger<RefreshRssFeed> logger, IHttpClientFactory c
             {
                 if (itemInFeed.Published > existingArticle.Published)
                 {
-                    logger.LogInformation($"Article {existingArticle.ArticleGuid} has updated ({itemInFeed.Published} - our version {existingArticle.Published}), updating our instance");
+                    logger.LogInformation("Article {ExistingArticleArticleGuid} has updated ({ItemInFeedPublished} - our version {ExistingArticlePublished}), updating our instance", existingArticle.ArticleGuid, itemInFeed.Published, existingArticle.Published);
                     existingArticle.Heading = itemInFeed.Heading;
                     existingArticle.Body = itemInFeed.Body;
                     existingArticle.Url = itemInFeed.Url;
@@ -66,10 +79,10 @@ public class RefreshRssFeed(ILogger<RefreshRssFeed> logger, IHttpClientFactory c
             }
             else
             {
-                logger.LogInformation($"Add new article {itemInFeed.ArticleGuid}|{itemInFeed.Heading} to feed {rssFeed.Uri}");
+                logger.LogInformation("Add new article {ItemInFeedArticleGuid}|{ItemInFeedHeading} to feed {RssFeedUri}", itemInFeed.ArticleGuid, itemInFeed.Heading, rssFeed.Uri);
                 if (itemInFeed.Published < oldestItem)
                 {
-                    logger.LogWarning($"Article {itemInFeed.ArticleGuid} is older than the oldest item...has probably already been archived so not adding.");
+                    logger.LogWarning("Article {ItemInFeedArticleGuid} is older than the oldest item...has probably already been archived so not adding.", itemInFeed.ArticleGuid);
                     continue;
                 }
 

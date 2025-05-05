@@ -228,6 +228,11 @@ tr.manage {
     vertical-align: middle;
 }
 
+div.manage-refresh-error {
+    font-style: italic;
+    color: red;
+}
+
 @media (prefers-color-scheme: dark) {
     body {
         background-color: black;

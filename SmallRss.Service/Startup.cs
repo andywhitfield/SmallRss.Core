@@ -59,7 +59,10 @@ namespace SmallRss.Service
                 pattern: "{controller=Home}/{action=Index}/{id?}"));
 
             using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-            scope.ServiceProvider.GetRequiredService<SqliteDataContext>().Database.EnsureCreated();
+            var context = scope.ServiceProvider.GetRequiredService<SqliteDataContext>();
+            context.Database.EnsureCreated();
+            // should move to EF migrations, but for now, just create the RssFeed columns if required
+            context.EnsureRssFeedLastRefreshColumns();
         }
     }
 }
