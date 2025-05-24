@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmallRss.Data;
 using SmallRss.Web.Models.Home;
@@ -14,7 +13,7 @@ public class HomeController(IUserAccountRepository userAccountRepository) : Cont
         var userAccount = await userAccountRepository.GetAsync(User);
         return View(new IndexViewModel {
             ShowAllArticles = userAccount.ShowAllItems,
-            ConnectedToSave = userAccount.HasPocketAccessToken || userAccount.HasRaindropRefreshToken
+            ConnectedToSave = userAccount.HasRaindropRefreshToken
         });
     }
 

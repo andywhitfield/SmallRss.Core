@@ -1,7 +1,4 @@
-using System;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SmallRss.Models;
@@ -70,12 +67,6 @@ public class UserAccountRepository(ILogger<UserAccountRepository> logger, Sqlite
         else
             userAccountSetting.SettingValue = Convert.ToString(userAccount.ShowAllItems);
 
-        userAccountSetting = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "PocketAccessToken" && uas.SettingName == "PocketAccessToken");
-        if (userAccountSetting == null)
-            await context.UserAccountSettings!.AddAsync(new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "PocketAccessToken", SettingName = "PocketAccessToken", SettingValue = userAccount.PocketAccessToken });
-        else
-            userAccountSetting.SettingValue = userAccount.PocketAccessToken;
-
         userAccountSetting = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "RaindropRefreshToken" && uas.SettingName == "RaindropRefreshToken");
         if (userAccountSetting == null)
             await context.UserAccountSettings!.AddAsync(new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "RaindropRefreshToken", SettingName = "RaindropRefreshToken", SettingValue = userAccount.RaindropRefreshToken });
@@ -119,7 +110,6 @@ public class UserAccountRepository(ILogger<UserAccountRepository> logger, Sqlite
             new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "UserAccountCredential.0", SettingName = "UserHandle", SettingValue = Convert.ToBase64String(userHandle) },
             new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "UserAccountCredential.0", SettingName = "SignatureCount", SettingValue = Convert.ToString((uint)0) },
             new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "ShowAllItems", SettingName = "ShowAllItems", SettingValue = Convert.ToString(userAccount.ShowAllItems) },
-            new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "PocketAccessToken", SettingName = "PocketAccessToken", SettingValue = userAccount.PocketAccessToken },
             new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "RaindropRefreshToken", SettingName = "RaindropRefreshToken", SettingValue = userAccount.RaindropRefreshToken }
         );
         await context.SaveChangesAsync();
@@ -174,8 +164,6 @@ public class UserAccountRepository(ILogger<UserAccountRepository> logger, Sqlite
             userAccount.SavedLayout.Add(savedLayout.SettingName ?? "", savedLayout.SettingValue ?? "");
         var showAllItemsSetting = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "ShowAllItems");
         userAccount.ShowAllItems = showAllItemsSetting != null && Convert.ToBoolean(showAllItemsSetting.SettingValue);
-        var pocketAccessToken = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "PocketAccessToken");
-        userAccount.PocketAccessToken = pocketAccessToken == null ? "" : pocketAccessToken.SettingValue ?? "";
         var raindropRefreshToken = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "RaindropRefreshToken");
         userAccount.RaindropRefreshToken = raindropRefreshToken == null ? "" : raindropRefreshToken.SettingValue ?? "";
 

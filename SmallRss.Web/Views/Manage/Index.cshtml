@@ -58,11 +58,6 @@ else
 
 <h2>Save Article Integrations</h2>
 
-<h3>Save to Pocket</h3>
-<form method="post" action="@Url.Action("pocket")">
-    <input type="submit" value="@(Model.UserAccount?.HasPocketAccessToken ?? false ? "Disconnect from Pocket" : "Connect to Pocket")">
-</form>
-
 <h3>Save to Raindrop.io</h2>
 <form method="post" action="@Url.Action("raindrop")">
     <input type="submit" value="@(Model.UserAccount?.HasRaindropRefreshToken ?? false ? "Disconnect from Raindrop.io" : "Connect to Raindrop.io")">

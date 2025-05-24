@@ -8,7 +8,6 @@ namespace SmallRss.Web;
 public class Startup
 {
     public const string DefaultHttpClient = "default";
-    public const string PocketHttpClient = "pocket";
     public const string RaindropHttpClient = "raindrop";
 
     private readonly IWebHostEnvironment hostingEnvironment;
@@ -87,11 +86,6 @@ public class Startup
         services.AddScoped<IUserArticlesReadRepository, UserArticlesReadRepository>();
         services.AddScoped<IAuthorisationHandler, AuthorisationHandler>();
         services.AddHttpClient(DefaultHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetValue<string>("ServiceUri") ?? throw new Exception("ServiceUri not configured")));
-        services.AddHttpClient(PocketHttpClient).ConfigureHttpClient(c =>
-        {
-            c.BaseAddress = new Uri("https://getpocket.com/v3/");
-            c.DefaultRequestHeaders.Add("X-Accept", "application/json");
-        });
         services.AddHttpClient(RaindropHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.raindrop.io/"));
         services.Configure<RaindropOptions>(Configuration.GetSection("Raindrop.io"));
     }

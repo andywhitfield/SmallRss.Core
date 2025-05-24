@@ -20,8 +20,6 @@ public class ManageController(ILogger<ManageController> logger,
     IOptionsSnapshot<RaindropOptions> raindropOptions)
     : Controller
 {
-    internal const string PocketConsumerKey = "41619-1a5decf504173a588fd1b492";
-
     [HttpGet]
     public async Task<ActionResult> Index() => View(await CreateIndexViewModelAsync());
 
@@ -151,56 +149,6 @@ public class ManageController(ILogger<ManageController> logger,
     }
 
     [HttpPost]
-    public async Task<ActionResult> Pocket()
-    {
-        var userAccount = await userAccountRepository.GetAsync(User);
-        if (userAccount.HasPocketAccessToken)
-        {
-            // disconnect from pocket requested
-            userAccount.PocketAccessToken = string.Empty;
-            await userAccountRepository.UpdateAsync(userAccount);
-            return RedirectToAction(nameof(Index));
-        }
-
-        var redirectUri = Url.Action(nameof(PocketAuth), "Manage", null, Request.Scheme);
-        var requestJson = "{\"consumer_key\":\"" + PocketConsumerKey + "\", \"redirect_uri\":\"" + HttpUtility.UrlEncode(redirectUri) + "\"}";
-
-        using var pocketClient = clientFactory.CreateClient(Startup.PocketHttpClient);
-        using var response = await pocketClient.PostAsync("oauth/request", new StringContent(requestJson, Encoding.UTF8, "application/json"));
-        if (!response.IsSuccessStatusCode)
-            throw new InvalidOperationException($"Invalid pocket response: {response.StatusCode}");
-
-        var result = await response.Content.ReadAsStringAsync();
-        if (!result.TryParseJson(out RequestToken? requestToken, logger))
-            throw new InvalidOperationException($"Cannot deserialize response: {result}");
-
-        HttpContext.Session.SetString("POCKET_CODE", requestToken?.Code ?? "");
-        return Redirect($"https://getpocket.com/auth/authorize?request_token={HttpUtility.UrlEncode(requestToken?.Code)}&redirect_uri={HttpUtility.UrlEncode(redirectUri)}");
-    }
-
-    public async Task<ActionResult> PocketAuth()
-    {
-        var code = HttpContext.Session.GetString("POCKET_CODE");
-        var requestJson = JsonSerializer.Serialize(new { consumer_key = PocketConsumerKey, code });
-
-        using var pocketClient = clientFactory.CreateClient(Startup.PocketHttpClient);
-        using var response = await pocketClient.PostAsync("oauth/authorize", new StringContent(requestJson, Encoding.UTF8, "application/json"));
-        if (!response.IsSuccessStatusCode)
-            throw new InvalidOperationException($"Invalid pocket response: {response.StatusCode}");
-
-        var result = await response.Content.ReadAsStringAsync();
-        if (!result.TryParseJson(out PocketAuthResult? authResult, logger))
-            return RedirectToAction("Index");
-
-        // save access token into the user's account
-        var userAccount = await userAccountRepository.GetAsync(User);
-        userAccount.PocketAccessToken = authResult?.AccessToken ?? "";
-        await userAccountRepository.UpdateAsync(userAccount);
-
-        return RedirectToAction(nameof(Index));
-    }
-
-    [HttpPost]
     public async Task<ActionResult> Raindrop()
     {
         var userAccount = await userAccountRepository.GetAsync(User);
@@ -299,13 +247,6 @@ public class ManageController(ILogger<ManageController> logger,
     private class RequestToken
     {
         public string? Code { get; set; }
-    }
-
-    private class PocketAuthResult
-    {
-        [JsonPropertyName("access_token")]
-        public string? AccessToken { get; set; }
-        public string? Username { get; set; }
     }
 
     private class RaindropTokenResult

@@ -1,13 +1,9 @@
-﻿using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SmallRss.Data;
 using SmallRss.Models;
@@ -24,50 +20,18 @@ public class SaveController(ILogger<SaveController> logger,
     : ControllerBase
 {
     [HttpPost]
-    public async Task<object> PostAsync([FromForm] PocketViewModel model)
+    public async Task<object> PostAsync([FromForm] SaveViewModel model)
     {
         var article = await articleRepository.GetByIdAsync(model.ArticleId.GetValueOrDefault());
         if (article == null)
             return new { saved = false, reason = "Could not find article with id " + model.ArticleId };
 
         var userAccount = await userAccountRepository.GetAsync(User);
-
-        if (userAccount.HasPocketAccessToken)
-            return await SaveToPocketAsync(userAccount, article);
         
         if (userAccount.HasRaindropRefreshToken)
             return await SaveToRaindropAsync(userAccount, article);
 
-        return new { saved = false, reason = "Your account is not connected to Pocket or Raindrop.io" };
-    }
-
-    private async Task<object> SaveToPocketAsync(UserAccount userAccount, Article article)
-    {
-        var requestJson = JsonSerializer.Serialize(new
-        {
-            consumer_key = ManageController.PocketConsumerKey,
-            access_token = userAccount.PocketAccessToken,
-            url = HttpUtility.UrlPathEncode(article.Url),
-            title = HttpUtility.UrlEncode(article.Heading ?? string.Empty)
-        });
-
-        logger.LogInformation($"Saving article [{article.Id}:{article.Url}:{article.Heading}] to pocket");
-
-        using var pocketClient = httpClientFactory.CreateClient(Startup.PocketHttpClient);
-        using var response = await pocketClient.PostAsync("add", new StringContent(requestJson, Encoding.UTF8, "application/json"));
-        if (!response.IsSuccessStatusCode)
-        {
-            logger.LogError($"Error response attempting to save to pocket: {response.StatusCode}");
-            return new { saved = false };
-        }
-
-        var result = await response.Content.ReadAsStringAsync();
-        if (!result.TryParseJson(out PocketAddResponse? addResult, logger))
-            return new { saved = false };
-
-        logger.LogInformation($"Successfully saved article [{article.Id}:{article.Url}:{article.Heading}] to pocket");
-        // TODO: handle response and return appropriate json response to client
-        return new { saved = true };
+        return new { saved = false, reason = "Your account is not connected to Raindrop.io" };
     }
 
     private async Task<object> SaveToRaindropAsync(UserAccount userAccount, Article article)
@@ -125,11 +89,6 @@ public class SaveController(ILogger<SaveController> logger,
         
         logger.LogInformation($"Got access token result: result={result}");
         return authResult?.AccessToken;
-    }
-
-    private class PocketAddResponse
-    {
-        public int Status { get; set; }
     }
 
     private class RaindropTokenResult

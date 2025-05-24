@@ -222,7 +222,7 @@ function buildFeedArticles() {
         feedHtml += '<td class="article-summary">' + article.article + '</td>';
         feedHtml += '<td class="article-date">' + article.posted + '</td>';
         if (smallrss_config.connectedToSave)
-            feedHtml += '<td class="article-save"><button class="image" title="Save to Pocket or Raindrop.io"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Save to Pocket or Raindrop.io"></button></td>';
+            feedHtml += '<td class="article-save"><button class="image" title="Save to Raindrop.io"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Save to Raindrop.io"></button></td>';
         feedHtml += '<td class="article-read"><button class="image" title="Mark as ' + (article.read ? 'unread' : 'read') + '">' + (article.read ? '<img src="' + smallrss_config.imageroot + 'images/markunread.png" alt="Mark as unread">' : '<img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark as read">') + '</button></td>';
         feedHtml += '</tr>';
     }
@@ -407,10 +407,10 @@ function buildFeedArticle() {
     articleHtml += '</div>';
 
     articleHtml += '<div>';
-    articleHtml += '<div><span class="article-info">' + articleSummary.posted + '<br><em>' + feeds.selectedFeedArticle.author + '</em></span><span class="article-actions">' + (smallrss_config.connectedToSave ? '<button class="send-to image" title="Send to Pocket or Raindrop.io"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Send to Pocket or Raindrop.io"></button>' : '') + '<button class="toggle-read image" title="Mark as ' + (articleSummary.read ? 'unread' : 'read') + '">' + (articleSummary.read ? '<img src="' + smallrss_config.imageroot + 'images/markunread.png" alt="Mark as unread">' : '<img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark as read">') + '</button></span></div>';
+    articleHtml += '<div><span class="article-info">' + articleSummary.posted + '<br><em>' + feeds.selectedFeedArticle.author + '</em></span><span class="article-actions">' + (smallrss_config.connectedToSave ? '<button class="send-to image" title="Send to Raindrop.io"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Send to Raindrop.io"></button>' : '') + '<button class="toggle-read image" title="Mark as ' + (articleSummary.read ? 'unread' : 'read') + '">' + (articleSummary.read ? '<img src="' + smallrss_config.imageroot + 'images/markunread.png" alt="Mark as unread">' : '<img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark as read">') + '</button></span></div>';
     articleHtml += '<div class="article-heading"><a href="' + feeds.selectedFeedArticle.url + '" target="_blank">' + articleSummary.heading + '</a></div>';
     articleHtml += '<div>' + feeds.selectedFeedArticle.body + '</div>';
-    articleHtml += '<div>' + (smallrss_config.connectedToSave ? '<button class="send-to image" title="Send to Pocket or Raindrop.io"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Send to Pocket or Raindrop.io"></button>' : '') + '<span class="article-actions"><button class="next-article image" title="Next article"><img src="' + smallrss_config.imageroot + 'images/next.png" alt="Next article"></button></span></div>';
+    articleHtml += '<div>' + (smallrss_config.connectedToSave ? '<button class="send-to image" title="Send to Raindrop.io"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Send to Raindrop.io"></button>' : '') + '<span class="article-actions"><button class="next-article image" title="Next article"><img src="' + smallrss_config.imageroot + 'images/next.png" alt="Next article"></button></span></div>';
     articleHtml += '</div>';
 
     return articleHtml;
@@ -596,7 +596,7 @@ function handleKeyPress(evt) {
             // 'u' marks as unread
             markArticleId(feeds.selectedFeedArticle.id, false, function() { updateUI(); });
         } else if (evt.which == 80) {
-            // 'p' adds the article to pocket/raindrop.io
+            // 'p' adds the article to raindrop.io
             saveArticleId(feeds.selectedFeedArticle.id, function() { markCurrentlySelectedArticleAsRead(); });
         }
 
@@ -626,7 +626,7 @@ function handleKeyPress(evt) {
                 });
             }
         } else if (evt.which == 80) {
-            // 'p' adds the focused article to pocket/raindrop.io and then marks as read
+            // 'p' adds the focused article to raindrop.io and then marks as read
             saveCurrentlyFocusedArticle();
         } else if (evt.which == 77) {
             // 'm' marks all the articles as read

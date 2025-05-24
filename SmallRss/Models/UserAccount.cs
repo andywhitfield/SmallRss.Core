@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmallRss.Models;
 
@@ -13,7 +11,6 @@ public class UserAccount
         ShowAllItems = false;
         ExpandedGroups = new HashSet<string>();
         SavedLayout = new Dictionary<string, string>();
-        PocketAccessToken = "";
         RaindropRefreshToken = "";
     }
 
@@ -30,10 +27,6 @@ public class UserAccount
     public ISet<string> ExpandedGroups { get; private set; }
     [NotMapped]
     public IDictionary<string, string> SavedLayout { get; private set; }
-    [NotMapped]
-    public string PocketAccessToken { get; set; }
-    [NotMapped]
-    public bool HasPocketAccessToken => !string.IsNullOrWhiteSpace(PocketAccessToken);
     [NotMapped]
     public string RaindropRefreshToken { get; set; }
     [NotMapped]
