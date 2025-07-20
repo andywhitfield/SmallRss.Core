@@ -84,6 +84,10 @@ ul.feed-list {
     color: #aaaaaa;
 }
 
+.all-unread li {
+    font-style: italic;
+}
+
 table.article-list {
     width: 100%;
 }

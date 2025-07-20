@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using SmallRss.Data;
 using SmallRss.Models;
 
@@ -27,41 +23,54 @@ public class FeedController(
         var loggedInUser = await userAccountRepository.GetAsync(User);            
         var userFeeds = await userFeedRepository.GetAllByUserAsync(loggedInUser);
 
-        if (!userFeeds.Any())
-            return new[] { new { id = "", item = "" } };
+        if (userFeeds.Count == 0)
+            return [new { id = "", item = "" }];
 
         var feeds = (await rssFeedRepository.GetByIdsAsync(userFeeds.Select(uf => uf.RssFeedId).ToHashSet())).ToDictionary(f => f.Id);
-        return userFeeds.GroupBy(f => f.GroupName).OrderBy(g => g.Key).Select(group =>
-            new
-            {
-                id = group.Key,
-                item = group.Key,
-                props = new { isFolder = true, open = loggedInUser.ExpandedGroups.Contains(group.Key ?? "") },
-                items = group.OrderBy(g => g.Name).Select(g =>
-                    new { id = g.Id, item = g.Name, link = feeds[g.RssFeedId].Link ?? string.Empty, props = new { isFolder = false } })
-            });
+        return userFeeds.GroupBy(f => f.GroupName).OrderBy(g => g.Key)
+            .Select(group => (group.Key, Items: group.Select(g => (g.Id, g.Name, g.RssFeedId))))
+            .Append((Key: "All unread", Items: [(Id: -1, Name: "All unread", RssFeedId: -1)]))
+            .Select(group =>
+                new
+                {
+                    id = group.Key,
+                    item = group.Key,
+                    props = new { isFolder = true, open = loggedInUser.ExpandedGroups.Contains(group.Key ?? "") },
+                    items = group.Items.OrderBy(g => g.Name).Select(g =>
+                        new { id = g.Id, item = g.Name, link = feeds.GetValueOrDefault(g.RssFeedId)?.Link ?? string.Empty, props = new { isFolder = false } })
+                });
     }
 
     [HttpGet("{id}/{offset?}")]
     public async Task<IEnumerable<object>> Get(int id, int? offset)
     {
-        logger.LogDebug($"Getting articles for feed {id} from db, using client UTC offset {offset}");
+        logger.LogDebug("Getting articles for feed {Id} from db, using client UTC offset {Offset}", id, offset);
 
         var loggedInUser = await userAccountRepository.GetAsync(User);
-        var feed = await userFeedRepository.GetByIdAsync(id);
-        if (feed == null)
-            return Enumerable.Empty<Article>();
-
-        var readArticles = await userArticlesReadRepository.GetByUserFeedIdAsync(feed.Id);
 
         IEnumerable<Article> articles;
-        if (loggedInUser.ShowAllItems)
-            articles = await articleRepository.GetByRssFeedIdAsync(feed.RssFeedId);
+        List<UserArticlesRead> readArticles;
+        if (id == -1)
+        {
+            readArticles = [];
+            articles = await articleRepository.GetAllUnreadArticlesAsync(loggedInUser);
+        }
         else
-            articles = await articleRepository.GetByRssFeedIdAsync(feed.RssFeedId, readArticles);
+        {
+            var feed = await userFeedRepository.GetByIdAsync(id);
+            if (feed == null)
+                return Enumerable.Empty<Article>();
+
+            readArticles = await userArticlesReadRepository.GetByUserFeedIdAsync(feed.Id);
+
+            if (loggedInUser.ShowAllItems)
+                articles = await articleRepository.GetByRssFeedIdAsync(feed.RssFeedId);
+            else
+                articles = await articleRepository.GetByRssFeedIdAsync(feed.RssFeedId, readArticles);
+        }
 
         return articles
             .OrderBy(a => a.Published)
-            .Select(a => new { read = readArticles.Any(uar => uar.ArticleId == a.Id), feed = id, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body ?? ""), posted = FriendlyDate.ToString(a.Published, offset) });
+            .Select(a => new { read = readArticles.Any(uar => uar.ArticleId == a.Id), feed = a.RssFeedId, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body ?? ""), posted = FriendlyDate.ToString(a.Published, offset) });
     }
 }

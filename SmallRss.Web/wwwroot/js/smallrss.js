@@ -42,6 +42,17 @@ function buildTreeFromFeeds() {
         newSection += '</section>';
         feeds.allGroupsSection.append(newSection);
     }
+
+    /*
+    var allUnreadSection = '<section id="-1" data-count="0" class="group-section">';
+    allUnreadSection += '<div></div>';
+    allUnreadSection += '<article><ul class="feed-list all-unread">';
+    allUnreadSection += '<li id="-1" data-count="0">All unread <span class="item-unread-count"></span></li>';
+    allUnreadSection += '</ul></article>';
+    allUnreadSection += '</section>';
+    feeds.allGroupsSection.append(allUnreadSection);
+    */
+
     feeds.allGroupsSection.append('<div><button id="refresh-feed-status" title="Refresh all feeds">Refresh Feed Status</button></div>');
 
     // if we're not showing all, hide all the feeds and then once
@@ -87,13 +98,13 @@ function refreshFeedCounts(onRefreshCompleteFunc) {
             for (var grpIdx = 0; grpIdx < data.length; grpIdx++) {
                 var group = data[grpIdx];
                 var feedGroup = findGroup(group.label);
-                if (feedGroup == null) return;
+                if (feedGroup == null) continue;
                 feedGroup.count = group.unread;
 
                 for (var itmIdx = 0; itmIdx < group.items.length; itmIdx++) {
                     var item = group.items[itmIdx];
                     var feedItem = findItemInGroup(feedGroup, item.value);
-                    if (feedItem == null) return;
+                    if (feedItem == null) continue;
                     feedItem.count = item.unread;
                 }
             }

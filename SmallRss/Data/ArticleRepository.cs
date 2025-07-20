@@ -1,55 +1,44 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SmallRss.Models;
 
-namespace SmallRss.Data
+namespace SmallRss.Data;
+
+public class ArticleRepository(SqliteDataContext context, ILogger<ArticleRepository> logger)
+    : IArticleRepository
 {
-    public class ArticleRepository : IArticleRepository
+    public Task<Article?> GetByIdAsync(int id) =>
+        context.Articles!.FindAsync(id).AsTask();
+
+    public Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId) =>
+        GetByRssFeedIdAsync(rssFeedId, []);
+
+    public Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId, List<UserArticlesRead>? excludingReadArticles)
     {
-        private readonly SqliteDataContext _context;
-        private readonly ILogger<ArticleRepository> _logger;
+        var articlesForFeed = context.Articles!.Where(a => a.RssFeedId == rssFeedId).ToListAsync();
+        if ((excludingReadArticles?.Count ?? 0) == 0)
+            return articlesForFeed;
+        return FilterByReadAsync(articlesForFeed, excludingReadArticles);
+    }
 
-        public ArticleRepository(SqliteDataContext context, ILogger<ArticleRepository> logger)
+    private async Task<List<Article>> FilterByReadAsync(Task<List<Article>> articles, List<UserArticlesRead>? excludingReadArticles) =>
+        (await articles).Except((excludingReadArticles ?? Enumerable.Empty<UserArticlesRead>()).Select(ra => new Article { Id = ra.ArticleId }), Article.IdComparer).ToList();
+
+    public Task CreateAsync(RssFeed rssFeed, Article articleToCreate) =>
+        context.Articles!.AddAsync(new Article
         {
-            _context = context;
-            _logger = logger;
-        }
+            Heading = articleToCreate.Heading,
+            Body = articleToCreate.Body,
+            Url = articleToCreate.Url,
+            Published = articleToCreate.Published,
+            Author = articleToCreate.Author,
+            ArticleGuid = articleToCreate.ArticleGuid,
+            RssFeedId = rssFeed.Id
+        }).AsTask();
 
-        public Task<Article?> GetByIdAsync(int id) =>
-            _context.Articles!.FindAsync(id).AsTask();
-
-        public Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId) =>
-            GetByRssFeedIdAsync(rssFeedId, new List<UserArticlesRead>());
-
-        public Task<List<Article>> GetByRssFeedIdAsync(int rssFeedId, List<UserArticlesRead>? excludingReadArticles)
-        {
-            var articlesForFeed = _context.Articles!.Where(a => a.RssFeedId == rssFeedId).ToListAsync();
-            if (!excludingReadArticles?.Any() ?? true)
-                return articlesForFeed;
-            return FilterByReadAsync(articlesForFeed, excludingReadArticles);
-        }
-
-        private async Task<List<Article>> FilterByReadAsync(Task<List<Article>> articles, List<UserArticlesRead>? excludingReadArticles) =>
-            (await articles).Except((excludingReadArticles ?? Enumerable.Empty<UserArticlesRead>()).Select(ra => new Article { Id = ra.ArticleId }), Article.IdComparer).ToList();
-
-        public Task CreateAsync(RssFeed rssFeed, Article articleToCreate) =>
-            _context.Articles!.AddAsync(new Article
-            {
-                Heading = articleToCreate.Heading,
-                Body = articleToCreate.Body,
-                Url = articleToCreate.Url,
-                Published = articleToCreate.Published,
-                Author = articleToCreate.Author,
-                ArticleGuid = articleToCreate.ArticleGuid,
-                RssFeedId = rssFeed.Id
-            }).AsTask();
-
-        public Task<List<Article>> FindUnreadArticlesInUserFeedAsync(UserFeed feedToMarkAllAsRead) =>
-            _context.Articles!.FromSqlInterpolated(
+    public Task<List<Article>> FindUnreadArticlesInUserFeedAsync(UserFeed feedToMarkAllAsRead) =>
+        context.Articles!.FromSqlInterpolated(
 $@"select a.*
 from Articles a
 join RssFeeds rf
@@ -60,20 +49,30 @@ and uar.UserAccountId = {feedToMarkAllAsRead.UserAccountId}
 where rf.Id = {feedToMarkAllAsRead.RssFeedId}
 and uar.Id is null").ToListAsync();
 
-        public async Task RemoveArticlesWhereCountOverAsync(int purgeCount)
+    public async Task RemoveArticlesWhereCountOverAsync(int purgeCount)
+    {
+        var feedIdsWithTooManyArticles = await context.Database.GetDbConnection().QueryAsync<int>(
+            "select RssFeedId from Articles group by RssFeedId having count(1) > @purgeCount", new { purgeCount });
+        foreach (var feedId in feedIdsWithTooManyArticles)
         {
-            var feedIdsWithTooManyArticles = await _context.Database.GetDbConnection().QueryAsync<int>(
-                "select RssFeedId from Articles group by RssFeedId having count(1) > @purgeCount", new { purgeCount });
-            foreach (var feedId in feedIdsWithTooManyArticles)
-            {
-                _logger.LogTrace($"Removing old articles from feed {feedId}");
-                var articlesToDelete = _context.Articles!.Where(a => a.RssFeedId == feedId).OrderByDescending(a => a.Published).ThenByDescending(a => a.Id).Skip(purgeCount);
-                _context.Articles!.RemoveRange(articlesToDelete);
-                await _context.SaveChangesAsync();
-            }
-
-            _context.UserArticlesRead!.RemoveRange(_context.UserArticlesRead.FromSqlRaw("select uar.* from UserArticlesRead uar left join Articles a on uar.ArticleId = a.Id where a.Id is null"));
-            await _context.SaveChangesAsync();
+            logger.LogTrace("Removing old articles from feed {FeedId}", feedId);
+            var articlesToDelete = context.Articles!.Where(a => a.RssFeedId == feedId).OrderByDescending(a => a.Published).ThenByDescending(a => a.Id).Skip(purgeCount);
+            context.Articles!.RemoveRange(articlesToDelete);
+            await context.SaveChangesAsync();
         }
+
+        context.UserArticlesRead!.RemoveRange(context.UserArticlesRead.FromSqlRaw("select uar.* from UserArticlesRead uar left join Articles a on uar.ArticleId = a.Id where a.Id is null"));
+        await context.SaveChangesAsync();
     }
+
+    public Task<List<Article>> GetAllUnreadArticlesAsync(UserAccount userAccount)
+        => context.Articles!.FromSqlInterpolated(
+$@"select a.*
+from Articles a
+join RssFeeds rf
+on rf.Id = a.RssFeedId
+left join UserArticlesRead uar
+on uar.ArticleId = a.Id
+and uar.UserAccountId = {userAccount.Id}
+where uar.Id is null").ToListAsync();
 }

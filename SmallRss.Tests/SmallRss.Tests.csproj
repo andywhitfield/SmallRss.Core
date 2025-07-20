@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSTest.Sdk/3.9.0">
+﻿<Project Sdk="MSTest.Sdk/3.9.3">
   <PropertyGroup>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
