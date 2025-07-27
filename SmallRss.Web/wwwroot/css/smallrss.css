@@ -119,6 +119,11 @@ tr.article {
     min-width: 30%;
 }
 
+.article-title div:first-child {
+    font-size: x-small;
+    font-style: oblique;
+}
+
 .article-summary {
     min-width: 70%;
 }

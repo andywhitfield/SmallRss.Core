@@ -19,8 +19,8 @@ public class FeedController(
     public async Task<IEnumerable<object>> Get()
     {
         logger.LogDebug("Getting all feeds from db");
-        
-        var loggedInUser = await userAccountRepository.GetAsync(User);            
+
+        var loggedInUser = await userAccountRepository.GetAsync(User);
         var userFeeds = await userFeedRepository.GetAllByUserAsync(loggedInUser);
 
         if (userFeeds.Count == 0)
@@ -42,7 +42,7 @@ public class FeedController(
     }
 
     [HttpGet("{id}/{offset?}")]
-    public async Task<IEnumerable<object>> Get(int id, int? offset)
+    public async IAsyncEnumerable<object> Get(int id, int? offset)
     {
         logger.LogDebug("Getting articles for feed {Id} from db, using client UTC offset {Offset}", id, offset);
 
@@ -59,7 +59,7 @@ public class FeedController(
         {
             var feed = await userFeedRepository.GetByIdAsync(id);
             if (feed == null)
-                return Enumerable.Empty<Article>();
+                yield break;
 
             readArticles = await userArticlesReadRepository.GetByUserFeedIdAsync(feed.Id);
 
@@ -69,8 +69,13 @@ public class FeedController(
                 articles = await articleRepository.GetByRssFeedIdAsync(feed.RssFeedId, readArticles);
         }
 
-        return articles
-            .OrderBy(a => a.Published)
-            .Select(a => new { read = readArticles.Any(uar => uar.ArticleId == a.Id), feed = a.RssFeedId, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body ?? ""), posted = FriendlyDate.ToString(a.Published, offset) });
+        foreach (var article in articles.OrderBy(a => a.Published))
+            yield return new { read = readArticles.Any(uar => uar.ArticleId == article.Id), feed = article.RssFeedId, feedInfo = id == -1 ? await GetFeedInfoAsync(loggedInUser, article) : null, story = article.Id, heading = article.Heading, article = HtmlPreview.Preview(article.Body ?? ""), posted = FriendlyDate.ToString(article.Published, offset) };
+    }
+
+    private async Task<object> GetFeedInfoAsync(UserAccount userAccount, Article article)
+    {
+        var userFeed = (await userFeedRepository.GetAllByUserAndRssFeedAsync(userAccount, article.RssFeedId)).FirstOrDefault();
+        return new { group = userFeed?.GroupName ?? "", name = userFeed?.Name ?? "" };
     }
 }

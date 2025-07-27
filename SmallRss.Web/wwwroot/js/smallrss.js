@@ -43,16 +43,6 @@ function buildTreeFromFeeds() {
         feeds.allGroupsSection.append(newSection);
     }
 
-    /*
-    var allUnreadSection = '<section id="-1" data-count="0" class="group-section">';
-    allUnreadSection += '<div></div>';
-    allUnreadSection += '<article><ul class="feed-list all-unread">';
-    allUnreadSection += '<li id="-1" data-count="0">All unread <span class="item-unread-count"></span></li>';
-    allUnreadSection += '</ul></article>';
-    allUnreadSection += '</section>';
-    feeds.allGroupsSection.append(allUnreadSection);
-    */
-
     feeds.allGroupsSection.append('<div><button id="refresh-feed-status" title="Refresh all feeds">Refresh Feed Status</button></div>');
 
     // if we're not showing all, hide all the feeds and then once
@@ -222,14 +212,18 @@ function updateSelectedFeed() {
 }
 
 function buildFeedArticles() {
-    var feedHtml = '<div class="feed-title">' + feeds.selectedFeedGroup.item + ' &gt; ' + feeds.selectedFeed.item + ' (' + feeds.selectedFeed.count + ')</div>';
+    var isAllUnread = feeds.selectedFeed.id < 0;
+    var feedHtml = '<div class="feed-title">' + (isAllUnread ? feeds.selectedFeed.item : (feeds.selectedFeedGroup.item + ' &gt; ' + feeds.selectedFeed.item)) + ' (' + feeds.selectedFeed.count + ')</div>';
     feedHtml += '<table class="article-list">';
     feedHtml += '<thead><tr><td class="article-title">Title</td><td class="article-summary">Summary</td><td class="article-date">Posted</td>' + (smallrss_config.connectedToSave ? '<td class="article-save">&nbsp;</td>' : '') + '<td class="article-read"><button class="image" title="Mark all as read"><img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark all as read"></button></td></tr></thead>';
     feedHtml += '<tbody>';
     for (var i = 0; i < feeds.selectedFeedArticles.length; i++) {
         var article = feeds.selectedFeedArticles[i];
         feedHtml += '<tr data-article-id="' + article.story + '" class="article' + (article.read ? ' article-marked-read' : '') + (feeds.focusedArticle != null && feeds.focusedArticle.story == article.story ? ' focused' : '') + '">';
-        feedHtml += '<td class="article-title">' + article.heading + '</td>';
+        if (isAllUnread)
+            feedHtml += '<td class="article-title"><div>' + article.feedInfo.group + ' &gt; ' + article.feedInfo.name + '</div><div>' + article.heading + '</div></td>';
+        else
+            feedHtml += '<td class="article-title">' + article.heading + '</td>';
         feedHtml += '<td class="article-summary">' + article.article + '</td>';
         feedHtml += '<td class="article-date">' + article.posted + '</td>';
         if (smallrss_config.connectedToSave)
@@ -239,7 +233,8 @@ function buildFeedArticles() {
     }
     feedHtml += '</tbody></table>';
     feedHtml += '<div>';
-    feedHtml += '<button class="show-all-articles">' + (smallrss_config.showingAllArticles ? 'Show unread articles' : 'Show all articles') + '</button>';
+    if (!isAllUnread)
+        feedHtml += '<button class="show-all-articles">' + (smallrss_config.showingAllArticles ? 'Show unread articles' : 'Show all articles') + '</button>';
     if (feeds.selectedFeed.link != '') {
         feedHtml += ' <a href="' + feeds.selectedFeed.link + '" target="_blank">' + feeds.selectedFeed.link + '</a>';
     }
