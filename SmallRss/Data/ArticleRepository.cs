@@ -71,6 +71,9 @@ $@"select a.*
 from Articles a
 join RssFeeds rf
 on rf.Id = a.RssFeedId
+join UserFeeds uf
+on rf.Id = uf.RssFeedId
+and uf.UserAccountId = {userAccount.Id}
 left join UserArticlesRead uar
 on uar.ArticleId = a.Id
 and uar.UserAccountId = {userAccount.Id}

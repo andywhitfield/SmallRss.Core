@@ -1,10 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using SmallRss.Data;
 using SmallRss.Models;
 using SmallRss.Web.Models;
@@ -31,9 +27,9 @@ public class ArticleController(ILogger<FeedController> logger,
     [HttpPost]
     public async Task<IEnumerable<object>> PostAsync([FromForm]ArticleReadViewModel feed)
     {
-        logger.LogDebug($"Marking story [{feed.StoryId}] as {(feed.Read ? "read" : "unread")} for feed {feed.FeedId}");
+        logger.LogDebug("Marking story [{StoryId}] as {ReadOrUnread} for feed {FeedId}", feed.StoryId, feed.Read ? "read" : "unread", feed.FeedId);
         
-        var newArticles = new List<Article>();
+        List<Article> newArticles = [];
 
         var userAccount = await userAccountRepository.GetAsync(User);
         var userFeedId = 0;
@@ -42,20 +38,34 @@ public class ArticleController(ILogger<FeedController> logger,
             if (!feed.MaxStoryId.HasValue || feed.MaxStoryId.Value <= 0)
                 feed.MaxStoryId = int.MaxValue;
 
-            logger.LogDebug($"Marking all stories as {(feed.Read ? "read" : "unread")}: {feed.FeedId} up to id {feed.MaxStoryId}");
+            logger.LogDebug("Marking all stories as {ReadOrUnread}: {FeedId} up to id {MaxStoryId}", feed.Read ? "read" : "unread", feed.FeedId, feed.MaxStoryId);
             userFeedId = feed.FeedId.Value;
 
-            var feedToMarkAllAsRead = await userFeedRepository.GetByIdAsync(feed.FeedId.Value);
-            if (feedToMarkAllAsRead != null && feedToMarkAllAsRead.UserAccountId == userAccount.Id)
+            if (userFeedId == -1)
             {
-                foreach (var article in await articleRepository.FindUnreadArticlesInUserFeedAsync(feedToMarkAllAsRead))
+                var userFeedsWithUnreadArticles = await userFeedRepository.GetAllFeedsWithUnreadArticlesAsync(userAccount);
+                foreach (var userFeedWithUnreadArticles in userFeedsWithUnreadArticles)
+                    await MarkAllAsReadAsync(userFeedWithUnreadArticles.Id);
+            }
+            else
+            {
+                await MarkAllAsReadAsync(feed.FeedId.Value);
+            }
+
+            async Task MarkAllAsReadAsync(int userFeedId)
+            {
+                var feedToMarkAllAsRead = await userFeedRepository.GetByIdAsync(userFeedId);
+                if (feedToMarkAllAsRead != null && feedToMarkAllAsRead.UserAccountId == userAccount.Id)
                 {
-                    if (article.Id > feed.MaxStoryId)
+                    foreach (var article in await articleRepository.FindUnreadArticlesInUserFeedAsync(feedToMarkAllAsRead))
                     {
-                        newArticles.Add(article);
-                        continue;
+                        if (article.Id > feed.MaxStoryId)
+                        {
+                            newArticles.Add(article);
+                            continue;
+                        }
+                        await MarkAsAsync(feedToMarkAllAsRead, article.Id, feed.Read);
                     }
-                    await MarkAsAsync(feedToMarkAllAsRead, article.Id, feed.Read);
                 }
             }
         }
@@ -70,7 +80,7 @@ public class ArticleController(ILogger<FeedController> logger,
             }
             else
             {
-                logger.LogWarning($"Feed {feed.FeedId} could not be found or is not associated with the current user, will not make any changes");
+                logger.LogWarning("Feed {FeedId} could not be found or is not associated with the current user, will not make any changes", feed.FeedId);
             }
         }
 
@@ -79,7 +89,7 @@ public class ArticleController(ILogger<FeedController> logger,
             .Select(a => new { read = false, feed = userFeedId, story = a.Id, heading = a.Heading, article = HtmlPreview.Preview(a.Body ?? ""), posted = FriendlyDate.ToString(a.Published, feed.OffsetId) });
     }
 
-    private Task MarkAsAsync(UserFeed feed, int articleId, bool read)
+    private Task<bool> MarkAsAsync(UserFeed feed, int articleId, bool read)
     {
         if (read)
             return userArticlesReadRepository.TryCreateAsync(feed.UserAccountId, feed.Id, articleId);

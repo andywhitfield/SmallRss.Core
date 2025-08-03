@@ -1,61 +1,59 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SmallRss.Models;
 
-namespace SmallRss.Data
+namespace SmallRss.Data;
+
+public class UserFeedRepository(SqliteDataContext context)
+    : IUserFeedRepository
 {
-    public class UserFeedRepository : IUserFeedRepository
+    public Task<UserFeed?> GetByIdAsync(int id)
+        => context.UserFeeds!.FindAsync(id).AsTask();
+
+    public Task<List<UserFeed>> GetAllByUserAsync(UserAccount loggedInUser)
+        => loggedInUser == null
+            ? Task.FromResult(new List<UserFeed>(0))
+            : context.UserFeeds!.Where(uf => uf.UserAccountId == loggedInUser.Id).ToListAsync();
+
+    public Task<List<UserFeed>> GetAllByUserAndRssFeedAsync(UserAccount userAccount, int rssFeedId)
+        => context.UserFeeds!.Where(uf => uf.UserAccountId == userAccount.Id && uf.RssFeedId == rssFeedId).ToListAsync();
+
+    public async Task<UserFeed> CreateAsync(int rssFeedId, int userAccountId, string name, string groupName)
     {
-        private readonly SqliteDataContext _context;
-
-        public UserFeedRepository(SqliteDataContext context)
+        var userFeed = await context.UserFeeds!.AddAsync(new()
         {
-            _context = context;
-        }
-
-        public Task<UserFeed?> GetByIdAsync(int id)
-        {
-            return _context.UserFeeds!.FindAsync(id).AsTask();
-        }
-
-        public Task<List<UserFeed>> GetAllByUserAsync(UserAccount loggedInUser)
-        {
-            if (loggedInUser == null)
-                return Task.FromResult(new List<UserFeed>(0));
-
-            return _context.UserFeeds!.Where(uf => uf.UserAccountId == loggedInUser.Id).ToListAsync();
-        }
-
-        public Task<List<UserFeed>> GetAllByUserAndRssFeedAsync(UserAccount userAccount, int rssFeedId)
-        {
-            return _context.UserFeeds!.Where(uf => uf.UserAccountId == userAccount.Id && uf.RssFeedId == rssFeedId).ToListAsync();
-        }
-
-        public async Task<UserFeed> CreateAsync(int rssFeedId, int userAccountId, string name, string groupName)
-        {
-            var userFeed = await _context.UserFeeds!.AddAsync(new UserFeed {
-                RssFeedId = rssFeedId,
-                UserAccountId = userAccountId,
-                Name = name,
-                GroupName = groupName
-            });
-            await _context.SaveChangesAsync();
-            return userFeed.Entity;
-        }
-
-        public Task RemoveAsync(UserFeed toRemove)
-        {
-            _context.UserArticlesRead!.RemoveRange(_context.UserArticlesRead.Where(uar => uar.UserFeedId == toRemove.Id));
-            _context.UserFeeds!.Remove(toRemove);
-            return _context.SaveChangesAsync();
-        }
-
-        public Task UpdateAsync(UserFeed userFeed)
-        {
-            _context.UserFeeds!.Update(userFeed);
-            return _context.SaveChangesAsync();
-        }
+            RssFeedId = rssFeedId,
+            UserAccountId = userAccountId,
+            Name = name,
+            GroupName = groupName
+        });
+        await context.SaveChangesAsync();
+        return userFeed.Entity;
     }
+
+    public Task RemoveAsync(UserFeed toRemove)
+    {
+        context.UserArticlesRead!.RemoveRange(context.UserArticlesRead.Where(uar => uar.UserFeedId == toRemove.Id));
+        context.UserFeeds!.Remove(toRemove);
+        return context.SaveChangesAsync();
+    }
+
+    public Task UpdateAsync(UserFeed userFeed)
+    {
+        context.UserFeeds!.Update(userFeed);
+        return context.SaveChangesAsync();
+    }
+    
+    public Task<List<UserFeed>> GetAllFeedsWithUnreadArticlesAsync(UserAccount userAccount)
+        => context.UserFeeds!.FromSqlInterpolated(
+$@"select distinct uf.*
+from Articles a
+join RssFeeds rf
+on rf.Id = a.RssFeedId
+join UserFeeds uf
+on rf.Id = uf.RssFeedId
+and uf.UserAccountId = {userAccount.Id}
+left join UserArticlesRead uar
+on uar.ArticleId = a.Id
+and uar.UserAccountId = {userAccount.Id}
+where uar.Id is null").ToListAsync();
 }
