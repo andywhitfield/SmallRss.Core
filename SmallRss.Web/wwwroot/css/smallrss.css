@@ -158,6 +158,7 @@ tr.article {
 }
 
 .article-marked-read td,
+.article-marked-read div,
 tr.article-marked-read:hover {
     color: #aaaaaa !important;
 }

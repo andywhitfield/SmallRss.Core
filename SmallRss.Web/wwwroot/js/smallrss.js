@@ -410,7 +410,7 @@ function buildFeedArticle() {
     }
     var articleHtml;
     if (feeds.selectedFeed.id == -1) {
-        articleHtml = '<div class="feed-title">' + articleSummary.feedInfo.group;
+        articleHtml = '<div class="feed-title">All unread &gt; ' + articleSummary.feedInfo.group;
         articleHtml += ' &gt; ' + articleSummary.feedInfo.name + ' (' + feeds.selectedFeed.count + ')';
         articleHtml += '</div>';
     } else {
