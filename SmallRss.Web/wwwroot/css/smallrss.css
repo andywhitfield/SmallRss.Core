@@ -37,6 +37,10 @@ header {
     margin: 5px 5px 5px 0px
 }
 
+section[id="All unread"][data-count="0"] {
+    display: none;
+}
+
 .focused {
     border-width: 2px;
     border-style: dotted;
