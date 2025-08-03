@@ -212,7 +212,7 @@ function updateSelectedFeed() {
 }
 
 function buildFeedArticles() {
-    var isAllUnread = feeds.selectedFeed.id < 0;
+    var isAllUnread = feeds.selectedFeed.id == -1;
     var feedHtml = '<div class="feed-title">' + (isAllUnread ? feeds.selectedFeed.item : (feeds.selectedFeedGroup.item + ' &gt; ' + feeds.selectedFeed.item)) + ' (' + feeds.selectedFeed.count + ')</div>';
     feedHtml += '<table class="article-list">';
     feedHtml += '<thead><tr><td class="article-title">Title</td><td class="article-summary">Summary</td><td class="article-date">Posted</td>' + (smallrss_config.connectedToSave ? '<td class="article-save">&nbsp;</td>' : '') + '<td class="article-read"><button class="image" title="Mark all as read"><img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark all as read"></button></td></tr></thead>';
@@ -408,9 +408,16 @@ function buildFeedArticle() {
     if (articleSummary == null) {
         console.log('Cannot find article summary for story ' + feeds.selectedFeedArticle.id);
     }
-    var articleHtml = '<div class="feed-title">' + feeds.selectedFeedGroup.item;
-    articleHtml += ' &gt; ' + feeds.selectedFeed.item + ' (' + feeds.selectedFeed.count + ')';
-    articleHtml += '</div>';
+    var articleHtml;
+    if (feeds.selectedFeed.id == -1) {
+        articleHtml = '<div class="feed-title">' + articleSummary.feedInfo.group;
+        articleHtml += ' &gt; ' + articleSummary.feedInfo.name + ' (' + feeds.selectedFeed.count + ')';
+        articleHtml += '</div>';
+    } else {
+        articleHtml = '<div class="feed-title">' + feeds.selectedFeedGroup.item;
+        articleHtml += ' &gt; ' + feeds.selectedFeed.item + ' (' + feeds.selectedFeed.count + ')';
+        articleHtml += '</div>';
+    }
 
     articleHtml += '<div>';
     articleHtml += '<div><span class="article-info">' + articleSummary.posted + '<br><em>' + feeds.selectedFeedArticle.author + '</em></span><span class="article-actions">' + (smallrss_config.connectedToSave ? '<button class="send-to image" title="Send to Raindrop.io"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Send to Raindrop.io"></button>' : '') + '<button class="toggle-read image" title="Mark as ' + (articleSummary.read ? 'unread' : 'read') + '">' + (articleSummary.read ? '<img src="' + smallrss_config.imageroot + 'images/markunread.png" alt="Mark as unread">' : '<img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark as read">') + '</button></span></div>';

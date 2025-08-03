@@ -16,19 +16,27 @@ public class ArticleController(ILogger<FeedController> logger,
     : ControllerBase
 {
     [HttpGet("{id}")]
-    public async Task<ActionResult<Article>> Get(int id)
+    public async Task<ActionResult<object>> Get(int id)
     {
+        var loggedInUser = await userAccountRepository.GetAsync(User);
         var article = await articleRepository.GetByIdAsync(id);
         if (article == null)
             return NotFound();
-        return new Article { Id = id, Body = HttpUtility.HtmlDecode(article.Body ?? string.Empty), Url = article.Url ?? string.Empty, Author = article.Author ?? string.Empty };
+        return new
+        {
+            Id = id,
+            Body = HttpUtility.HtmlDecode(article.Body ?? string.Empty),
+            Url = article.Url ?? string.Empty,
+            Author = article.Author ?? string.Empty,
+            FeedInfo = id == -1 ? await GetFeedInfoAsync(loggedInUser, article) : null
+        };
     }
 
     [HttpPost]
-    public async Task<IEnumerable<object>> PostAsync([FromForm]ArticleReadViewModel feed)
+    public async Task<IEnumerable<object>> PostAsync([FromForm] ArticleReadViewModel feed)
     {
         logger.LogDebug("Marking story [{StoryId}] as {ReadOrUnread} for feed {FeedId}", feed.StoryId, feed.Read ? "read" : "unread", feed.FeedId);
-        
+
         List<Article> newArticles = [];
 
         var userAccount = await userAccountRepository.GetAsync(User);
@@ -94,5 +102,11 @@ public class ArticleController(ILogger<FeedController> logger,
         if (read)
             return userArticlesReadRepository.TryCreateAsync(feed.UserAccountId, feed.Id, articleId);
         return userArticlesReadRepository.TryRemoveAsync(feed.UserAccountId, feed.Id, articleId);
+    }
+    
+    private async Task<object> GetFeedInfoAsync(UserAccount userAccount, Article article)
+    {
+        var userFeed = (await userFeedRepository.GetAllByUserAndRssFeedAsync(userAccount, article.RssFeedId)).FirstOrDefault();
+        return new { group = userFeed?.GroupName ?? "", name = userFeed?.Name ?? "" };
     }
 }
