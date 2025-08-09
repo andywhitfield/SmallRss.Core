@@ -6,7 +6,7 @@ using SmallRss.Models;
 
 namespace SmallRss.Data;
 
-public class SqliteDataContext(IConfiguration configuration, ILogger<SqliteDataContext> logger)
+public class SqliteDataContext(ILoggerFactory loggerFactory, IConfiguration configuration, ILogger<SqliteDataContext> logger)
     : DbContext
 {
     public DbSet<Article>? Articles { get; set; }
@@ -16,6 +16,10 @@ public class SqliteDataContext(IConfiguration configuration, ILogger<SqliteDataC
     public DbSet<UserAccountSetting>? UserAccountSettings { get; set; }
     public DbSet<UserArticlesRead>? UserArticlesRead { get; set; }
     public DbSet<UserFeed>? UserFeeds { get; set; }
+
+    // must be a better way to do this - ArticleUserFeedInfos isn't a real table but the result of our custom query in ArticleRepository
+    // should revisit this and see if it can be converted to a regular ef query
+    public DbSet<ArticleUserFeedInfo>? ArticleUserFeedInfos { get; set; }
 
     public void EnsureRssFeedLastRefreshColumns()
     {
@@ -35,6 +39,10 @@ public class SqliteDataContext(IConfiguration configuration, ILogger<SqliteDataC
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        optionsBuilder.UseLoggerFactory(loggerFactory);
+#if DEBUG
+        optionsBuilder.EnableSensitiveDataLogging();
+#endif
         var sqliteConnectionString = configuration.GetConnectionString("SmallRss");
         logger.LogInformation($"Using Sqlite connection string: {sqliteConnectionString}");
         optionsBuilder.UseSqlite(sqliteConnectionString);

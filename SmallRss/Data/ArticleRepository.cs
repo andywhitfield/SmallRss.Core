@@ -65,9 +65,9 @@ and uar.Id is null").ToListAsync();
         await context.SaveChangesAsync();
     }
 
-    public Task<List<Article>> GetAllUnreadArticlesAsync(UserAccount userAccount)
-        => context.Articles!.FromSqlInterpolated(
-$@"select a.*
+    public Task<List<ArticleUserFeedInfo>> GetAllUnreadArticlesAsync(UserAccount userAccount)
+        => context.ArticleUserFeedInfos!.FromSql(
+$@"select a.Id as ArticleId, uf.GroupName as UserFeedGroup, uf.Name as UserFeedName
 from Articles a
 join RssFeeds rf
 on rf.Id = a.RssFeedId
@@ -77,5 +77,5 @@ and uf.UserAccountId = {userAccount.Id}
 left join UserArticlesRead uar
 on uar.ArticleId = a.Id
 and uar.UserAccountId = {userAccount.Id}
-where uar.Id is null").ToListAsync();
+where uar.Id is null").Include(aufi => aufi.Article).ToListAsync();
 }

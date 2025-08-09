@@ -50,10 +50,12 @@ public class FeedController(
 
         IEnumerable<Article> articles;
         List<UserArticlesRead> readArticles;
+        ILookup<int, ArticleUserFeedInfo>? articleUserFeedInfoForAllUnread = null;
         if (id == -1)
         {
             readArticles = [];
-            articles = await articleRepository.GetAllUnreadArticlesAsync(loggedInUser);
+            articleUserFeedInfoForAllUnread = (await articleRepository.GetAllUnreadArticlesAsync(loggedInUser)).ToLookup(x => x.ArticleId);
+            articles = articleUserFeedInfoForAllUnread.Select(a => a.First().Article!);
         }
         else
         {
@@ -70,12 +72,12 @@ public class FeedController(
         }
 
         foreach (var article in articles.OrderBy(a => a.Published))
-            yield return new { read = readArticles.Any(uar => uar.ArticleId == article.Id), feed = article.RssFeedId, feedInfo = id == -1 ? await GetFeedInfoAsync(loggedInUser, article) : null, story = article.Id, heading = article.Heading, article = HtmlPreview.Preview(article.Body ?? ""), posted = FriendlyDate.ToString(article.Published, offset) };
+            yield return new { read = readArticles.Any(uar => uar.ArticleId == article.Id), feed = article.RssFeedId, feedInfo = id == -1 ? GetFeedInfo(articleUserFeedInfoForAllUnread, article) : null, story = article.Id, heading = article.Heading, article = HtmlPreview.Preview(article.Body ?? ""), posted = FriendlyDate.ToString(article.Published, offset) };
     }
 
-    private async Task<object> GetFeedInfoAsync(UserAccount userAccount, Article article)
+    private static object GetFeedInfo(ILookup<int, ArticleUserFeedInfo>? articleUserFeedInfoForAllUnread, Article article)
     {
-        var userFeed = (await userFeedRepository.GetAllByUserAndRssFeedAsync(userAccount, article.RssFeedId)).FirstOrDefault();
-        return new { group = userFeed?.GroupName ?? "", name = userFeed?.Name ?? "" };
+        var aufi = articleUserFeedInfoForAllUnread?[article.Id].FirstOrDefault();
+        return new { group = aufi?.UserFeedGroup ?? "", name = aufi?.UserFeedName ?? "" };
     }
 }
