@@ -1,13 +1,12 @@
 using Dapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SmallRss.Models;
 
 namespace SmallRss.Data;
 
-public class SqliteDataContext(ILoggerFactory loggerFactory, IConfiguration configuration, ILogger<SqliteDataContext> logger)
-    : DbContext
+public class SqliteDataContext(ILogger<SqliteDataContext> logger, DbContextOptions<SqliteDataContext> options)
+    : DbContext(options)
 {
     public DbSet<Article>? Articles { get; set; }
     public DbSet<BackgroundServiceSetting>? BackgroundServiceSettings { get; set; }
@@ -35,16 +34,5 @@ public class SqliteDataContext(ILoggerFactory loggerFactory, IConfiguration conf
             }
             logger.LogDebug("RssFeeds table is up to date");
         }
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseLoggerFactory(loggerFactory);
-#if DEBUG
-        optionsBuilder.EnableSensitiveDataLogging();
-#endif
-        var sqliteConnectionString = configuration.GetConnectionString("SmallRss");
-        logger.LogInformation($"Using Sqlite connection string: {sqliteConnectionString}");
-        optionsBuilder.UseSqlite(sqliteConnectionString);
     }
 }

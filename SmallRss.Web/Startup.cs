@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.EntityFrameworkCore;
 using SmallRss.Data;
 using SmallRss.Web.Authorisation;
 
@@ -71,7 +72,15 @@ public class Startup
             o.MinimumSameSitePolicy = SameSiteMode.None;
         });
 
-        services.AddDbContext<SqliteDataContext>();
+        services.AddDbContext<SqliteDataContext>((sp, options) =>
+        {
+    #if DEBUG
+            options.EnableSensitiveDataLogging();
+    #endif
+            var sqliteConnectionString = Configuration.GetConnectionString("SmallRss");
+            sp.GetRequiredService<ILogger<Startup>>().LogInformation("Using Sqlite connection string: {SqliteConnectionString}", sqliteConnectionString);
+            options.UseSqlite(sqliteConnectionString);            
+        });
 
         services.AddMvc().AddSessionStateTempDataProvider();
         services.AddRazorPages();

@@ -1,0 +1,13 @@
+﻿<Project Sdk="MSTest.Sdk">
+  <PropertyGroup>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmallRss.Web\SmallRss.Web.csproj" />
+  </ItemGroup>
+</Project>
