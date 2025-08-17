@@ -16,10 +16,6 @@ public class SqliteDataContext(ILogger<SqliteDataContext> logger, DbContextOptio
     public DbSet<UserArticlesRead>? UserArticlesRead { get; set; }
     public DbSet<UserFeed>? UserFeeds { get; set; }
 
-    // must be a better way to do this - ArticleUserFeedInfos isn't a real table but the result of our custom query in ArticleRepository
-    // should revisit this and see if it can be converted to a regular ef query
-    public DbSet<ArticleUserFeedInfo>? ArticleUserFeedInfos { get; set; }
-
     public void EnsureRssFeedLastRefreshColumns()
     {
         if (Database.IsSqlite())

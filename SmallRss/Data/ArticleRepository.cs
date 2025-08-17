@@ -65,8 +65,9 @@ and uar.Id is null").ToListAsync();
         await context.SaveChangesAsync();
     }
 
-    public Task<List<ArticleUserFeedInfo>> GetAllUnreadArticlesAsync(UserAccount userAccount)
-        => context.ArticleUserFeedInfos!.FromSql(
+    public async IAsyncEnumerable<ArticleUserFeedInfo> GetAllUnreadArticlesAsync(UserAccount userAccount)
+    {
+        var query = context.Database.SqlQuery<ArticleUserFeedInfo>(
 $@"select a.Id as ArticleId, uf.GroupName as UserFeedGroup, uf.Name as UserFeedName
 from Articles a
 join RssFeeds rf
@@ -77,5 +78,12 @@ and uf.UserAccountId = {userAccount.Id}
 left join UserArticlesRead uar
 on uar.ArticleId = a.Id
 and uar.UserAccountId = {userAccount.Id}
-where uar.Id is null").Include(aufi => aufi.Article).ToListAsync();
+where uar.Id is null").Join(context.Articles!, aufi => aufi.ArticleId, a => a.Id, (aufi, a) => new { ArticleUserFeedInfo = aufi, Article = a });
+        await foreach (var join in query.AsAsyncEnumerable())
+        {
+            var articleUserFeedInfo = join.ArticleUserFeedInfo;
+            articleUserFeedInfo.Article = join.Article;
+            yield return articleUserFeedInfo;
+        }
+    }
 }

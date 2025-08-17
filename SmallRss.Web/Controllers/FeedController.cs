@@ -54,7 +54,7 @@ public class FeedController(
         if (id == -1)
         {
             readArticles = [];
-            articleUserFeedInfoForAllUnread = (await articleRepository.GetAllUnreadArticlesAsync(loggedInUser)).ToLookup(x => x.ArticleId);
+            articleUserFeedInfoForAllUnread = await articleRepository.GetAllUnreadArticlesAsync(loggedInUser).ToLookupAsync(x => x.ArticleId);
             articles = articleUserFeedInfoForAllUnread.Select(a => a.First().Article!);
         }
         else
