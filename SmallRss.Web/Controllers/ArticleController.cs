@@ -97,6 +97,7 @@ public class ArticleController(ILogger<FeedController> logger,
 
     private Task<bool> MarkAsAsync(UserFeed feed, int articleId, bool read)
     {
+        logger.LogDebug("Marking article {ArticleId} in feed {FeedId} as {ReadOrUnread}", articleId, feed.Id, read ? "read" : "unread");
         if (read)
             return userArticlesReadRepository.TryCreateAsync(feed.UserAccountId, feed.Id, articleId);
         return userArticlesReadRepository.TryRemoveAsync(feed.UserAccountId, feed.Id, articleId);
