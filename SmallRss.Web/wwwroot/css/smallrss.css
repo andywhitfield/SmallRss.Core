@@ -150,16 +150,22 @@ tr.article {
 }
 
 @media screen and (max-width: 700px) {
-    .article-date {
+
+    .article-date,
+    .article-date-header {
         display: none;
     }
 }
 
 @media screen and (max-width: 550px) {
-    .article-title {
+
+    .article-title,
+    .article-title-header {
         width: 100%;
     }
-    .article-summary {
+
+    .article-summary,
+    .article-summary-header {
         display: none;
     }
 }
@@ -254,6 +260,7 @@ div.manage-refresh-error {
     body {
         background-color: black;
     }
+
     header h1,
     div,
     h2,
@@ -262,6 +269,7 @@ div.manage-refresh-error {
     p {
         color: white;
     }
+
     a,
     a:active,
     a:link,
@@ -269,27 +277,34 @@ div.manage-refresh-error {
     a:hover {
         color: white;
     }
+
     .group-section div,
     .feed-title {
         color: black;
     }
+
     .feed-list li {
         color: #d8e0e6;
         background-color: #313131;
     }
+
     .feed-list li:hover {
         color: white;
     }
+
     .feed-list li[data-count="0"] {
         color: #aaaaaa;
     }
+
     .article-list thead td {
         color: white;
     }
+
     .article-list td {
         color: #d8e0e6;
         background-color: #313131;
     }
+
     .article-list tbody tr:hover td {
         color: white;
     }
