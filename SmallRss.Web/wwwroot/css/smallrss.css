@@ -119,7 +119,8 @@ tr.article {
     vertical-align: top;
 }
 
-.article-title {
+.article-title,
+.article-title-header {
     min-width: 30%;
 }
 
@@ -128,11 +129,13 @@ tr.article {
     font-style: oblique;
 }
 
-.article-summary {
+.article-summary,
+.article-summary-header {
     min-width: 70%;
 }
 
-.article-date {
+.article-date,
+.article-date-header {
     min-width: 70px;
 }
 

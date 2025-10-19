@@ -91,6 +91,12 @@ public class UserAccountRepository(ILogger<UserAccountRepository> logger, Sqlite
             SettingValue = l.Value
         }));
 
+        userAccountSetting = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "AllUnreadSortOrder");
+        if (userAccountSetting == null)
+            await context.UserAccountSettings!.AddAsync(new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "AllUnreadSortOrder", SettingName = "AllUnreadSortOrder", SettingValue = userAccount.AllUnreadSortOrder });
+        else
+            userAccountSetting.SettingValue = userAccount.AllUnreadSortOrder;
+
         await context.SaveChangesAsync();
     }
 
@@ -110,7 +116,8 @@ public class UserAccountRepository(ILogger<UserAccountRepository> logger, Sqlite
             new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "UserAccountCredential.0", SettingName = "UserHandle", SettingValue = Convert.ToBase64String(userHandle) },
             new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "UserAccountCredential.0", SettingName = "SignatureCount", SettingValue = Convert.ToString((uint)0) },
             new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "ShowAllItems", SettingName = "ShowAllItems", SettingValue = Convert.ToString(userAccount.ShowAllItems) },
-            new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "RaindropRefreshToken", SettingName = "RaindropRefreshToken", SettingValue = userAccount.RaindropRefreshToken }
+            new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "RaindropRefreshToken", SettingName = "RaindropRefreshToken", SettingValue = userAccount.RaindropRefreshToken },
+            new UserAccountSetting { UserAccountId = userAccount.Id, SettingType = "AllUnreadSortOrder", SettingName = "AllUnreadSortOrder", SettingValue = userAccount.AllUnreadSortOrder }
         );
         await context.SaveChangesAsync();
 
@@ -166,6 +173,8 @@ public class UserAccountRepository(ILogger<UserAccountRepository> logger, Sqlite
         userAccount.ShowAllItems = showAllItemsSetting != null && Convert.ToBoolean(showAllItemsSetting.SettingValue);
         var raindropRefreshToken = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "RaindropRefreshToken");
         userAccount.RaindropRefreshToken = raindropRefreshToken == null ? "" : raindropRefreshToken.SettingValue ?? "";
+        var allUnreadSortOrderSetting = userAccountSettings.FirstOrDefault(uas => uas.SettingType == "AllUnreadSortOrder");
+        userAccount.AllUnreadSortOrder = allUnreadSortOrderSetting?.SettingValue ?? "";
 
         return userAccount;
     }

@@ -7,11 +7,12 @@ public class UserAccount
     public UserAccount()
     {
         Email = "";
-        UserAccountCredentials = new List<UserAccountCredential>();
+        UserAccountCredentials = [];
         ShowAllItems = false;
         ExpandedGroups = new HashSet<string>();
         SavedLayout = new Dictionary<string, string>();
         RaindropRefreshToken = "";
+        AllUnreadSortOrder = "";
     }
 
     public int Id { get; set; }
@@ -31,4 +32,6 @@ public class UserAccount
     public string RaindropRefreshToken { get; set; }
     [NotMapped]
     public bool HasRaindropRefreshToken => !string.IsNullOrWhiteSpace(RaindropRefreshToken);
+    [NotMapped]
+    public string AllUnreadSortOrder { get; set; }
 }

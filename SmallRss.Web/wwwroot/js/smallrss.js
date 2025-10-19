@@ -205,6 +205,8 @@ function updateSelectedFeed() {
     feeds.selectedFeedSection.append(buildFeedArticles());
     $('.feed-title').click(backToAllFeeds);
     $('.article-title, .article-summary, .article-date').click(showArticle);
+    if (feeds.selectedFeed.id == -1)
+        $('.article-title-header, .article-summary-header, .article-date-header').click(toggleAllUnreadSortOrder);
     $('tbody > tr > td.article-read button').click(toggleArticleRead);
     $('thead > tr > td.article-read button').click(markAllArticlesRead);
     $('button.show-all-articles').click(showAllArticles);
@@ -215,7 +217,7 @@ function buildFeedArticles() {
     var isAllUnread = feeds.selectedFeed.id == -1;
     var feedHtml = '<div class="feed-title">' + (isAllUnread ? feeds.selectedFeed.item : (feeds.selectedFeedGroup.item + ' &gt; ' + feeds.selectedFeed.item)) + ' (' + feeds.selectedFeed.count + ')</div>';
     feedHtml += '<table class="article-list">';
-    feedHtml += '<thead><tr><td class="article-title">Title</td><td class="article-summary">Summary</td><td class="article-date">Posted</td>' + (smallrss_config.connectedToSave ? '<td class="article-save">&nbsp;</td>' : '') + '<td class="article-read"><button class="image" title="Mark all as read"><img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark all as read"></button></td></tr></thead>';
+    feedHtml += '<thead><tr><td class="article-title-header">Title</td><td class="article-summary-header">Summary</td><td class="article-date-header">Posted</td>' + (smallrss_config.connectedToSave ? '<td class="article-save">&nbsp;</td>' : '') + '<td class="article-read"><button class="image" title="Mark all as read"><img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark all as read"></button></td></tr></thead>';
     feedHtml += '<tbody>';
     for (var i = 0; i < feeds.selectedFeedArticles.length; i++) {
         var article = feeds.selectedFeedArticles[i];
@@ -240,6 +242,11 @@ function buildFeedArticles() {
     }
     feedHtml += '</div>';
     return feedHtml;
+}
+
+function toggleAllUnreadSortOrder() {
+    console.log('Toggling sort order in the all unread view');
+    loadArticlesForFeedAndGroup(feeds.selectedFeed, feeds.selectedFeedGroup, 1);
 }
 
 function showAllArticles() {
@@ -452,11 +459,12 @@ function handleFeedClicked(feedElement) {
     loadArticlesForFeedAndGroup(feed, group);
 }
 
-function loadArticlesForFeedAndGroup(feed, group) {
+function loadArticlesForFeedAndGroup(feed, group, toggle) {
+    toggle = toggle || 0;
     console.log('feed clicked: #' + feed.id + '=' + feed.item + ' (group#' + group.id + '=' + group.item + ')');
     notifyWindow.show('Loading articles...', false);
 
-    $.getJSON(smallrss_config.feed_api + "/" + feed.id + "?offset=" + getUtcOffset(), function(data) {
+    $.getJSON(smallrss_config.feed_api + "/" + feed.id + "?offset=" + getUtcOffset() + '&toggle=' + toggle, function(data) {
         notifyWindow.close();
         feeds.selectedFeed = feed;
         feeds.selectedFeedGroup = group;
