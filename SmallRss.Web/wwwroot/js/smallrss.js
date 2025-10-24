@@ -215,7 +215,7 @@ function updateSelectedFeed() {
 
 function buildFeedArticles() {
     var isAllUnread = feeds.selectedFeed.id == -1;
-    var feedHtml = '<div class="feed-title">' + (isAllUnread ? feeds.selectedFeed.item : (feeds.selectedFeedGroup.item + ' &gt; ' + feeds.selectedFeed.item)) + ' (' + feeds.selectedFeed.count + ')</div>';
+    var feedHtml = '<div class="feed-title' + (isAllUnread ? ' feed-title-all-unread' : '') +'">' + (isAllUnread ? feeds.selectedFeed.item : (feeds.selectedFeedGroup.item + ' &gt; ' + feeds.selectedFeed.item)) + ' (' + feeds.selectedFeed.count + ')</div>';
     feedHtml += '<table class="article-list">';
     feedHtml += '<thead><tr><td class="article-title-header">Title</td><td class="article-summary-header">Summary</td><td class="article-date-header">Posted</td>' + (smallrss_config.connectedToSave ? '<td class="article-save">&nbsp;</td>' : '') + '<td class="article-read"><button class="image" title="Mark all as read"><img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark all as read"></button></td></tr></thead>';
     feedHtml += '<tbody>';
@@ -417,7 +417,7 @@ function buildFeedArticle() {
     }
     var articleHtml;
     if (feeds.selectedFeed.id == -1) {
-        articleHtml = '<div class="feed-title">All unread &gt; ' + articleSummary.feedInfo.group;
+        articleHtml = '<div class="feed-title feed-title-all-unread">All unread &gt; ' + articleSummary.feedInfo.group;
         articleHtml += ' &gt; ' + articleSummary.feedInfo.name + ' (' + feeds.selectedFeed.count + ')';
         articleHtml += '</div>';
     } else {

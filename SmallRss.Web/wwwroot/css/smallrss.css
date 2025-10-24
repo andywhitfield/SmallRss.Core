@@ -41,6 +41,11 @@ section[id="All unread"][data-count="0"] {
     display: none;
 }
 
+section[id="All unread"],
+.feed-title-all-unread {
+    font-style: italic;
+}
+
 .focused {
     border-width: 2px;
     border-style: dotted;
