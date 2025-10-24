@@ -29,7 +29,7 @@ public class Article_MarkAsUnread_Tests
 
         var responseContent = await response.Content.ReadFromJsonAsync<object[]>();
         Assert.IsNotNull(responseContent);
-        Assert.AreEqual(0, responseContent.Length);
+        Assert.IsEmpty(responseContent);
 
         await AssertDbAsync();
         async Task AssertDbAsync()
@@ -52,7 +52,7 @@ public class Article_MarkAsUnread_Tests
 
         var responseContent = await response.Content.ReadFromJsonAsync<object[]>();
         Assert.IsNotNull(responseContent);
-        Assert.AreEqual(0, responseContent.Length);
+        Assert.IsEmpty(responseContent);
 
         await AssertDbAsync(1);
         async Task AssertDbAsync(int expectedCount)
@@ -78,7 +78,7 @@ public class Article_MarkAsUnread_Tests
 
         var responseContent = await response.Content.ReadFromJsonAsync<object[]>();
         Assert.IsNotNull(responseContent);
-        Assert.AreEqual(0, responseContent.Length);
+        Assert.IsEmpty(responseContent);
 
         await AssertDbAsync();
         async Task AssertDbAsync()
@@ -101,7 +101,7 @@ public class Article_MarkAsUnread_Tests
 
         var responseContent = await response.Content.ReadFromJsonAsync<object[]>();
         Assert.IsNotNull(responseContent);
-        Assert.AreEqual(0, responseContent.Length);
+        Assert.IsEmpty(responseContent);
 
         await AssertDbAsync();
         async Task AssertDbAsync()

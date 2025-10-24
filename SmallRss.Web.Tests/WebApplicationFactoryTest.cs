@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using SmallRss.Data;
 using SmallRss.Models;
 
+[assembly: Parallelize]
+
 namespace SmallRss.Web.Tests;
 
 public class WebApplicationFactoryTest : WebApplicationFactory<Startup>
