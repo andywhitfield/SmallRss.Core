@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using System.Collections.ObjectModel;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using SmallRss.Data;
@@ -58,7 +59,7 @@ public class Startup
             {
                 options.ServerName = "Small:Rss";
                 options.ServerDomain = Configuration.GetValue<string>("FidoDomain");
-                options.Origins = [Configuration.GetValue<string>("FidoOrigins")];
+                options.Origins = new ReadOnlySet<string>(new HashSet<string>([Configuration.GetValue<string>("FidoOrigins") ?? ""]));
             });
         services.AddLogging(logging =>
         {
