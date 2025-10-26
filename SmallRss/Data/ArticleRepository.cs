@@ -65,6 +65,21 @@ and uar.Id is null").ToListAsync();
         await context.SaveChangesAsync();
     }
 
+    public async Task RemoveOrphanedArticlesAsync()
+    {
+        var orphanedArticleFeedIds = await context.Database.SqlQuery<int>(
+@$"select distinct a.RssFeedId
+from Articles a
+left join RssFeeds r on a.RssFeedId = r.Id
+where r.Id is null").ToHashSetAsync();
+        logger.LogTrace("Found {OrphanedArticleFeedIdsCount} orphaned rss feed ids on articles that can be deleted", orphanedArticleFeedIds.Count);
+        if (orphanedArticleFeedIds.Count > 0)
+        {
+            var deletedCount = await context.Articles!.Where(a => orphanedArticleFeedIds.Contains(a.RssFeedId)).ExecuteDeleteAsync();
+            logger.LogInformation("Removed {DeletedCount} orphaned articles", deletedCount);
+        }
+    }
+
     public async IAsyncEnumerable<ArticleUserFeedInfo> GetAllUnreadArticlesAsync(UserAccount userAccount)
     {
         var query = context.Database.SqlQuery<ArticleUserFeedInfo>(

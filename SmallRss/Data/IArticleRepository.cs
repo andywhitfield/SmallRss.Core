@@ -10,5 +10,6 @@ public interface IArticleRepository
     Task CreateAsync(RssFeed rssFeed, Article articleToCreate);
     Task<List<Article>> FindUnreadArticlesInUserFeedAsync(UserFeed feedToMarkAllAsRead);
     Task RemoveArticlesWhereCountOverAsync(int purgeCount);
+    Task RemoveOrphanedArticlesAsync();
     IAsyncEnumerable<ArticleUserFeedInfo> GetAllUnreadArticlesAsync(UserAccount userAccount);
 }
