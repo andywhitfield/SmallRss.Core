@@ -44,7 +44,7 @@ public class ManageController(ILogger<ManageController> logger,
             return RedirectToAction(nameof(Index));
 
         await userFeedRepository.RemoveAsync(feed);
-        logger.LogInformation($"Removed feed: {feed.Id}:{feed.Name}");
+        logger.LogInformation("Removed feed: {FeedId}:{FeedName}", feed.Id, feed.Name);
 
         return RedirectToAction(nameof(Index));
     }
@@ -108,7 +108,7 @@ public class ManageController(ILogger<ManageController> logger,
             addFeed.Name ?? "",
             (string.IsNullOrWhiteSpace(addFeed.GroupSel) ? addFeed.Group : addFeed.GroupSel) ?? "");
 
-        logger.LogInformation($"Created new user feed: {addFeed.Name} - {addFeed.Url}");
+        logger.LogInformation("Created new user feed: {AddFeedName} - {AddFeedUrl}", addFeed.Name, addFeed.Url);
 
         return RedirectToAction(nameof(Index));
     }
@@ -146,7 +146,7 @@ public class ManageController(ILogger<ManageController> logger,
         feed.RssFeedId = rss.Id;
         await userFeedRepository.UpdateAsync(feed);
 
-        logger.LogInformation($"Updated user feed: {saveFeed.Name}");
+        logger.LogInformation("Updated user feed: {SaveFeedName}", saveFeed.Name);
         return RedirectToAction(nameof(Index));
     }
 
@@ -163,18 +163,18 @@ public class ManageController(ILogger<ManageController> logger,
         }
 
         var raindropAuthUri = $"https://api.raindrop.io/v1/oauth/authorize?client_id={raindropOptions.Value.ClientId}&redirect_uri={HttpUtility.UrlEncode(RaindropDirectUri)}";
-        logger.LogInformation($"Redirecting to raindrop: {raindropAuthUri}");
+        logger.LogInformation("Redirecting to raindrop: {RaindropAuthUri}", raindropAuthUri);
         return Redirect(raindropAuthUri);
     }
 
     [HttpGet]
     public async Task<ActionResult> RaindropAuth(string code)
     {
-        logger.LogInformation($"Received raindrop.io auth code: {code}");
+        logger.LogInformation("Received raindrop.io auth code: {Code}", code);
         if (string.IsNullOrEmpty(code))
             return RedirectToAction("Index");
 
-        logger.LogInformation($"Getting authorization_code from raindrop.io: code={code}, client_id={raindropOptions.Value.ClientId}");
+        logger.LogInformation("Getting authorization_code from raindrop.io: code={Code}, client_id={ClientId}", code, raindropOptions.Value.ClientId);
         using var raindropClient = clientFactory.CreateClient(Startup.RaindropHttpClient);
 
         var requestJson = JsonSerializer.Serialize(new { code, client_id = raindropOptions.Value.ClientId, client_secret = raindropOptions.Value.ClientSecret, grant_type = "authorization_code", redirect_uri = RaindropDirectUri });
@@ -187,7 +187,7 @@ public class ManageController(ILogger<ManageController> logger,
         if (!result.TryParseJson(out RaindropTokenResult? authResult, logger))
             return RedirectToAction("Index");
 
-        logger.LogInformation($"Got token result: result={result}");
+        logger.LogInformation("Got token result: result={Result}", result);
 
         // save refresh token into the user's account
         var userAccount = await userAccountRepository.GetAsync(User);
@@ -210,14 +210,14 @@ public class ManageController(ILogger<ManageController> logger,
             var responseJson = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode || !responseJson.TryParseJson(out CreateRssFeedResponse? createRssFeedResult, logger))
             {
-                logger.LogError($"Could not create feed: response code {response.StatusCode}: content: {responseJson}");
+                logger.LogError("Could not create feed: response code {ResponseStatusCode}: content: {ResponseJson}", response.StatusCode, responseJson);
                 return null;
             }
-            logger.LogTrace($"Received response - location:{response.Headers.Location} content:{responseJson}");
+            logger.LogTrace("Received response - location:{Location} content:{ResponseJson}", response.Headers.Location, responseJson);
 
             rss = new RssFeed { Id = createRssFeedResult?.Id ?? 0 };
 
-            logger.LogInformation($"Created new RSS feed: {feedUri} Id: {rss.Id}");
+            logger.LogInformation("Created new RSS feed: {FeedUri} Id: {RssId}", feedUri, rss.Id);
         }
         return rss;
     }
