@@ -1,0 +1,1041 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>The Old New Thing</title>
+	<atom:link href="https://devblogs.microsoft.com/oldnewthing/feed" rel="self" type="application/rss+xml" />
+	<link>https://devblogs.microsoft.com/oldnewthing</link>
+	<description>Practical development throughout the evolution of Windows.</description>
+	<lastBuildDate>Fri, 31 Oct 2025 17:18:37 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	
+
+<image>
+	<url>https://devblogs.microsoft.com/oldnewthing/wp-content/uploads/sites/38/2021/03/Microsoft-Favicon.png</url>
+	<title>The Old New Thing</title>
+	<link>https://devblogs.microsoft.com/oldnewthing</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Microspeak: turn into a pumpkin</title>
+		<link>https://devblogs.microsoft.com/oldnewthing/20251031-00/?p=111750</link>
+					<comments>https://devblogs.microsoft.com/oldnewthing/20251031-00/?p=111750#comments</comments>
+		
+		<dc:creator><![CDATA[Raymond Chen]]></dc:creator>
+		<pubDate>Fri, 31 Oct 2025 14:00:00 +0000</pubDate>
+				<category><![CDATA[Old New Thing]]></category>
+		<category><![CDATA[Microspeak]]></category>
+		<category><![CDATA[Other]]></category>
+		<guid isPermaLink="false">https://devblogs.microsoft.com/oldnewthing/?p=111750</guid>
+
+					<description><![CDATA[<p>To disappear, such as for the year-end holidays.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251031-00/?p=111750">Microspeak: turn into a pumpkin</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>The English idiom <i>turn into a pumpkin</i> comes from the fairy tale story of <i>Cinderella</i>, in which the protagonist&#8217;s ragged clothes are magically transformed into an elegant gown and a pumpkin is transformed into a carriage, allowing her to attend a royal ball. She is warned that the magic wears off at midnight, upon which her clothes and carriage return to their original forms.</p>
+<p>In some fields, the idiom <i>turn into a pumpkin</i> means to regress to a previous level of performance after a period of marked (but perhaps inexplicable) improvement. &#8220;The widget install success rate has gone up from 90% to 95%, which is great, but we don&#8217;t have a good understanding of why this is happening, since we haven&#8217;t made any significant changes to widget installation. It won&#8217;t be surprising if this improvement <i>turns into a pumpkin</i>.&#8221; (In other words, if this improvement vanishes just as mysteriously as it appeared.)</p>
+<p>At Microsoft, the phrase <i>turn into a pumpkin</i> also applies to expected reductions in performance: During the period between the United States Thanksgiving holiday (the end of November) and continuing through Christmas (December 25) to the end of the year, a large percentage of people take vacation, leaving teams running on what feels like a skeleton crew. In anticipation of this reduction, many engineering services scale back their capacity. For example, a minor branch might not get any builds at all, and the major branches might build only once a day instead of twice.</p>
+<p>Now you know what somebody means when they say something like, &#8220;We should wrap this up before people <i>turn into pumpkins</i> at the end of the year.&#8221;</p>
+<p><b>Bonus chatter</b>: Other citations I&#8217;ve found</p>
+<blockquote class="q"><p>The installation will turn into a pumpkin at the end of the trial period.</p></blockquote>
+<p>In this case, this is saying that the installation will cease to function at the end of the trial period. It will lose its magical powers and become about as useful as a pumpkin.</p>
+<blockquote class="q"><p>We should ask Chris before he turns into a pumpkin.</p></blockquote>
+<p>This could mean &#8220;We should ask Chris before he goes on vacation.&#8221; I&#8217;ve also seen it used in online meetings when one participant is joining from a far-away time zone at what for them is an inconvenient time. In this case, it means &#8220;We should ask Chris before he falls asleep from exhaustion.&#8221;</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251031-00/?p=111750">Microspeak: turn into a pumpkin</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://devblogs.microsoft.com/oldnewthing/20251031-00/?p=111750/feed</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+			<image url="https://devblogs.microsoft.com/oldnewthing/wp-content/uploads/sites/38/2025/10/banner-oldnewthing-blue.webp" type="image/png" />
+	</item>
+		<item>
+		<title>Trying to build a XAML tree in code throws a &#8220;No installed components were detected&#8221; exception</title>
+		<link>https://devblogs.microsoft.com/oldnewthing/20251030-00/?p=111746</link>
+					<comments>https://devblogs.microsoft.com/oldnewthing/20251030-00/?p=111746#comments</comments>
+		
+		<dc:creator><![CDATA[Raymond Chen]]></dc:creator>
+		<pubDate>Thu, 30 Oct 2025 14:00:00 +0000</pubDate>
+				<category><![CDATA[Old New Thing]]></category>
+		<category><![CDATA[Code]]></category>
+		<guid isPermaLink="false">https://devblogs.microsoft.com/oldnewthing/?p=111746</guid>
+
+					<description><![CDATA[<p>An unfortunate error code collision, but the explanatory text leads the way.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251030-00/?p=111746">Trying to build a XAML tree in code throws a &#8220;No installed components were detected&#8221; exception</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>You might, for some reason, be building some XAML in code rather than markup. Starting with this XAML:</p>
+<pre>&lt;!-- XAML markup --&gt;
+&lt;Grid&gt;
+    &lt;Grid.ColumnDefinitions&gt;
+        &lt;ColumnDefinition Width="Auto" /&gt;
+        &lt;ColumnDefinition Width="Auto" /&gt;
+    &lt;/Grid.ColumnDefinitions&gt;
+&lt;/Grid&gt;
+</pre>
+<p>Here&#8217;s a flawed attempt to create the grid in code.</p>
+<pre>// C#
+var autoWidth = new ColumnDefinition() { Width = GridLength.Auto };
+var grid = new Grid() { ColumnDefinitions = { autoWidth, autoWidth } };
+</pre>
+<p>We create a column definition whose Width is Auto, and then create a grid whose ColumnDefinitions is two columns, namely two of our Auto columns.</p>
+<p>This throws a confusing exception.</p>
+<pre style="white-space: pre-wrap;">System.Runtime.InteropServices.COMException (0x800F1000): No installed components were detected.
+</pre>
+<p>What do you mean, no installed components were detected? Why does something need to be installed at all? Do I have to install a special component to be able to create XAML elements from code?</p>
+<p>Okay, the first problem is an error code collision. The error message text is coming from error number <code>0x800F1000</code> which is <code>SPAPI_<wbr />E_<wbr />ERROR_<wbr />NOT_<wbr />INSTALLED</code> and belongs to the SETUPAPI facility. Unfortunately, XAML decided to put some of its error codes in the same facility, resulting in an error code collision. XAML defined error code number <code>0x800F1000</code> to mean &#8220;invalid operation&#8221; but gave it the same number as <code>SPAPI_<wbr />E_<wbr />ERROR_<wbr />NOT_<wbr />INSTALLED</code>. Therefore, when various components try to decide the error code, they come up with the setup error instead of the XAML error.</p>
+<p>Another XAML error code collision is &#8220;X is not a valid value for property Y&#8221; which has the numeric value <code>0x800F1001</code> and which collides with <code>SPAPI_<wbr />E_<wbr />BAD_<wbr />SECTION_<wbr />NAME_<wbr />LINE</code>.</p>
+<p>So the real problem has nothing to do with installed components. That&#8217;s just an unfortunate decode of the error code.</p>
+<p>Fortunately, XAML provides a details string, which is easily overlooked because it&#8217;s two lines away and looks like part of another paragraph.</p>
+<pre style="white-space: pre-wrap;">System.Runtime.InteropServices.COMException (0x800F1000): No installed components were detected.
+
+<span style="border: solid 1px currentcolor;">Element is already the child of another element.</span>
+Source: Cannot evaluate the exception source.
+</pre>
+<p>The problem is that we are reusing the same <code>ColumnDefinition</code> object to describe two different columns. The markup creates two different <code>ColumnDefinition</code> objects, but our code version creates one object and inserts it twice.</p>
+<p>To make our code equivalent to the markup, we have to create two <code>ColumnDefinition</code> objects, because that&#8217;s what the markup does.</p>
+<pre>// C#
+var autoWidth1 = new ColumnDefinition() { Width = GridLength.Auto };
+var autoWidth2 = new ColumnDefinition() { Width = GridLength.Auto };
+var grid = new Grid() { ColumnDefinitions = { autoWidth1, autoWidth2 } };
+</pre>
+<p>And since we&#8217;re not reusing the column definition, we don&#8217;t need to give it a name.</p>
+<pre>// C#
+var grid = new Grid() { ColumnDefinitions = {
+        new ColumnDefinition() { Width = GridLength.Auto },
+        new ColumnDefinition() { Width = GridLength.Auto }
+    } };
+</pre>
+<p>It&#8217;s convenient that this code does resemble the original XAML.</p>
+<p>We thought we were doing the right thing by reusing an existing object with identical properties, but the XAML tree is a tree, and you can&#8217;t insert the same node into a tree in two different locations.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251030-00/?p=111746">Trying to build a XAML tree in code throws a &#8220;No installed components were detected&#8221; exception</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://devblogs.microsoft.com/oldnewthing/20251030-00/?p=111746/feed</wfw:commentRss>
+			<slash:comments>7</slash:comments>
+		
+		
+			<image url="https://devblogs.microsoft.com/oldnewthing/wp-content/uploads/sites/38/2025/10/banner-oldnewthing-blue.webp" type="image/png" />
+	</item>
+		<item>
+		<title>What to do when you have a crash in the runtime control flow guard check</title>
+		<link>https://devblogs.microsoft.com/oldnewthing/20251029-00/?p=111738</link>
+					<comments>https://devblogs.microsoft.com/oldnewthing/20251029-00/?p=111738#comments</comments>
+		
+		<dc:creator><![CDATA[Raymond Chen]]></dc:creator>
+		<pubDate>Wed, 29 Oct 2025 14:00:00 +0000</pubDate>
+				<category><![CDATA[Old New Thing]]></category>
+		<category><![CDATA[Code]]></category>
+		<guid isPermaLink="false">https://devblogs.microsoft.com/oldnewthing/?p=111738</guid>
+
+					<description><![CDATA[<p>You don't have to understand it, but you should be able to extract data from it.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251029-00/?p=111738">What to do when you have a crash in the runtime control flow guard check</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Windows Control Flow Guard (CFG) is a defense in depth feature which validates indirect call targets. The idea is that each module that is enabled for CFG provides a bitmap that describes which addresses in the module are intended to be targets of indirect calls. When CFG is enabled in a process, indirect function calls are checked against this table, and if the address is deemed invalid, the process terminates itself, and the Watson service records the details for future investigation.</p>
+<p>If you are studying a crash in the control flow guard validator¹ you may want to pick out the failed address so you can understand better what went wrong and use it to guide the next step of your debugging. (Was it a bad address? Was the DLL unloaded? Was it a garbage value due to use-after-free?)</p>
+<p>In general, the control flow guard validator takes a function address in some register, performs shifting and masking operations using that register as a source (to calculate the bit position in the call target bitmap), and then tests a bit. The source register is left unchanged so that the caller, on success, can use the validated address as a jump target.</p>
+<p>Let&#8217;s practice. Here&#8217;s one of the control flow guard validator functions for x86-64, which Windows often calls x64. Try to spot the register that holds the address being validated.</p>
+<pre>ntdll!LdrpValidateUserCallTarget:
+    mov     rdx,qword ptr [ntdll!................]
+    <span style="border: solid 1px currentcolor; border-bottom: none;">mov     rax,rcx                  </span>
+    <span style="border: 1px currentcolor; border-style: none solid;">shr     rax,9                    </span> ; shift
+    <span style="border: solid 1px currentcolor; border-top: none;">mov     rdx,qword ptr [rdx+rax*8]</span> ; crash here
+    mov     rax,rcx
+    shr     rax,3
+    test    cl,0Fh
+    jne     @1
+    bt      rdx,rax
+    jae     @2
+    ret
+@1: btr     rax,0
+    bt      rdx,rax
+    jae     @3
+@2: or      rax,1
+    bt      rdx,rax
+    jae     @3
+    ret
+@3: mov     rax,rcx
+    xor     r10d,r10d
+    jmp     ntdll!LdrpHandleInvalidUserCallTarget
+</pre>
+<p>We see that the value in <code>rcx</code> gets moved into <code>rax</code>, and then <code>rax</code> gets shifted. So the address being validated is in <code>rcx</code>. The marked instruction is the only one that accesses memory, so if there&#8217;s a crash, it&#8217;ll happen there. The rest of the function is just bit twiddling.</p>
+<p>Let&#8217;s do the same exercise for x86-32, which Windows often just calls x86.</p>
+<pre>ntdll!LdrpValidateUserCallTarget:
+    mov     edx,dword ptr [ntdll!........]
+    <span style="border: solid 1px currentcolor; border-bottom: none;">mov     eax,ecx                  </span>
+    <span style="border: 1px currentcolor; border-style: none solid;">shr     eax,8                    </span> ; shift
+    <span style="border: solid 1px currentcolor; border-top: none;">mov     edx,dword ptr [edx+eax*4]</span> ; crash here
+    mov     eax,ecx
+    shr     eax,3
+    test    cl,0Fh
+    jne     @1
+    bt      edx,eax
+    jae     ...
+    ret
+@1: btr     eax,0
+    bt      edx,eax
+    jae     ...
+    or      eax,1
+    bt      edx,eax
+    jae     ...
+    ret
+</pre>
+<p>This time, it&#8217;s the value in <code>ecx</code> that gets moved into <code>eax</code>, and then <code>eax</code> gets shifted. The address being validated is therefore in <code>ecx</code>. Again, the marked instruction is the only one that accesses memory.</p>
+<p>One more: This time, it&#8217;s 32-bit ARM, which Windows calls simply arm.</p>
+<pre>ntdll!LdrpValidateUserCallTarget:
+    <span style="border: solid 1px currentcolor; border-bottom: none;">mov         r3,#0x.... </span>
+    <span style="border: 1px currentcolor; border-style: none solid;">movt        r3,#0x.... </span>
+    <span style="border: solid 1px currentcolor; border-top: none;">ldr         r3,[r3]    </span>
+
+    <span style="border: solid 1px currentcolor; border-bottom: none;">lsrs        r2,r0,#6   </span> ; shift
+    <span style="border: 1px currentcolor; border-style: none solid;">ubfx        r1,r0,#3,#3</span>
+    <span style="border: solid 1px currentcolor; border-top: none;">ldrb        r2,[r3,r2] </span> ; crash here
+
+    mov         r3,r0
+    and         r0,r0,#0xF
+    subs        r0,r0,#1
+    bne         ...
+</pre>
+<p>There are two memory accesses this time. The first is loading from a fixed address (built into <code>r3</code> in two instructions), so it matches the first instruction of the x86-32 and x86-64 versions; it&#8217;s just that x86 can load from many fixed adresses in just one instruction.</p>
+<p>The second group of instructions is the interesting one. It shifts the value in <code>r0</code> and puts the result in <code>r2</code>. It also uses <code>r0</code> as the source for a bit extraction operation that puts the result in <code>r1</code>, and then it accesses some memory. So it looks like <code>r0</code> is the address, since it&#8217;s the source of the shift instruction.</p>
+<p>Mind you, this code modifies <code>r0</code> later on, so the value in <code>r0</code> doesn&#8217;t hold the address through the entire function. It got copied into <code>r3</code> for safekeeping, so if you break in later in the function, you&#8217;ll want to look to <code>r3</code> for the address. But if you crash on the memory access, the address is in <code>r0</code>.</p>
+<p>Our last example is AArch64, which Windows usually calls arm64.</p>
+<pre>ntdll!LdrpValidateUserCallTarget:
+    <span style="border: solid 1px currentcolor; border-bottom: none;">adrp        xip0,ntdll!....   </span>
+    <span style="border: solid 1px currentcolor; border-top: none;">ldr         xip0,[xip0,#0x598]</span>
+
+    <span style="border: solid 1px currentcolor; border-bottom: none;">lsr         xip1,x15,#6     </span> ; shift
+    <span style="border: 1px currentcolor; border-style: none solid;">tst         x15,#0xF        </span>
+    <span style="border: solid 1px currentcolor; border-top: none;">ldrb        wip1,[xip0,xip1]</span> ; crash here
+    ubfx        xip0,x15,#3,#3
+    bne         @2
+
+    lsr         xip1,xip1,xip0
+    tbz         wip1,#0,@3
+@1: ret
+
+@2: and         xip0,xip0,#-2
+    lsr         xip1,xip1,xip0
+    tbz         wip1,#0,@4
+@3: tbnz        wip1,#1,@1
+@4: mov         xip0,#0
+    b           @5
+@5: b           ntdll!LdrpHandleInvalidUserCallTarget
+</pre>
+<p>Again, we start by loading an address from memory, and then we shift a register, this time the <code>x15</code> register. There is a bit test instruction whose result is used later, and then we perform a memory access (which could crash). From inspection, we therefore see that the address being validated is in <code>x15</code>.</p>
+<p>The point of this exercise is not to memorize the registers that each architecture uses for control flow guard,³ but rather to take a little information about the design of control flow guard (checking a bit in a bitmap, using the address passed in a register to calculate the index),² and using that to figure out on the fly which register you need to look at based on the code surrounding the crashing access.</p>
+<p>¹ Usually, these crashes occur because the address that got passed in is so invalid that there is no memory at the location where the bit in the validation bitmap is supposed to be, resulting in an access violation.</p>
+<p>² You don&#8217;t even have to know the precise meaning of the bits in the bitmap. All you have to remember is that the address is used to determine the bit to check.</p>
+<p>³ I sure don&#8217;t have them memorized. Each time it happens, I just re-derive it from the instructions around the crash.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251029-00/?p=111738">What to do when you have a crash in the runtime control flow guard check</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://devblogs.microsoft.com/oldnewthing/20251029-00/?p=111738/feed</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+			<image url="https://devblogs.microsoft.com/oldnewthing/wp-content/uploads/sites/38/2025/10/banner-oldnewthing-blue.webp" type="image/png" />
+	</item>
+		<item>
+		<title>How did the Windows 95 user interface code get brought to the Windows NT code base?</title>
+		<link>https://devblogs.microsoft.com/oldnewthing/20251028-00/?p=111733</link>
+					<comments>https://devblogs.microsoft.com/oldnewthing/20251028-00/?p=111733#comments</comments>
+		
+		<dc:creator><![CDATA[Raymond Chen]]></dc:creator>
+		<pubDate>Tue, 28 Oct 2025 14:00:00 +0000</pubDate>
+				<category><![CDATA[Old New Thing]]></category>
+		<category><![CDATA[History]]></category>
+		<guid isPermaLink="false">https://devblogs.microsoft.com/oldnewthing/?p=111733</guid>
+
+					<description><![CDATA[<p>Ported bit by bit.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251028-00/?p=111733">How did the Windows 95 user interface code get brought to the Windows NT code base?</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>A long time ago, somebody asked, &#8220;How did the new Windows 95 user interface get brought to the Windows NT code base? The development of Windows 95 lined up with the endgame of Windows NT 3.1, so how did the finished Windows 95 code get brought to the Windows NT code base for Windows NT 4.0? Did they reimplement it based on the existing specification? Was the code simply merged into the Windows NT code base?&#8221;</p>
+<p>Members of the Windows 95 user interface team <a title="Optimizing the Chili's dining experience" href="https://devblogs.microsoft.com/oldnewthing/20130205-00/?p=5343"> met regularly with members of the Windows NT user interface team</a> to keep them aware of what was going on and even get their input on some ideas that the Windows 95 team were considering. The Windows NT user interface team were focused on shipping Windows NT, but they appreciated being kept in the loop.</p>
+<p>During the late phases of the development of Windows 95, the Windows NT side of the house took a more active role in bringing the Windows 95 user interface to Windows NT. They started implementing the new window manager features that Windows 95 introduced, both in terms of new functions such as <code>Register­Class­Ex</code> and <code>Set­Scroll­Info</code>, as well as new behaviors such as having a Close button in the upper right corner. The window managers on Windows NT and Windows 95 both had ancestry in the Windows 3.1 window manager, so a lot of the designs were the same, but the code had long since diverged significantly, so it wasn&#8217;t so much merging the code as it was using the Windows 95 code as a reference implementation when reimplementing the features on Windows NT. (For example, the algorithm for walking the dialog tree in the face of <code>WS_<wbr />EX_<wbr />CONTROL­PARENT</code> remained the same, but the expression of the algorithm was different.)</p>
+<p>The code for Explorer and other user-model components had an easier time. They were taken as-is into the Windows NT code base, warts and all, and the copy was then updated in-place to be more Windows NT-like. For example, the Windows 95 shell used <code>CHAR</code> as its base character, but Windows NT was Unicode-based, so the Windows NT folks had to replace <code>CHAR</code> to <code>WCHAR</code>, and they had to create Unicode variants of the existing shell interfaces, which is why we have <code>IShellLinkA</code> and <code>IShellLinkW</code>, for example. This in turn exposed other problems, such as code that used <code>sizeof(stringBuffer)</code> to calculate the size of a <code>CHAR</code> string buffer, that now had to be changed to <code>sizeof(stringBuffer) / sizeof(stringBuffer[0])</code> so that it returned the number of elements in the buffer rather than the number of bytes.</p>
+<p>Whereas the window manager changes were one-way ports (from Windows 95 into Windows NT), the Explorer and other user-mode changes were bidirectional. The Windows NT team merged their changes back into the Windows 95 code base, so that when they took the next drop of the Windows 95 code base, they wouldn&#8217;t have to go back and fix the things that they had already fixed.</p>
+<p>Since the code went back to Windows 95, all of the Windows NT-side changes had to be arranged so that they would have no effect on the existing Windows 95 code. The Windows NT team didn&#8217;t want to introduce any bugs into the Windows 95 code as part of their port. Protecting the changes was done in a variety of ways.</p>
+<p>One was to enclose all the new code inside <code>#ifdef WINNT</code> directives so that they weren&#8217;t compiled by Windows 95, or <code>#ifdef</code>…<code>#else</code>…<code>#endif</code> blocks if the Windows NT version had to diverge from the Windows 95 version. Another was to use macros and typedefs like <code>TCHAR</code> and <code>LPCTSTR</code> so that the same code could compile both as Windows 95 and Windows NT, but using different base characters.</p>
+<p>In the case of <code>sizeof</code> directives, a change from <code>sizeof(stringBuffer)</code> to <code>sizeof(stringBuffer) / sizeof(stringBuffer[0])</code> has no effect on Windows 95 because the <code>sizeof(stringBuffer[0])</code> is 1, and dividing by 1 has no effect, so that change could be left without protection. But the Windows NT team had another problem: How would they know whether a particular <code>sizeof</code> was one that had already been vetted for Windows NT compatibility, as opposed to one that came from fresh code changes to Windows 95 that need to be inspected? Their solution was to define a synonym macro</p>
+<pre>#define SIZEOF sizeof
+</pre>
+<p>When the Windows NT team verified that a <code>sizeof</code> was correct, or when they fixed it to be correct, they changed the <code>sizeof</code> to <code>SIZEOF</code>. That way, they could search the code for lowercase <code>sizeof</code> to see what still had yet to be inspected. (The Windows 95 team were told to continue using <code>sizeof</code> in new code, so as not to mess up this convention.)</p>
+<p>Now, all this happened decades ago when Microsoft used an internal source code system known as SLM, pronounced <i>slime</i>. Formally, it stood for Source Library Manager, but nobody knew that. We just called it SLM. SLM did not support branches, so moving changes from Windows 95 to Windows NT involved manually doing three-way merges for all of the files that changed since the last drop. I suspect that this manual process was largely automated, but it was not as simple as a <tt>git merge</tt>.</p>
+<p><b>Bonus chatter</b>: The team responsible for porting the Windows 95 shell to Windows NT included <a href="https://www.youtube.com/@DavesGarage"> Dave Plummer, host of the YouTube channel Dave&#8217;s Garage</a>. They had custom business cards made which they used as calling cards. On one side was the email aliases of the team members, arranged in an attractive pattern. On the other side was the simple message: &#8220;You have been visited.&#8221;</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251028-00/?p=111733">How did the Windows 95 user interface code get brought to the Windows NT code base?</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://devblogs.microsoft.com/oldnewthing/20251028-00/?p=111733/feed</wfw:commentRss>
+			<slash:comments>14</slash:comments>
+		
+		
+			<image url="https://devblogs.microsoft.com/oldnewthing/wp-content/uploads/sites/38/2025/10/banner-oldnewthing-blue.webp" type="image/png" />
+	</item>
+		<item>
+		<title>Dubious security vulnerability: Denial of service by loading a very large file</title>
+		<link>https://devblogs.microsoft.com/oldnewthing/20251027-00/?p=111731</link>
+					<comments>https://devblogs.microsoft.com/oldnewthing/20251027-00/?p=111731#comments</comments>
+		
+		<dc:creator><![CDATA[Raymond Chen]]></dc:creator>
+		<pubDate>Mon, 27 Oct 2025 14:00:00 +0000</pubDate>
+				<category><![CDATA[Old New Thing]]></category>
+		<category><![CDATA[Other]]></category>
+		<guid isPermaLink="false">https://devblogs.microsoft.com/oldnewthing/?p=111731</guid>
+
+					<description><![CDATA[<p>I mean, it's what you asked it to do.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251027-00/?p=111731">Dubious security vulnerability: Denial of service by loading a very large file</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>A denial of service vulnerability report was filed against a program, let&#8217;s call it Notepad. The actual text of the report was very hard to understand because the grammar was all messed up. I&#8217;ll give the finder the benefit of the doubt on the assumption that they are not a native English speaker. Here&#8217;s a cleaned-up version:</p>
+<blockquote class="q"><p>If you open multiple documents, one very large document and several small documents, and then try to exit all of them at once, the program will take a very long time saving the large document, resulting in a denial of service against the small documents.</p></blockquote>
+<p>I&#8217;m not sure what the point is here. The program does eventually finish saving the large document, so everything works out in the end. Are they suggesting that the program should save the smallest documents first? But then wouldn&#8217;t that be a denial of service against the large document if you had lots of small documents?</p>
+<p>But wait, let&#8217;s ask the standard questions.</p>
+<p>Who is the attacker?</p>
+<p>I guess the attacker is the person who opened the very large document.</p>
+<p>Who is the victim?</p>
+<p>The victim is the person who is unable to save their small documents because the large document is hogging the program.</p>
+<p>What has the attacker gained?</p>
+<p>The attacker has annoyed the victim temporarily.</p>
+<p>But wait, the attacker and the victim are the same person!</p>
+<p>It&#8217;s not a security vulnerability that you have the power to annoy yourself. Other ways include &#8220;Putting itching powder in your pants&#8221; and &#8220;Throwing your glasses in the trash.&#8221;</p>
+<p>Furthermore, there is no impact on other users, or even to other apps by this user. The only person you&#8217;re denying service to is yourself.</p>
+<p>If you&#8217;re concerned about the order in which files are saved on close, you could explicitly close them in the desired order, like, I dunno, most important files first? Removable drives first?</p>
+<p>And really, it&#8217;s not clear what the finder was expecting here. You loaded a large file, and now you&#8217;re saving it. Why is it surprising that this takes a long time?</p>
+<p>This was resolved as &#8220;Not a vulnerability&#8221; with the subcategory &#8220;By design.&#8221; But sometimes I wish there was subcategory &#8220;So what did you expect?&#8221;</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251027-00/?p=111731">Dubious security vulnerability: Denial of service by loading a very large file</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://devblogs.microsoft.com/oldnewthing/20251027-00/?p=111731/feed</wfw:commentRss>
+			<slash:comments>11</slash:comments>
+		
+		
+			<image url="https://devblogs.microsoft.com/oldnewthing/wp-content/uploads/sites/38/2025/10/banner-oldnewthing-blue.webp" type="image/png" />
+	</item>
+		<item>
+		<title>The early history of the Windows Runtime PropertyValue and why there is a PropertyType.Inspectable that is never used</title>
+		<link>https://devblogs.microsoft.com/oldnewthing/20251024-00/?p=111725</link>
+					<comments>https://devblogs.microsoft.com/oldnewthing/20251024-00/?p=111725#respond</comments>
+		
+		<dc:creator><![CDATA[Raymond Chen]]></dc:creator>
+		<pubDate>Fri, 24 Oct 2025 14:00:00 +0000</pubDate>
+				<category><![CDATA[Old New Thing]]></category>
+		<category><![CDATA[Code]]></category>
+		<category><![CDATA[History]]></category>
+		<guid isPermaLink="false">https://devblogs.microsoft.com/oldnewthing/?p=111725</guid>
+
+					<description><![CDATA[<p>It used to be there because PropertyValue started out as the fundamental variant type before shifting focus to being the fundamental boxed type.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251024-00/?p=111725">The early history of the Windows Runtime PropertyValue and why there is a PropertyType.Inspectable that is never used</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Some time ago, I mentioned that <a title="If the Window Runtime PropertyValue is for boxing non-inspectables, why is there a PropertyValue.CreateInspectable?" href="https://devblogs.microsoft.com/oldnewthing/20250717-00/?p=111388"> the <code>Property­Value.<wbr />Create­Inspectable</code> method doesn&#8217;t create a <code>Property­Value</code></a> but instead just returns its parameter unchanged. I concluded with the remark, &#8220;<code>Property­Value.<wbr />Create­Inspectable</code> even exist? I&#8217;m not sure. Perhaps it was added for completeness.&#8221;</p>
+<p>Since that article was written, I did some archaeology, and I think I found the answer.</p>
+<p>Originally, the <code>Property­Value</code> did wrap inspectables, which is the Windows Runtime name for what most languages call an &#8220;object&#8221;. The idea was that the <code>Property­Set</code> would be an <code>IMap&lt;String, Property­Value&gt;</code>, meaning that it was an associative array mapping strings to <code>Property­Value</code> objects. These <code>Property­Value</code> objects could hold value types like integers, or they could hold reference types in the form of an <code>IInspectable</code>, or they could hold arrays of value or reference types, or they could hold nothing at all (&#8220;empty&#8221;).</p>
+<p>In that original design, the <code>Property­Value.<wbr />Create­Inspectable</code> method did return a <code>Property­Value</code> whose <code>Type</code> was <code>Property­Type.<wbr />Inspectable</code>. Similarly, the <code>Property­Value.<wbr />Create­Empty</code> method returned a <code>Property­Value</code> whose <code>Type</code> was <code>Property­Type.<wbr />Empty</code>.</p>
+<table class="cp3" style="border-collapse: collapse;" border="1" cellspacing="0" cellpadding="3">
+<tbody>
+<tr>
+<th>Value</th>
+<th>PropertyType<br />
+<tt>pv.Type</tt></th>
+<th>Creation</th>
+<th>Retrieval</th>
+</tr>
+<tr>
+<td>Nothing</td>
+<td><tt>Empty</tt></td>
+<td><tt>CreateEmpty()</tt></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Scalar type (e.g. <tt>Int32</tt>)</td>
+<td><tt>Int32</tt></td>
+<td><tt>CreateInt32(v)</tt></td>
+<td><tt>pv.GetInt32()</tt></td>
+</tr>
+<tr>
+<td>Reference type</td>
+<td><tt>Inspectable</tt></td>
+<td><tt>CreateInspectable(v)</tt></td>
+<td><tt>pv.GetInspectable()</tt></td>
+</tr>
+<tr>
+<td>Array type (e.g. <tt>Int32[]</tt>)</td>
+<td><tt>Int32Array</tt></td>
+<td><tt>CreateInt32Array(v)</tt></td>
+<td><tt>pv.GetInt32Array()</tt></td>
+</tr>
+</tbody>
+</table>
+<p>You had to wrap inspectables and empties because the <code>Property­Set</code> was a mapping from strings to <code>Property­Value</code>. Everything had to be expressed as a <code>Property­Value</code>.¹ The <code>Property­Value</code> was the fundamental variant type of the Windows Runtime.</p>
+<p>At some point, the team decided to change the design and let <code>Property­Set</code> to be a mapping from string to inspectable (object). If the associated value is an object, then you get the corresponding object. If the associated value is empty, then you get null. And if the associated value is a value type, then the value type is wrapped inside a <code>Property­Value</code>, and the <code>Property­Value</code> wrapper acts as the object.</p>
+<p>I don&#8217;t know why the team changed their mind, but I suspect one of the points in favor of the new design is that the new design matches how most languages already work: C#, JavaScript, Python, Ruby, Scheme, Java, Objective-C all follow the principle that any type can be expressed as an object. (The act of converting value types to objects is known as &#8220;boxing&#8221;.)</p>
+<p>In other words, the design change promoted <code>IInspectable</code> to be the fundamental variant type, and the <code>Property­Value</code> was demoted to being the fundamental boxed type.</p>
+<p>A very large change was made to the Windows code base to update the design and to update all the code that had been using the old design. To make the conversion easier, the general shape of the new design matched the old design where it made sense. And this meant that <code>Property­Value.<wbr />Create­Inspectable</code> and <code>Property­Value.<wbr />Create­Empty</code> still existed as functions, but they didn&#8217;t do anything interesting. They remained for backward compatibility. Also remaining for backward compatibility are the enumeration values <code>Empty</code> and <code>Inspectable</code>. They remain defined, but nobody uses them.</p>
+<p>That takes us to what we have today:</p>
+<table class="cp3" style="border-collapse: collapse;" border="1" cellspacing="0" cellpadding="3">
+<tbody>
+<tr>
+<th>Value</th>
+<th>PropertyType<br />
+<tt>pv.Type</tt></th>
+<th>Creation</th>
+<th>Retrieval</th>
+</tr>
+<tr>
+<td>Nothing</td>
+<td>N/A</td>
+<td><tt>null</tt></td>
+<td><tt>null</tt></td>
+</tr>
+<tr>
+<td>Scalar type (e.g. <tt>Int32</tt>)</td>
+<td><tt>Int32</tt></td>
+<td><tt>CreateInt32(v)</tt></td>
+<td><tt>pv.GetInt32()</tt></td>
+</tr>
+<tr>
+<td>Reference type</td>
+<td>N/A</td>
+<td><tt>v</tt></td>
+<td><tt>pv</tt></td>
+</tr>
+<tr>
+<td>Array type (e.g. <tt>Int32[]</tt>)</td>
+<td><tt>Int32Array</tt></td>
+<td><tt>CreateInt32Array(v)</tt></td>
+<td><tt>pv.GetInt32Array()</tt></td>
+</tr>
+</tbody>
+</table>
+<p>For backward compatibility, <tt>Create­Empty</tt> returns <code>null</code> and <tt>Create­Inspectable</tt> returns its (non-null) parameter unchanged.</p>
+<p>In addition to aligning closer to a large number of popular languages, the new design simplifies the code required to store and retrieve a possibly-null reference in a <code>Property­Set</code>.</p>
+<pre>// C#
+
+// Old design: CreateInspectable requires a non-null reference
+ps.Insert("key", v == null ? PropertyValue.CreateEmpty() : PropertyValue.CreateInspectable(v));
+
+pv = ps.Lookup("key");
+if (pv.Type == PropertyValue.Empty) {
+    v = null;
+} else {
+    v = pv.GetInspectable();
+}
+
+// New design: If it's null, then store null
+ps.Insert("key", v);
+
+v = ps.Lookup("key");
+</pre>
+<p>If you want a function that returns the <code>Property­Type</code> for an arbitrary inspectable, you can do this:</p>
+<pre>// C#
+PropertyType WhatIsThisThing(object thing)
+{
+    if (thing is IPropertyValue pv) {
+        return pv.Type;
+    } else if (thing is null) {
+        return PropertyType.Empty;
+    } else {
+        return PropertyType.Inspectable;
+    }
+}
+
+// C# 9.0
+PropertyType WhatIsThisThing(object thing)
+{
+    return thing switch {
+        null =&gt; PropertyType.Empty,
+        IPropertyValue pv =&gt; pv.Type,
+        _ =&gt; PropertyType.Inspectable,
+    };
+}
+
+// C++/WinRT
+PropertyType WhatIsThisThing(IInspectable const&amp; thing)
+{
+    if (thing == nullptr) {
+        return PropertyType::Empty;
+    } else if (auto pv = thing.try_as&lt;IPropertyValue&gt;()) {
+        return pv.Type();
+    } else {
+        return PropertyType::Inspectable;
+    }
+}
+</pre>
+<p>¹ Since <code>Property­Value</code> is a reference type, they could have decided to use a null pointer to represent the empty state. I assume they explicitly wrapped the empty state for uniformity, rather than forcing people to check for null before querying the <code>Type</code>. Compare the <code>JsonValue</code> which has an explicit object for representing the JSON <code>null</code> rather than using a null pointer.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251024-00/?p=111725">The early history of the Windows Runtime PropertyValue and why there is a PropertyType.Inspectable that is never used</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://devblogs.microsoft.com/oldnewthing/20251024-00/?p=111725/feed</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			<image url="https://devblogs.microsoft.com/oldnewthing/wp-content/uploads/sites/38/2025/10/banner-oldnewthing-blue.webp" type="image/png" />
+	</item>
+		<item>
+		<title>Windows Runtime design principle: Properties can be set in any order</title>
+		<link>https://devblogs.microsoft.com/oldnewthing/20251023-00/?p=111716</link>
+					<comments>https://devblogs.microsoft.com/oldnewthing/20251023-00/?p=111716#respond</comments>
+		
+		<dc:creator><![CDATA[Raymond Chen]]></dc:creator>
+		<pubDate>Thu, 23 Oct 2025 14:00:00 +0000</pubDate>
+				<category><![CDATA[Old New Thing]]></category>
+		<category><![CDATA[Code]]></category>
+		<guid isPermaLink="false">https://devblogs.microsoft.com/oldnewthing/?p=111716</guid>
+
+					<description><![CDATA[<p>If all you're doing is setting properties, you can do it any way you like.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251023-00/?p=111716">Windows Runtime design principle: Properties can be set in any order</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>One of the design principles of the Windows Runtime is that if an object has multiple writable properties, then you can set them in any order and the effect will be the same.</p>
+<p>For example, consider an object with three properties: <code>Minimum</code>, <code>Maximum</code>, and <code>Value</code>. Suppose the rule is that you must, at all times, maintain <code>Minimum</code> ≤ <code>Value</code> ≤ <code>Maximum</code>. This rule would create problems if you wanted to change all three values, because you have to tiptoe around the possibility that an intermediate state will be momentarily illegal.</p>
+<pre>// Naïve version that doesn't work.
+void ChangeRangeAndValue(Widget w, int min, int max, int v)
+{
+    w.Minimum = min;
+    w.Maximum = max;
+    w.Value = v;
+}
+</pre>
+<p>The above code doesn&#8217;t work if, say, the old range was [0, 100] with a value of 50, and you want to change it to [500, 600] with a value of 550. You can&#8217;t set the minimum to 500 because that would result in <code>Minimum</code> &gt; <code>Maximum</code> because the new minimum 500 is greater than the old maximum 100.</p>
+<p>You would have to do a careful dance to make sure that at no point is the <code>Minimum</code> ≤ <code>Value</code> ≤ <code>Maximum</code> requirement violated.</p>
+<pre>void ChangeRangeAndValue(Widget w, int min, int max, int v)
+{
+    w.Minimum = Math.Min(w.Minimum, min);
+    w.Maximum = Math.Max(w.Maximum, max);
+    w.Value = v;
+    w.Minimum = min;
+    w.Maximum = max;
+}
+</pre>
+<p>I think the above code works. We first have to expand the range to something that encloses both the old and new ranges, so that the old value remains valid. Then we can update the value to the new value, and only then can we shrink to the desired range.</p>
+<p>This is annoying and not the most obvious code to write, much less realize that you <i>need</i> to write.¹</p>
+<p>Furthermore, you might not even control the order in which the properties are set. They might be set by binding, or they might be set indirectly through a JSON configuration file.</p>
+<p>To avoid these problems, the Windows Runtime has a policy of allowing properties to be set in any order. Temporarily inconsistent values are permitted, as long as things become consistent again at some established point in the future, such as &#8220;when you call the <code>Start</code> method&#8221; or &#8220;when the next layout pass occurs.&#8221;</p>
+<p>A similar problem occurs when properties have overlapping effects. For example, the <code>Windows.<wbr />Storage.<wbr />File­Save­Picker</code> has two properties which both provide the suggested name for the file being saved. The <code>Suggested­File­Name</code> provides just the file name, like &#8220;Document.txt&#8221;. The <code>Suggested­Save­File</code> provides a full path, including the enclosing directory.² Both of these try to set the name that appears by default when the dialog is opened, so what happens if you set both?</p>
+<p>Again, the &#8220;properties can be set in any order&#8221; principle means that it&#8217;s not &#8220;last writer wins&#8221;. Rather, the rule is that if there is a conflict between the two properties, then the <code>Suggested­Save­File</code> takes precedence.</p>
+<p>Note that the insensitivity to order applies only to properties. The order of method calls is significant both with respect to other method calls, as well as with respect to properties. For example, the following two sequences are allowed to behave differently because there is a method call in between:</p>
+<table class="cp3" border="0" cellspacing="0" cellpadding="3">
+<tbody>
+<tr>
+<th style="border: 1px currentcolor; border-style: none solid solid none;">Sequence 1</th>
+<th style="border-bottom: solid 1px currentcolor;">Sequence 2</th>
+</tr>
+<tr>
+<td style="border-right: solid 1px currentcolor;"><tt>m.Property1 = value1;<br />
+m.Method();<br />
+m.Property2 = value2;</tt></td>
+<td><tt>m.Property2 = value2;<br />
+m.Method();<br />
+m.Property1 = value1;</tt></td>
+</tr>
+</tbody>
+</table>
+<p><b>Bonus chatter</b>: There is one exception to this rule: If two properties are aliases for each other, then setting one property immediately updates the other (since they are just two different names for the same property), and therefore the last-writer-wins principle applies. This exception doesn&#8217;t arise often; usually, it happens when a property is renamed, and the old name remains for backward compatibility.</p>
+<p>¹ And even that isn&#8217;t sufficient if there is some other constraint like &#8220;The value of <code>Maximum</code> − <code>Minimum</code> may not exceed 100.&#8221;</p>
+<p>² I suspect that the reason both properties exist is in the case where you are doing a &#8220;Save As&#8221;, because that is saving as a new file, so you can&#8217;t get a <code>Storage­File</code> to a file that doesn&#8217;t exist, so <code>Suggested­File­Name</code> and <code>Suggested­Start­Location</code> are the best you can do.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251023-00/?p=111716">Windows Runtime design principle: Properties can be set in any order</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://devblogs.microsoft.com/oldnewthing/20251023-00/?p=111716/feed</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			<image url="https://devblogs.microsoft.com/oldnewthing/wp-content/uploads/sites/38/2025/10/banner-oldnewthing-blue.webp" type="image/png" />
+	</item>
+		<item>
+		<title>What makes cheap_steady_clock faster than std::chrono::high_resolution_clock?</title>
+		<link>https://devblogs.microsoft.com/oldnewthing/20251022-00/?p=111714</link>
+					<comments>https://devblogs.microsoft.com/oldnewthing/20251022-00/?p=111714#comments</comments>
+		
+		<dc:creator><![CDATA[Raymond Chen]]></dc:creator>
+		<pubDate>Wed, 22 Oct 2025 14:00:00 +0000</pubDate>
+				<category><![CDATA[Old New Thing]]></category>
+		<category><![CDATA[Code]]></category>
+		<guid isPermaLink="false">https://devblogs.microsoft.com/oldnewthing/?p=111714</guid>
+
+					<description><![CDATA[<p>It's quite a bit faster, though maybe you don't care.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251022-00/?p=111714">What makes &lt;CODE&gt;cheap_&lt;WBR&gt;steady_&lt;WBR&gt;clock&lt;/CODE&gt; faster than &lt;CODE&gt;std::&lt;WBR&gt;chrono::&lt;WBR&gt;high_&lt;WBR&gt;resolution_&lt;WBR&gt;clock&lt;/CODE&gt;?</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Some time ago, I noted that <a title="There is a std::chrono::high_resolution_clock, but no low_resolution_clock" href="https://devblogs.microsoft.com/oldnewthing/20250714-00/?p=111375"> There is a <code>std::<wbr />chrono::<wbr />high_<wbr />resolution_<wbr />clock</code>, but no <code>low_<wbr />resolution_<wbr />clock</code></a>.</p>
+<p>The Visual C++ library treats <code>std::<wbr />chrono::<wbr />high_<wbr />resolution_<wbr />clock</code> as an alias for <code>std::<wbr />chrono::<wbr />steady_clock</code>, which uses <code>Query­Performance­Counter()</code> to retrieve the current time, and the multiplies it by the reciprocal of <code>Query­Performance­Frequency()</code> to convert it to a clock tick count. So you are paying for a multiplication after <code>Query­Performance­Counter()</code> returns.</p>
+<p>But there&#8217;s a lot going on inside <code>Query­Performance­Counter()</code> itself, too. It has to use a different algorithm depending on things like whether the timestamp counter (such as <code>RDTSC</code> on x86 or <code>CNTVCT_EL0</code> on AArch64) is reliable, whether the system is running inside a virtual machine, whether the process is running under emulation, and various other conditions. In the worst case, it needs to make a system call into the kernel.</p>
+<p>On the other hand, <code>Get­Tick­Count64()</code> merely reads two 64-bit values from memory and multiplies them. One is a raw value that is updated by the kernel at each system timer interrupt (worst case), and the other is a conversion factor calculated at system startup to convert the raw value into milliseconds.</p>
+<p>These two 64-bit values come from <a title="Why doesn't Windows use the 64-bit virtual address space below 0x00000000&#96;7ffe0000?" href="https://devblogs.microsoft.com/oldnewthing/20221216-00/?p=107598"> a special page that is mapped into user mode from kernel mode</a> that contains handy values, including the current tick count. As it turns out, this is significantly faster than going through all the logic of <code>Query­Performance­Counter</code>. It&#8217;s a great choice if you do not need high resolution.</p>
+<p>And deciding how long to sleep a thread is a case where you do not need high resolution. Most of the functions for sleeping a thread already operate in milliseconds, so getting the value in milliseconds saves you a lot of conversions. Calculating values with sub-millisecond accuracy is pointless if the result is going to be converted to milliseconds anyway. And the accuracy of most (all?) of these sleep functions is only as good as the system timer anyway, so really they are good to only 10 or 50 milliseconds.¹</p>
+<p>It&#8217;s like doing precise calculations to determine that you need to set your phone alarm to wake you in exactly 32 minutes, 21.1315 seconds. Your phone alarm can&#8217;t wake you to sub-second resolution, so all that work to calculate those extra .1315 seconds was wasted.</p>
+<p>Now, I didn&#8217;t know all of these details when I originally wrote that article. But it stands to reason that <code>Get­Tick­Count64</code> is a lot cheaper than <code>Query­Performance­Counter</code> because <code>Get­Tick­Count64</code> asks for less. Even if <code>Get­Tick­Count64</code> ends up not being faster than <code>Query­Performance­Counter</code>, it surely won&#8217;t be <i>slower</i>.</p>
+<p>¹ Or one millisecond if your process has called <code>timeBeginPeriod(1)</code> to ask that the system timer be sped up to 1 millisecond.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251022-00/?p=111714">What makes &lt;CODE&gt;cheap_&lt;WBR&gt;steady_&lt;WBR&gt;clock&lt;/CODE&gt; faster than &lt;CODE&gt;std::&lt;WBR&gt;chrono::&lt;WBR&gt;high_&lt;WBR&gt;resolution_&lt;WBR&gt;clock&lt;/CODE&gt;?</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://devblogs.microsoft.com/oldnewthing/20251022-00/?p=111714/feed</wfw:commentRss>
+			<slash:comments>7</slash:comments>
+		
+		
+			<image url="https://devblogs.microsoft.com/oldnewthing/wp-content/uploads/sites/38/2025/10/banner-oldnewthing-blue.webp" type="image/png" />
+	</item>
+		<item>
+		<title>Microspeak: The hockey stick on wheels</title>
+		<link>https://devblogs.microsoft.com/oldnewthing/20251021-00/?p=111710</link>
+					<comments>https://devblogs.microsoft.com/oldnewthing/20251021-00/?p=111710#comments</comments>
+		
+		<dc:creator><![CDATA[Raymond Chen]]></dc:creator>
+		<pubDate>Tue, 21 Oct 2025 14:00:00 +0000</pubDate>
+				<category><![CDATA[Old New Thing]]></category>
+		<category><![CDATA[Microspeak]]></category>
+		<category><![CDATA[Other]]></category>
+		<guid isPermaLink="false">https://devblogs.microsoft.com/oldnewthing/?p=111710</guid>
+
+					<description><![CDATA[<p>You're always a year away.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251021-00/?p=111710">Microspeak: The hockey stick on wheels</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>The &#8220;<a href="https://en.wikipedia.org/wiki/Hockey_stick_graph">hockey stick graph</a>&#8221; is a graph which shows slow initial growth, followed by a rapid linear increase. The resulting shape resembles a hockey stick, with the blade of the stick represented by the nearly-flat initial section, and the handle of the stick represented by the rapid linear increase once sales take off.</p>
+<p>All sales forecasts have this hockey stick shape because the people who do sales forecasts are all optimists.</p>
+<p>The Microsoft finance division has their own variation on the hockey stick: The hockey stick on wheels.</p>
+<p>Consider a team which presents their forecasts in the form of a hockey stick graph. They come back the next year with their revised forecasts, and they are the same as last year&#8217;s forecast, just delayed one year. If you overlay this revised hockey stick forecast on top of the previous year&#8217;s forecast, it looks like what happened is that the hockey stick slid forward one year. When this happens, the finance people jokingly call it a &#8220;hockey stick on wheels&#8221; because it looks like somebody bolted wheels onto the bottom of the hockey stick graph and is just rolling it forward by one year each year.</p>
+<p><i>Net profit, net profit.</i><br />
+<i>I love ya, net profit.</i><br />
+<i><a title="Tomorrow (Annie)" href="https://disney.fandom.com/wiki/Tomorrow_(Annie)">You&#8217;re always a year away</a>.</i></p>
+<p>An example of a hockey stick on wheels is the first few years of the infamous <a href="https://en.wikipedia.org/wiki/Itanium#/media/File:Itanium_Sales_Forecasts_edit.png"> Itanium sales forecast chart</a>. Notice that the first four lines are basically the same, just shifted forward by one year. It is only at the fifth year that the shape of the line changes.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251021-00/?p=111710">Microspeak: The hockey stick on wheels</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://devblogs.microsoft.com/oldnewthing/20251021-00/?p=111710/feed</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+			<image url="https://devblogs.microsoft.com/oldnewthing/wp-content/uploads/sites/38/2025/10/banner-oldnewthing-blue.webp" type="image/png" />
+	</item>
+		<item>
+		<title>What about the icons in pifmgr.dll?</title>
+		<link>https://devblogs.microsoft.com/oldnewthing/20251020-00/?p=111706</link>
+					<comments>https://devblogs.microsoft.com/oldnewthing/20251020-00/?p=111706#comments</comments>
+		
+		<dc:creator><![CDATA[Raymond Chen]]></dc:creator>
+		<pubDate>Mon, 20 Oct 2025 14:00:00 +0000</pubDate>
+				<category><![CDATA[Old New Thing]]></category>
+		<category><![CDATA[History]]></category>
+		<guid isPermaLink="false">https://devblogs.microsoft.com/oldnewthing/?p=111706</guid>
+
+					<description><![CDATA[<p>Just for fun.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251020-00/?p=111706">What about the icons in pifmgr.dll?</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<p>Some time ago, I discussed <a title="What were the intended uses of those icons in moricons.dll?" href="https://devblogs.microsoft.com/oldnewthing/20250505-00/?p=111143"> the intended uses of the icons in progman.exe and moricons.dll</a> and we even looked at those icons (<a title="What were the MS-DOS programs that Windows used the progman.exe stock icons for?" href="https://devblogs.microsoft.com/oldnewthing/20250506-00/?p=111149">progman.exe</a>, <a title="What were the MS-DOS programs that the moricons.dll icons were intended for?" href="https://devblogs.microsoft.com/oldnewthing/20250507-00/?p=111157"> moricons.dll</a>).</p>
+<p>But what about pifmgr.dll?</p>
+<p>The pifmgr.dll file was added in Windows 95. Its job was, as the name might suggest, to manage PIF files, which are Program Information Files that describe how to set up a virtual MS-DOS session for running a specific application.</p>
+<p>Whereas <a title="What were the intended uses of those icons in moricons.dll?" href="https://devblogs.microsoft.com/oldnewthing/20250505-00/?p=111143"> the icons in <tt>moricons.dll</tt> were created with specific programs in mind</a> (<a title="What were the MS-DOS programs that the moricons.dll icons were intended for?" href="=&quot;https://devblogs.microsoft.com/oldnewthing/20250507-00/?p=111157&quot;">list</a>) and <a title="What were the MS-DOS programs that Windows used the progman.exe stock icons for?" href="https://devblogs.microsoft.com/oldnewthing/20250506-00/?p=111149"> the icons in <tt>progman.exe</tt> were created for general categories of applications</a>, the story behind the icons in <tt>pifmgr.dll</tt> is much less complicated.</p>
+<p>The icons in <tt>pifmgr.dll</tt> were created just for fun. They were not created with any particular programs in mind, with one obvious exception. They were just a fun mix of icons for people to use for their own homemade shortcut files.</p>
+<table style="border-collapse: collapse;" border="1" cellspacing="0" cellpadding="3">
+<tbody>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAW5JREFUWMO1
+l1kOwzAIRH10jsbN6IfreGHYnDYSqhQvPAaw09bmI4d5TzRXivv1RcwszCxE5C3y5sk6DuZJCoCZ
+bwAsh9nAmkWdnROuSwEQkafCNUCmHp4NBoQnsQdwpqAln21ToML2LluE2QJEEnpAUU7LBWgCrBEH
+AFaktS6w8orSYdXI6y5Am14A3J0DqLBAVO5cZKHzpLUfjGMACYyeTUTk+3r/7RGK2OaB/N05AMkD
++M6l5NyCUBGv1sf7MLX9mCUQPco/0RwnKgAg57syO8B4t6ozfBBNcwF0BEeuwbwVoIOONfquCGvg
+XOQrMKNzFKi1oaZ2FWgrBFKg3IYXChwSk9sh5RQkFZhKHAqsHZBqQ0uBp+BMULsGTogKwAKBTsfv
+uNpcd0AVQBlwHkWo2jQFUL+YcJ4tCw+i+F5o6i4YJ1zG+TWAdyueR63n3ASghM02I/V7QlgGz4Gs
+89FmNxDhP6PkJ9mbzzL1fADVJciK/mw9JQAAAABJRU5ErkJggg==" alt="MS-DOS logo" /></td>
+<td>MS-DOS logo</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAQFJREFUWMPt
+lgsOgyAMQDl6j8bNUDYbsZbSD0qWjKQh08h7K62S0i8OgFS4eA3aG4+I8NAkzpIIAJQaargO+o1T
+9vq7he+TTqC3z9eM8GAajUgJFxovI8PrnHN+TqAnQq+ZJDwCdP+pUEgAF+Bmy7aoJXChHlSSqYCw
+wNmGenjTYsOuUGfBA5daE9c0ZcEKp7XBFaapFjzwOkuFOaUWJDjtjlAxchIj+NQMUAkNnHs/hAWO
+oYJzGXAVIf2W44Pal9I0gRaOmfBmYAY8jSSkD5axBWH0wOeeFm46mCjgNxE3nB4WjfCbiBDjfxqA
+e47dC+GYsgO4BN4Uzxo4Vzj/8erYAHY23RxJqrw6AAAAAElFTkSuQmCC" alt="Umbrella" /></td>
+<td>Umbrella</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAQFJREFUWMPV
+l1EKxDAIRD36HC03c38aKMloJmxsqeDXFt7Tmqw1+0IA8NNpZi7DW2vuZkeytaYLTPCNYNIdLgmE
+ld+DVRkIdLjUAQmeVJ7BzTwX+Lfy8fcRngpQ+GYASOGhQNW0j3Aq0B88mRF8Eqi4ZBj8PhqTQHX1
+ANYCMBxJJjAejkcF2On8Zgf6GX9H4Boid39HYLzpnhUA5uv2SYE7VOnCWQEMwyfMQibQJWQBBlt1
+4VwHyLtXZoEtHzNcEAghyLswd8AshIcCyC+erAv5EpIsIlL1QhfiFWyxhrHqmMRqFvgCKiyhFX9G
+S3ilgASv3IgkeN2H58bH5/VgRUrxA0n3dhndqyF5AAAAAElFTkSuQmCC" alt="Play block" /></td>
+<td>Play block</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAARJJREFUWMPF
+l2EOwyAIRj06R/Nm7BcN4qdCR9FkWbu5vScgja39N7hdHMzMfEuC9aiWYDSqJAZgtcAEr5RYwu13
+11b+lcTwx0S0hWdLhOFExESUIrGEa4CF996RBJfARUBeMjcqEio4tHotpCU8aQnD9b1IMDOMwEkC
+VrLnXn9uayDaL5YSJ7iNxGle732SeArFG4mdxGkeFJD8rZ52HrjnXdIEIyBbyJOOTHizk76Q2MGb
+NBxUKBkSJ/iTAtnLmRIe+FSMuv2uJLzVHoKjFOioRLfaq5VbCYHbyOwkovChEZkfD9HwSLyBQxkr
+otOA6iILvhXR17ZQs+FQxF4jsU/PBTYtun+UnYxWNVJ6MgVReD1+D4HVdO3fI4kAAAAASUVORK5C
+YII=" alt="Newspaper" /></td>
+<td>Newspaper</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAONJREFUWMPt
+llEKxCAMRHP0OZo3m/0wuhoq22qMFNYyCFU6L4laRf5t1CDsFG7K3AMgAIpEQrSPQmgWDmWCXSmC
+IX6UAtuhFKICNIaAkIzIismGGgaZD9YGIEwpUUSICzn75o9SBekBaMc8QaoxyZRSZ1JLkatRxy/m
++JgXFcMrfecsQrTmtem7FsaKg5I8hugATAmeygfARL4doF39mIjapwy61UgugawtxgaCnINwAsh9
+OIDNwgyEI4CcBnhxBo5FT48dUBRqbk/ClUPI55d8wnwWAp7mo2vZjai3XVZ5Q+9pH4bmeoyrng8E
+AAAAAElFTkSuQmCC" alt="Apple with bite" /></td>
+<td>Apple with bite</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAARZJREFUWMPt
+lgEOgyAQBH06T/NntkS3XZY9FGls0kpyqVhlhoNTp+lgSyktiOnqlqHcemSGpHEzt3meK5kj4t0S
+CgYc5/MxZDgjADnxrmwwyAHRZymerd7LEs/hl92NxoMyrCUQ9fXapkC03jobSGqGXJ/hoUAEZ9BI
+yB5pC+hsXNp10Aiqx93pd+uu6XeVgPH0OBTYWpUBvln7Wh1uEwZl2JbIwbN0VaGzc0sTnd8TKEQg
+E609S0Zw86DqeiraQSKJSOgs/CUhAyy6VEfiFDylEohSwm8DVP3fLZDh71bCEQ4mIL5mDJ7PaQQb
+d/QDpAZlCc3EhV9EN/yGfxG+1naz9D4L9+W3xqWZKDNyw/8JLq/g34c/AKiM0SDl9siqAAAAAElF
+TkSuQmCC" alt="Cloud with lightning" /></td>
+<td>Cloud with lightning</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAPtJREFUWMPl
+l2EOwyAIhd/RORo3Yz8cLVhsaydsyUhM0zTxfX0iKDAZRJDZAUCwMoggLSAiY2FmXi8eQZSLX0Es
+Fw/WtA6gibTBzMLMDkS/p4qbSQVo71Y0BUDtHUz4doLyAaLJdG+rcCIAvg3gHbCJV+5AVF7LHDiW
+Xqp1YBehLfs9wDH6WjENpX/jq90u3J5eLOiAzztib60tRG0p5G4hkgUO7CLR2t/Igc8AIgdKkvDM
+gVKAn3HAipYD+L1Pfw9Q2Ix6gPJm1PcE+yxzIIJIB4g64tV5IOU+oIloC5EFsoAptyGd2BYic1La
+junZV7FwGYIynR4yGI/jBVcT44CTbIlEAAAAAElFTkSuQmCC" alt="Tuba" /></td>
+<td>Tuba</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAASdJREFUWMO1
+1wkSgjAMBdB/9ByNm1WFFrtkLaFOBsdR/iNRBCC4iKgQIBbeWGdoV98UsVIxd2C3juMwETNmO5xb
+EUAPSQ3/bc/ndeepCPPIz4WhGiYBsc6cD5+3foiCoIL6pWstbsHtNT58xWwi/oC+UHeKeoQZCAZw
+hY/vG8PLDbDDNxA8oA/H0AU73EK4AHMHfGNYfyFSF3AVF853wEbEumACuHD5u6AAhDPndgdWhF7S
+GLY7MI7BVxQHFLUDUQQ3BhOghUcB3BhsAK2h8yPUhTAAWnQcIQBgjuENAOwz4TiGDMQewNkFD0IB
+WAhKBUC7HpD/QZ8jDMD7CNLD30fAf3nuQFAMgfgNioXwQX4IPLhNqx8uNqRh+gIehTMQLyYv2MCI
+5V4fEtRo9Mh6n4UAAAAASUVORK5CYII=" alt="Beach ball" /></td>
+<td>Beach ball</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAANVJREFUWMPt
+lkEOwzAIBPfpfho/215CSxzcuggTq+pKXHLwTAi2AwTSWqNXWB0FeRERleAyuIiQhKkiiSt8nHSJ
+M/xzVCBF4grHhAjyJGICZwkAsR3ygtMRwNthTOnCeOq/60CSAKeHcBMB/pQA9xEQkefCXuzzlLOg
+34oW0EvYi2rRaWihmBIIH0IRAYWmvn0vYRf3oEVX8nXolsNHn8Ob+mVwrwslrZ8ZyjL4X2ATAdwv
+oGV3wwGvEdDj2EDZWqmAdkB/vXBPByy4rANHRh0oDbsK5QEa0fIqqX2jnwAAAABJRU5ErkJggg==" alt="Light bulb" /></td>
+<td>Light bulb</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAMRJREFUWMPt
+l1sKxTAIRGfpWZo7S3+aMjUvTb3cHweG0oDxNJqCwESllBpleNSCImUG4cQi8ri9e5/aAKoJQERe
+RzjabGeOb3suAXRyFoBn3fIE0JVgC6EBdAkAWBuuK8MxANPfgSa3OBfArAf4BFbiRmN4c3INwBvr
+PtC9ouvPpdNwll9Bd414bQfAfeC6ghqCvUo6Axj4XIcAcUqABEiABEiABEiAvwEEjGT181ePJiWP
+jyCCB1MfxGw+/GJvOeoP3ekCqppm3+GLvBcAAAAASUVORK5CYII=" alt="Architectural column" /></td>
+<td>Architectural column</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAASlJREFUWMPt
+VlsOwzAI4+gcjZt5P0sXiMlLWX42KlRFjcAYk1Tkbyq46ikAhPcJjzElA1BvKGtUa6nW8Z19YzGl
+x4AIVNUHYI+ExCtPl4EC4LomvEBwXxMa+n5dE1m1IgDAQbCkQvagTe5iStYCdAAQQT7ijdXGtqYA
+MhGy5KFSMwMAmNl4MgigdgyZYEBYqUAXj+v4LRchE4gGwSUMFFAlUWEj+gNCmQjfTlswOFjqFvTc
+6UT90eyVrAndEyIsDNSMuBaQFnaPZrKZt0Q+bLhKpQXZTsHs5URONjNDbGFNOWNg/nLa8BkGGo0R
+w65PM+D9nE0xsPzHxg+VdO+AgfXkbKZ7wTp0yxaAzkwvM7QNIqtmh6Hj4EYMHU+Y3nTfGq3fpXtV
+kH/btRct2mpO0A/r7AAAAABJRU5ErkJggg==" alt="Money" /></td>
+<td>Money</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAMdJREFUWMPd
+l2EOgCAIhTm6R/NmNJtuaaRoD1zR3j8XnwiIRB0LITBapLW0OMYIU7IMwNucqwDSIrQ1R8BD58jd
+Jy0BIBJO+pcaIC9cFgiAl2UA0NuxA8BTdWwB6EfGAUATjf8BSCXmDDCXkMZ9YFyS329E2+8ClC0D
+WFzHpYIexzOLGVByXqCkaLCVWucVgOXOrxLzwWIG1MyGNwB04o1mQwjATOjVAJQ/DYA2AecAAp16
+G2qXI4C8D3YAVA3IqweM7gJ2VGUHb/39KXgDO3oAAAAASUVORK5CYII=" alt="Desktop computer" /></td>
+<td>Desktop computer</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAJVJREFUWMPt
+loEKgCAMRP10P80/u7BSCmZYbZ6jDgaDij3uXBXCL32BOhxYAcB2ALNEMRWML4CjdW/62wBag/Hk
+DOC7ByXGCEbV4QztAKgAJAfOAFkpJWzvdNteBMgXyw3WvQgg7K9ZNSMosrK/KwJL+31EoG29FO3w
+LfAVQa+dLV09q7IFPeVrC4ifY4TGL9So+sXXAq4TB3agEfxsAAAAAElFTkSuQmCC" alt="Keyboard" /></td>
+<td>Keyboard</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAJFJREFUWMPt
+l0sOwCAIRDm6R/Nmrxu7sLEfKGLaQDJb54k4UZEvVCkFD5nNAWqtZgGICMvM2+5ZZq4G2M3f1uH8
+Cd39YAD1AMZJ9wXQ1hQATeunApy1PRQApNNuGAgwPvMwgLZQpzCA5UMYDjBq9xO5AWQUZxRnFGcU
+/yaKzU9yjyg2f0iurp0mFa3fQZyUdVsblv6MULM9euIAAAAASUVORK5CYII=" alt="Filing cabinet" /></td>
+<td>Filing cabinet</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAALFJREFUWMPt
+lksOxSAIRc/SWRo7401qak31lfrrAJKbOCh4egUjRHwhRMQ8epMjYE2Ap6GqBpgnx8zqEOIs1gOg
+qiZwBakCwKmRAKcTVgfINy0gONYJZA7AnRMZQK7SrFJ9ANuOoLJ5DWC8A41K6xxwjOG8Hrhti8lT
+8O9v1k7BjJuw14HtPRAOhAOfvAmHADjfhO6cNsBRUFUfC3B9n9QEWOXEBYAEsFgUL2TboIgIAH5I
+DGmU2PJSVQAAAABJRU5ErkJggg==" alt="Desk calendar" /></td>
+<td>Desk calendar</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAALlJREFUWMPt
+ll0OgDAIgzk6R+vN5tMWJHMDZcwYmzTxJ47PimREN8TMRZoipBcdmYiaHc/MASyqAFYBqLA+gFkC
+vWPtxwCzBEZp1HtbAVS/5AMAkBD5ALUHTBCrAMwQq5rwwusB3DPBA6BnQipAKeUUp0dhAHf1bQAm
+bv4B1v6GopAspq/3YB4DyEV1kdl5WAIAum+ZArA9gVd8gqtGS2nCfxR/HwBAczqA3rftABgmEmUz
+wGBHG+GmAxgoMhETp6GIAAAAAElFTkSuQmCC" alt="Clipped documents" /></td>
+<td>Clipped documents</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAQFJREFUWMPF
+lgsOxCAIRDm6R/NmbkilMYZvQXcSsqbddF4BqQCMGsB4162NbEBEaD4egEEAGU2A8VcANwSZ995f
+iAoAfJ4L4hQAyoTYzTFmM5YAmBBktgKABTD/52xCLsTme9IvAZCxdI9bL8KXZAHMDKzG2nUNUAMw
+M0Dr9Xc3M8xNAFcTSm/q6AmzBLA8lAWQDLWyeAD2DjUBPBHJQAlAZhd8BtCghHmRA5BqHyhJHYDH
+kOmHOwDKtqwH4LZddBKWNGFmEroApFFsfStKAKwUB0bydwBtzCr7/kwTJpQHSCr3NTwJIJ0H8Fp1
+hAAOhu9MCDeknQmvATS5BNek1+mAfmQ3XJCB1IWeAAAAAElFTkSuQmCC" alt="Crayon with document" /></td>
+<td>Crayon with document</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAHZJREFUWMPt
+1zEOgDAMA0A/PU/Lz4KaNiIDCxJyGBzJQkw+SocWeDkGRA92OLMKIxP5pCOslY8Cxn6DmcWKu2fq
+nQqoGQPU1w8BcgeeNcBBQAABBBBAAAEEEEAAPuA+E4IL6CfjQlDLfwHoiJHyAoB9M36YT8ovljD1
+5NrtJkMAAAAASUVORK5CYII=" alt="Pencil" /></td>
+<td>Pencil</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAALBJREFUWMPt
+l90OgCAIRnl0Hs03oylirNSVDewCtm+tZXE8uX4AFgsBSAc4PpUbUgmVrTsEquZbAbbdBkSknJRS
+iey7AkhtA5DZmwDIBccpK7A6gArBa2B0zrLiXs0ArpWPvTYTAL8CaE9dlRmAjAkDYSAMhAEXA+fr
+GHwNsAVsDc4m5GOALdwBemVmQFu4zt7FgFioFx+OMTXAgSmkqYEnFQDLAPq7/2tW/hfIIN06AJZ8
+ipXKG1wuAAAAAElFTkSuQmCC" alt="Pencil with document" /></td>
+<td>Pencil with document</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAM1JREFUWMPt
+llESgCAIRDm6R/Nm2080iqtill/sDNOMiLyQNJFQKESUUsKK7cY1yXPOAOB6ighEBKtxADS2n3y2
+eM9vfSz5XQF0kxcT6CIjOBvL/BXAybKbHqgBPGaTe80mfwC0vF4pwKo6X8F5gLKCFYAOzIAsAIvr
+jQ0B1DF7OzuHxbGxEoBuwakKuHpgBHOkCUfbsQNQ7v9nFVjZAjfACGanCZvkegp6mk4X+6IJm0to
+pwIvDyJxA/zQhPwH5O/LiCYvhEV7ExcKhagujh7DWEsPbS0AAAAASUVORK5CYII=" alt="Dice" /></td>
+<td>Dice</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAMZJREFUWMPl
+lw0KgCAMhT26R/Nm1ciHM8xW7SfowaOglZ9zrUypKue8eHgbakkj0UVriQBKKWYWA2innT9XDFAD
+VfwY4Hp2SRT3CoAmcGYAzGMcAUj8HJXvAjB79dQB2sNbkUF0v0kGkN5+dn2Vk10yQN7jeA307dy9
+BkaVHwYQ9hoaAGjY8FvQMjCLebkEvLuF1AAUDjACcQU4tlg3ALRXfsQ5b8WmGUB7xeDuS/DnTvgB
+gLDfcm3dAgjbGYVuTjV3QgJ/RyuLghCS5rzX4gAAAABJRU5ErkJggg==" alt="Window with clouds" /></td>
+<td>Window with clouds</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAARJJREFUWMPt
+lwsOgyAMhjk6R+NmbKBdSukLApItIxKjEPv59wGEGGN+ogeplcGdLaVUjP8IwP2hph8BOK7A3wW0
+aem3HeBjhJl/5/8+AGqcuyOItTHQGRfiw4SYLUQAAEaoUXiukKsBqPFGAeYZrQfZBLBSDMufka8t
+BYYAcARzxo8pgOEkBZoOhWilAu4YIKm41AUwrsUA3AvoUBp6gpANREGBYYCRBlHeuYOsERU4OF0w
+A4Gzg+wDLyXfVwFgITwu4FzSlVyhFBejVSEJQgpC7p02Js2rMaBBeBXgACxV8IZEhJhVwDsPb0go
+xBCA528tAIBQFXjoXCDHwPGDiVYBZ959x9EMyumurgKw6/iezrYXzElh3IGft2oAAAAASUVORK5C
+YII=" alt="Eye chart with magnifying class" /></td>
+<td>Eye chart with magnifying class</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAARRJREFUWMPF
+l4EKhDAMQ/10P80/UwZWQi9pO912BTk80by0oei2Tap93087ttXVRK2O45gP4t223ybcjukgyq0B
+TAfJ3CqQG+Ac0vqKW7wOHTiHtJ5BMLfDAbwIg0CxYQBeLIJYAhBBDAcwgfvmFGIpAINAMVxYXQB4
+EwsawnjHeI5wZQBMuz2wCuDddo+ApT3qROa2C0AlPVqzmVgZQDnELlTS/gqAPRxnjF1QaX8NgIFT
+AP66mnM3gAqcGoOBRe6J2POfnYeBq6TdC0Qj+BGuBo49kAGU3JKSS0UlPRInqzbddhLAhyxas19f
+w9MxVMS/vN5JANZ2Mu8hVRLvne9rgER8WmVpn15q5kvrme9fvmxX1wVe2O/5ORsX+wAAAABJRU5E
+rkJggg==" alt="Dominos" /></td>
+<td>Dominos</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAWhJREFUWMPF
+lwsSwiAMRHN0jtaboUBTl3yAULWZydQWZF+XAEq0ESmlXJKeiCLM8b7NP4OzBkJxCcH9R3Bbb8kD
+94Onmtjugd0GYJFe3BZGsG0IKWbde8IFrGW6DyDFZ8I4Vas5nXvrs/XGrZ1kFUzvlUMsNJuGj9UI
+UBvzcRzXVSa2qynyxKWIDyAeWg6I9i0AdKUN8GnDt3OtZxfQAa/SWwcNgYKlDzvAA89qoPUjDYAV
+jQLyebmyGPfBgWfF1zngbTJIuwqx5YC3xDwIuTy1E0EHzrhs9JafBdFgSfUJ1wCEArEg5KmH0UOs
+O+CCSMHyZbGdmifhrgMKhEWsI9eL2VSsOGAcTjEIou84QFjpEYivOkBi+4xPw00HWLjfaDYguDit
+03B1CqIQ1cF0rqrRaRiBiEQV5zzFQzVgQYTEM2kI7xfRKsQolXgWENTlVuRR1sIbi//6v9uT4hLg
+7+II8Zg4QiyIvwAbu8VP5SHLVAAAAABJRU5ErkJggg==" alt="Hand holding playing cards" /></td>
+<td>Hand holding playing cards</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAASpJREFUWMPV
+llsSwyAIRVk6S8vO6E9JCL0giplOcBinzeMeEDFEbzNmFmYWIrr597/nhZE48P3CasdxnLPCWDgH
+uFccQSAoB7IuTkQS2aMQNo2ZIXH1LsS5tpGwXovEbY1MAdjCQmZfOoIAO2Z97UFEPxA+A0vbUx/O
+IkcQg/TXICJxjbACkKS/BmDX1Ff7XzKAOl9FPMlCPQPRPrcCNvX+moUo9QPberMmEznKwFRDQpGN
+xK1oJl7uiH7ddkQ+1Y6rACjyVvrRWRBBeFG0M1qHEcpCFHHWG7YdybPiFqD7ZZSu9dPit3pAhRaJ
+n7+ZhGQVQtwICgy2XXY+BSHB0Jdln+MciJchJBnsQArOzNdzbQABERkRP8P7W0uQQJTmdhF2YDZs
+xLXxBvsAV+eVd4eGsKUAAAAASUVORK5CYII=" alt="Soccer ball" /></td>
+<td>Soccer ball</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAANJJREFUWMPt
+l10OgCAMgz06R+NmKA8zYzgoMCT+NFk0EdNPHBW37SlyzgWkppkj8t7bQ3BzMtCKxhy3BXMA9nSX
+FRWvTwNg5prQcS8AUDrfFqDWbKRoZr4stWVHjUjn1HDxqKkZQhpQ1QJIjpf3mk89nwEwIcNQ4mnr
+n5qvkox1CCRuZSqWzJsg0Ky3ALiEQAHkq0AlARKIFvNeFWdhFcAJ8QN8DiBrxBUzkITSZ3vgthzg
+n3IVoLShsDIXxvm3oLSh6K2mfQH66zVSyKYkTK5fmXZt75RwjLj7hQAAAABJRU5ErkJggg==" alt="Purse" /></td>
+<td>Purse</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAYJJREFUWMPF
+l1uOwyAMRb10L42dnfmITU1iCA9NixRVJcT34RsiRCaGqiK/HF8hgMAA3K+fqd8iEEX1BL66sEMA
+W1tKAYRSCqUUEAEm6yBwA58i4QAIFdTJiM2pKjVXXLLJFDgBc+aVgDvozyNiJMC0o6r4yMMdLLJC
+qL47EMGjcrEWiN13AtdcrHfrDcZW9eKuWp2ib7uD2az9egai+ieBQfhuDjCyO4qJgYsEUvBayDJx
+LRbLgAHX/zfwCIiQObqk3sNSAZHh28CjWP46q+oCuKSgtR08LUyVO3gATuxHiKxdfdN7qIGUHriQ
+bjSJoO4uUtXH9D8cIGQCuso76mf2foLdtOybPMReT33MWP34NC1IgwiMwDfUN+o6wM29FTFzBJ4b
+D2GOqaLL6j/v6jN8vUC+EdjufQbUAU+Lb6sfALxdZ+pXCWQfp6+pH+ThXP1s73th3FJ/kP6UwBb4
+QfrDugP1B+lvCJwcYHbTf6Z+hcgo/f9xfJvefMIh43fnxxPwP47FTRWtAoABAAAAAElFTkSuQmCC" alt="Wizard's hat with wand" /></td>
+<td><span style="text-decoration: line-through;">Decorated tree</span> Wizard&#8217;s hat with wand</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAASJJREFUWMPF
+llEOAyEIRDk6R+Nm048uBg24rOKuCelPZV6mU5AoOMwMIgJ9dZgZAH0GASLCHwKvQ8DWq06Y370V
+gHecGESauJ6jTqi4iDQI7xxzgpmbeARwOhMQkc4BC+EHs9YJKMQo5tWJTEzF5sGscaKz14rlgrnh
+xPj3E5EGcRfM63u05YRetiKahVkwVXx7d8wAomCO4oGbawBe8Jyq3aLeGI6CudBvbRFFwTz9nnCn
+IAAwUVjVr6o+7ZcIxs/rqDtRMJcHkwq3WRAAlIGMttohlAHYAtHG1ZXJyR6AcScL44tjTl/hQAjC
+wcVuEC2Kz3o0CL65uAKR7cFEIGeohDuBk/WkR/gislMw80zb6DEfx9ktWN3j0Qo+1WNHPN3jBz70
+L9U3hd/uAAAAAElFTkSuQmCC" alt="Race car with checkered flag" /></td>
+<td>Race car with checkered flag</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAUpJREFUWMPl
+lwEOwiAMRXv0Hm03Q2H77LfABDY3E0mq00Dfo8CmIuMtyMMtPA0Pj0moPg+X/xQg+O8IqGqI8XUh
+B08CERzbiAAJnxMAvEcAUD+mW6QGX5ZlzRQr0bgneGhsedyIBAsAnhK9oTUBD0Z/3Lzi9cjeOYQj
+GW/KI7CvQLdAC86JAG+BZwRykrzuDs5rCXgLzGOmKsBwnj3P+lPw8vQe3bC9GDjWfgQ+s/5GgMFI
+NgI/JQDozKwvE7gKPrL+4s/3LHx29lI737cKXAWfErgSPiyQHxbxgUeRb7MNMd9vegNmuGwBCbHv
+XhINEn4CneWPnTRBuAHa+szwal8zETCq8DIxz3BNtiXIyRxEtKyaF8l5vADDeJBAQItrcb96+Pu9
+by2vEdC6bSP28qqtiEle7o0yd5LQBkhtybui0r9Yex/2D+ft8QKyLvygzT0q1AAAAABJRU5ErkJg
+gg==" alt="Cruise ship" /></td>
+<td>Cruise ship</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAXFJREFUWMPN
+l1uuAyEMQ7N0lsbO3I87ocE4PDrtbZEQnUfiQxxGqtmvj1IKfH5FPI4TmFvQHhyHAQPMDvgxBAsD
+QK0VtdYGYaIiLsTxtdYzCz0Bi9mVLF4ri1SsQ5gZlo0Wk6pEXAF1rWKXAJnfWdkZxqjscQ0WYFvc
+feeEPDnGaKUemQNku5klzZ77dft9Wn7etYnyq5Pg+fh3CnCNocRdcGgwFlDiEZCO4RzCzNKk3FSq
+H9jOeH8HQIKwgN8r/l5Ym9ehJ5ZNOAPhhmtTiCuIO+INIkmyBfGSeHkm6ywxcW8XYhugmAHX3Ajq
+RAHkdiTHf3gWAU4hAMx7IgNQQTsQbpW/r/Jkc6jASXA3+Xsh4ON1KQbgbx0sYAgspifooPuu7/K4
+uAMM4pFaVULtLj0FohoJAAY/ySvYxJYVxGjZU1ydAoi5er6EyPLe+TrK47SA2PsOvCrednUI8Y6R
+fqYXdn7239S/Cs4s+db4CYjt8QC+FkayG/hU4wAAAABJRU5ErkJggg==" alt="Biplane" /></td>
+<td>Biplane</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAATFJREFUWMPd
+12EOgjAMBeB39B6Nmz1/SKEtpWzDQSJJoybG962bUoEHLxGhFgC+EuwA38fwZoCxqg/uWK0v0gM0
+jEllIBEhSWarO4SSe2B8ruEEmF5toKxsO3ywe23CBeCyLFu1YNi6ZTbUYUx4rBFMBtpQunrbhdiB
+s7KYFNSISk89wxmoIM2gAuLOSHryOyCXoCuEFG2zVw/GgjaEwcQusETcxGSALoT+qAxhRNLw9CzA
+qq8AJxgFDR1GRSCsAC3b01ln4UfICpA7gY3tr+52visd2zG6+gwAe6ORVlDy09w1iBSTCyvQxd0S
+vwCUINwJHQifN8e9A1iHhecBYWbbADq3PR3uAFqTNvswqR5m9zjFTgFUHbDv+V+Ab/Pe/ulbkP1j
+OZvhp38LsuDp4S9fH0STzL61ilwLAAAAAElFTkSuQmCC" alt="Inflatable raft" /></td>
+<td>Inflatable raft</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAPlJREFUWMPt
+l0sOwyAMROfoc7TcbLJoAONAxE9EquJoFt3Yj5g8qUBjkdRIsKJISpKO42iOpACg14ZPA4ThveVW
+IMzs2Z7eNMxCMnsDHqD5XvgTW4DQLJSHshC14Qb6+S3YRu4y3U7uh9Wgwu+mldhGkgQgNQGkKxbi
+CaBruL8LHkAutvkyAAsxCzA0vOSAuPcCgF1FCWDYBSUJkRQvEBYuo/8Kloiox4IlD3wi+g8RpaaQ
+9MtWEaUV5NkmolGA9SLiHWC/iIiYRhHpE9Enom4R1T5DEIrPGyK6PbtF1AuwXETZCt4SEYiUioim
+JWQBev4NO4AlpcE01QlJMjTT8QZwDQAAAABJRU5ErkJggg==" alt="Traffic light" /></td>
+<td>Traffic light</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAUlJREFUWMPF
+lwEOgyAMRTm6R/Nmbpg1efsWtFC1iZHNaF8/bYFS1JayHf5alq1e3+Hh2T0GCHNebV3XGyAYsTM2
+59Xx8xBQgfYDeAfCFEBOTMKcOBbbnVWIejmqJED42V804vqbEOm5wXln1Oa03g2Qz4YgGGlrzjVa
+3qlKGIBR6Mv2Qa0CmkHIFMWltijtA5T2zHRaQhAaHSAuOU+HIEDEuTmdgmDkEQDLATapIQi+HJXf
+VGTipkxHRAGOhyFGAFiKul6EGxRbLJtQC0azP00Fknvtl5XiQUypYAlJcpVZu585YTkSargqNFKV
+mh9W51zMWu0+XB0eBNVo5YlBTG1uPYjeQqVrzLQKHsQVECZhyhbfg9Bp0UTMaNOXIDQP9uop/xWT
+dtDRQ4vU+6E0nerK2z/2QB470nkgz54pGyCvQHg76/KSdZ1/AI4+k8hJ+UD3AAAAAElFTkSuQmCC" alt="Rabbit" /></td>
+<td>Rabbit</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAPJJREFUWMPd
+lkEOxSAIRDm6R+NmdFMbPkEdEF18Ela1vgHHUiIghEjoZlhgVkBrTXSmRUQFdKAOZhZC9qkE6+pF
+BBPggZEWjsApAVoEskF/7oHNu7KEjqofiVjBQwImxyBOhuDvEeY84C+hJTwlAHT+1wkUHuoA4na1
+YW37Ubip6nz1M8NZERa+LQBxuzZmhzPzHbhXOTPvC6iAXxHgwa9VP4IbATEh1fBwN6Lf+BU8JOAU
+vERAj4XhfuApM9r/OQ0etNUF794EAfNbb8FlQwgRa8FX4ZPZ8Cfw2fRLeCX3SbbujuTWTUAmIZqn
+r+O5YzgZD/cAiKf8TvhvAAAAAElFTkSuQmCC" alt="Satellite dish" /></td>
+<td>Satellite dish</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAARdJREFUWMPt
+lVESwyAIRD26R/NmtCbBIKIRpeSnzmQ60+Duc0UTwn+wEWMA6XHRyQUA8vN9DRrzc7S/XQhqfplV
+zywE6vQ0RAhufhXAQHi4cm5A4m8haFyneaT7BXqAeoWon1I6tBsIKpwLciG+pBArCdS9gJo3BAGA
+Ej2fgP9rE5DN635oEuhT93uDA6ABhRa2VE5AipKKzh/DWEEI4G0C3KheeSx7N2OOTSekRra6OQnh
+mIQTb1IozfkEgead+qLfvQukqB9EtXU0Fc29Phafhdz8SMkmLuYjCDdzCcLd3HXPV3rBNX5u/koD
+up2CV+8B45vwt91uCrEqZgKxK7I13yrGJR3rRlLrCYVgcYo0CzIzdtZeHx/YF9cg3mlecQAAAABJ
+RU5ErkJggg==" alt="Crossed swords" /></td>
+<td>Crossed swords</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAVtJREFUWMPt
+V9EShCAI9NP5tP6MyzNsRSDNerpjhslRctcNMVMCI0oceXKMiDh7WjEBYfbdIpGBxWZIHLHcgR+d
+psN4XbXYtm2VRKSIGj8JtJOn74QlsPRLW+I0cH5KGxXRrtTiDvwkxCg7vHjGZ8A9uhLIbSGiySBh
+WdwUgfNFjM+TcEMAHcmIS/80AZm0jd8VUQqUVCljmpCMNwS8HOgJsAmuFRDw6NkRwJ1QEs6tAx14
+pID3NAmAcewt+GMKWMUFAzXomwqYBDzwvwK/o8CTdouAVVax5kfjlt/IAXLdOwssXyAQfFsgEOUK
+fv/5HAhI6CR0SRBdr/5NBYbkf1OBIfmjJFxSYFT+eBfcV2BY/qgOuCQuFJgCjyoh7vVRBabB3bMA
++tqiYyswXPXGc6C9BSER77d8KONnCEQ3ogCYb9wT6fLUsogsA2uAIms8kXHXWwM2/pDfiK32AR5Z
+F/QkWzKoAAAAAElFTkSuQmCC" alt="Sword and shield" /></td>
+<td>Sword and shield</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAQBJREFUWMPV
+V1ESxTAEdHRHczPvKzOSIqiOeWby0TbNLpYqwD8YIvI4gQyJdsKIyMwcIpElmyJARLwA5KoQTYdf
+EgCAbRl72sS3gZzg8jkR9RHwwDwSY+DKyuf5EFbU2z4SS0SW2CS4J8oSAa3cEoJzo6SV7LXk3qZg
+nbMsJM4m8dXL0iIQFebrsrS6nKWLTyohKrioEKuf3aunlVJ0U5I48EHC2b81OWaQe2tN6BYdeb1A
+z3fEPb0NZxUvAR0nrFSbllZ8dCY4IgNXEhl93KYixZGrpRXvqT3jvTWUhmr9JGCk8JuxvM3zrjm/
+7HnfSD8AbHg/+ls3R2A0BaKhqfYDwCQszujIy1AAAAAASUVORK5CYII=" alt="Flail weapon" /></td>
+<td>Flail weapon</td>
+</tr>
+<tr>
+<td><img decoding="async" style="border-radius: 0; image-rendering: pixelated;" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAS9JREFUWMPt
+llESwyAIRDk6R8vNth+VBBFREu20M3WGr6a+XUCUSC1mwkzQjiWbA3EUAXtElI3PMEAd+5dkY7fj
+v4DvEsDMuKIWUP/2juXw4zjOsJ2vwQDWZsXCowAg7rEMnlkq/fi4e1P/3xDARODo250CmAgoQUVI
+I8YTIJAnAjSc5W5RYkIBcuzuCojgPCtgpgS9byiAN2XwBtCoByK4zArqOG/K4IxXd+xm4DYbozIg
+Ey683rQx4cFLttsXUfaS0Q0H5VSLIAfeFZB5donzqNvNqZmCU/acV+9IUw6vd7oPUqv0jnPvGp+B
+0wiacY5EzbsZGAmInPMNuO6DmR5wYVZMFt47BZgtwxPnVRnUH92Lhzc4b7KgHqZVFvSIXek8rnPJ
+StCky+GPJmRmvQC96kVFblVzIgAAAABJRU5ErkJggg==" alt="Dynamite and plunger" /></td>
+<td>Dynamite and plunger</td>
+</tr>
+</tbody>
+</table>
+<p>I don&#8217;t know if it was intentional, but I find it interesting that clouds were the theme image for Windows 95, and we have a window with clouds. At the same time we have an apple with a bite, but the bite is on the <i>left</i> hand side, as opposed to the right hand side in the logo of Apple Computer.</p>
+<p>Coincidence? Tip of the hat? Subtle jab? You decide.</p>
+<p>The post <a href="https://devblogs.microsoft.com/oldnewthing/20251020-00/?p=111706">What about the icons in pifmgr.dll?</a> appeared first on <a href="https://devblogs.microsoft.com/oldnewthing">The Old New Thing</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://devblogs.microsoft.com/oldnewthing/20251020-00/?p=111706/feed</wfw:commentRss>
+			<slash:comments>14</slash:comments>
+		
+		
+			<image url="https://devblogs.microsoft.com/oldnewthing/wp-content/uploads/sites/38/2025/10/banner-oldnewthing-blue.webp" type="image/png" />
+	</item>
+	</channel>
+</rss>

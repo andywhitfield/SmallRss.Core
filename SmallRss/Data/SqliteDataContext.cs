@@ -28,6 +28,12 @@ public class SqliteDataContext(ILogger<SqliteDataContext> logger, DbContextOptio
                 Database.ExecuteSqlRaw("ALTER TABLE RssFeeds ADD COLUMN LastRefreshSuccess BOOLEAN");
                 Database.ExecuteSqlRaw("ALTER TABLE RssFeeds ADD COLUMN LastRefreshMessage TEXT");
             }
+            columnExists = Database.GetDbConnection().ExecuteScalar<int>("SELECT COUNT(*) FROM PRAGMA_TABLE_INFO('RssFeeds') WHERE name = 'DecodeBody'");
+            if (columnExists == 0)
+            {
+                logger.LogInformation("Creating new column DecodeBody");
+                Database.ExecuteSqlRaw("ALTER TABLE RssFeeds ADD COLUMN DecodeBody BOOLEAN");
+            }
             logger.LogDebug("RssFeeds table is up to date");
         }
     }

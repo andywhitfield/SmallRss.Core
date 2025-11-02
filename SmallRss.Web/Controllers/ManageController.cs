@@ -139,6 +139,8 @@ public class ManageController(ILogger<ManageController> logger,
             return View(nameof(Edit), vm);
         }
 
+        await rssFeedRepository.UpdateDecodeBodyAsync(rss.Id, !string.IsNullOrEmpty(saveFeed.Decode));
+
         feed.GroupName = (string.IsNullOrWhiteSpace(saveFeed.GroupSel) ? saveFeed.Group : saveFeed.GroupSel) ?? "";
         feed.Name = saveFeed.Name ?? "";
         feed.RssFeedId = rss.Id;

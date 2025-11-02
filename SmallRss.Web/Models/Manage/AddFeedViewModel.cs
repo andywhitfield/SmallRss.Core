@@ -10,5 +10,6 @@ namespace SmallRss.Web.Models.Manage
         public string? Url { get; set; }
         [Required]
         public string? Name { get; set; }
+        public string? Decode { get; set; }
     }
 }

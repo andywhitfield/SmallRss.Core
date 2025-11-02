@@ -11,4 +11,5 @@ public class RssFeed
     public DateTime? LastUpdated { get; set; }
     public bool? LastRefreshSuccess { get; set; }
     public string? LastRefreshMessage { get; set; }
+    public bool? DecodeBody { get; set; }
 }

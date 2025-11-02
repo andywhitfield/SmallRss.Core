@@ -29,6 +29,10 @@
         <input type="text" id="name" name="name" value="@Model.Feed?.Name" />  <input id="fillNameFromFeed" type="button" value="Fill from feed" />
     </div>
     <div class="manageForm">
+        <label for="decode">Decode body:</label>
+        <input type="checkbox" id="decode" name="decode" value="decode" @if (Model.Feed?.DecodeBody ?? false) {<text>checked</text>} />
+    </div>
+    <div class="manageForm">
         <input type="submit" value="Update" />
     </div>
 </form>

@@ -10,6 +10,7 @@ namespace SmallRss.Web.Controllers;
 [Authorize, ApiController, Route("api/[controller]")]
 public class ArticleController(ILogger<FeedController> logger,
     IArticleRepository articleRepository,
+    IRssFeedRepository rssFeedRepository,
     IUserAccountRepository userAccountRepository,
     IUserFeedRepository userFeedRepository,
     IUserArticlesReadRepository userArticlesReadRepository)
@@ -21,10 +22,13 @@ public class ArticleController(ILogger<FeedController> logger,
         var article = await articleRepository.GetByIdAsync(id);
         if (article == null)
             return NotFound();
+        var feed = await rssFeedRepository.GetByIdAsync(article.RssFeedId);
+        if (feed == null)
+            return NotFound();
         return new
         {
             Id = id,
-            Body = HttpUtility.HtmlDecode(article.Body ?? string.Empty),
+            Body = (feed.DecodeBody ?? false) ? HttpUtility.HtmlDecode(article.Body ?? "") : article.Body ?? "",
             Url = article.Url ?? string.Empty,
             Author = article.Author ?? string.Empty
         };

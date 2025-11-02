@@ -13,5 +13,6 @@ namespace SmallRss.Data
         Task<List<RssFeed>> GetByIdsAsync(IEnumerable<int> rssFeedIds);
         Task<List<RssFeed>> FindByLastUpdatedSinceAsync(DateTime? lastUpdatedSince);
         Task RemoveWhereNoUserFeedAsync();
+        Task<RssFeed?> UpdateDecodeBodyAsync(int rssFeedId, bool decodeBody);
     }
 }

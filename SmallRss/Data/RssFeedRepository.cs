@@ -50,5 +50,20 @@ namespace SmallRss.Data
             _context.RssFeeds!.RemoveRange(_context.RssFeeds.FromSqlRaw("select * from RssFeeds where Id not in (select RssFeedId from UserFeeds)"));
             await _context.SaveChangesAsync();
         }
+
+        public async Task<RssFeed?> UpdateDecodeBodyAsync(int rssFeedId, bool decodeBody)
+        {
+            var rssFeed = await GetByIdAsync(rssFeedId);
+            if (rssFeed == null)
+                return null;
+            
+            if ((rssFeed.DecodeBody ?? false) != decodeBody)
+            {
+                rssFeed.DecodeBody = decodeBody;
+                await _context.SaveChangesAsync();
+            }
+
+            return rssFeed;
+        }
     }
 }
