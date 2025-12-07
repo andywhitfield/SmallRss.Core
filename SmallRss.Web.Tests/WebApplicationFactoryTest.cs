@@ -1,4 +1,3 @@
-using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -45,14 +44,14 @@ public class WebApplicationFactoryTest : WebApplicationFactory<Startup>
     public async Task<HttpClient> CreateUnauthenticatedClientAsync(bool allowAutoRedirect = false)
     {
         await CreateTestUserAsync();
-        return CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = allowAutoRedirect });
+        return CreateClient();
     }
 
-    public async Task<HttpClient> CreateAuthenticatedClientAsync(bool allowAutoRedirect = false)
+    public async Task<HttpClient> CreateAuthenticatedClientAsync(bool allowAutoRedirect = true)
     {
         await CreateTestUserAsync();
-        var client = CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = allowAutoRedirect });
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Test");
+        var client = CreateClient();
+        client.DefaultRequestHeaders.Add("TESTAUTH", "true");
         return client;
     }
 
@@ -63,9 +62,9 @@ public class WebApplicationFactoryTest : WebApplicationFactory<Startup>
 
         await using var serviceScope = Services.CreateAsyncScope();
         var context = serviceScope.ServiceProvider.GetRequiredService<SqliteDataContext>();
-        _testUser = context.UserAccounts!.Add(new() { Email = "test-user-1" }).Entity;
+        _testUser = context.UserAccounts!.Add(new() { Email = TestStubAuthHandler.TestUserEmail }).Entity;
         await context.SaveChangesAsync();
-        context.UserAccountSettings!.Add(new() { SettingType = "Email", SettingName = "Email", SettingValue = "test-user-1", UserAccountId = _testUser.Id  });
+        context.UserAccountSettings!.Add(new() { SettingType = "Email", SettingName = "Email", SettingValue = TestStubAuthHandler.TestUserEmail, UserAccountId = _testUser.Id  });
         await context.SaveChangesAsync();
     }
 
@@ -75,17 +74,5 @@ public class WebApplicationFactoryTest : WebApplicationFactory<Startup>
 
         if (disposing)
             _connection.Dispose();
-    }
-
-    public static string GetFormValidationToken(string responseContent, string formAction)
-    {
-        var formStart = responseContent.IndexOf($"<form method=\"post\" action=\"{formAction}\"");
-        if (formStart < 0)
-            throw new InvalidOperationException($"Cannot find form with action [{formAction}] in response: {responseContent}");
-        var validationToken = responseContent.Substring(formStart);
-        validationToken = validationToken.Substring(validationToken.IndexOf("__RequestVerificationToken"));
-        validationToken = validationToken.Substring(validationToken.IndexOf("value=\"") + 7);
-        validationToken = validationToken.Substring(0, validationToken.IndexOf('"'));
-        return validationToken;
     }
 }

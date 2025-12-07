@@ -1,18 +1,17 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using SmallRss.Web;
 
-namespace SmallRss.Web
-{
-    public class Program
+var host = new HostBuilder()
+    .ConfigureWebHost(webHostBuilder =>
     {
-        public static void Main(string[] args)
-        {
-            var host = WebHost.CreateDefaultBuilder(args)
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
+        webHostBuilder
+#if DEBUG
+            .UseKestrel()
+#else
+            .UseIIS()
+#endif
+            .UseContentRoot(Directory.GetCurrentDirectory())
+            .UseStartup<Startup>();
+    })
+    .Build();
 
-            host.Run();
-        }
-    }
-}
+host.Run();
