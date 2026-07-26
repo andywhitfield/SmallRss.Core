@@ -209,6 +209,7 @@ function updateSelectedFeed() {
         $('.article-title-header, .article-summary-header, .article-date-header').click(toggleAllUnreadSortOrder);
     $('tbody > tr > td.article-read button').click(toggleArticleRead);
     $('thead > tr > td.article-read button').click(markAllArticlesRead);
+    $('tbody > tr > td.article-link button').click(openArticleLink);
     $('button.show-all-articles').click(showAllArticles);
     if (smallrss_config.connectedToSave) $('.article-save button').click(saveArticle);
 }
@@ -217,7 +218,7 @@ function buildFeedArticles() {
     var isAllUnread = feeds.selectedFeed.id == -1;
     var feedHtml = '<div class="feed-title' + (isAllUnread ? ' feed-title-all-unread' : '') +'">' + (isAllUnread ? feeds.selectedFeed.item : (feeds.selectedFeedGroup.item + ' &gt; ' + feeds.selectedFeed.item)) + ' (' + feeds.selectedFeed.count + ')</div>';
     feedHtml += '<table class="article-list">';
-    feedHtml += '<thead><tr><td class="article-title-header">Title</td><td class="article-summary-header">Summary</td><td class="article-date-header">Posted</td>' + (smallrss_config.connectedToSave ? '<td class="article-save">&nbsp;</td>' : '') + '<td class="article-read"><button class="image" title="Mark all as read"><img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark all as read"></button></td></tr></thead>';
+    feedHtml += '<thead><tr><td class="article-title-header">Title</td><td class="article-summary-header">Summary</td><td class="article-date-header">Posted</td>' + (smallrss_config.connectedToSave ? '<td class="article-save">&nbsp;</td>' : '') + '<td class="article-read"><button class="image" title="Mark all as read"><img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark all as read"></button></td><td class="article-link"></td></tr></thead>';
     feedHtml += '<tbody>';
     for (var i = 0; i < feeds.selectedFeedArticles.length; i++) {
         var article = feeds.selectedFeedArticles[i];
@@ -231,6 +232,10 @@ function buildFeedArticles() {
         if (smallrss_config.connectedToSave)
             feedHtml += '<td class="article-save"><button class="image" title="Save to Raindrop.io"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Save to Raindrop.io"></button></td>';
         feedHtml += '<td class="article-read"><button class="image" title="Mark as ' + (article.read ? 'unread' : 'read') + '">' + (article.read ? '<img src="' + smallrss_config.imageroot + 'images/markunread.png" alt="Mark as unread">' : '<img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark as read">') + '</button></td>';
+        feedHtml += '<td class="article-link">';
+        if (article.url)
+            feedHtml += '<button class="image" title="Open link" data-article-link="' + article.url + '"><img src="' + smallrss_config.imageroot + 'images/link.png" alt="Open link"></button>';
+        feedHtml += '</td>';
         feedHtml += '</tr>';
     }
     feedHtml += '</tbody></table>';
@@ -356,6 +361,13 @@ function toggleArticleRead() {
 function toggleSelectedArticleRead() {
     if (feeds.selectedFeedArticle == null) return;
     toggleArticleIdRead(feeds.selectedFeedArticle.id);
+}
+
+function openArticleLink() {
+    const articleLink = $(this).attr('data-article-link');
+    if (!articleLink)
+        return;
+    window.open(articleLink, '_blank');
 }
 
 function updateSelectedFeedCount() {

@@ -149,7 +149,8 @@ tr.article {
     text-align: center;
 }
 
-.article-read {
+.article-read,
+.article-link {
     width: 42px;
     text-align: center;
 }

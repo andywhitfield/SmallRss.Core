@@ -3,7 +3,7 @@
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="*"/>
     <PackageReference Include="Fido2.AspNet" Version="4.0.*" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.*" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.21.*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmallRss\SmallRss.csproj"/>

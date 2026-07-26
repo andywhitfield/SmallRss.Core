@@ -93,7 +93,7 @@ public class FeedController(
         }
 
         foreach (var article in articles)
-            yield return new { read = readArticles.Any(uar => uar.ArticleId == article.Id), feed = article.RssFeedId, feedInfo = id == -1 ? GetFeedInfo(articleUserFeedInfoForAllUnread, article) : null, story = article.Id, heading = article.Heading, article = HtmlPreview.Preview(article.Body ?? ""), posted = FriendlyDate.ToString(article.Published, offset) };
+            yield return new { read = readArticles.Any(uar => uar.ArticleId == article.Id), feed = article.RssFeedId, feedInfo = id == -1 ? GetFeedInfo(articleUserFeedInfoForAllUnread, article) : null, story = article.Id, heading = article.Heading, article = HtmlPreview.Preview(article.Body ?? ""), url = article.Url ?? "", posted = FriendlyDate.ToString(article.Published, offset) };
     }
 
     private static object GetFeedInfo(ILookup<int, ArticleUserFeedInfo>? articleUserFeedInfoForAllUnread, Article article)
