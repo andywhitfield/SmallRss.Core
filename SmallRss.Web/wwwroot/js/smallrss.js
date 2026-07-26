@@ -412,6 +412,7 @@ function updateSelectedArticle() {
     feeds.selectedArticleSection.append(buildFeedArticle());
     $('.feed-title').click(backToFeedArticles);
     $('button.toggle-read').click(toggleSelectedArticleRead);
+    $('button.open-article-link').click(openArticleLink);
     $('.next-article').click(markCurrentlySelectedArticleAsRead);
     if (smallrss_config.connectedToSave) $('button.send-to').click(saveCurrentlySelectedArticle);
 }
@@ -439,7 +440,7 @@ function buildFeedArticle() {
     }
 
     articleHtml += '<div>';
-    articleHtml += '<div><span class="article-info">' + articleSummary.posted + '<br><em>' + feeds.selectedFeedArticle.author + '</em></span><span class="article-actions">' + (smallrss_config.connectedToSave ? '<button class="send-to image" title="Send to Raindrop.io"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Send to Raindrop.io"></button>' : '') + '<button class="toggle-read image" title="Mark as ' + (articleSummary.read ? 'unread' : 'read') + '">' + (articleSummary.read ? '<img src="' + smallrss_config.imageroot + 'images/markunread.png" alt="Mark as unread">' : '<img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark as read">') + '</button></span></div>';
+    articleHtml += '<div><span class="article-info">' + articleSummary.posted + '<br><em>' + feeds.selectedFeedArticle.author + '</em></span><span class="article-actions">' + (smallrss_config.connectedToSave ? '<button class="send-to image" title="Send to Raindrop.io"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Send to Raindrop.io"></button>' : '') + '<button class="toggle-read image" title="Mark as ' + (articleSummary.read ? 'unread' : 'read') + '">' + (articleSummary.read ? '<img src="' + smallrss_config.imageroot + 'images/markunread.png" alt="Mark as unread">' : '<img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark as read">') + '</button><button class="open-article-link image" title="Open link" data-article-link="' + feeds.selectedFeedArticle.url + '"><img src="' + smallrss_config.imageroot + 'images/link.png" alt="Open link"></button></span></div>';
     articleHtml += '<div class="article-heading"><a href="' + feeds.selectedFeedArticle.url + '" target="_blank">' + articleSummary.heading + '</a></div>';
     articleHtml += '<div>' + feeds.selectedFeedArticle.body + '</div>';
     articleHtml += '<div>' + (smallrss_config.connectedToSave ? '<button class="send-to image" title="Send to Raindrop.io"><img src="' + smallrss_config.imageroot + 'images/pocket.png" alt="Send to Raindrop.io"></button>' : '') + '<span class="article-actions"><button class="next-article image" title="Next article"><img src="' + smallrss_config.imageroot + 'images/next.png" alt="Next article"></button></span></div>';
