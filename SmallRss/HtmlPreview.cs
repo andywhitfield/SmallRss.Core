@@ -36,7 +36,7 @@ namespace SmallRss
                     ConvertContentTo(node, writer);
                     break;
                 case HtmlNodeType.Text:
-                    var parentName = node.ParentNode.Name;
+                    var parentName = node.ParentNode?.Name;
                     if ((parentName == "script") || (parentName == "style"))
                         break;
 
