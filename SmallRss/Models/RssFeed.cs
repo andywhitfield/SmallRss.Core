@@ -8,6 +8,7 @@ public class RssFeed
     [Required]
     public string? Uri { get; set; }
     public string? Link { get; set; }
+    public string? ImageUrl { get; set; }
     public DateTime? LastUpdated { get; set; }
     public bool? LastRefreshSuccess { get; set; }
     public string? LastRefreshMessage { get; set; }

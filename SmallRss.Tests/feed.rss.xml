@@ -22,6 +22,15 @@
         <sy:updateFrequency>
 	1	</sy:updateFrequency>
         <generator>https://wordpress.org/?v=5.2.5</generator>
+        <image>
+            <url>
+                https://9to5mac.com/wp-content/uploads/sites/6/2019/10/cropped-cropped-mac1-1.png?w=32
+            </url>
+            <title>9to5Mac</title>
+            <link>https://9to5mac.com/</link>
+            <width>32</width>
+            <height>32</height>
+        </image>
         <item>
             <title>It&#8217;s never too late for these parent-recommended tech gifts for kids</title>
             <link>https://9to5mac.com/2019/12/23/tech-gift-guides-kids/</link>
