@@ -1,84 +1,73 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 using SmallRss.Models;
 
-namespace SmallRss.Feeds
+namespace SmallRss.Feeds;
+
+public class AtomFeedReader(ILogger<AtomFeedReader> logger) : IFeedReader
 {
-    public class AtomFeedReader : IFeedReader
+    private const string AtomRootElementName = "feed";
+    private readonly XNamespace ns = "http://www.w3.org/2005/Atom";
+
+    public bool CanRead(XDocument? doc)
+        => doc?.Root?.Name.LocalName.Equals(AtomRootElementName, StringComparison.OrdinalIgnoreCase) ?? false;
+
+    public Task<FeedParseResult> ReadAsync(XDocument? doc)
     {
-        private const string AtomRootElementName = "feed";
-        private readonly XNamespace ns = "http://www.w3.org/2005/Atom";
+        ArgumentNullException.ThrowIfNull(doc);
 
-        private readonly ILogger<AtomFeedReader> _logger;
+        logger.LogTrace("Parsing Atom feed");
 
-        public AtomFeedReader(ILogger<AtomFeedReader> logger)
+        RssFeed feed = new();
+
+        var channel = doc.Root;
+        var feedTitle = channel?.Element(ns + "title")?.Value ?? channel?.Element(ns + "id")?.Value ?? string.Empty;
+        feed.Link = channel?.Element(ns + "author")?.Element(ns + "uri")?.Value;
+        if (feed.Link == null)
         {
-            _logger = logger;
+            var linkNode =
+                channel?.Elements(ns + "link").SingleOrDefault(x => x.HasAttributes && x.Attribute("rel") == null) ??
+                channel?.Elements(ns + "link").SingleOrDefault(x => x.HasAttributes && x.Attribute("rel") != null && x.Attribute("rel")?.Value == "alternate");
+
+            feed.Link = linkNode?.Attribute("href")?.Value;
+        }
+        feed.ImageUrl = channel?.Element(ns + "icon")?.Value?.Trim() ?? channel?.Element(ns + "logo")?.Value?.Trim();
+        feed.LastUpdated = channel?.Element(ns + "updated")?.Value.ToDateTime() ?? DateTime.UtcNow;
+
+        var articles = channel?.Elements(ns + "entry").Select(ReadFeedEntry).Where(e => e != null).Select(a => a!);
+        var latestArticle = articles?.Max(a => a.Published) ?? DateTime.MinValue;
+        if (latestArticle > feed.LastUpdated)
+            feed.LastUpdated = latestArticle;
+
+        return Task.FromResult(new FeedParseResult(feedTitle, feed, articles ?? []));
+    }
+
+    private Article? ReadFeedEntry(XElement entry)
+    {
+        Article article = new()
+        {
+            ArticleGuid = entry.Element(ns + "id")?.Value
+        };
+
+        if (string.IsNullOrEmpty(article.ArticleGuid))
+        {
+            logger.LogWarning("Feed entry does not have an ID - badly formed feed, cannot add article. Entry: {Entry}", entry);
+            return null;
         }
 
-        public bool CanRead(XDocument? doc)
-        {
-            return doc?.Root?.Name.LocalName.Equals(AtomRootElementName, StringComparison.OrdinalIgnoreCase) ?? false;
-        }
+        article.Heading = entry.Element(ns + "title")?.Value;
+        article.Published = entry.Element(ns + "updated")?.Value.ToDateTime() ?? DateTime.UtcNow;
+        article.Author = entry.Element(ns + "author")?.Element(ns + "name")?.Value;
+        article.Body = entry.Element(ns + "content")?.Value ?? entry.Element(ns + "summary")?.Value;
 
-        public Task<FeedParseResult> ReadAsync(XDocument? doc)
-        {
-            if (doc == null)
-                throw new ArgumentNullException(nameof(doc));
+        var linkElements = entry.Elements(ns + "link");
+        var linkElement = linkElements.SingleOrDefault(x =>
+            x.HasAttributes && x.Attribute("rel") != null && x.Attribute("rel")?.Value == "alternate"
+        ) ?? linkElements.FirstOrDefault();
+        article.Url = linkElement?.Attribute("href")?.Value;
 
-            _logger.LogTrace("Parsing Atom feed");
+        logger.LogTrace("Parsed feed entry {ArticleGuid}", article.ArticleGuid);
 
-            var feed = new RssFeed();
-
-            var channel = doc.Root;
-            var feedTitle = channel?.Element(ns + "title")?.Value ?? channel?.Element(ns + "id")?.Value ?? string.Empty;
-            feed.Link = channel?.Element(ns + "author")?.Element(ns + "uri")?.Value;
-            if (feed.Link == null)
-            {
-                var linkNode =
-                    channel?.Elements(ns + "link").SingleOrDefault(x => x.HasAttributes && x.Attribute("rel") == null) ??
-                    channel?.Elements(ns + "link").SingleOrDefault(x => x.HasAttributes && x.Attribute("rel") != null && x.Attribute("rel")?.Value == "alternate");
-
-                feed.Link = linkNode?.Attribute("href")?.Value;
-            }
-            feed.LastUpdated = channel?.Element(ns + "updated")?.Value.ToDateTime() ?? DateTime.UtcNow;
-
-            var articles = channel?.Elements(ns + "entry").Select(ReadFeedEntry).Where(e => e != null).Select(a => a!);
-            var latestArticle = articles?.Max(a => a.Published) ?? DateTime.MinValue;
-            if (latestArticle > feed.LastUpdated)
-                feed.LastUpdated = latestArticle;
-            
-            return Task.FromResult(new FeedParseResult(feedTitle, feed, articles ?? Enumerable.Empty<Article>()));
-        }
-
-        private Article? ReadFeedEntry(XElement entry)
-        {
-            var article = new Article();
-
-            article.ArticleGuid = entry.Element(ns + "id")?.Value;
-            if (string.IsNullOrEmpty(article.ArticleGuid))
-            {
-                _logger.LogWarning($"Feed entry does not have an ID - badly formed feed, cannot add article. Entry: {entry}");
-                return null;
-            }
-
-            article.Heading = entry.Element(ns + "title")?.Value;
-            article.Published = entry.Element(ns + "updated")?.Value.ToDateTime() ?? DateTime.UtcNow;
-            article.Author = entry.Element(ns + "author")?.Element(ns + "name")?.Value;
-            article.Body = entry.Element(ns + "content")?.Value ?? entry.Element(ns + "summary")?.Value;
-
-            var linkElements = entry.Elements(ns + "link");
-            var linkElement = linkElements.SingleOrDefault(x =>
-                x.HasAttributes && x.Attribute("rel") != null && x.Attribute("rel")?.Value == "alternate"
-            ) ?? linkElements.FirstOrDefault();
-            article.Url = linkElement?.Attribute("href")?.Value;
-
-            _logger.LogTrace($"Parsed feed entry {article.ArticleGuid}");
-
-            return article;
-        }
+        return article;
     }
 }

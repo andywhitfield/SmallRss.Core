@@ -6,6 +6,7 @@
     <updated>Thu Dec 12 2019 17:00:00 GMT+0000 (UTC)</updated>
     <id>https://code.visualstudio.com/</id>
     <rights>Copyright (c) 2018, Microsoft, Inc.; all rights reserved.</rights>
+    <logo>https://code.visualstudio.com/opengraphimg/opengraph-home.png</logo>
     <entry>
         <title>Visual Studio Code November 2019</title>
         <link href="https://code.visualstudio.com/updates/v1_41"/>

@@ -18,7 +18,7 @@ public class RssFeedReaderTest
     [TestMethod]
     public async Task CanReadValidRssFeed()
     {
-        using FileStream fs = new("feed.rss.xml", FileMode.Open);
+        await using FileStream fs = new("feed.rss.xml", FileMode.Open);
         var validDoc = await XDocument.LoadAsync(fs, LoadOptions.None, CancellationToken.None);
         Assert.IsTrue(_feedReader.CanRead(validDoc));
     }
@@ -26,7 +26,7 @@ public class RssFeedReaderTest
     [TestMethod]
     public void CannotReadEmptyXml()
     {
-        Assert.IsFalse(_feedReader.CanRead(new XDocument()));
+        Assert.IsFalse(_feedReader.CanRead(new()));
     }
 
     [TestMethod]
@@ -52,7 +52,7 @@ public class RssFeedReaderTest
     [TestMethod]
     public async Task ReadValidRssFeed()
     {
-        using FileStream fs = new("feed.rss.xml", FileMode.Open);
+        await using FileStream fs = new("feed.rss.xml", FileMode.Open);
         var validDoc = await XDocument.LoadAsync(fs, LoadOptions.None, CancellationToken.None);
         var readResult = await _feedReader.ReadAsync(validDoc);
         Assert.IsNotNull(readResult);
