@@ -35,7 +35,7 @@ public class WebApplicationFactoryTest : WebApplicationFactory<Startup>
         .CreateDefaultBuilder()
         .ConfigureWebHostDefaults(x => x.UseStartup<Startup>().UseTestServer().ConfigureTestServices(services =>
         {
-            services.Replace(ServiceDescriptor.Scoped(sp => new SqliteDataContext(sp.GetRequiredService<ILogger<SqliteDataContext>>(), _options)));
+            services.Replace(ServiceDescriptor.Scoped(sp => new SqliteDataContext(_options)));
             services
                 .AddAuthentication("Test")
                 .AddScheme<AuthenticationSchemeOptions, TestStubAuthHandler>("Test", null);

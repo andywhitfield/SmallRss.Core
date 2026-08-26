@@ -82,6 +82,7 @@ public class Startup
             sp.GetRequiredService<ILogger<Startup>>().LogInformation("Using Sqlite connection string: {SqliteConnectionString}", sqliteConnectionString);
             options.UseSqlite(sqliteConnectionString);            
         });
+        services.AddScoped(sp => (ISqliteDataContext)sp.GetRequiredService<SqliteDataContext>());
 
         services.AddMvc().AddSessionStateTempDataProvider();
         services.AddRazorPages();
@@ -124,9 +125,6 @@ public class Startup
             pattern: "{controller=Home}/{action=Index}/{id?}"));
 
         using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<SqliteDataContext>();
-        context.Database.EnsureCreated();
-        // should move to EF migrations, but for now, just create the RssFeed columns if required
-        context.EnsureRssFeedLastRefreshColumns();
+        scope.ServiceProvider.GetRequiredService<ISqliteDataContext>().Migrate();
     }
 }
