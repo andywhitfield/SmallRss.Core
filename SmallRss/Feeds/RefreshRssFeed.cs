@@ -44,13 +44,14 @@ public class RefreshRssFeed(ILogger<RefreshRssFeed> logger,
                 await UpdateFeedItemsAsync(rssFeed, parseResult);
                 rssFeed.LastUpdated = parseResult.Feed.LastUpdated;
                 rssFeed.Link = parseResult.Feed.Link;
+                rssFeed.ImageUrl = parseResult.Feed.ImageUrl;
                 return true;
             }
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
             rssFeed.LastRefreshSuccess = false;
-            rssFeed.LastRefreshMessage = $"Failed to download or parse feed";
+            rssFeed.LastRefreshMessage = "Failed to download or parse feed";
             throw;
         }
 
