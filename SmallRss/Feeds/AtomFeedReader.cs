@@ -21,7 +21,7 @@ public class AtomFeedReader(ILogger<AtomFeedReader> logger) : IFeedReader
         RssFeed feed = new();
 
         var channel = doc.Root;
-        var feedTitle = channel?.Element(ns + "title")?.Value ?? channel?.Element(ns + "id")?.Value ?? string.Empty;
+        var feedTitle = channel?.Element(ns + "title")?.Value ?? channel?.Element(ns + "id")?.Value ?? "";
         feed.Link = channel?.Element(ns + "author")?.Element(ns + "uri")?.Value;
         if (feed.Link == null)
         {

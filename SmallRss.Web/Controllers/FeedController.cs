@@ -37,7 +37,10 @@ public class FeedController(
                     item = group.Key,
                     props = new { isFolder = true, open = loggedInUser.ExpandedGroups.Contains(group.Key ?? "") },
                     items = group.Items.OrderBy(g => g.Name).Select(g =>
-                        new { id = g.Id, item = g.Name, link = feeds.GetValueOrDefault(g.RssFeedId)?.Link ?? string.Empty, props = new { isFolder = false } })
+                    {
+                        var feed = feeds.GetValueOrDefault(g.RssFeedId);
+                        return new { id = g.Id, item = g.Name, link = feed?.Link ?? "", imageUrl = feed?.ImageUrl ?? "", props = new { isFolder = false } };
+                    })
                 });
     }
 
@@ -99,6 +102,6 @@ public class FeedController(
     private static object GetFeedInfo(ILookup<int, ArticleUserFeedInfo>? articleUserFeedInfoForAllUnread, Article article)
     {
         var aufi = articleUserFeedInfoForAllUnread?[article.Id].FirstOrDefault();
-        return new { group = aufi?.UserFeedGroup ?? "", name = aufi?.UserFeedName ?? "" };
+        return new { group = aufi?.UserFeedGroup ?? "", name = aufi?.UserFeedName ?? "", imageUrl = aufi?.RssFeedImageUrl };
     }
 }

@@ -32,6 +32,7 @@ public class Feed_Get_Tests
 
         Assert.AreEqual(1, feedGroup.items[0].id);
         Assert.AreEqual("test-feed-1", feedGroup.items[0].item);
+        Assert.AreEqual("http://test-feed-1.com/image.png", feedGroup.items[0].imageUrl);
 
         feedGroup = responseContent[1];
         Assert.AreEqual("test-group-2", feedGroup.id);
@@ -41,8 +42,10 @@ public class Feed_Get_Tests
 
         Assert.AreEqual(2, feedGroup.items[0].id);
         Assert.AreEqual("test-feed-2", feedGroup.items[0].item);
+        Assert.AreEqual("", feedGroup.items[0].imageUrl);
         Assert.AreEqual(3, feedGroup.items[1].id);
         Assert.AreEqual("test-feed-3", feedGroup.items[1].item);
+        Assert.AreEqual("http://test-feed-3.com/image.png", feedGroup.items[1].imageUrl);
 
         feedGroup = responseContent[2];
         Assert.AreEqual("All unread", feedGroup.id);
@@ -52,6 +55,7 @@ public class Feed_Get_Tests
 
         Assert.AreEqual(-1, feedGroup.items[0].id);
         Assert.AreEqual("All unread", feedGroup.items[0].item);
+        Assert.AreEqual("", feedGroup.items[0].imageUrl);
     }
 
     private async Task CreateTestUserFeedsAsync()
@@ -59,9 +63,9 @@ public class Feed_Get_Tests
         await _webApplicationFactory.CreateTestUserAsync();
         await using var services = _webApplicationFactory.Services.CreateAsyncScope();
         var context = services.ServiceProvider.GetRequiredService<SqliteDataContext>();
-        context.RssFeeds!.Add(new() { Id = 1, Uri = "http://test-feed-1.com" });
-        context.RssFeeds!.Add(new() { Id = 2, Uri = "http://test-feed-2.com" });
-        context.RssFeeds!.Add(new() { Id = 3, Uri = "http://test-feed-3.com" });
+        context.RssFeeds!.Add(new() { Id = 1, Uri = "http://test-feed-1.com", ImageUrl = "http://test-feed-1.com/image.png" });
+        context.RssFeeds!.Add(new() { Id = 2, Uri = "http://test-feed-2.com"});
+        context.RssFeeds!.Add(new() { Id = 3, Uri = "http://test-feed-3.com", ImageUrl = "http://test-feed-3.com/image.png" });
         context.UserFeeds!.Add(new() { GroupName = "test-group-1", Name = "test-feed-1", RssFeedId = 1, UserAccountId = _webApplicationFactory.TestUser.Id });
         context.UserFeeds!.Add(new() { GroupName = "test-group-2", Name = "test-feed-2", RssFeedId = 2, UserAccountId = _webApplicationFactory.TestUser.Id });
         context.UserFeeds!.Add(new() { GroupName = "test-group-2", Name = "test-feed-3", RssFeedId = 3, UserAccountId = _webApplicationFactory.TestUser.Id });
@@ -69,6 +73,6 @@ public class Feed_Get_Tests
     }
 
     private record FeedProps(bool isFolder);
-    private record FeedItem(int id, string item, FeedProps props);
+    private record FeedItem(int id, string item, string imageUrl, FeedProps props);
     private record FeedGroup(string id, string item, FeedProps props, List<FeedItem> items);
 }

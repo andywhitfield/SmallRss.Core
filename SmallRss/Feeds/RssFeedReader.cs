@@ -32,7 +32,7 @@ public class RssFeedReader(ILogger<RssFeedReader> logger) : IFeedReader
             return Task.FromResult(FeedParseResult.FailureResult);
         }
 
-        var feedTitle = channel.Element("title")?.Value ?? channel.Element("description")?.Value ?? string.Empty;
+        var feedTitle = channel.Element("title")?.Value ?? channel.Element("description")?.Value ?? "";
         feed.Link = channel.Element("link")?.Value;
         feed.ImageUrl = channel.Element("image")?.Element("url")?.Value?.Trim();
 

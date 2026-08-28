@@ -9,4 +9,5 @@ public class ArticleUserFeedInfo
     public Article? Article { get; set; }
     public string? UserFeedGroup { get; set; }
     public string? UserFeedName { get; set; }
+    public string? RssFeedImageUrl { get; set; }
 }

@@ -62,6 +62,8 @@ function buildItemsFromFeed(feed) {
     for (var i = 0; i < feed.items.length; i++) {
         var group = feed.items[i];
         itemsHtml += '<li id="' + group.id + '" data-count="0">';
+        if (group.imageUrl)
+            itemsHtml += '<img src="' + group.imageUrl + '" class="feed-img" /> ';
         itemsHtml += group.item;
         itemsHtml += ' <span class="item-unread-count"></span>';
         itemsHtml += '</li>';
@@ -216,7 +218,7 @@ function updateSelectedFeed() {
 
 function buildFeedArticles() {
     var isAllUnread = feeds.selectedFeed.id == -1;
-    var feedHtml = '<div class="feed-title' + (isAllUnread ? ' feed-title-all-unread' : '') +'">' + (isAllUnread ? feeds.selectedFeed.item : (feeds.selectedFeedGroup.item + ' &gt; ' + feeds.selectedFeed.item)) + ' (' + feeds.selectedFeed.count + ')</div>';
+    var feedHtml = '<div class="feed-title' + (isAllUnread ? ' feed-title-all-unread' : '') +'">' + (isAllUnread ? feeds.selectedFeed.item : (feeds.selectedFeedGroup.item + ' &gt; ' + (feeds.selectedFeed.imageUrl ? '<img src="' + feeds.selectedFeed.imageUrl + '" class="feed-img" /> ' : '') + feeds.selectedFeed.item)) + ' (' + feeds.selectedFeed.count + ')</div>';
     feedHtml += '<table class="article-list">';
     feedHtml += '<thead><tr><td class="article-title-header">Title</td><td class="article-summary-header">Summary</td><td class="article-date-header">Posted</td>' + (smallrss_config.connectedToSave ? '<td class="article-save">&nbsp;</td>' : '') + '<td class="article-read"><button class="image" title="Mark all as read"><img src="' + smallrss_config.imageroot + 'images/markread.png" alt="Mark all as read"></button></td><td class="article-link"></td></tr></thead>';
     feedHtml += '<tbody>';
@@ -224,7 +226,7 @@ function buildFeedArticles() {
         var article = feeds.selectedFeedArticles[i];
         feedHtml += '<tr data-article-id="' + article.story + '" class="article' + (article.read ? ' article-marked-read' : '') + (feeds.focusedArticle != null && feeds.focusedArticle.story == article.story ? ' focused' : '') + '">';
         if (isAllUnread)
-            feedHtml += '<td class="article-title"><div>' + article.feedInfo.group + ' &gt; ' + article.feedInfo.name + '</div><div>' + article.heading + '</div></td>';
+            feedHtml += '<td class="article-title"><div>' + article.feedInfo.group + ' &gt; ' + (article.feedInfo.imageUrl ? '<img src="' + article.feedInfo.imageUrl + '" class="feed-img" /> ' : '') + article.feedInfo.name + '</div><div>' + article.heading + '</div></td>';
         else
             feedHtml += '<td class="article-title">' + article.heading + '</td>';
         feedHtml += '<td class="article-summary">' + article.article + '</td>';
