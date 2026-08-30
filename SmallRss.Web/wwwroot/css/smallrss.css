@@ -156,8 +156,8 @@ tr.article {
 }
 
 .feed-img {
-    max-height: 25px;
-    max-width: 25px;
+    max-height: 16px;
+    max-width: 16px;
     height: auto;
     width: auto;
 }

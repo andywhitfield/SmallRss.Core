@@ -433,11 +433,11 @@ function buildFeedArticle() {
     var articleHtml;
     if (feeds.selectedFeed.id == -1) {
         articleHtml = '<div class="feed-title feed-title-all-unread">All unread &gt; ' + articleSummary.feedInfo.group;
-        articleHtml += ' &gt; ' + articleSummary.feedInfo.name + ' (' + feeds.selectedFeed.count + ')';
+        articleHtml += ' &gt; ' + (articleSummary.feedInfo.imageUrl ? '<img src="' + articleSummary.feedInfo.imageUrl + '" class="feed-img" /> ' : '') + articleSummary.feedInfo.name + ' (' + feeds.selectedFeed.count + ')';
         articleHtml += '</div>';
     } else {
         articleHtml = '<div class="feed-title">' + feeds.selectedFeedGroup.item;
-        articleHtml += ' &gt; ' + feeds.selectedFeed.item + ' (' + feeds.selectedFeed.count + ')';
+        articleHtml += ' &gt; ' + (feeds.selectedFeed.imageUrl ? '<img src="' + feeds.selectedFeed.imageUrl + '" class="feed-img" /> ' : '') + feeds.selectedFeed.item + ' (' + feeds.selectedFeed.count + ')';
         articleHtml += '</div>';
     }
 
