@@ -39,7 +39,7 @@ public class FeedController(
                     items = group.Items.OrderBy(g => g.Name).Select(g =>
                     {
                         var feed = feeds.GetValueOrDefault(g.RssFeedId);
-                        return new { id = g.Id, item = g.Name, link = feed?.Link ?? "", imageUrl = feed?.ImageUrl ?? "", props = new { isFolder = false } };
+                        return new { id = g.Id, item = g.Name, link = feed?.Link ?? "", imageUrl = CreateRssFeedImageUrl(feed?.ImageUrl, feed?.Id), props = new { isFolder = false } };
                     })
                 });
     }
@@ -102,6 +102,9 @@ public class FeedController(
     private static object GetFeedInfo(ILookup<int, ArticleUserFeedInfo>? articleUserFeedInfoForAllUnread, Article article)
     {
         var aufi = articleUserFeedInfoForAllUnread?[article.Id].FirstOrDefault();
-        return new { group = aufi?.UserFeedGroup ?? "", name = aufi?.UserFeedName ?? "", imageUrl = aufi?.RssFeedImageUrl };
+        return new { group = aufi?.UserFeedGroup ?? "", name = aufi?.UserFeedName ?? "", imageUrl = CreateRssFeedImageUrl(aufi?.RssFeedImageUrl, aufi?.RssFeedId) };
     }
+
+    private static string CreateRssFeedImageUrl(string? imageUrl, int? rssFeedId)
+        => rssFeedId != null && Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute) ? $"/feedicon/{rssFeedId}" : "";
 }

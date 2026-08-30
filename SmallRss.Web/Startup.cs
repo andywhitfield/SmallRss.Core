@@ -11,6 +11,7 @@ public class Startup
 {
     public const string DefaultHttpClient = "default";
     public const string RaindropHttpClient = "raindrop";
+    public const string FeedIconHttpClient = "feedicon";
 
     private readonly IWebHostEnvironment hostingEnvironment;
 
@@ -98,6 +99,7 @@ public class Startup
         services.AddScoped<IAuthorisationHandler, AuthorisationHandler>();
         services.AddHttpClient(DefaultHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetValue<string>("ServiceUri") ?? throw new Exception("ServiceUri not configured")));
         services.AddHttpClient(RaindropHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.raindrop.io/"));
+        services.AddHttpClient(FeedIconHttpClient);
         services.Configure<RaindropOptions>(Configuration.GetSection("Raindrop.io"));
     }
 

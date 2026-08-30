@@ -32,7 +32,7 @@ public class Feed_Get_Tests
 
         Assert.AreEqual(1, feedGroup.items[0].id);
         Assert.AreEqual("test-feed-1", feedGroup.items[0].item);
-        Assert.AreEqual("http://test-feed-1.com/image.png", feedGroup.items[0].imageUrl);
+        Assert.AreEqual("/feedicon/1", feedGroup.items[0].imageUrl);
 
         feedGroup = responseContent[1];
         Assert.AreEqual("test-group-2", feedGroup.id);
@@ -45,7 +45,7 @@ public class Feed_Get_Tests
         Assert.AreEqual("", feedGroup.items[0].imageUrl);
         Assert.AreEqual(3, feedGroup.items[1].id);
         Assert.AreEqual("test-feed-3", feedGroup.items[1].item);
-        Assert.AreEqual("http://test-feed-3.com/image.png", feedGroup.items[1].imageUrl);
+        Assert.AreEqual("/feedicon/3", feedGroup.items[1].imageUrl);
 
         feedGroup = responseContent[2];
         Assert.AreEqual("All unread", feedGroup.id);

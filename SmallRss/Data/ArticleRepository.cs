@@ -83,7 +83,7 @@ where r.Id is null").ToHashSetAsync();
     public async IAsyncEnumerable<ArticleUserFeedInfo> GetAllUnreadArticlesAsync(UserAccount userAccount)
     {
         var query = context.Database.SqlQuery<ArticleUserFeedInfo>(
-$@"select a.Id as ArticleId, uf.GroupName as UserFeedGroup, uf.Name as UserFeedName, rf.ImageUrl as RssFeedImageUrl
+$@"select a.Id as ArticleId, uf.GroupName as UserFeedGroup, uf.Name as UserFeedName, rf.Id as RssFeedId, rf.ImageUrl as RssFeedImageUrl
 from Articles a
 join RssFeeds rf
 on rf.Id = a.RssFeedId
