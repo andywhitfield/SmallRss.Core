@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Moq;
 using SmallRss.Data;
 using SmallRss.Models;
 
@@ -20,6 +20,7 @@ public class WebApplicationFactoryTest : WebApplicationFactory<Startup>
     private readonly SqliteConnection _connection;
     private readonly DbContextOptions<SqliteDataContext> _options;
     private UserAccount? _testUser;
+    public Mock<IHttpClientFactory> MockHttpClientFactory { init; get; } = new();
 
     public WebApplicationFactoryTest()
     {
@@ -36,18 +37,19 @@ public class WebApplicationFactoryTest : WebApplicationFactory<Startup>
         .ConfigureWebHostDefaults(x => x.UseStartup<Startup>().UseTestServer().ConfigureTestServices(services =>
         {
             services.Replace(ServiceDescriptor.Scoped(sp => new SqliteDataContext(_options)));
+            services.Replace(ServiceDescriptor.Scoped(sp => MockHttpClientFactory.Object));
             services
                 .AddAuthentication("Test")
                 .AddScheme<AuthenticationSchemeOptions, TestStubAuthHandler>("Test", null);
         }));
 
-    public async Task<HttpClient> CreateUnauthenticatedClientAsync(bool allowAutoRedirect = false)
+    public async Task<HttpClient> CreateUnauthenticatedClientAsync()
     {
         await CreateTestUserAsync();
         return CreateClient();
     }
 
-    public async Task<HttpClient> CreateAuthenticatedClientAsync(bool allowAutoRedirect = true)
+    public async Task<HttpClient> CreateAuthenticatedClientAsync()
     {
         await CreateTestUserAsync();
         var client = CreateClient();
@@ -64,7 +66,7 @@ public class WebApplicationFactoryTest : WebApplicationFactory<Startup>
         var context = serviceScope.ServiceProvider.GetRequiredService<SqliteDataContext>();
         _testUser = context.UserAccounts!.Add(new() { Email = TestStubAuthHandler.TestUserEmail }).Entity;
         await context.SaveChangesAsync();
-        context.UserAccountSettings!.Add(new() { SettingType = "Email", SettingName = "Email", SettingValue = TestStubAuthHandler.TestUserEmail, UserAccountId = _testUser.Id  });
+        context.UserAccountSettings!.Add(new() { SettingType = "Email", SettingName = "Email", SettingValue = TestStubAuthHandler.TestUserEmail, UserAccountId = _testUser.Id });
         await context.SaveChangesAsync();
     }
 

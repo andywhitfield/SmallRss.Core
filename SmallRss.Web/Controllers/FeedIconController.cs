@@ -40,22 +40,30 @@ public class FeedIconController(
         }
 
         logger.LogDebug("Getting image url: {ImageUrl}", imageUrl);
-        using var httpClient = httpClientFactory.CreateClient(Startup.FeedIconHttpClient);
-        using var httpResponse = await httpClient.GetAsync(imageUrl);
-        if (!httpResponse.IsSuccessStatusCode)
+        try
         {
-            logger.LogWarning("Image url for rss feed {Id} did not return a success response {ResponseCode}, returning an empty image", id, httpResponse.StatusCode);
+            using var httpClient = httpClientFactory.CreateClient(Startup.FeedIconHttpClient);
+            using var httpResponse = await httpClient.GetAsync(imageUrl);
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                logger.LogWarning("Image url for rss feed {Id} did not return a success response {ResponseCode}, returning an empty image", id, httpResponse.StatusCode);
+                return Redirect("/images/missing.png");
+            }
+
+            Response.StatusCode = StatusCodes.Status200OK;
+            Response.Headers.ContentLength = GetContentLength(httpResponse);
+            Response.Headers.ContentType = GetHeaderValues(httpResponse, "Content-Type");
+            Response.Headers.LastModified = GetHeaderValues(httpResponse, "Last-Modified");
+            Response.Headers.ETag = httpResponse.Headers.ETag?.Tag;
+            await httpResponse.Content.CopyToAsync(Response.Body);
+
+            return Empty;
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Failed to get image url for rss feed {Id} [{Url}], returning an empty image", id, imageUrl);
             return Redirect("/images/missing.png");
         }
-
-        Response.StatusCode = StatusCodes.Status200OK;
-        Response.Headers.ContentLength = GetContentLength(httpResponse);
-        Response.Headers.ContentType = GetHeaderValues(httpResponse, "Content-Type");
-        Response.Headers.LastModified = GetHeaderValues(httpResponse, "Last-Modified");
-        Response.Headers.ETag = httpResponse.Headers.ETag?.Tag;
-        await httpResponse.Content.CopyToAsync(Response.Body);
-
-        return Empty;
     }
 
     private static long? GetContentLength(HttpResponseMessage httpResponse)
