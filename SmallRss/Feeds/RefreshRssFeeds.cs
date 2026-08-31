@@ -61,6 +61,7 @@ public static class RefreshRssFeedsServiceProviderExtensions
         services.AddScoped<IFeedParser, FeedParser>();
         services.AddScoped<IFeedReader, RssFeedReader>();
         services.AddScoped<IFeedReader, AtomFeedReader>();
+        services.AddScoped<IRssFeedImageLocator, RssFeedImageLocator>();
         services
             .AddHttpClient(DefaultHttpClient)
             .ConfigureHttpClient(c => c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows)"))

@@ -7,7 +7,8 @@ namespace SmallRss.Feeds;
 public class RefreshRssFeed(ILogger<RefreshRssFeed> logger,
     IHttpClientFactory clientFactory,
     IFeedParser feedParser,
-    IArticleRepository articleRepository)
+    IArticleRepository articleRepository,
+    IRssFeedImageLocator rssFeedImageLocator)
     : IRefreshRssFeed
 {
     public async Task<bool> RefreshAsync(RssFeed rssFeed, CancellationToken cancellationToken)
@@ -44,7 +45,7 @@ public class RefreshRssFeed(ILogger<RefreshRssFeed> logger,
                 await UpdateFeedItemsAsync(rssFeed, parseResult);
                 rssFeed.LastUpdated = parseResult.Feed.LastUpdated;
                 rssFeed.Link = parseResult.Feed.Link;
-                rssFeed.ImageUrl = parseResult.Feed.ImageUrl;
+                await rssFeedImageLocator.SetImageUrlAsync(rssFeed, parseResult, cancellationToken);
                 return true;
             }
         }

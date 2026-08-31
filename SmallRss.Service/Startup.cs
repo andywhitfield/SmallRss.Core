@@ -30,6 +30,8 @@ public class Startup
             logging.AddDebug();
         });
 
+        services.AddSingleton(TimeProvider.System);
+
         services.AddDbContext<SqliteDataContext>((sp, options) =>
         {
 #if DEBUG
@@ -37,7 +39,7 @@ public class Startup
 #endif
             var sqliteConnectionString = Configuration.GetConnectionString("SmallRss");
             sp.GetRequiredService<ILogger<Startup>>().LogInformation("Using Sqlite connection string: {SqliteConnectionString}", sqliteConnectionString);
-            options.UseSqlite(sqliteConnectionString);            
+            options.UseSqlite(sqliteConnectionString);
         });
         services.AddScoped(sp => (ISqliteDataContext)sp.GetRequiredService<SqliteDataContext>());
 

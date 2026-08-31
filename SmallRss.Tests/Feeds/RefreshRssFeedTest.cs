@@ -28,8 +28,16 @@ public class RefreshRssFeedTest
         mockHttpClientFactory.Setup(cf => cf.CreateClient(It.IsAny<string>())).Returns(client);
 
         Mock<IArticleRepository> articleRepository = new();
+        Mock<IRssFeedImageLocator> rssFeedImageLocatorMock = new();
+        rssFeedImageLocatorMock
+            .Setup(l => l.SetImageUrlAsync(It.IsAny<RssFeed>(), It.IsAny<FeedParseResult>(), It.IsAny<CancellationToken>()))
+            .Callback((RssFeed rssFeed, FeedParseResult feedParseResult, CancellationToken ct) =>
+            {
+                rssFeed.ImageUrl = feedParseResult.Feed.ImageUrl;
+                rssFeed.ImageUrlUpdated = DateTime.UtcNow;
+            });
         
-        RefreshRssFeed refreshRssFeed = new(Mock.Of<ILogger<RefreshRssFeed>>(), mockHttpClientFactory.Object, new FeedParser(Mock.Of<ILogger<FeedParser>>(), [new RssFeedReader(Mock.Of<ILogger<RssFeedReader>>())]), articleRepository.Object);
+        RefreshRssFeed refreshRssFeed = new(Mock.Of<ILogger<RefreshRssFeed>>(), mockHttpClientFactory.Object, new FeedParser(Mock.Of<ILogger<FeedParser>>(), [new RssFeedReader(Mock.Of<ILogger<RssFeedReader>>())]), articleRepository.Object, rssFeedImageLocatorMock.Object);
         RssFeed feed = new()
         {
             Uri = "http://test.rss/feed"
