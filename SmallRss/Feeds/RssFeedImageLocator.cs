@@ -18,6 +18,8 @@ public class RssFeedImageLocator(
             logger.LogDebug("ImageUrlUpdated for rss feed {RssFeedId} hasn't been set, or hasn't been updated recently, will update", rssFeed.Id);
             rssFeed.ImageUrl = await GetImageUrlAsync(feedParseResult, cancellationToken);
             rssFeed.ImageUrlUpdated = timeProvider.GetUtcNow().UtcDateTime;
+            
+            logger.LogDebug("Updated RssFeed.{Id}: ImageUrl=[{ImageUrl}], ImageUrlUpdated=[{ImageUrlUpdated}]", rssFeed.Id, rssFeed.ImageUrl, rssFeed.ImageUrlUpdated);
         }
         else
         {
