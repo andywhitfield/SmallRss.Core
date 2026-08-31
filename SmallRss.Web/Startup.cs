@@ -99,7 +99,7 @@ public class Startup
         services.AddScoped<IAuthorisationHandler, AuthorisationHandler>();
         services.AddHttpClient(DefaultHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetValue<string>("ServiceUri") ?? throw new Exception("ServiceUri not configured")));
         services.AddHttpClient(RaindropHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.raindrop.io/"));
-        services.AddHttpClient(FeedIconHttpClient);
+        services.AddHttpClient(FeedIconHttpClient).ConfigureHttpClient(c => c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows)"));
         services.Configure<RaindropOptions>(Configuration.GetSection("Raindrop.io"));
     }
 
