@@ -56,6 +56,11 @@ public class RssFeedImageLocator(
         // fallback to fav icon, first from head/link tag, then /favicon.ico
         var html = await GetPageAsync(site, cancellationToken);
         var favicon = await ExtractFaviconFromHtmlAsync(html);
+        if (!Uri.TryCreate(favicon, UriKind.Absolute, out _))
+        {
+            logger.LogDebug("Favicon from head/link tag [{Favicon}] is not an absolute uri", favicon);
+            favicon = new Uri(new Uri(site.GetLeftPart(UriPartial.Authority)), favicon).ToString();
+        }
         if (await IsValidUrlAsync(favicon, cancellationToken))
         {
             logger.LogDebug("Got image url from {Site} head/link tag: {ImageUrl}", site, favicon);
@@ -115,7 +120,7 @@ public class RssFeedImageLocator(
     {
         if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
         {
-            logger.LogDebug("Feed url [{Url}] is not valid", url);
+            logger.LogDebug("Feed url [{Url}] is not a valid absolute uri", url);
             return false;
         }
 
