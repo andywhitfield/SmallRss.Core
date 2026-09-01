@@ -13,7 +13,7 @@ public class RefreshRssFeed(ILogger<RefreshRssFeed> logger,
 {
     public async Task<bool> RefreshAsync(RssFeed rssFeed, CancellationToken cancellationToken)
     {
-        using var client = clientFactory.CreateClient(RefreshRssFeedsServiceProviderExtensions.DefaultHttpClient);
+        var client = clientFactory.CreateClient(RefreshRssFeedsServiceProviderExtensions.DefaultHttpClient);
         try
         {
             using var response = await client.GetAsync(rssFeed.Uri, cancellationToken);

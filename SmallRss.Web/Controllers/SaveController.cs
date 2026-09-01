@@ -27,7 +27,7 @@ public class SaveController(ILogger<SaveController> logger,
             return new { saved = false, reason = "Could not find article with id " + model.ArticleId };
 
         var userAccount = await userAccountRepository.GetAsync(User);
-        
+
         if (userAccount.HasRaindropRefreshToken)
             return await SaveToRaindropAsync(userAccount, article);
 
@@ -36,7 +36,7 @@ public class SaveController(ILogger<SaveController> logger,
 
     private async Task<object> SaveToRaindropAsync(UserAccount userAccount, Article article)
     {
-        using var raindropClient = httpClientFactory.CreateClient(Startup.RaindropHttpClient);
+        var raindropClient = httpClientFactory.CreateClient(Startup.RaindropHttpClient);
 
         var accessToken = await GetRaindropAccessTokenAsync(raindropClient, userAccount);
         if (accessToken == null)
@@ -45,27 +45,27 @@ public class SaveController(ILogger<SaveController> logger,
         raindropClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         var requestJson = JsonSerializer.Serialize(new
         {
-            pleaseParse = new {},
+            pleaseParse = new { },
             link = article.Url,
             title = article.Heading ?? ""
         });
-        logger.LogInformation($"Saving article {article.Id}:{article.Url} {requestJson} to raindrop.io");
+        logger.LogInformation("Saving article {ArticleId}:{ArticleUrl} {RequestJson} to raindrop.io", article.Id, article.Url, requestJson);
 
         using var response = await raindropClient.PostAsync("/rest/v1/raindrop", new StringContent(requestJson, Encoding.UTF8, "application/json"));
         if (!response.IsSuccessStatusCode)
         {
-            logger.LogError($"Error response attempting to save to raindrop.io: {response.StatusCode}");
+            logger.LogError("Error response attempting to save to raindrop.io: {ResponseStatusCode}", response.StatusCode);
             return new { saved = false };
         }
 
         var result = await response.Content.ReadAsStringAsync();
         if (!result.TryParseJson(out RaindropAddResponse? addResult, logger) || !(addResult?.Result ?? false))
         {
-            logger.LogError($"Could not save article to raindrop.io: {result}");
+            logger.LogError("Could not save article to raindrop.io: {Result}", result);
             return new { saved = false };
         }
 
-        logger.LogInformation($"Successfully saved article [{article.Id}:{article.Url}:{article.Heading}] to raindrop.io");
+        logger.LogInformation("Successfully saved article [{ArticleId}:{ArticleUrl}:{ArticleHeading}] to raindrop.io", article.Id, article.Url, article.Heading);
         return new { saved = true };
     }
 
@@ -76,18 +76,18 @@ public class SaveController(ILogger<SaveController> logger,
             new StringContent(requestJson, Encoding.UTF8, "application/json"));
         if (!response.IsSuccessStatusCode)
         {
-            logger.LogError($"Error getting access token from refresh token: {response.StatusCode}");
+            logger.LogError("Error getting access token from refresh token: {ResponseStatusCode}", response.StatusCode);
             return null;
         }
 
         var result = await response.Content.ReadAsStringAsync();
         if (!result.TryParseJson(out RaindropTokenResult? authResult, logger) || authResult?.AccessToken == null)
         {
-            logger.LogError($"Could not get access token from refresh token: {result}");
+            logger.LogError("Could not get access token from refresh token: {Result}", result);
             return null;
         }
-        
-        logger.LogInformation($"Got access token result: result={result}");
+
+        logger.LogInformation("Got access token result: result={Result}", result);
         return authResult?.AccessToken;
     }
 

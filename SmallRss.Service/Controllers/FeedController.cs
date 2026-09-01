@@ -31,15 +31,15 @@ public class FeedController(ILogger<FeedController> logger,
     {
         if (!Uri.TryCreate(HttpUtility.UrlDecode(uri), UriKind.Absolute, out var feedUri))
         {
-            logger.LogWarning($"Could not parse uri {uri}");
+            logger.LogWarning("Could not parse uri {Uri}", uri);
             return BadRequest();
         }
 
-        using var client = clientFactory.CreateClient(RefreshRssFeedsServiceProviderExtensions.DefaultHttpClient);
+        var client = clientFactory.CreateClient(RefreshRssFeedsServiceProviderExtensions.DefaultHttpClient);
         using var response = await client.GetAsync(feedUri.ToString(), CancellationToken.None);
         if (!response.IsSuccessStatusCode)
         {
-            logger.LogWarning($"Could not load feed {feedUri}: response status: {response.StatusCode}, content: {await response.Content.ReadAsStringAsync()}");
+            logger.LogWarning("Could not load feed {FeedUri}: response status: {StatusCode}, content: {Content}", feedUri, response.StatusCode, await response.Content.ReadAsStringAsync());
             return BadRequest();
         }
 
@@ -47,7 +47,7 @@ public class FeedController(ILogger<FeedController> logger,
         FeedParseResult parseResult;
         if (!((parseResult = await feedParser.ParseAsync(await response.Content.ReadAsStreamAsync(), CancellationToken.None))?.IsValid ?? false))
         {
-            logger.LogWarning($"Could not parse feed response from {feedUri} - content: {await response.Content.ReadAsStringAsync()}");
+            logger.LogWarning("Could not parse feed response from {FeedUri} - content: {Content}", feedUri, await response.Content.ReadAsStringAsync());
             return BadRequest();
         }
 

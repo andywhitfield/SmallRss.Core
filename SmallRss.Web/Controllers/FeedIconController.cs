@@ -42,7 +42,7 @@ public class FeedIconController(
         logger.LogDebug("Getting image url: {ImageUrl}", imageUrl);
         try
         {
-            using var httpClient = httpClientFactory.CreateClient(Startup.FeedIconHttpClient);
+            var httpClient = httpClientFactory.CreateClient(Startup.FeedIconHttpClient);
             using var httpResponse = await httpClient.GetAsync(imageUrl);
             if (!httpResponse.IsSuccessStatusCode)
             {

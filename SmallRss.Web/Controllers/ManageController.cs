@@ -62,7 +62,7 @@ public class ManageController(ILogger<ManageController> logger,
             return RedirectToAction(nameof(Index));
         }
 
-        using var httpClient = clientFactory.CreateClient(Startup.DefaultHttpClient);
+        var httpClient = clientFactory.CreateClient(Startup.DefaultHttpClient);
         HttpResponseMessage? response = null;
         try
         {
@@ -175,7 +175,7 @@ public class ManageController(ILogger<ManageController> logger,
             return RedirectToAction("Index");
 
         logger.LogInformation("Getting authorization_code from raindrop.io: code={Code}, client_id={ClientId}", code, raindropOptions.Value.ClientId);
-        using var raindropClient = clientFactory.CreateClient(Startup.RaindropHttpClient);
+        var raindropClient = clientFactory.CreateClient(Startup.RaindropHttpClient);
 
         var requestJson = JsonSerializer.Serialize(new { code, client_id = raindropOptions.Value.ClientId, client_secret = raindropOptions.Value.ClientSecret, grant_type = "authorization_code", redirect_uri = RaindropDirectUri });
         using var response = await raindropClient.PostAsync("https://raindrop.io/oauth/access_token",
@@ -204,7 +204,7 @@ public class ManageController(ILogger<ManageController> logger,
         var rss = await rssFeedRepository.GetByUriAsync(feedUri);
         if (rss == null)
         {
-            using var httpClient = clientFactory.CreateClient(Startup.DefaultHttpClient);
+            var httpClient = clientFactory.CreateClient(Startup.DefaultHttpClient);
             var jsonRequest = JsonSerializer.Serialize(new { Uri = feedUri, UserAccountId = userAccountId });
             using var response = await httpClient.PostAsync("/api/feed/create", new StringContent(jsonRequest, Encoding.UTF8, "application/json"));
             var responseJson = await response.Content.ReadAsStringAsync();

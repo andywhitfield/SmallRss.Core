@@ -9,7 +9,7 @@ using SmallRss.Models;
 namespace SmallRss.Tests.Feeds;
 
 [TestClass]
-public class RssFeedImageLocatorTest
+public class RssFeedImageLocator_in_rss_feed_Test
 {
     private FakeTimeProvider? _timeProvider;
 
@@ -24,7 +24,7 @@ public class RssFeedImageLocatorTest
         RssFeed rssFeed = new() { ImageUrlUpdated = string.IsNullOrEmpty(lastUpdated) ? null : DateTime.ParseExact(lastUpdated, "yyyy-MM-dd HH:mm:ss", null, System.Globalization.DateTimeStyles.AssumeUniversal) };
         FeedParseResult feedParseResult = new("test", new() { ImageUrl = "http://test.url/icon.png" }, []);
         await rssFeedImageLocator.SetImageUrlAsync(rssFeed, feedParseResult, CancellationToken.None);
-        
+
         Assert.AreEqual("http://test.url/icon.png", rssFeed.ImageUrl);
         Assert.AreEqual(_timeProvider!.GetUtcNow().UtcDateTime, rssFeed.ImageUrlUpdated);
     }
@@ -40,7 +40,7 @@ public class RssFeedImageLocatorTest
         RssFeed rssFeed = new() { ImageUrlUpdated = imageUrlUpdated };
         FeedParseResult feedParseResult = new("test", new() { ImageUrl = "http://test.url/icon.png" }, []);
         await rssFeedImageLocator.SetImageUrlAsync(rssFeed, feedParseResult, CancellationToken.None);
-        
+
         Assert.IsNull(rssFeed.ImageUrl);
         Assert.AreEqual(imageUrlUpdated, rssFeed.ImageUrlUpdated);
     }
@@ -55,7 +55,7 @@ public class RssFeedImageLocatorTest
         RssFeed rssFeed = new();
         FeedParseResult feedParseResult = new("test", new() { ImageUrl = url }, []);
         await rssFeedImageLocator.SetImageUrlAsync(rssFeed, feedParseResult, CancellationToken.None);
-        
+
         Assert.IsNull(rssFeed.ImageUrl);
         Assert.AreEqual(_timeProvider!.GetUtcNow().DateTime, rssFeed.ImageUrlUpdated);
     }
@@ -67,7 +67,7 @@ public class RssFeedImageLocatorTest
         RssFeed rssFeed = new();
         FeedParseResult feedParseResult = new("test", new() { ImageUrl = "http://test.url/404" }, []);
         await rssFeedImageLocator.SetImageUrlAsync(rssFeed, feedParseResult, CancellationToken.None);
-        
+
         Assert.IsNull(rssFeed.ImageUrl);
         Assert.AreEqual(_timeProvider!.GetUtcNow().DateTime, rssFeed.ImageUrlUpdated);
     }
@@ -88,6 +88,6 @@ public class RssFeedImageLocatorTest
         HttpClient client = new(mockHttpMessageHandler.Object);
         mockHttpClientFactory.Setup(cf => cf.CreateClient(It.IsAny<string>())).Returns(client);
 
-        return new(Mock.Of<ILogger<RssFeedImageLocator>>(), _timeProvider, mockHttpClientFactory.Object);        
+        return new(Mock.Of<ILogger<RssFeedImageLocator>>(), _timeProvider, mockHttpClientFactory.Object);
     }
 }
