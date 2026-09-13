@@ -26,6 +26,18 @@ public class RssFeedImageLocator_from_html_link_tag_Test
     }
 
     [TestMethod]
+    public async Task Should_set_image_from_html_link_tag_with_absolute_icon()
+    {
+        var rssFeedImageLocator = CreateRssFeedImageLocator();
+        RssFeed rssFeed = new();
+        FeedParseResult feedParseResult = new("test", new() { Link = "http://test.url/absolute" }, []);
+        await rssFeedImageLocator.SetImageUrlAsync(rssFeed, feedParseResult, CancellationToken.None);
+
+        Assert.AreEqual("http://test.url/absolute/icon.png", rssFeed.ImageUrl);
+        Assert.AreEqual(_timeProvider!.GetUtcNow().UtcDateTime, rssFeed.ImageUrlUpdated);
+    }
+
+    [TestMethod]
     public async Task Should_not_set_image_when_missing_link_tag()
     {
         var rssFeedImageLocator = CreateRssFeedImageLocator();
@@ -60,6 +72,15 @@ public class RssFeedImageLocator_from_html_link_tag_Test
             .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync((HttpRequestMessage requestMessage, CancellationToken cancellationToken) =>
             {
+                if (requestMessage.RequestUri?.AbsoluteUri == "http://test.url/")
+                {
+                    return new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Content = new StringContent("<html><body>Test Site Root</body></html>")
+                    };
+                }
+
                 if (requestMessage.RequestUri?.AbsoluteUri == "http://test.url/home")
                 {
                     return new HttpResponseMessage
@@ -68,6 +89,20 @@ public class RssFeedImageLocator_from_html_link_tag_Test
                         Content = new StringContent("""
 <html>
     <head><link rel="icon" href="/icon.png" /></head>
+    <body>Test Site Home Page</body>
+</html>
+""")
+                    };
+                }
+
+                if (requestMessage.RequestUri?.AbsoluteUri == "http://test.url/absolute")
+                {
+                    return new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Content = new StringContent("""
+<html>
+    <head><link rel="icon" href="http://test.url/absolute/icon.png" /></head>
     <body>Test Site Home Page</body>
 </html>
 """)
@@ -97,7 +132,7 @@ public class RssFeedImageLocator_from_html_link_tag_Test
                     };
                 }
 
-                if (requestMessage.RequestUri?.AbsoluteUri == "http://test.url/icon.png")
+                if (requestMessage.RequestUri?.AbsoluteUri == "http://test.url/icon.png" || requestMessage.RequestUri?.AbsoluteUri == "http://test.url/absolute/icon.png")
                     return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
 
                 return new HttpResponseMessage { StatusCode = HttpStatusCode.NotFound };
