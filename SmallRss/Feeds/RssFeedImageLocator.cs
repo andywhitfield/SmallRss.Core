@@ -56,9 +56,9 @@ public class RssFeedImageLocator(
         // fallback to fav icon, first from head/link tag, then /favicon.ico
         var html = await GetPageAsync(site, cancellationToken);
         var favicon = await ExtractFaviconFromHtmlAsync(html);
-        if (string.IsNullOrWhiteSpace(favicon) || !Uri.IsWellFormedUriString(favicon, UriKind.Absolute))
+        if (!string.IsNullOrWhiteSpace(favicon) && Uri.IsWellFormedUriString(favicon, UriKind.Relative))
         {
-            logger.LogDebug("Favicon from head/link tag [{Favicon}] is not an absolute uri", favicon);
+            logger.LogDebug("Favicon from head/link tag [{Favicon}] is a relative uri, prepending host to form an absolute uri", favicon);
             favicon = new Uri(new Uri(site.GetLeftPart(UriPartial.Authority)), favicon).ToString();
         }
         if (await IsValidImageUrlAsync(favicon, cancellationToken))
@@ -118,7 +118,7 @@ public class RssFeedImageLocator(
 
     private async Task<bool> IsValidImageUrlAsync(string? url, CancellationToken cancellationToken)
     {
-        if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
+        if (string.IsNullOrWhiteSpace(url) || !Uri.TryCreate(url, UriKind.Absolute, out var uri))
         {
             logger.LogDebug("Feed url [{Url}] is not a valid absolute uri", url);
             return false;
