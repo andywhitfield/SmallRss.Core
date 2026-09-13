@@ -31,7 +31,7 @@ public class RssFeedImageLocator(
     private async Task<string?> GetImageUrlAsync(FeedParseResult feedParseResult, CancellationToken cancellationToken)
     {
         var imageUrl = feedParseResult.Feed.ImageUrl;
-        if (await IsValidUrlAsync(imageUrl, cancellationToken))
+        if (await IsValidImageUrlAsync(imageUrl, cancellationToken))
         {
             logger.LogDebug("Image url [{ImageUrl}] in the rss feed is good", imageUrl);
             return imageUrl;
@@ -56,19 +56,19 @@ public class RssFeedImageLocator(
         // fallback to fav icon, first from head/link tag, then /favicon.ico
         var html = await GetPageAsync(site, cancellationToken);
         var favicon = await ExtractFaviconFromHtmlAsync(html);
-        if (!Uri.IsWellFormedUriString(favicon, UriKind.Absolute))
+        if (string.IsNullOrWhiteSpace(favicon) || !Uri.IsWellFormedUriString(favicon, UriKind.Absolute))
         {
             logger.LogDebug("Favicon from head/link tag [{Favicon}] is not an absolute uri", favicon);
             favicon = new Uri(new Uri(site.GetLeftPart(UriPartial.Authority)), favicon).ToString();
         }
-        if (await IsValidUrlAsync(favicon, cancellationToken))
+        if (await IsValidImageUrlAsync(favicon, cancellationToken))
         {
             logger.LogDebug("Got image url from {Site} head/link tag: {ImageUrl}", site, favicon);
             return favicon;
         }
 
         favicon = $"{site.Scheme}://{site.DnsSafeHost}/favicon.ico";
-        if (await IsValidUrlAsync(favicon, cancellationToken))
+        if (await IsValidImageUrlAsync(favicon, cancellationToken))
         {
             logger.LogDebug("Got image url from {Site} /favicon.ico", site);
             return favicon;
@@ -116,7 +116,7 @@ public class RssFeedImageLocator(
         }
     }
 
-    private async Task<bool> IsValidUrlAsync(string? url, CancellationToken cancellationToken)
+    private async Task<bool> IsValidImageUrlAsync(string? url, CancellationToken cancellationToken)
     {
         if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
         {
@@ -126,7 +126,7 @@ public class RssFeedImageLocator(
 
         try
         {
-            var httpClient = httpClientFactory.CreateClient(RefreshRssFeedsServiceProviderExtensions.DefaultHttpClient);
+            var httpClient = httpClientFactory.CreateClient(RefreshRssFeedsServiceProviderExtensions.ImageHttpClient);
             using var httpResponse = await httpClient.GetAsync(uri, cancellationToken);
             if (!httpResponse.IsSuccessStatusCode)
             {

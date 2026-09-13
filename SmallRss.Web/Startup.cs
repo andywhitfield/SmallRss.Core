@@ -76,12 +76,12 @@ public class Startup
 
         services.AddDbContext<SqliteDataContext>((sp, options) =>
         {
-    #if DEBUG
+#if DEBUG
             options.EnableSensitiveDataLogging();
-    #endif
+#endif
             var sqliteConnectionString = Configuration.GetConnectionString("SmallRss");
             sp.GetRequiredService<ILogger<Startup>>().LogInformation("Using Sqlite connection string: {SqliteConnectionString}", sqliteConnectionString);
-            options.UseSqlite(sqliteConnectionString);            
+            options.UseSqlite(sqliteConnectionString);
         });
         services.AddScoped(sp => (ISqliteDataContext)sp.GetRequiredService<SqliteDataContext>());
 
@@ -90,7 +90,7 @@ public class Startup
         services.AddCors();
         services.AddDistributedMemoryCache();
         services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(5));
-        
+
         services.AddScoped<IRssFeedRepository, RssFeedRepository>();
         services.AddScoped<IUserAccountRepository, UserAccountRepository>();
         services.AddScoped<IUserFeedRepository, UserFeedRepository>();
@@ -99,7 +99,11 @@ public class Startup
         services.AddScoped<IAuthorisationHandler, AuthorisationHandler>();
         services.AddHttpClient(DefaultHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri(Configuration.GetValue<string>("ServiceUri") ?? throw new Exception("ServiceUri not configured")));
         services.AddHttpClient(RaindropHttpClient).ConfigureHttpClient(c => c.BaseAddress = new Uri("https://api.raindrop.io/"));
-        services.AddHttpClient(FeedIconHttpClient).ConfigureHttpClient(c => c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows)"));
+        services.AddHttpClient(FeedIconHttpClient).ConfigureHttpClient(c =>
+        {
+            c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows)");
+            c.DefaultRequestHeaders.Add("Accept", "image/webp,image/avif,image/jxl,image/heic,image/heic-sequence,video/*;q=0.8,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5");
+        });
         services.Configure<RaindropOptions>(Configuration.GetSection("Raindrop.io"));
     }
 

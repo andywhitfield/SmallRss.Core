@@ -50,6 +50,7 @@ public class RefreshRssFeeds(ILogger<RefreshRssFeeds> logger,
 public static class RefreshRssFeedsServiceProviderExtensions
 {
     public const string DefaultHttpClient = "default";
+    public const string ImageHttpClient = "image";
 
     public static IServiceCollection AddRefreshRssFeeds(this IServiceCollection services)
     {
@@ -65,7 +66,19 @@ public static class RefreshRssFeedsServiceProviderExtensions
         services
             .AddHttpClient(DefaultHttpClient)
             .ConfigureHttpClient(c => c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows)"))
-            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler {
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
+            });
+        services
+            .AddHttpClient(ImageHttpClient)
+            .ConfigureHttpClient(c =>
+            {
+                c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows)");
+                c.DefaultRequestHeaders.Add("Accept", "image/webp,image/avif,image/jxl,image/heic,image/heic-sequence,video/*;q=0.8,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5");
+            })
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
                 AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
             });
         return services;
