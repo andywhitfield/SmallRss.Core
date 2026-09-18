@@ -48,6 +48,8 @@ public class RefreshRssFeed(ILogger<RefreshRssFeed> logger,
                 await rssFeedImageLocator.SetImageUrlAsync(rssFeed, parseResult, cancellationToken);
                 return true;
             }
+
+            await rssFeedImageLocator.SetImageUrlAsync(rssFeed, parseResult, cancellationToken);
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
