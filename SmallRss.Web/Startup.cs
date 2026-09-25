@@ -58,8 +58,8 @@ public class Startup
             .AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(5))
             .AddFido2(options =>
             {
-                options.ServerName = "Small:Rss";
-                options.ServerDomain = Configuration.GetValue<string>("FidoDomain");
+                options.RPName = "Small:Rss";
+                options.RPID = Configuration.GetValue<string>("FidoDomain");
                 options.Origins = new ReadOnlySet<string>(new HashSet<string>([Configuration.GetValue<string>("FidoOrigins") ?? ""]));
             });
         services.AddLogging(logging =>

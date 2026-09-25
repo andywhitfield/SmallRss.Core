@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="SmallRss.Cli/SmallRss.Cli.csproj" />
+  <Project Path="SmallRss.Service/SmallRss.Service.csproj" />
+  <Project Path="SmallRss.Tests/SmallRss.Tests.csproj" />
+  <Project Path="SmallRss.Web.Tests/SmallRss.Web.Tests.csproj" />
+  <Project Path="SmallRss.Web/SmallRss.Web.csproj" />
+  <Project Path="SmallRss/SmallRss.csproj" />
+</Solution>
