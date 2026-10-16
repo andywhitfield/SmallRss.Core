@@ -32,15 +32,13 @@
     
     @RenderBody()
 
+    <script src="https://cdn.jsdelivr.net/npm/simplestorage.js@0.2.1/simpleStorage.min.js" integrity="sha256-A6HLcE1j/OShmhVQzDYg92J3IIomSKz9/xsSoLir6Vw=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
     <environment names="Development">
-        <script src="https://cdn.jsdelivr.net/npm/simplestorage.js@0.2.1/simpleStorage.min.js" integrity="sha256-A6HLcE1j/OShmhVQzDYg92J3IIomSKz9/xsSoLir6Vw=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="~/js/smallrss.js" asp-append-version="true"></script>
+    <script src="~/js/smallrss.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
-        <script src="https://cdn.jsdelivr.net/npm/simplestorage.js@0.2.1/simpleStorage.min.js" integrity="sha256-A6HLcE1j/OShmhVQzDYg92J3IIomSKz9/xsSoLir6Vw=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="~/js/smallrss.min.js" asp-append-version="true"></script>
+    <script src="~/js/smallrss.min.js" asp-append-version="true"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)
